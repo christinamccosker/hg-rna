@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>2 LOC Gene Identification | Untitled</title>
+  <meta name="description" content="McCosker Dissertation Chapter 1 Statistical Analyses" />
+  <meta name="generator" content="bookdown 0.41 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="2 LOC Gene Identification | Untitled" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="McCosker Dissertation Chapter 1 Statistical Analyses" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="2 LOC Gene Identification | Untitled" />
+  
+  <meta name="twitter:description" content="McCosker Dissertation Chapter 1 Statistical Analyses" />
+  
+
+<meta name="author" content="Christina McCosker" />
+
+
+<meta name="date" content="2024-12-31" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="index.html"/>
+<link rel="next" href="male-v-female-dge.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Hg-RNA Stats</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Publication Information</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#authors"><i class="fa fa-check"></i><b>1.1</b> Authors</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#abstract"><i class="fa fa-check"></i><b>1.2</b> Abstract</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="loc-gene-identification.html"><a href="loc-gene-identification.html"><i class="fa fa-check"></i><b>2</b> LOC Gene Identification</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="loc-gene-identification.html"><a href="loc-gene-identification.html#load-required-libraries"><i class="fa fa-check"></i><b>2.1</b> Load required libraries</a></li>
+<li class="chapter" data-level="2.2" data-path="loc-gene-identification.html"><a href="loc-gene-identification.html#load-data"><i class="fa fa-check"></i><b>2.2</b> Load data</a></li>
+<li class="chapter" data-level="2.3" data-path="loc-gene-identification.html"><a href="loc-gene-identification.html#extract-gene-sequences"><i class="fa fa-check"></i><b>2.3</b> Extract gene sequences</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="loc-gene-identification.html"><a href="loc-gene-identification.html#extract-loc-genes-from-gene-count-matrices"><i class="fa fa-check"></i><b>2.3.1</b> Extract LOC genes from gene count matrices</a></li>
+<li class="chapter" data-level="2.3.2" data-path="loc-gene-identification.html"><a href="loc-gene-identification.html#extract-transcript-ids-for-all-sequence-ids"><i class="fa fa-check"></i><b>2.3.2</b> Extract transcript IDs for all sequence IDs</a></li>
+<li class="chapter" data-level="2.3.3" data-path="loc-gene-identification.html"><a href="loc-gene-identification.html#extract-transcript-sequences-for-blast"><i class="fa fa-check"></i><b>2.3.3</b> Extract transcript sequences for blast</a></li>
+<li class="chapter" data-level="2.3.4" data-path="loc-gene-identification.html"><a href="loc-gene-identification.html#export-sequences"><i class="fa fa-check"></i><b>2.3.4</b> Export sequences</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="loc-gene-identification.html"><a href="loc-gene-identification.html#blast-sequences"><i class="fa fa-check"></i><b>2.4</b> Blast sequences</a></li>
+<li class="chapter" data-level="2.5" data-path="loc-gene-identification.html"><a href="loc-gene-identification.html#process-blastn-results"><i class="fa fa-check"></i><b>2.5</b> Process BLASTn Results</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="loc-gene-identification.html"><a href="loc-gene-identification.html#transcriptome"><i class="fa fa-check"></i><b>2.5.1</b> Transcriptome</a></li>
+<li class="chapter" data-level="2.5.2" data-path="loc-gene-identification.html"><a href="loc-gene-identification.html#genome"><i class="fa fa-check"></i><b>2.5.2</b> Genome</a></li>
+<li class="chapter" data-level="2.5.3" data-path="loc-gene-identification.html"><a href="loc-gene-identification.html#combine-transcriptome-genome-blast-results"><i class="fa fa-check"></i><b>2.5.3</b> Combine Transcriptome &amp; Genome Blast Results</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="loc-gene-identification.html"><a href="loc-gene-identification.html#combine-with-prior-loc-id-master-list"><i class="fa fa-check"></i><b>2.6</b> Combine with prior LOC ID master list</a></li>
+<li class="chapter" data-level="2.7" data-path="loc-gene-identification.html"><a href="loc-gene-identification.html#update-tidy-gene-count-matrices"><i class="fa fa-check"></i><b>2.7</b> Update &amp; tidy gene count matrices</a></li>
+<li class="chapter" data-level="2.8" data-path="loc-gene-identification.html"><a href="loc-gene-identification.html#remove-hemoglobin-genes"><i class="fa fa-check"></i><b>2.8</b> Remove hemoglobin genes</a></li>
+<li class="chapter" data-level="2.9" data-path="loc-gene-identification.html"><a href="loc-gene-identification.html#export-new-gene-count-matrices"><i class="fa fa-check"></i><b>2.9</b> Export new gene count matrices</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="male-v-female-dge.html"><a href="male-v-female-dge.html"><i class="fa fa-check"></i><b>3</b> Male v Female DGE</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="male-v-female-dge.html"><a href="male-v-female-dge.html#transcriptome---edger"><i class="fa fa-check"></i><b>3.1</b> Transcriptome - edgeR</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="male-v-female-dge.html"><a href="male-v-female-dge.html#libraries"><i class="fa fa-check"></i><b>3.1.1</b> Libraries</a></li>
+<li class="chapter" data-level="3.1.2" data-path="male-v-female-dge.html"><a href="male-v-female-dge.html#data"><i class="fa fa-check"></i><b>3.1.2</b> Data</a></li>
+<li class="chapter" data-level="3.1.3" data-path="male-v-female-dge.html"><a href="male-v-female-dge.html#differential-gene-expression-analysis"><i class="fa fa-check"></i><b>3.1.3</b> Differential Gene Expression Analysis</a></li>
+<li class="chapter" data-level="3.1.4" data-path="male-v-female-dge.html"><a href="male-v-female-dge.html#exploratory-plots"><i class="fa fa-check"></i><b>3.1.4</b> Exploratory Plots</a></li>
+<li class="chapter" data-level="3.1.5" data-path="male-v-female-dge.html"><a href="male-v-female-dge.html#test-for-degs"><i class="fa fa-check"></i><b>3.1.5</b> Test for DEGs</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="male-v-female-dge.html"><a href="male-v-female-dge.html#genome---edger"><i class="fa fa-check"></i><b>3.2</b> Genome - edgeR</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="male-v-female-dge.html"><a href="male-v-female-dge.html#libraries-1"><i class="fa fa-check"></i><b>3.2.1</b> Libraries</a></li>
+<li class="chapter" data-level="3.2.2" data-path="male-v-female-dge.html"><a href="male-v-female-dge.html#data-1"><i class="fa fa-check"></i><b>3.2.2</b> Data</a></li>
+<li class="chapter" data-level="3.2.3" data-path="male-v-female-dge.html"><a href="male-v-female-dge.html#differential-gene-expression-analysis-1"><i class="fa fa-check"></i><b>3.2.3</b> Differential Gene Expression Analysis</a></li>
+<li class="chapter" data-level="3.2.4" data-path="male-v-female-dge.html"><a href="male-v-female-dge.html#exploratory-plots-1"><i class="fa fa-check"></i><b>3.2.4</b> Exploratory Plots</a></li>
+<li class="chapter" data-level="3.2.5" data-path="male-v-female-dge.html"><a href="male-v-female-dge.html#test-for-degs-1"><i class="fa fa-check"></i><b>3.2.5</b> Test for DEGs</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html"><i class="fa fa-check"></i><b>4</b> Virus+ vs Virus- DGE</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#transcriptome---edger---females"><i class="fa fa-check"></i><b>4.1</b> Transcriptome - edgeR - Females</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#libraries-2"><i class="fa fa-check"></i><b>4.1.1</b> Libraries</a></li>
+<li class="chapter" data-level="4.1.2" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#data-2"><i class="fa fa-check"></i><b>4.1.2</b> Data</a></li>
+<li class="chapter" data-level="4.1.3" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#differential-gene-expression-analysis-2"><i class="fa fa-check"></i><b>4.1.3</b> Differential Gene Expression Analysis</a></li>
+<li class="chapter" data-level="4.1.4" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#exploratory-plots-2"><i class="fa fa-check"></i><b>4.1.4</b> Exploratory Plots</a></li>
+<li class="chapter" data-level="4.1.5" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#test-for-degs-2"><i class="fa fa-check"></i><b>4.1.5</b> Test for DEGs</a></li>
+<li class="chapter" data-level="4.1.6" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#go-enrichment-analysis"><i class="fa fa-check"></i><b>4.1.6</b> GO Enrichment Analysis</a></li>
+<li class="chapter" data-level="4.1.7" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#kegg-analysis"><i class="fa fa-check"></i><b>4.1.7</b> KEGG Analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#genome---edger---females"><i class="fa fa-check"></i><b>4.2</b> Genome - edgeR - Females</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#libraries-3"><i class="fa fa-check"></i><b>4.2.1</b> Libraries</a></li>
+<li class="chapter" data-level="4.2.2" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#data-3"><i class="fa fa-check"></i><b>4.2.2</b> Data</a></li>
+<li class="chapter" data-level="4.2.3" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#differential-gene-expression-analysis-3"><i class="fa fa-check"></i><b>4.2.3</b> Differential Gene Expression Analysis</a></li>
+<li class="chapter" data-level="4.2.4" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#exploratory-plots-3"><i class="fa fa-check"></i><b>4.2.4</b> Exploratory Plots</a></li>
+<li class="chapter" data-level="4.2.5" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#test-for-degs-3"><i class="fa fa-check"></i><b>4.2.5</b> Test for DEGs</a></li>
+<li class="chapter" data-level="4.2.6" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#go-enrichment-analysis-1"><i class="fa fa-check"></i><b>4.2.6</b> GO Enrichment Analysis</a></li>
+<li class="chapter" data-level="4.2.7" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#kegg-analysis-1"><i class="fa fa-check"></i><b>4.2.7</b> KEGG Analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#transcriptome-null-set---edger---females"><i class="fa fa-check"></i><b>4.3</b> Transcriptome Null Set - edgeR - Females</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#libraries-4"><i class="fa fa-check"></i><b>4.3.1</b> Libraries</a></li>
+<li class="chapter" data-level="4.3.2" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#data-4"><i class="fa fa-check"></i><b>4.3.2</b> Data</a></li>
+<li class="chapter" data-level="4.3.3" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#loop-differential-gene-expression-analysis"><i class="fa fa-check"></i><b>4.3.3</b> Loop Differential Gene Expression Analysis</a></li>
+<li class="chapter" data-level="4.3.4" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#go-enrichment-analysis-2"><i class="fa fa-check"></i><b>4.3.4</b> GO Enrichment Analysis</a></li>
+<li class="chapter" data-level="4.3.5" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#kegg-analysis-2"><i class="fa fa-check"></i><b>4.3.5</b> KEGG Analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#genome-null-set---edger---females"><i class="fa fa-check"></i><b>4.4</b> Genome Null Set - edgeR - Females</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#libraries-5"><i class="fa fa-check"></i><b>4.4.1</b> Libraries</a></li>
+<li class="chapter" data-level="4.4.2" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#data-5"><i class="fa fa-check"></i><b>4.4.2</b> Data</a></li>
+<li class="chapter" data-level="4.4.3" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#loop-differential-gene-expression-analysis-1"><i class="fa fa-check"></i><b>4.4.3</b> Loop Differential Gene Expression Analysis</a></li>
+<li class="chapter" data-level="4.4.4" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#go-enrichment-analysis-3"><i class="fa fa-check"></i><b>4.4.4</b> GO Enrichment Analysis</a></li>
+<li class="chapter" data-level="4.4.5" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#kegg-analysis-3"><i class="fa fa-check"></i><b>4.4.5</b> KEGG Analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#refine-gokegg"><i class="fa fa-check"></i><b>4.5</b> Refine GO/KEGG</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#libraries-6"><i class="fa fa-check"></i><b>4.5.1</b> Libraries</a></li>
+<li class="chapter" data-level="4.5.2" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#data-6"><i class="fa fa-check"></i><b>4.5.2</b> Data</a></li>
+<li class="chapter" data-level="4.5.3" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#transcriptome-1"><i class="fa fa-check"></i><b>4.5.3</b> Transcriptome</a></li>
+<li class="chapter" data-level="4.5.4" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#genome-1"><i class="fa fa-check"></i><b>4.5.4</b> Genome</a></li>
+<li class="chapter" data-level="4.5.5" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#go-term-figure"><i class="fa fa-check"></i><b>4.5.5</b> GO Term Figure</a></li>
+<li class="chapter" data-level="4.5.6" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#immunne-go-term-genes"><i class="fa fa-check"></i><b>4.5.6</b> Immunne GO term Genes</a></li>
+<li class="chapter" data-level="4.5.7" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#kegg-table---manuscript"><i class="fa fa-check"></i><b>4.5.7</b> KEGG Table - Manuscript</a></li>
+<li class="chapter" data-level="4.5.8" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#supplemental-table"><i class="fa fa-check"></i><b>4.5.8</b> Supplemental Table</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html"><i class="fa fa-check"></i><b>5</b> Influenza Stage DGE</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#transcriptome---edger---females-1"><i class="fa fa-check"></i><b>5.1</b> Transcriptome - edgeR - Females</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#libraries-7"><i class="fa fa-check"></i><b>5.1.1</b> Libraries</a></li>
+<li class="chapter" data-level="5.1.2" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#data-7"><i class="fa fa-check"></i><b>5.1.2</b> Data</a></li>
+<li class="chapter" data-level="5.1.3" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#differential-gene-expression-analysis-4"><i class="fa fa-check"></i><b>5.1.3</b> Differential Gene Expression Analysis</a></li>
+<li class="chapter" data-level="5.1.4" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#exploratory-plots-4"><i class="fa fa-check"></i><b>5.1.4</b> Exploratory Plots</a></li>
+<li class="chapter" data-level="5.1.5" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#test-for-degs-4"><i class="fa fa-check"></i><b>5.1.5</b> Test for DEGs</a></li>
+<li class="chapter" data-level="5.1.6" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#go-enrichment-analysis-4"><i class="fa fa-check"></i><b>5.1.6</b> GO Enrichment Analysis</a></li>
+<li class="chapter" data-level="5.1.7" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#kegg-analysis-4"><i class="fa fa-check"></i><b>5.1.7</b> KEGG Analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#genome---edger---females-1"><i class="fa fa-check"></i><b>5.2</b> Genome - edgeR - Females</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#libraries-8"><i class="fa fa-check"></i><b>5.2.1</b> Libraries</a></li>
+<li class="chapter" data-level="5.2.2" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#data-8"><i class="fa fa-check"></i><b>5.2.2</b> Data</a></li>
+<li class="chapter" data-level="5.2.3" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#differential-gene-expression-analysis-5"><i class="fa fa-check"></i><b>5.2.3</b> Differential Gene Expression Analysis</a></li>
+<li class="chapter" data-level="5.2.4" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#exploratory-plots-5"><i class="fa fa-check"></i><b>5.2.4</b> Exploratory Plots</a></li>
+<li class="chapter" data-level="5.2.5" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#test-for-degs-5"><i class="fa fa-check"></i><b>5.2.5</b> Test for DEGs</a></li>
+<li class="chapter" data-level="5.2.6" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#go-enrichment-analysis-5"><i class="fa fa-check"></i><b>5.2.6</b> GO Enrichment Analysis</a></li>
+<li class="chapter" data-level="5.2.7" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#kegg-analysis-5"><i class="fa fa-check"></i><b>5.2.7</b> KEGG Analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#comapre-t-g-approach---edger---females"><i class="fa fa-check"></i><b>5.3</b> Comapre T &amp; G Approach - edgeR - Females</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#libraries-9"><i class="fa fa-check"></i><b>5.3.1</b> Libraries</a></li>
+<li class="chapter" data-level="5.3.2" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#data-9"><i class="fa fa-check"></i><b>5.3.2</b> Data</a></li>
+<li class="chapter" data-level="5.3.3" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#number-of-up-down-reg-genes"><i class="fa fa-check"></i><b>5.3.3</b> Number of up &amp; down reg genes</a></li>
+<li class="chapter" data-level="5.3.4" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#gene-identities"><i class="fa fa-check"></i><b>5.3.4</b> Gene identities</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#transcriptome-null-set---edger---females-1"><i class="fa fa-check"></i><b>5.4</b> Transcriptome Null Set - edgeR - Females</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#libraries-10"><i class="fa fa-check"></i><b>5.4.1</b> Libraries</a></li>
+<li class="chapter" data-level="5.4.2" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#data-10"><i class="fa fa-check"></i><b>5.4.2</b> Data</a></li>
+<li class="chapter" data-level="5.4.3" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#loop-differential-gene-expression-analysis-2"><i class="fa fa-check"></i><b>5.4.3</b> Loop Differential Gene Expression Analysis</a></li>
+<li class="chapter" data-level="5.4.4" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#go-enrichment-analysis-6"><i class="fa fa-check"></i><b>5.4.4</b> GO Enrichment Analysis</a></li>
+<li class="chapter" data-level="5.4.5" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#kegg-analysis-6"><i class="fa fa-check"></i><b>5.4.5</b> KEGG Analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#genome-null-set---edger---females-1"><i class="fa fa-check"></i><b>5.5</b> Genome Null Set - edgeR - Females</a>
+<ul>
+<li class="chapter" data-level="5.5.1" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#libraries-11"><i class="fa fa-check"></i><b>5.5.1</b> Libraries</a></li>
+<li class="chapter" data-level="5.5.2" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#data-11"><i class="fa fa-check"></i><b>5.5.2</b> Data</a></li>
+<li class="chapter" data-level="5.5.3" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#loop-differential-gene-expression-analysis-3"><i class="fa fa-check"></i><b>5.5.3</b> Loop Differential Gene Expression Analysis</a></li>
+<li class="chapter" data-level="5.5.4" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#go-enrichment-analysis-7"><i class="fa fa-check"></i><b>5.5.4</b> GO Enrichment Analysis</a></li>
+<li class="chapter" data-level="5.5.5" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#kegg-analysis-7"><i class="fa fa-check"></i><b>5.5.5</b> KEGG Analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="5.6" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#refine-gokegg-1"><i class="fa fa-check"></i><b>5.6</b> Refine GO/KEGG</a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#libraries-12"><i class="fa fa-check"></i><b>5.6.1</b> Libraries</a></li>
+<li class="chapter" data-level="5.6.2" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#data-12"><i class="fa fa-check"></i><b>5.6.2</b> Data</a></li>
+<li class="chapter" data-level="5.6.3" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#transcriptome-2"><i class="fa fa-check"></i><b>5.6.3</b> Transcriptome</a></li>
+<li class="chapter" data-level="5.6.4" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#genome-2"><i class="fa fa-check"></i><b>5.6.4</b> Genome</a></li>
+<li class="chapter" data-level="5.6.5" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#go-term-figure-1"><i class="fa fa-check"></i><b>5.6.5</b> GO Term Figure</a></li>
+<li class="chapter" data-level="5.6.6" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#supplemental-table-1"><i class="fa fa-check"></i><b>5.6.6</b> Supplemental Table</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="supplemental-null-set-exploratory-statistics.html"><a href="supplemental-null-set-exploratory-statistics.html"><i class="fa fa-check"></i><b>6</b> Supplemental Null Set Exploratory Statistics</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="supplemental-null-set-exploratory-statistics.html"><a href="supplemental-null-set-exploratory-statistics.html#libaries"><i class="fa fa-check"></i><b>6.1</b> Libaries</a></li>
+<li class="chapter" data-level="6.2" data-path="supplemental-null-set-exploratory-statistics.html"><a href="supplemental-null-set-exploratory-statistics.html#number-of-degs"><i class="fa fa-check"></i><b>6.2</b> Number of DEGs</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="supplemental-null-set-exploratory-statistics.html"><a href="supplemental-null-set-exploratory-statistics.html#data-13"><i class="fa fa-check"></i><b>6.2.1</b> Data</a></li>
+<li class="chapter" data-level="6.2.2" data-path="supplemental-null-set-exploratory-statistics.html"><a href="supplemental-null-set-exploratory-statistics.html#quick-stats"><i class="fa fa-check"></i><b>6.2.2</b> Quick Stats</a></li>
+<li class="chapter" data-level="6.2.3" data-path="supplemental-null-set-exploratory-statistics.html"><a href="supplemental-null-set-exploratory-statistics.html#plot-1"><i class="fa fa-check"></i><b>6.2.3</b> Plot</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="supplemental-null-set-exploratory-statistics.html"><a href="supplemental-null-set-exploratory-statistics.html#deg-frequency"><i class="fa fa-check"></i><b>6.3</b> DEG Frequency</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="supplemental-null-set-exploratory-statistics.html"><a href="supplemental-null-set-exploratory-statistics.html#data---import-configure"><i class="fa fa-check"></i><b>6.3.1</b> Data - Import &amp; Configure</a></li>
+<li class="chapter" data-level="6.3.2" data-path="supplemental-null-set-exploratory-statistics.html"><a href="supplemental-null-set-exploratory-statistics.html#plot-2"><i class="fa fa-check"></i><b>6.3.2</b> Plot</a></li>
+<li class="chapter" data-level="6.3.3" data-path="supplemental-null-set-exploratory-statistics.html"><a href="supplemental-null-set-exploratory-statistics.html#combine-gene-number-frequency-plots"><i class="fa fa-check"></i><b>6.3.3</b> Combine gene number &amp; frequency plots</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="supplemental-null-set-exploratory-statistics.html"><a href="supplemental-null-set-exploratory-statistics.html#number-of-go-terms"><i class="fa fa-check"></i><b>6.4</b> Number of GO terms</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="supplemental-null-set-exploratory-statistics.html"><a href="supplemental-null-set-exploratory-statistics.html#data---import-configure-1"><i class="fa fa-check"></i><b>6.4.1</b> Data - Import &amp; Configure</a></li>
+<li class="chapter" data-level="6.4.2" data-path="supplemental-null-set-exploratory-statistics.html"><a href="supplemental-null-set-exploratory-statistics.html#plot-3"><i class="fa fa-check"></i><b>6.4.2</b> Plot</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="supplemental-null-set-exploratory-statistics.html"><a href="supplemental-null-set-exploratory-statistics.html#number-of-kegg-pathways"><i class="fa fa-check"></i><b>6.5</b> Number of KEGG Pathways</a>
+<ul>
+<li class="chapter" data-level="6.5.1" data-path="supplemental-null-set-exploratory-statistics.html"><a href="supplemental-null-set-exploratory-statistics.html#data-14"><i class="fa fa-check"></i><b>6.5.1</b> Data</a></li>
+<li class="chapter" data-level="6.5.2" data-path="supplemental-null-set-exploratory-statistics.html"><a href="supplemental-null-set-exploratory-statistics.html#plot-4"><i class="fa fa-check"></i><b>6.5.2</b> Plot</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="influenza-dge-deseq2.html"><a href="influenza-dge-deseq2.html"><i class="fa fa-check"></i><b>7</b> Influenza DGE DESeq2</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="influenza-dge-deseq2.html"><a href="influenza-dge-deseq2.html#transcriptome---deseq2---females"><i class="fa fa-check"></i><b>7.1</b> Transcriptome - DESeq2 - Females</a>
+<ul>
+<li class="chapter" data-level="7.1.1" data-path="influenza-dge-deseq2.html"><a href="influenza-dge-deseq2.html#libraries-13"><i class="fa fa-check"></i><b>7.1.1</b> Libraries</a></li>
+<li class="chapter" data-level="7.1.2" data-path="influenza-dge-deseq2.html"><a href="influenza-dge-deseq2.html#data-15"><i class="fa fa-check"></i><b>7.1.2</b> Data</a></li>
+<li class="chapter" data-level="7.1.3" data-path="influenza-dge-deseq2.html"><a href="influenza-dge-deseq2.html#viral-rna"><i class="fa fa-check"></i><b>7.1.3</b> Viral RNA</a></li>
+<li class="chapter" data-level="7.1.4" data-path="influenza-dge-deseq2.html"><a href="influenza-dge-deseq2.html#influenza-stage"><i class="fa fa-check"></i><b>7.1.4</b> Influenza Stage</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="influenza-dge-deseq2.html"><a href="influenza-dge-deseq2.html#genome---deseq2---females"><i class="fa fa-check"></i><b>7.2</b> Genome - DESeq2 - Females</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="influenza-dge-deseq2.html"><a href="influenza-dge-deseq2.html#libraries-14"><i class="fa fa-check"></i><b>7.2.1</b> Libraries</a></li>
+<li class="chapter" data-level="7.2.2" data-path="influenza-dge-deseq2.html"><a href="influenza-dge-deseq2.html#data-16"><i class="fa fa-check"></i><b>7.2.2</b> Data</a></li>
+<li class="chapter" data-level="7.2.3" data-path="influenza-dge-deseq2.html"><a href="influenza-dge-deseq2.html#viral-rna-1"><i class="fa fa-check"></i><b>7.2.3</b> Viral RNA</a></li>
+<li class="chapter" data-level="7.2.4" data-path="influenza-dge-deseq2.html"><a href="influenza-dge-deseq2.html#influenza-stage-1"><i class="fa fa-check"></i><b>7.2.4</b> Influenza Stage</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="r-package-comparison---edger-vs-deseq2.html"><a href="r-package-comparison---edger-vs-deseq2.html"><i class="fa fa-check"></i><b>8</b> R Package Comparison - edgeR vs DESeq2</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="r-package-comparison---edger-vs-deseq2.html"><a href="r-package-comparison---edger-vs-deseq2.html#libraries-15"><i class="fa fa-check"></i><b>8.1</b> Libraries</a></li>
+<li class="chapter" data-level="8.2" data-path="r-package-comparison---edger-vs-deseq2.html"><a href="r-package-comparison---edger-vs-deseq2.html#data-17"><i class="fa fa-check"></i><b>8.2</b> Data</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="r-package-comparison---edger-vs-deseq2.html"><a href="r-package-comparison---edger-vs-deseq2.html#metadata"><i class="fa fa-check"></i><b>8.2.1</b> Metadata</a></li>
+<li class="chapter" data-level="8.2.2" data-path="r-package-comparison---edger-vs-deseq2.html"><a href="r-package-comparison---edger-vs-deseq2.html#results-from-dge-testing"><i class="fa fa-check"></i><b>8.2.2</b> Results from DGE testing</a></li>
+<li class="chapter" data-level="8.2.3" data-path="r-package-comparison---edger-vs-deseq2.html"><a href="r-package-comparison---edger-vs-deseq2.html#differentially-expressed-genes-only"><i class="fa fa-check"></i><b>8.2.3</b> Differentially expressed genes only</a></li>
+<li class="chapter" data-level="8.2.4" data-path="r-package-comparison---edger-vs-deseq2.html"><a href="r-package-comparison---edger-vs-deseq2.html#pre-filter-lists"><i class="fa fa-check"></i><b>8.2.4</b> Pre-filter lists</a></li>
+<li class="chapter" data-level="8.2.5" data-path="r-package-comparison---edger-vs-deseq2.html"><a href="r-package-comparison---edger-vs-deseq2.html#normalized-gene-counts"><i class="fa fa-check"></i><b>8.2.5</b> Normalized gene counts</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="r-package-comparison---edger-vs-deseq2.html"><a href="r-package-comparison---edger-vs-deseq2.html#edger-vs-deseq2"><i class="fa fa-check"></i><b>8.3</b> edgeR vs DESeq2</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="r-package-comparison---edger-vs-deseq2.html"><a href="r-package-comparison---edger-vs-deseq2.html#number-of-pre-vs-post-filter-genes"><i class="fa fa-check"></i><b>8.3.1</b> Number of Pre vs Post Filter Genes</a></li>
+<li class="chapter" data-level="8.3.2" data-path="r-package-comparison---edger-vs-deseq2.html"><a href="r-package-comparison---edger-vs-deseq2.html#merge-results"><i class="fa fa-check"></i><b>8.3.2</b> Merge results</a></li>
+<li class="chapter" data-level="8.3.3" data-path="r-package-comparison---edger-vs-deseq2.html"><a href="r-package-comparison---edger-vs-deseq2.html#p-value"><i class="fa fa-check"></i><b>8.3.3</b> p-value</a></li>
+<li class="chapter" data-level="8.3.4" data-path="r-package-comparison---edger-vs-deseq2.html"><a href="r-package-comparison---edger-vs-deseq2.html#logfc"><i class="fa fa-check"></i><b>8.3.4</b> log(FC)</a></li>
+<li class="chapter" data-level="8.3.5" data-path="r-package-comparison---edger-vs-deseq2.html"><a href="r-package-comparison---edger-vs-deseq2.html#log-mean-expression"><i class="fa fa-check"></i><b>8.3.5</b> log mean expression</a></li>
+<li class="chapter" data-level="8.3.6" data-path="r-package-comparison---edger-vs-deseq2.html"><a href="r-package-comparison---edger-vs-deseq2.html#dge-explortory-stats"><i class="fa fa-check"></i><b>8.3.6</b> DGE explortory stats</a></li>
+<li class="chapter" data-level="8.3.7" data-path="r-package-comparison---edger-vs-deseq2.html"><a href="r-package-comparison---edger-vs-deseq2.html#method-gene-ids"><i class="fa fa-check"></i><b>8.3.7</b> Method Gene IDs</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="r-package-comparison---edger-vs-deseq2.html"><a href="r-package-comparison---edger-vs-deseq2.html#transcriptome-vs-genome"><i class="fa fa-check"></i><b>8.4</b> Transcriptome vs Genome</a>
+<ul>
+<li class="chapter" data-level="8.4.1" data-path="r-package-comparison---edger-vs-deseq2.html"><a href="r-package-comparison---edger-vs-deseq2.html#merge-results-1"><i class="fa fa-check"></i><b>8.4.1</b> Merge results</a></li>
+<li class="chapter" data-level="8.4.2" data-path="r-package-comparison---edger-vs-deseq2.html"><a href="r-package-comparison---edger-vs-deseq2.html#p-value-1"><i class="fa fa-check"></i><b>8.4.2</b> p-value</a></li>
+<li class="chapter" data-level="8.4.3" data-path="r-package-comparison---edger-vs-deseq2.html"><a href="r-package-comparison---edger-vs-deseq2.html#logfc-1"><i class="fa fa-check"></i><b>8.4.3</b> log(FC)</a></li>
+<li class="chapter" data-level="8.4.4" data-path="r-package-comparison---edger-vs-deseq2.html"><a href="r-package-comparison---edger-vs-deseq2.html#log-mean-expression-1"><i class="fa fa-check"></i><b>8.4.4</b> log mean expression</a></li>
+<li class="chapter" data-level="8.4.5" data-path="r-package-comparison---edger-vs-deseq2.html"><a href="r-package-comparison---edger-vs-deseq2.html#pca-plots-6"><i class="fa fa-check"></i><b>8.4.5</b> PCA plots</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="iav-kegg-pathway-candidate-gene-analysis.html"><a href="iav-kegg-pathway-candidate-gene-analysis.html"><i class="fa fa-check"></i><b>9</b> IAV Kegg Pathway Candidate Gene Analysis</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="iav-kegg-pathway-candidate-gene-analysis.html"><a href="iav-kegg-pathway-candidate-gene-analysis.html#libraries-16"><i class="fa fa-check"></i><b>9.1</b> Libraries</a></li>
+<li class="chapter" data-level="9.2" data-path="iav-kegg-pathway-candidate-gene-analysis.html"><a href="iav-kegg-pathway-candidate-gene-analysis.html#data-18"><i class="fa fa-check"></i><b>9.2</b> Data</a></li>
+<li class="chapter" data-level="9.3" data-path="iav-kegg-pathway-candidate-gene-analysis.html"><a href="iav-kegg-pathway-candidate-gene-analysis.html#extract-genes-from-kegg-pathway"><i class="fa fa-check"></i><b>9.3</b> Extract genes from KEGG Pathway</a></li>
+<li class="chapter" data-level="9.4" data-path="iav-kegg-pathway-candidate-gene-analysis.html"><a href="iav-kegg-pathway-candidate-gene-analysis.html#overlap-with-gene-lists"><i class="fa fa-check"></i><b>9.4</b> Overlap with Gene Lists</a>
+<ul>
+<li class="chapter" data-level="9.4.1" data-path="iav-kegg-pathway-candidate-gene-analysis.html"><a href="iav-kegg-pathway-candidate-gene-analysis.html#postfilter"><i class="fa fa-check"></i><b>9.4.1</b> Postfilter</a></li>
+<li class="chapter" data-level="9.4.2" data-path="iav-kegg-pathway-candidate-gene-analysis.html"><a href="iav-kegg-pathway-candidate-gene-analysis.html#differentially-expressed-genes"><i class="fa fa-check"></i><b>9.4.2</b> Differentially Expressed Genes</a></li>
+<li class="chapter" data-level="9.4.3" data-path="iav-kegg-pathway-candidate-gene-analysis.html"><a href="iav-kegg-pathway-candidate-gene-analysis.html#compile-gene-ids"><i class="fa fa-check"></i><b>9.4.3</b> Compile gene IDs</a></li>
+</ul></li>
+<li class="chapter" data-level="9.5" data-path="iav-kegg-pathway-candidate-gene-analysis.html"><a href="iav-kegg-pathway-candidate-gene-analysis.html#plot-pathway-map"><i class="fa fa-check"></i><b>9.5</b> Plot pathway map</a>
+<ul>
+<li class="chapter" data-level="9.5.1" data-path="iav-kegg-pathway-candidate-gene-analysis.html"><a href="iav-kegg-pathway-candidate-gene-analysis.html#create-legend"><i class="fa fa-check"></i><b>9.5.1</b> Create Legend</a></li>
+</ul></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Untitled</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="loc-gene-identification" class="section level1 hasAnchor" number="2">
+<h1><span class="header-section-number">2</span> LOC Gene Identification<a href="loc-gene-identification.html#loc-gene-identification" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="load-required-libraries" class="section level2 hasAnchor" number="2.1">
+<h2><span class="header-section-number">2.1</span> Load required libraries<a href="loc-gene-identification.html#load-required-libraries" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="loc-gene-identification.html#cb1-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="loc-gene-identification.html#cb1-2" tabindex="-1"></a><span class="fu">library</span>(Biostrings)</span>
+<span id="cb1-3"><a href="loc-gene-identification.html#cb1-3" tabindex="-1"></a><span class="fu">library</span>(BSgenome)</span></code></pre></div>
+</div>
+<div id="load-data" class="section level2 hasAnchor" number="2.2">
+<h2><span class="header-section-number">2.2</span> Load data<a href="loc-gene-identification.html#load-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="loc-gene-identification.html#cb2-1" tabindex="-1"></a>txome_genes <span class="ot">&lt;-</span> </span>
+<span id="cb2-2"><a href="loc-gene-identification.html#cb2-2" tabindex="-1"></a>  <span class="fu">read.table</span>(<span class="st">&quot;Input Files/txome_genecounts.txt&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-3"><a href="loc-gene-identification.html#cb2-3" tabindex="-1"></a>  <span class="fu">rownames_to_column</span>(<span class="at">var=</span><span class="st">&quot;gene&quot;</span>)</span>
+<span id="cb2-4"><a href="loc-gene-identification.html#cb2-4" tabindex="-1"></a>txome_map <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">&quot;Input Files/txome_transcript-gene_map.txt&quot;</span>, </span>
+<span id="cb2-5"><a href="loc-gene-identification.html#cb2-5" tabindex="-1"></a>                        <span class="at">header=</span><span class="dv">1</span>)</span>
+<span id="cb2-6"><a href="loc-gene-identification.html#cb2-6" tabindex="-1"></a>txome_seqs <span class="ot">&lt;-</span> <span class="fu">readDNAStringSet</span>(</span>
+<span id="cb2-7"><a href="loc-gene-identification.html#cb2-7" tabindex="-1"></a>  <span class="st">&quot;C:/Users/christina_m/OneDrive - University of Maine System/hg-rna/txome_denovo_GG.okay_trim.txt&quot;</span>, </span>
+<span id="cb2-8"><a href="loc-gene-identification.html#cb2-8" tabindex="-1"></a>                   <span class="at">format =</span> <span class="st">&quot;fasta&quot;</span>, <span class="at">seek.first.rec =</span> <span class="cn">TRUE</span>, <span class="at">use.names =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb2-9"><a href="loc-gene-identification.html#cb2-9" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="loc-gene-identification.html#cb2-10" tabindex="-1"></a>gnome_genes <span class="ot">&lt;-</span> </span>
+<span id="cb2-11"><a href="loc-gene-identification.html#cb2-11" tabindex="-1"></a>  <span class="fu">read.table</span>(<span class="st">&quot;Input Files/gnome_genecounts.txt&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-12"><a href="loc-gene-identification.html#cb2-12" tabindex="-1"></a>  <span class="fu">rownames_to_column</span>(<span class="at">var=</span><span class="st">&quot;gene&quot;</span>)</span>
+<span id="cb2-13"><a href="loc-gene-identification.html#cb2-13" tabindex="-1"></a>gnome_map <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">&quot;Input Files/gnome_transcript-gene_map.txt&quot;</span>, </span>
+<span id="cb2-14"><a href="loc-gene-identification.html#cb2-14" tabindex="-1"></a>                        <span class="at">header=</span><span class="dv">1</span>)</span>
+<span id="cb2-15"><a href="loc-gene-identification.html#cb2-15" tabindex="-1"></a>gnome_seqs <span class="ot">&lt;-</span> <span class="fu">readDNAStringSet</span>(</span>
+<span id="cb2-16"><a href="loc-gene-identification.html#cb2-16" tabindex="-1"></a>  <span class="st">&quot;C:/Users/christina_m/OneDrive - University of Maine System/hg-rna/gnome_Transcript_Seqs_exons_trim.txt&quot;</span>, </span>
+<span id="cb2-17"><a href="loc-gene-identification.html#cb2-17" tabindex="-1"></a>                               <span class="at">format =</span> <span class="st">&quot;fasta&quot;</span>, <span class="at">seek.first.rec =</span> <span class="cn">TRUE</span>, <span class="at">use.names =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+</div>
+<div id="extract-gene-sequences" class="section level2 hasAnchor" number="2.3">
+<h2><span class="header-section-number">2.3</span> Extract gene sequences<a href="loc-gene-identification.html#extract-gene-sequences" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="extract-loc-genes-from-gene-count-matrices" class="section level3 hasAnchor" number="2.3.1">
+<h3><span class="header-section-number">2.3.1</span> Extract LOC genes from gene count matrices<a href="loc-gene-identification.html#extract-loc-genes-from-gene-count-matrices" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="loc-gene-identification.html#cb3-1" tabindex="-1"></a>txome_loc <span class="ot">&lt;-</span> </span>
+<span id="cb3-2"><a href="loc-gene-identification.html#cb3-2" tabindex="-1"></a>  txome_genes <span class="sc">%&gt;%</span> </span>
+<span id="cb3-3"><a href="loc-gene-identification.html#cb3-3" tabindex="-1"></a>  <span class="fu">select</span>(gene) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-4"><a href="loc-gene-identification.html#cb3-4" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(gene, <span class="st">&quot;^LOC&quot;</span>))</span>
+<span id="cb3-5"><a href="loc-gene-identification.html#cb3-5" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="loc-gene-identification.html#cb3-6" tabindex="-1"></a>gnome_loc <span class="ot">&lt;-</span></span>
+<span id="cb3-7"><a href="loc-gene-identification.html#cb3-7" tabindex="-1"></a>  gnome_genes <span class="sc">%&gt;%</span> </span>
+<span id="cb3-8"><a href="loc-gene-identification.html#cb3-8" tabindex="-1"></a>  <span class="fu">select</span>(gene) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-9"><a href="loc-gene-identification.html#cb3-9" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(gene, <span class="st">&quot;^LOC&quot;</span>))</span></code></pre></div>
+</div>
+<div id="extract-transcript-ids-for-all-sequence-ids" class="section level3 hasAnchor" number="2.3.2">
+<h3><span class="header-section-number">2.3.2</span> Extract transcript IDs for all sequence IDs<a href="loc-gene-identification.html#extract-transcript-ids-for-all-sequence-ids" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="loc-gene-identification.html#cb4-1" tabindex="-1"></a>txome_loc_txpts <span class="ot">&lt;-</span> </span>
+<span id="cb4-2"><a href="loc-gene-identification.html#cb4-2" tabindex="-1"></a>  <span class="fu">merge</span>(txome_loc, txome_map, <span class="at">by.x=</span><span class="st">&quot;gene&quot;</span>, <span class="at">by.y=</span><span class="st">&quot;gene_id&quot;</span>, <span class="at">all.x=</span><span class="cn">TRUE</span>)</span>
+<span id="cb4-3"><a href="loc-gene-identification.html#cb4-3" tabindex="-1"></a>  </span>
+<span id="cb4-4"><a href="loc-gene-identification.html#cb4-4" tabindex="-1"></a>gnome_loc_txpts <span class="ot">&lt;-</span> </span>
+<span id="cb4-5"><a href="loc-gene-identification.html#cb4-5" tabindex="-1"></a>  <span class="fu">merge</span>(gnome_loc, gnome_map, <span class="at">by.x=</span><span class="st">&quot;gene&quot;</span>, <span class="at">by.y=</span><span class="st">&quot;gene_id&quot;</span>, <span class="at">all.x=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+</div>
+<div id="extract-transcript-sequences-for-blast" class="section level3 hasAnchor" number="2.3.3">
+<h3><span class="header-section-number">2.3.3</span> Extract transcript sequences for blast<a href="loc-gene-identification.html#extract-transcript-sequences-for-blast" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="loc-gene-identification.html#cb5-1" tabindex="-1"></a>txome_loc_seq <span class="ot">&lt;-</span> <span class="fu">getSeq</span>(<span class="at">x =</span> txome_seqs, txome_loc_txpts<span class="sc">$</span>transcript_id)</span>
+<span id="cb5-2"><a href="loc-gene-identification.html#cb5-2" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="loc-gene-identification.html#cb5-3" tabindex="-1"></a>gnome_loc_seq <span class="ot">&lt;-</span> <span class="fu">getSeq</span>(<span class="at">x =</span> gnome_seqs, gnome_loc_txpts<span class="sc">$</span>transcript_id)</span></code></pre></div>
+</div>
+<div id="export-sequences" class="section level3 hasAnchor" number="2.3.4">
+<h3><span class="header-section-number">2.3.4</span> Export sequences<a href="loc-gene-identification.html#export-sequences" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="loc-gene-identification.html#cb6-1" tabindex="-1"></a><span class="fu">writeXStringSet</span>(txome_loc_seq, <span class="st">&quot;Output Files/txome_loc_seqs.fasta&quot;</span>)</span>
+<span id="cb6-2"><a href="loc-gene-identification.html#cb6-2" tabindex="-1"></a><span class="fu">writeXStringSet</span>(gnome_loc_seq, <span class="st">&quot;Output Files/gnome_loc_seqs.fasta&quot;</span>)</span></code></pre></div>
+</div>
+</div>
+<div id="blast-sequences" class="section level2 hasAnchor" number="2.4">
+<h2><span class="header-section-number">2.4</span> Blast sequences<a href="loc-gene-identification.html#blast-sequences" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>blastn against nt database with code:</p>
+<ul>
+<li>blastn -db nt -query input.fasta -max_target_seqs 2 -max_hsps 1 -evalue 0.01 -perc_identity 80 -outfmt “10 std qcovs qcovhsp stitle” -out output.csv -remote</li>
+</ul>
+</div>
+<div id="process-blastn-results" class="section level2 hasAnchor" number="2.5">
+<h2><span class="header-section-number">2.5</span> Process BLASTn Results<a href="loc-gene-identification.html#process-blastn-results" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="transcriptome" class="section level3 hasAnchor" number="2.5.1">
+<h3><span class="header-section-number">2.5.1</span> Transcriptome<a href="loc-gene-identification.html#transcriptome" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="read-in-tidy-results" class="section level4 hasAnchor" number="2.5.1.1">
+<h4><span class="header-section-number">2.5.1.1</span> Read in &amp; tidy results<a href="loc-gene-identification.html#read-in-tidy-results" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="loc-gene-identification.html#cb7-1" tabindex="-1"></a>txome_blast <span class="ot">&lt;-</span> </span>
+<span id="cb7-2"><a href="loc-gene-identification.html#cb7-2" tabindex="-1"></a>  <span class="fu">read.table</span>(<span class="st">&quot;Input Files/txome_loc_blastresults.csv&quot;</span>,</span>
+<span id="cb7-3"><a href="loc-gene-identification.html#cb7-3" tabindex="-1"></a>             <span class="at">header=</span><span class="cn">FALSE</span>, <span class="at">sep=</span><span class="st">&quot;,&quot;</span>, <span class="at">col.names=</span><span class="fu">paste0</span>(<span class="st">&quot;V&quot;</span>, <span class="fu">seq_len</span>(<span class="dv">24</span>)), </span>
+<span id="cb7-4"><a href="loc-gene-identification.html#cb7-4" tabindex="-1"></a>             <span class="at">fill=</span><span class="cn">TRUE</span>, <span class="at">quote=</span><span class="st">&quot;&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb7-5"><a href="loc-gene-identification.html#cb7-5" tabindex="-1"></a>  <span class="fu">mutate_all</span>(as.character) <span class="sc">%&gt;%</span> </span>
+<span id="cb7-6"><a href="loc-gene-identification.html#cb7-6" tabindex="-1"></a>  <span class="fu">mutate_if</span>(is.character, <span class="sc">~</span><span class="fu">replace_na</span>(.,<span class="st">&quot;&quot;</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb7-7"><a href="loc-gene-identification.html#cb7-7" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">V15=</span><span class="fu">paste0</span>(V15, V16, V17, V18, V19, V20, V21, V22, V23, V24)) <span class="sc">%&gt;%</span> </span>
+<span id="cb7-8"><a href="loc-gene-identification.html#cb7-8" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">!</span><span class="fu">c</span>(<span class="dv">16</span><span class="sc">:</span><span class="dv">24</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb7-9"><a href="loc-gene-identification.html#cb7-9" tabindex="-1"></a>  <span class="fu">setNames</span>(<span class="fu">c</span>(<span class="st">&quot;transcript_id&quot;</span>, <span class="st">&quot;sseqid&quot;</span>, <span class="st">&quot;pident&quot;</span>, <span class="st">&quot;length&quot;</span>, <span class="st">&quot;mismatch&quot;</span>, <span class="st">&quot;gapopen&quot;</span>, <span class="st">&quot;qstart&quot;</span>, </span>
+<span id="cb7-10"><a href="loc-gene-identification.html#cb7-10" tabindex="-1"></a>           <span class="st">&quot;qend&quot;</span>, <span class="st">&quot;sstart&quot;</span>, <span class="st">&quot;send&quot;</span>, <span class="st">&quot;evalue&quot;</span>, <span class="st">&quot;bitscore&quot;</span>, <span class="st">&quot;qcovs&quot;</span>, <span class="st">&quot;qcovhsp&quot;</span>, <span class="st">&quot;stitle&quot;</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb7-11"><a href="loc-gene-identification.html#cb7-11" tabindex="-1"></a>  <span class="fu">select</span>(transcript_id, pident, qcovs, evalue, stitle) <span class="sc">%&gt;%</span> </span>
+<span id="cb7-12"><a href="loc-gene-identification.html#cb7-12" tabindex="-1"></a>  <span class="fu">left_join</span>(., txome_map)</span></code></pre></div>
+</div>
+<div id="prepare-output-dataframes" class="section level4 hasAnchor" number="2.5.1.2">
+<h4><span class="header-section-number">2.5.1.2</span> Prepare output dataframes<a href="loc-gene-identification.html#prepare-output-dataframes" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="loc-gene-identification.html#cb8-1" tabindex="-1"></a>txome_geneassignments <span class="ot">&lt;-</span> </span>
+<span id="cb8-2"><a href="loc-gene-identification.html#cb8-2" tabindex="-1"></a>  <span class="fu">data.frame</span>(<span class="fu">matrix</span>(<span class="at">ncol =</span> <span class="dv">6</span>, <span class="at">nrow =</span> <span class="dv">0</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb8-3"><a href="loc-gene-identification.html#cb8-3" tabindex="-1"></a>  <span class="fu">setNames</span>(<span class="fu">c</span>(<span class="st">&quot;transcript_id&quot;</span>, <span class="st">&quot;pident&quot;</span>, <span class="st">&quot;qcovs&quot;</span>, <span class="st">&quot;evalue&quot;</span>, <span class="st">&quot;stitle&quot;</span>, <span class="st">&quot;gene_id&quot;</span>))</span>
+<span id="cb8-4"><a href="loc-gene-identification.html#cb8-4" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="loc-gene-identification.html#cb8-5" tabindex="-1"></a>txome_needcheck <span class="ot">&lt;-</span> </span>
+<span id="cb8-6"><a href="loc-gene-identification.html#cb8-6" tabindex="-1"></a>  <span class="fu">data.frame</span>(<span class="fu">matrix</span>(<span class="at">ncol =</span> <span class="dv">6</span>, <span class="at">nrow =</span> <span class="dv">0</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb8-7"><a href="loc-gene-identification.html#cb8-7" tabindex="-1"></a>  <span class="fu">setNames</span>(<span class="fu">c</span>(<span class="st">&quot;transcript_id&quot;</span>, <span class="st">&quot;pident&quot;</span>, <span class="st">&quot;qcovs&quot;</span>, <span class="st">&quot;evalue&quot;</span>, <span class="st">&quot;stitle&quot;</span>, <span class="st">&quot;gene_id&quot;</span>))</span></code></pre></div>
+</div>
+<div id="loop" class="section level4 hasAnchor" number="2.5.1.3">
+<h4><span class="header-section-number">2.5.1.3</span> Loop<a href="loc-gene-identification.html#loop" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="loc-gene-identification.html#cb9-1" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(txome_loc)) {</span>
+<span id="cb9-2"><a href="loc-gene-identification.html#cb9-2" tabindex="-1"></a>  data <span class="ot">&lt;-</span> txome_blast[txome_blast<span class="sc">$</span>gene_id<span class="sc">==</span>txome_loc[i,<span class="dv">1</span>],]</span>
+<span id="cb9-3"><a href="loc-gene-identification.html#cb9-3" tabindex="-1"></a>  </span>
+<span id="cb9-4"><a href="loc-gene-identification.html#cb9-4" tabindex="-1"></a><span class="co"># Remove lines with vague terms in stitle title</span></span>
+<span id="cb9-5"><a href="loc-gene-identification.html#cb9-5" tabindex="-1"></a>data <span class="ot">&lt;-</span> data[<span class="fu">grep</span>(<span class="st">&quot;uncharacterized&quot;</span>, data<span class="sc">$</span>stitle, <span class="at">invert =</span> <span class="cn">TRUE</span>),]</span>
+<span id="cb9-6"><a href="loc-gene-identification.html#cb9-6" tabindex="-1"></a>data <span class="ot">&lt;-</span> data[<span class="fu">grep</span>(<span class="st">&quot;genome assembly&quot;</span>, data<span class="sc">$</span>stitle, <span class="at">invert =</span> <span class="cn">TRUE</span>),]</span>
+<span id="cb9-7"><a href="loc-gene-identification.html#cb9-7" tabindex="-1"></a>data <span class="ot">&lt;-</span> data[<span class="fu">grep</span>(<span class="st">&quot; chromosome&quot;</span>, data<span class="sc">$</span>stitle, <span class="at">invert=</span><span class="cn">TRUE</span>),]</span>
+<span id="cb9-8"><a href="loc-gene-identification.html#cb9-8" tabindex="-1"></a></span>
+<span id="cb9-9"><a href="loc-gene-identification.html#cb9-9" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">nrow</span>(data)<span class="sc">==</span><span class="dv">0</span>) {</span>
+<span id="cb9-10"><a href="loc-gene-identification.html#cb9-10" tabindex="-1"></a>  <span class="cf">next</span></span>
+<span id="cb9-11"><a href="loc-gene-identification.html#cb9-11" tabindex="-1"></a>}</span>
+<span id="cb9-12"><a href="loc-gene-identification.html#cb9-12" tabindex="-1"></a></span>
+<span id="cb9-13"><a href="loc-gene-identification.html#cb9-13" tabindex="-1"></a><span class="co"># Extract gene names in ()</span></span>
+<span id="cb9-14"><a href="loc-gene-identification.html#cb9-14" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(data)) {</span>
+<span id="cb9-15"><a href="loc-gene-identification.html#cb9-15" tabindex="-1"></a>  stitle <span class="ot">&lt;-</span> data[i,]<span class="sc">$</span>stitle</span>
+<span id="cb9-16"><a href="loc-gene-identification.html#cb9-16" tabindex="-1"></a>  {<span class="cf">if</span>(<span class="fu">grepl</span>(<span class="st">&#39;</span><span class="sc">\\</span><span class="st">(&#39;</span>, stitle)) {</span>
+<span id="cb9-17"><a href="loc-gene-identification.html#cb9-17" tabindex="-1"></a>    newstitle <span class="ot">&lt;-</span> <span class="fu">str_extract</span>(stitle, <span class="st">&quot;(?&lt;=</span><span class="sc">\\</span><span class="st">()([^()]*?)(?=</span><span class="sc">\\</span><span class="st">)[^()]*$)&quot;</span>)</span>
+<span id="cb9-18"><a href="loc-gene-identification.html#cb9-18" tabindex="-1"></a>    }</span>
+<span id="cb9-19"><a href="loc-gene-identification.html#cb9-19" tabindex="-1"></a>    <span class="cf">else</span>{newstitle <span class="ot">&lt;-</span> <span class="cn">NA</span>}</span>
+<span id="cb9-20"><a href="loc-gene-identification.html#cb9-20" tabindex="-1"></a>  }</span>
+<span id="cb9-21"><a href="loc-gene-identification.html#cb9-21" tabindex="-1"></a>  data[i,]<span class="sc">$</span>stitle <span class="ot">&lt;-</span> newstitle</span>
+<span id="cb9-22"><a href="loc-gene-identification.html#cb9-22" tabindex="-1"></a>}</span>
+<span id="cb9-23"><a href="loc-gene-identification.html#cb9-23" tabindex="-1"></a></span>
+<span id="cb9-24"><a href="loc-gene-identification.html#cb9-24" tabindex="-1"></a><span class="co"># Select first stitle for each ID in transcript</span></span>
+<span id="cb9-25"><a href="loc-gene-identification.html#cb9-25" tabindex="-1"></a>data <span class="ot">&lt;-</span> data[ <span class="sc">!</span><span class="fu">duplicated</span>(data<span class="sc">$</span>transcript_id), ]</span>
+<span id="cb9-26"><a href="loc-gene-identification.html#cb9-26" tabindex="-1"></a></span>
+<span id="cb9-27"><a href="loc-gene-identification.html#cb9-27" tabindex="-1"></a><span class="co"># Select only unique stitles for each gene (across transcripts)</span></span>
+<span id="cb9-28"><a href="loc-gene-identification.html#cb9-28" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span> <span class="fu">distinct</span>(stitle, <span class="at">.keep_all=</span><span class="cn">TRUE</span>)</span>
+<span id="cb9-29"><a href="loc-gene-identification.html#cb9-29" tabindex="-1"></a></span>
+<span id="cb9-30"><a href="loc-gene-identification.html#cb9-30" tabindex="-1"></a><span class="co"># Exclude rows with irrelevant gene names (NA, LOCs, long names)</span></span>
+<span id="cb9-31"><a href="loc-gene-identification.html#cb9-31" tabindex="-1"></a>data <span class="ot">&lt;-</span> </span>
+<span id="cb9-32"><a href="loc-gene-identification.html#cb9-32" tabindex="-1"></a>  data <span class="sc">%&gt;%</span> </span>
+<span id="cb9-33"><a href="loc-gene-identification.html#cb9-33" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span>stitle<span class="sc">==</span><span class="st">&quot;NA&quot;</span> <span class="sc">&amp;</span></span>
+<span id="cb9-34"><a href="loc-gene-identification.html#cb9-34" tabindex="-1"></a>         <span class="sc">!</span>stitle<span class="sc">==</span><span class="st">&quot;&quot;</span> <span class="sc">&amp;</span> </span>
+<span id="cb9-35"><a href="loc-gene-identification.html#cb9-35" tabindex="-1"></a>         <span class="sc">!</span><span class="fu">grepl</span>(<span class="st">&quot;^LOC&quot;</span>, stitle) <span class="sc">&amp;</span></span>
+<span id="cb9-36"><a href="loc-gene-identification.html#cb9-36" tabindex="-1"></a>         <span class="sc">!</span><span class="fu">nchar</span>(stitle) <span class="sc">&gt;</span> <span class="dv">20</span>)</span>
+<span id="cb9-37"><a href="loc-gene-identification.html#cb9-37" tabindex="-1"></a></span>
+<span id="cb9-38"><a href="loc-gene-identification.html#cb9-38" tabindex="-1"></a><span class="co"># If there is one row left of the dataframe, save to a list</span></span>
+<span id="cb9-39"><a href="loc-gene-identification.html#cb9-39" tabindex="-1"></a>{<span class="cf">if</span>((<span class="fu">nrow</span>(data))<span class="sc">==</span><span class="dv">1</span>) {</span>
+<span id="cb9-40"><a href="loc-gene-identification.html#cb9-40" tabindex="-1"></a>  txome_geneassignments <span class="ot">&lt;-</span> <span class="fu">rbind</span>(data, txome_geneassignments)</span>
+<span id="cb9-41"><a href="loc-gene-identification.html#cb9-41" tabindex="-1"></a>}</span>
+<span id="cb9-42"><a href="loc-gene-identification.html#cb9-42" tabindex="-1"></a>  <span class="cf">else</span>{txome_needcheck <span class="ot">&lt;-</span> <span class="fu">rbind</span>(data, txome_needcheck)}</span>
+<span id="cb9-43"><a href="loc-gene-identification.html#cb9-43" tabindex="-1"></a>}</span>
+<span id="cb9-44"><a href="loc-gene-identification.html#cb9-44" tabindex="-1"></a></span>
+<span id="cb9-45"><a href="loc-gene-identification.html#cb9-45" tabindex="-1"></a><span class="co"># End Loop</span></span>
+<span id="cb9-46"><a href="loc-gene-identification.html#cb9-46" tabindex="-1"></a></span>
+<span id="cb9-47"><a href="loc-gene-identification.html#cb9-47" tabindex="-1"></a>}</span></code></pre></div>
+</div>
+</div>
+<div id="genome" class="section level3 hasAnchor" number="2.5.2">
+<h3><span class="header-section-number">2.5.2</span> Genome<a href="loc-gene-identification.html#genome" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="read-in-configure-gnome-blastn-files" class="section level4 hasAnchor" number="2.5.2.1">
+<h4><span class="header-section-number">2.5.2.1</span> Read in &amp; configure gnome blastn files<a href="loc-gene-identification.html#read-in-configure-gnome-blastn-files" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="loc-gene-identification.html#cb10-1" tabindex="-1"></a>gnome_blast <span class="ot">&lt;-</span> </span>
+<span id="cb10-2"><a href="loc-gene-identification.html#cb10-2" tabindex="-1"></a>  <span class="fu">read.csv</span>(<span class="st">&quot;Input Files/gnome_loc_blastresults.csv&quot;</span>, </span>
+<span id="cb10-3"><a href="loc-gene-identification.html#cb10-3" tabindex="-1"></a>           <span class="at">header=</span><span class="cn">FALSE</span>, <span class="at">sep=</span><span class="st">&quot;,&quot;</span>, <span class="at">col.names=</span><span class="fu">paste0</span>(<span class="st">&quot;V&quot;</span>, <span class="fu">seq_len</span>(<span class="dv">21</span>)), </span>
+<span id="cb10-4"><a href="loc-gene-identification.html#cb10-4" tabindex="-1"></a>           <span class="at">fill=</span><span class="cn">TRUE</span>, <span class="at">quote=</span><span class="st">&quot;&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb10-5"><a href="loc-gene-identification.html#cb10-5" tabindex="-1"></a>  <span class="fu">mutate_all</span>(as.character) <span class="sc">%&gt;%</span> </span>
+<span id="cb10-6"><a href="loc-gene-identification.html#cb10-6" tabindex="-1"></a>  <span class="fu">mutate_if</span>(is.character, <span class="sc">~</span><span class="fu">replace_na</span>(.,<span class="st">&quot;&quot;</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb10-7"><a href="loc-gene-identification.html#cb10-7" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">V15=</span><span class="fu">paste0</span>(V15, V16, V17, V18, V19, V20, V21)) <span class="sc">%&gt;%</span> </span>
+<span id="cb10-8"><a href="loc-gene-identification.html#cb10-8" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">!</span><span class="fu">c</span>(<span class="dv">16</span><span class="sc">:</span><span class="dv">21</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb10-9"><a href="loc-gene-identification.html#cb10-9" tabindex="-1"></a>  <span class="fu">setNames</span>(<span class="fu">c</span>(<span class="st">&quot;transcript_id&quot;</span>, <span class="st">&quot;sseqid&quot;</span>, <span class="st">&quot;pident&quot;</span>, <span class="st">&quot;length&quot;</span>, <span class="st">&quot;mismatch&quot;</span>, <span class="st">&quot;gapopen&quot;</span>, <span class="st">&quot;qstart&quot;</span>, </span>
+<span id="cb10-10"><a href="loc-gene-identification.html#cb10-10" tabindex="-1"></a>           <span class="st">&quot;qend&quot;</span>, <span class="st">&quot;sstart&quot;</span>, <span class="st">&quot;send&quot;</span>, <span class="st">&quot;evalue&quot;</span>, <span class="st">&quot;bitscore&quot;</span>, <span class="st">&quot;qcovs&quot;</span>, <span class="st">&quot;qcovhsp&quot;</span>, <span class="st">&quot;stitle&quot;</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb10-11"><a href="loc-gene-identification.html#cb10-11" tabindex="-1"></a>  <span class="fu">select</span>(transcript_id, pident, qcovs, evalue, stitle) <span class="sc">%&gt;%</span> </span>
+<span id="cb10-12"><a href="loc-gene-identification.html#cb10-12" tabindex="-1"></a>  <span class="fu">left_join</span>(., gnome_map)</span></code></pre></div>
+</div>
+<div id="prepare-output-dataframes-1" class="section level4 hasAnchor" number="2.5.2.2">
+<h4><span class="header-section-number">2.5.2.2</span> Prepare output dataframes<a href="loc-gene-identification.html#prepare-output-dataframes-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="loc-gene-identification.html#cb11-1" tabindex="-1"></a>gnome_geneassignments <span class="ot">&lt;-</span> </span>
+<span id="cb11-2"><a href="loc-gene-identification.html#cb11-2" tabindex="-1"></a>  <span class="fu">data.frame</span>(<span class="fu">matrix</span>(<span class="at">ncol =</span> <span class="dv">6</span>, <span class="at">nrow =</span> <span class="dv">0</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-3"><a href="loc-gene-identification.html#cb11-3" tabindex="-1"></a>  <span class="fu">setNames</span>(<span class="fu">c</span>(<span class="st">&quot;transcript_id&quot;</span>, <span class="st">&quot;pident&quot;</span>, <span class="st">&quot;qcovs&quot;</span>, <span class="st">&quot;evalue&quot;</span>, <span class="st">&quot;stitle&quot;</span>, <span class="st">&quot;gene_id&quot;</span>))</span>
+<span id="cb11-4"><a href="loc-gene-identification.html#cb11-4" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="loc-gene-identification.html#cb11-5" tabindex="-1"></a>gnome_needcheck <span class="ot">&lt;-</span> </span>
+<span id="cb11-6"><a href="loc-gene-identification.html#cb11-6" tabindex="-1"></a>  <span class="fu">data.frame</span>(<span class="fu">matrix</span>(<span class="at">ncol =</span> <span class="dv">6</span>, <span class="at">nrow =</span> <span class="dv">0</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-7"><a href="loc-gene-identification.html#cb11-7" tabindex="-1"></a>  <span class="fu">setNames</span>(<span class="fu">c</span>(<span class="st">&quot;transcript_id&quot;</span>, <span class="st">&quot;pident&quot;</span>, <span class="st">&quot;qcovs&quot;</span>, <span class="st">&quot;evalue&quot;</span>, <span class="st">&quot;stitle&quot;</span>, <span class="st">&quot;gene_id&quot;</span>))</span></code></pre></div>
+</div>
+<div id="loop-1" class="section level4 hasAnchor" number="2.5.2.3">
+<h4><span class="header-section-number">2.5.2.3</span> Loop<a href="loc-gene-identification.html#loop-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="loc-gene-identification.html#cb12-1" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(gnome_loc)) {</span>
+<span id="cb12-2"><a href="loc-gene-identification.html#cb12-2" tabindex="-1"></a>  data <span class="ot">&lt;-</span> gnome_blast[gnome_blast<span class="sc">$</span>gene_id<span class="sc">==</span>gnome_loc[i,<span class="dv">1</span>],]</span>
+<span id="cb12-3"><a href="loc-gene-identification.html#cb12-3" tabindex="-1"></a>  </span>
+<span id="cb12-4"><a href="loc-gene-identification.html#cb12-4" tabindex="-1"></a><span class="co"># Remove lines with vague terms in stitle title</span></span>
+<span id="cb12-5"><a href="loc-gene-identification.html#cb12-5" tabindex="-1"></a>data <span class="ot">&lt;-</span> data[<span class="fu">grep</span>(<span class="st">&quot;uncharacterized&quot;</span>, data<span class="sc">$</span>stitle, <span class="at">invert =</span> <span class="cn">TRUE</span>),]</span>
+<span id="cb12-6"><a href="loc-gene-identification.html#cb12-6" tabindex="-1"></a>data <span class="ot">&lt;-</span> data[<span class="fu">grep</span>(<span class="st">&quot;genome assembly&quot;</span>, data<span class="sc">$</span>stitle, <span class="at">invert =</span> <span class="cn">TRUE</span>),]</span>
+<span id="cb12-7"><a href="loc-gene-identification.html#cb12-7" tabindex="-1"></a>data <span class="ot">&lt;-</span> data[<span class="fu">grep</span>(<span class="st">&quot; chromosome&quot;</span>, data<span class="sc">$</span>stitle, <span class="at">invert=</span><span class="cn">TRUE</span>),]</span>
+<span id="cb12-8"><a href="loc-gene-identification.html#cb12-8" tabindex="-1"></a></span>
+<span id="cb12-9"><a href="loc-gene-identification.html#cb12-9" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">nrow</span>(data)<span class="sc">==</span><span class="dv">0</span>) {</span>
+<span id="cb12-10"><a href="loc-gene-identification.html#cb12-10" tabindex="-1"></a>  <span class="cf">next</span></span>
+<span id="cb12-11"><a href="loc-gene-identification.html#cb12-11" tabindex="-1"></a>}</span>
+<span id="cb12-12"><a href="loc-gene-identification.html#cb12-12" tabindex="-1"></a></span>
+<span id="cb12-13"><a href="loc-gene-identification.html#cb12-13" tabindex="-1"></a><span class="co"># Extract gene names in ()</span></span>
+<span id="cb12-14"><a href="loc-gene-identification.html#cb12-14" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(data)) {</span>
+<span id="cb12-15"><a href="loc-gene-identification.html#cb12-15" tabindex="-1"></a>  stitle <span class="ot">&lt;-</span> data[i,]<span class="sc">$</span>stitle</span>
+<span id="cb12-16"><a href="loc-gene-identification.html#cb12-16" tabindex="-1"></a>  {<span class="cf">if</span>(<span class="fu">grepl</span>(<span class="st">&#39;</span><span class="sc">\\</span><span class="st">(&#39;</span>, stitle)) {</span>
+<span id="cb12-17"><a href="loc-gene-identification.html#cb12-17" tabindex="-1"></a>    newstitle <span class="ot">&lt;-</span> <span class="fu">str_extract</span>(stitle, <span class="st">&quot;(?&lt;=</span><span class="sc">\\</span><span class="st">()([^()]*?)(?=</span><span class="sc">\\</span><span class="st">)[^()]*$)&quot;</span>)</span>
+<span id="cb12-18"><a href="loc-gene-identification.html#cb12-18" tabindex="-1"></a>    }</span>
+<span id="cb12-19"><a href="loc-gene-identification.html#cb12-19" tabindex="-1"></a>    <span class="cf">else</span>{newstitle <span class="ot">&lt;-</span> <span class="cn">NA</span>}</span>
+<span id="cb12-20"><a href="loc-gene-identification.html#cb12-20" tabindex="-1"></a>  }</span>
+<span id="cb12-21"><a href="loc-gene-identification.html#cb12-21" tabindex="-1"></a>  data[i,]<span class="sc">$</span>stitle <span class="ot">&lt;-</span> newstitle</span>
+<span id="cb12-22"><a href="loc-gene-identification.html#cb12-22" tabindex="-1"></a>}</span>
+<span id="cb12-23"><a href="loc-gene-identification.html#cb12-23" tabindex="-1"></a></span>
+<span id="cb12-24"><a href="loc-gene-identification.html#cb12-24" tabindex="-1"></a><span class="co"># Select first stitle for each ID in transcript</span></span>
+<span id="cb12-25"><a href="loc-gene-identification.html#cb12-25" tabindex="-1"></a>data <span class="ot">&lt;-</span> data[ <span class="sc">!</span><span class="fu">duplicated</span>(data<span class="sc">$</span>transcript_id), ]</span>
+<span id="cb12-26"><a href="loc-gene-identification.html#cb12-26" tabindex="-1"></a></span>
+<span id="cb12-27"><a href="loc-gene-identification.html#cb12-27" tabindex="-1"></a><span class="co"># Select only unique stitles for each gene (across transcripts)</span></span>
+<span id="cb12-28"><a href="loc-gene-identification.html#cb12-28" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span> <span class="fu">distinct</span>(stitle, <span class="at">.keep_all=</span><span class="cn">TRUE</span>)</span>
+<span id="cb12-29"><a href="loc-gene-identification.html#cb12-29" tabindex="-1"></a></span>
+<span id="cb12-30"><a href="loc-gene-identification.html#cb12-30" tabindex="-1"></a><span class="co"># Exclude rows with irrelevant gene names (NA, LOCs, long names)</span></span>
+<span id="cb12-31"><a href="loc-gene-identification.html#cb12-31" tabindex="-1"></a>data <span class="ot">&lt;-</span> </span>
+<span id="cb12-32"><a href="loc-gene-identification.html#cb12-32" tabindex="-1"></a>  data <span class="sc">%&gt;%</span> </span>
+<span id="cb12-33"><a href="loc-gene-identification.html#cb12-33" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span>stitle<span class="sc">==</span><span class="st">&quot;NA&quot;</span> <span class="sc">&amp;</span></span>
+<span id="cb12-34"><a href="loc-gene-identification.html#cb12-34" tabindex="-1"></a>         <span class="sc">!</span>stitle<span class="sc">==</span><span class="st">&quot;&quot;</span> <span class="sc">&amp;</span> </span>
+<span id="cb12-35"><a href="loc-gene-identification.html#cb12-35" tabindex="-1"></a>         <span class="sc">!</span><span class="fu">grepl</span>(<span class="st">&quot;^LOC&quot;</span>, stitle) <span class="sc">&amp;</span></span>
+<span id="cb12-36"><a href="loc-gene-identification.html#cb12-36" tabindex="-1"></a>         <span class="sc">!</span><span class="fu">nchar</span>(stitle) <span class="sc">&gt;</span> <span class="dv">20</span> <span class="sc">&amp;</span></span>
+<span id="cb12-37"><a href="loc-gene-identification.html#cb12-37" tabindex="-1"></a>         pident <span class="sc">&gt;</span> <span class="dv">89</span>)</span>
+<span id="cb12-38"><a href="loc-gene-identification.html#cb12-38" tabindex="-1"></a></span>
+<span id="cb12-39"><a href="loc-gene-identification.html#cb12-39" tabindex="-1"></a><span class="co"># If there is one row left of the dataframe, save to a list</span></span>
+<span id="cb12-40"><a href="loc-gene-identification.html#cb12-40" tabindex="-1"></a>{<span class="cf">if</span>((<span class="fu">nrow</span>(data))<span class="sc">==</span><span class="dv">1</span>) {</span>
+<span id="cb12-41"><a href="loc-gene-identification.html#cb12-41" tabindex="-1"></a>  gnome_geneassignments <span class="ot">&lt;-</span> <span class="fu">rbind</span>(data, gnome_geneassignments)</span>
+<span id="cb12-42"><a href="loc-gene-identification.html#cb12-42" tabindex="-1"></a>}</span>
+<span id="cb12-43"><a href="loc-gene-identification.html#cb12-43" tabindex="-1"></a>  <span class="cf">else</span>{gnome_needcheck <span class="ot">&lt;-</span> <span class="fu">rbind</span>(data, gnome_needcheck)}</span>
+<span id="cb12-44"><a href="loc-gene-identification.html#cb12-44" tabindex="-1"></a>}</span>
+<span id="cb12-45"><a href="loc-gene-identification.html#cb12-45" tabindex="-1"></a></span>
+<span id="cb12-46"><a href="loc-gene-identification.html#cb12-46" tabindex="-1"></a><span class="co"># End Loop</span></span>
+<span id="cb12-47"><a href="loc-gene-identification.html#cb12-47" tabindex="-1"></a></span>
+<span id="cb12-48"><a href="loc-gene-identification.html#cb12-48" tabindex="-1"></a>}</span></code></pre></div>
+</div>
+</div>
+<div id="combine-transcriptome-genome-blast-results" class="section level3 hasAnchor" number="2.5.3">
+<h3><span class="header-section-number">2.5.3</span> Combine Transcriptome &amp; Genome Blast Results<a href="loc-gene-identification.html#combine-transcriptome-genome-blast-results" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Note: For duplicates, only using genes for which both T &amp; G blasts yielded the same result (distinct())</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="loc-gene-identification.html#cb13-1" tabindex="-1"></a>blast_all <span class="ot">&lt;-</span></span>
+<span id="cb13-2"><a href="loc-gene-identification.html#cb13-2" tabindex="-1"></a>  <span class="fu">bind_rows</span>(txome_geneassignments, gnome_geneassignments) <span class="sc">%&gt;%</span> </span>
+<span id="cb13-3"><a href="loc-gene-identification.html#cb13-3" tabindex="-1"></a>  <span class="fu">select</span>(stitle, gene_id) <span class="sc">%&gt;%</span></span>
+<span id="cb13-4"><a href="loc-gene-identification.html#cb13-4" tabindex="-1"></a>  <span class="fu">distinct</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb13-5"><a href="loc-gene-identification.html#cb13-5" tabindex="-1"></a>  <span class="fu">distinct</span>(gene_id, <span class="at">.keep_all=</span><span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb13-6"><a href="loc-gene-identification.html#cb13-6" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">stitle=</span><span class="fu">toupper</span>(stitle))</span></code></pre></div>
+</div>
+</div>
+<div id="combine-with-prior-loc-id-master-list" class="section level2 hasAnchor" number="2.6">
+<h2><span class="header-section-number">2.6</span> Combine with prior LOC ID master list<a href="loc-gene-identification.html#combine-with-prior-loc-id-master-list" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>LOCs identified through blastn &amp; manually through extracting NCBI’s description</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="loc-gene-identification.html#cb14-1" tabindex="-1"></a>null_loc <span class="ot">&lt;-</span></span>
+<span id="cb14-2"><a href="loc-gene-identification.html#cb14-2" tabindex="-1"></a>  <span class="fu">read.csv</span>(<span class="st">&quot;Input Files/TG_nullset_masterLOC.csv&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb14-3"><a href="loc-gene-identification.html#cb14-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">symbol=</span><span class="fu">ifelse</span>(gene<span class="sc">==</span><span class="st">&quot;LOC118528561&quot;</span>, <span class="st">&quot;ANKRD13A&quot;</span>, symbol)) <span class="sc">%&gt;%</span> </span>
+<span id="cb14-4"><a href="loc-gene-identification.html#cb14-4" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">grepl</span>(<span class="st">&#39;LOC&#39;</span>, symbol))</span>
+<span id="cb14-5"><a href="loc-gene-identification.html#cb14-5" tabindex="-1"></a></span>
+<span id="cb14-6"><a href="loc-gene-identification.html#cb14-6" tabindex="-1"></a>loc_update <span class="ot">&lt;-</span> </span>
+<span id="cb14-7"><a href="loc-gene-identification.html#cb14-7" tabindex="-1"></a>  <span class="fu">merge</span>(blast_all, null_loc, <span class="at">by.x=</span><span class="st">&quot;gene_id&quot;</span>, <span class="at">by.y=</span><span class="st">&quot;gene&quot;</span>, <span class="at">all=</span><span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb14-8"><a href="loc-gene-identification.html#cb14-8" tabindex="-1"></a>  <span class="fu">mutate_all</span>(<span class="sc">~</span><span class="fu">replace</span>(., <span class="fu">is.na</span>(.), <span class="dv">0</span>))</span>
+<span id="cb14-9"><a href="loc-gene-identification.html#cb14-9" tabindex="-1"></a></span>
+<span id="cb14-10"><a href="loc-gene-identification.html#cb14-10" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(loc_update)) {</span>
+<span id="cb14-11"><a href="loc-gene-identification.html#cb14-11" tabindex="-1"></a>  <span class="cf">if</span>(loc_update<span class="sc">$</span>stitle[i]<span class="sc">==</span><span class="st">&quot;0&quot;</span> <span class="sc">&amp;&amp;</span> <span class="sc">!</span>loc_update<span class="sc">$</span>symbol[i]<span class="sc">==</span><span class="st">&quot;0&quot;</span>) {</span>
+<span id="cb14-12"><a href="loc-gene-identification.html#cb14-12" tabindex="-1"></a>    loc_update<span class="sc">$</span>stitle[i] <span class="ot">&lt;-</span> loc_update<span class="sc">$</span>symbol[i]</span>
+<span id="cb14-13"><a href="loc-gene-identification.html#cb14-13" tabindex="-1"></a>  }</span>
+<span id="cb14-14"><a href="loc-gene-identification.html#cb14-14" tabindex="-1"></a>  <span class="cf">else</span>{loc_update<span class="sc">$</span>stitle[i] <span class="ot">&lt;-</span> loc_update<span class="sc">$</span>stitle[i]}</span>
+<span id="cb14-15"><a href="loc-gene-identification.html#cb14-15" tabindex="-1"></a>}</span>
+<span id="cb14-16"><a href="loc-gene-identification.html#cb14-16" tabindex="-1"></a></span>
+<span id="cb14-17"><a href="loc-gene-identification.html#cb14-17" tabindex="-1"></a>loc_update <span class="ot">&lt;-</span> </span>
+<span id="cb14-18"><a href="loc-gene-identification.html#cb14-18" tabindex="-1"></a>  loc_update <span class="sc">%&gt;%</span> </span>
+<span id="cb14-19"><a href="loc-gene-identification.html#cb14-19" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">!</span>symbol)</span></code></pre></div>
+</div>
+<div id="update-tidy-gene-count-matrices" class="section level2 hasAnchor" number="2.7">
+<h2><span class="header-section-number">2.7</span> Update &amp; tidy gene count matrices<a href="loc-gene-identification.html#update-tidy-gene-count-matrices" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Replace LOCs with new IDs &amp; aggregate gene counts</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="loc-gene-identification.html#cb15-1" tabindex="-1"></a>txome_genes_update <span class="ot">&lt;-</span> </span>
+<span id="cb15-2"><a href="loc-gene-identification.html#cb15-2" tabindex="-1"></a>  txome_genes <span class="sc">%&gt;%</span> </span>
+<span id="cb15-3"><a href="loc-gene-identification.html#cb15-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">gene=</span><span class="fu">ifelse</span>(gene <span class="sc">%in%</span> loc_update<span class="sc">$</span>gene_id, </span>
+<span id="cb15-4"><a href="loc-gene-identification.html#cb15-4" tabindex="-1"></a>                     loc_update[<span class="fu">match</span>(gene, loc_update<span class="sc">$</span>gene_id),<span class="dv">2</span>],</span>
+<span id="cb15-5"><a href="loc-gene-identification.html#cb15-5" tabindex="-1"></a>                     gene)) <span class="sc">%&gt;%</span> </span>
+<span id="cb15-6"><a href="loc-gene-identification.html#cb15-6" tabindex="-1"></a>  <span class="fu">aggregate</span>(. <span class="sc">~</span> gene, sum)</span>
+<span id="cb15-7"><a href="loc-gene-identification.html#cb15-7" tabindex="-1"></a></span>
+<span id="cb15-8"><a href="loc-gene-identification.html#cb15-8" tabindex="-1"></a>gnome_genes_update <span class="ot">&lt;-</span> </span>
+<span id="cb15-9"><a href="loc-gene-identification.html#cb15-9" tabindex="-1"></a>  gnome_genes <span class="sc">%&gt;%</span> </span>
+<span id="cb15-10"><a href="loc-gene-identification.html#cb15-10" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">gene=</span><span class="fu">ifelse</span>(gene <span class="sc">%in%</span> loc_update<span class="sc">$</span>gene_id, </span>
+<span id="cb15-11"><a href="loc-gene-identification.html#cb15-11" tabindex="-1"></a>                     loc_update[<span class="fu">match</span>(gene, loc_update<span class="sc">$</span>gene_id),<span class="dv">2</span>],</span>
+<span id="cb15-12"><a href="loc-gene-identification.html#cb15-12" tabindex="-1"></a>                     gene)) <span class="sc">%&gt;%</span> </span>
+<span id="cb15-13"><a href="loc-gene-identification.html#cb15-13" tabindex="-1"></a>  <span class="fu">aggregate</span>(. <span class="sc">~</span> gene, sum)</span></code></pre></div>
+</div>
+<div id="remove-hemoglobin-genes" class="section level2 hasAnchor" number="2.8">
+<h2><span class="header-section-number">2.8</span> Remove hemoglobin genes<a href="loc-gene-identification.html#remove-hemoglobin-genes" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Hemoglobin genes identified from Harrington et al. 2020 (suppl table 1) and from NCBI gray seal gene search for “hemoglobin”</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="loc-gene-identification.html#cb16-1" tabindex="-1"></a>hemoglobin_genes <span class="ot">&lt;-</span></span>
+<span id="cb16-2"><a href="loc-gene-identification.html#cb16-2" tabindex="-1"></a>  <span class="fu">c</span>(<span class="st">&quot;HBA1&quot;</span>, <span class="st">&quot;HBA2&quot;</span>, <span class="st">&quot;HBB&quot;</span>, <span class="st">&quot;HBBP1&quot;</span>, <span class="st">&quot;HBD&quot;</span>, <span class="st">&quot;HBE1&quot;</span>, <span class="st">&quot;HBG1&quot;</span>, <span class="st">&quot;HBG2&quot;</span>, <span class="st">&quot;HBM&quot;</span>, <span class="st">&quot;HBQ1&quot;</span>,</span>
+<span id="cb16-3"><a href="loc-gene-identification.html#cb16-3" tabindex="-1"></a>    <span class="st">&quot;HBZ&quot;</span>, <span class="st">&quot;HBZP1&quot;</span>,<span class="st">&quot;AHSP&quot;</span>, <span class="st">&quot;RHEX&quot;</span>, <span class="st">&quot;LOC118528782&quot;</span>, <span class="st">&quot;LOC118528783&quot;</span>, <span class="st">&quot;LOC118528784&quot;</span>, </span>
+<span id="cb16-4"><a href="loc-gene-identification.html#cb16-4" tabindex="-1"></a>    <span class="st">&quot;LOC118528786&quot;</span>, <span class="st">&quot;LOC118528797&quot;</span>, <span class="st">&quot;LOC118530184&quot;</span>, <span class="st">&quot;LOC118530187&quot;</span>)</span>
+<span id="cb16-5"><a href="loc-gene-identification.html#cb16-5" tabindex="-1"></a></span>
+<span id="cb16-6"><a href="loc-gene-identification.html#cb16-6" tabindex="-1"></a>txome_hemo <span class="ot">&lt;-</span> </span>
+<span id="cb16-7"><a href="loc-gene-identification.html#cb16-7" tabindex="-1"></a>  txome_genes_update <span class="sc">%&gt;%</span> </span>
+<span id="cb16-8"><a href="loc-gene-identification.html#cb16-8" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span>gene <span class="sc">%in%</span> hemoglobin_genes)</span>
+<span id="cb16-9"><a href="loc-gene-identification.html#cb16-9" tabindex="-1"></a></span>
+<span id="cb16-10"><a href="loc-gene-identification.html#cb16-10" tabindex="-1"></a>gnome_hemo <span class="ot">&lt;-</span> </span>
+<span id="cb16-11"><a href="loc-gene-identification.html#cb16-11" tabindex="-1"></a>  gnome_genes_update <span class="sc">%&gt;%</span> </span>
+<span id="cb16-12"><a href="loc-gene-identification.html#cb16-12" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span>gene <span class="sc">%in%</span> hemoglobin_genes)</span></code></pre></div>
+</div>
+<div id="export-new-gene-count-matrices" class="section level2 hasAnchor" number="2.9">
+<h2><span class="header-section-number">2.9</span> Export new gene count matrices<a href="loc-gene-identification.html#export-new-gene-count-matrices" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="loc-gene-identification.html#cb17-1" tabindex="-1"></a><span class="fu">write.csv</span>(txome_hemo, <span class="st">&quot;Output Files/txome_genecounts_locid_nohemo.csv&quot;</span>, <span class="at">row.names=</span><span class="cn">FALSE</span>)</span>
+<span id="cb17-2"><a href="loc-gene-identification.html#cb17-2" tabindex="-1"></a><span class="fu">write.csv</span>(gnome_hemo, <span class="st">&quot;Output Files/gnome_genecounts_locid_nohemo.csv&quot;</span>, <span class="at">row.names=</span><span class="cn">FALSE</span>)</span></code></pre></div>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="male-v-female-dge.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "section",
+"scroll_highlight": true
+},
+"info": false
+});
+});
+</script>
+
+</body>
+
+</html>

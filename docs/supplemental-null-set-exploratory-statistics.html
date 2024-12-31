@@ -1,0 +1,1127 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>6 Supplemental Null Set Exploratory Statistics | Untitled</title>
+  <meta name="description" content="McCosker Dissertation Chapter 1 Statistical Analyses" />
+  <meta name="generator" content="bookdown 0.41 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="6 Supplemental Null Set Exploratory Statistics | Untitled" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="McCosker Dissertation Chapter 1 Statistical Analyses" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="6 Supplemental Null Set Exploratory Statistics | Untitled" />
+  
+  <meta name="twitter:description" content="McCosker Dissertation Chapter 1 Statistical Analyses" />
+  
+
+<meta name="author" content="Christina McCosker" />
+
+
+<meta name="date" content="2024-12-31" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="influenza-stage-dge.html"/>
+<link rel="next" href="influenza-dge-deseq2.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Hg-RNA Stats</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Publication Information</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#authors"><i class="fa fa-check"></i><b>1.1</b> Authors</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#abstract"><i class="fa fa-check"></i><b>1.2</b> Abstract</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="loc-gene-identification.html"><a href="loc-gene-identification.html"><i class="fa fa-check"></i><b>2</b> LOC Gene Identification</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="loc-gene-identification.html"><a href="loc-gene-identification.html#load-required-libraries"><i class="fa fa-check"></i><b>2.1</b> Load required libraries</a></li>
+<li class="chapter" data-level="2.2" data-path="loc-gene-identification.html"><a href="loc-gene-identification.html#load-data"><i class="fa fa-check"></i><b>2.2</b> Load data</a></li>
+<li class="chapter" data-level="2.3" data-path="loc-gene-identification.html"><a href="loc-gene-identification.html#extract-gene-sequences"><i class="fa fa-check"></i><b>2.3</b> Extract gene sequences</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="loc-gene-identification.html"><a href="loc-gene-identification.html#extract-loc-genes-from-gene-count-matrices"><i class="fa fa-check"></i><b>2.3.1</b> Extract LOC genes from gene count matrices</a></li>
+<li class="chapter" data-level="2.3.2" data-path="loc-gene-identification.html"><a href="loc-gene-identification.html#extract-transcript-ids-for-all-sequence-ids"><i class="fa fa-check"></i><b>2.3.2</b> Extract transcript IDs for all sequence IDs</a></li>
+<li class="chapter" data-level="2.3.3" data-path="loc-gene-identification.html"><a href="loc-gene-identification.html#extract-transcript-sequences-for-blast"><i class="fa fa-check"></i><b>2.3.3</b> Extract transcript sequences for blast</a></li>
+<li class="chapter" data-level="2.3.4" data-path="loc-gene-identification.html"><a href="loc-gene-identification.html#export-sequences"><i class="fa fa-check"></i><b>2.3.4</b> Export sequences</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="loc-gene-identification.html"><a href="loc-gene-identification.html#blast-sequences"><i class="fa fa-check"></i><b>2.4</b> Blast sequences</a></li>
+<li class="chapter" data-level="2.5" data-path="loc-gene-identification.html"><a href="loc-gene-identification.html#process-blastn-results"><i class="fa fa-check"></i><b>2.5</b> Process BLASTn Results</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="loc-gene-identification.html"><a href="loc-gene-identification.html#transcriptome"><i class="fa fa-check"></i><b>2.5.1</b> Transcriptome</a></li>
+<li class="chapter" data-level="2.5.2" data-path="loc-gene-identification.html"><a href="loc-gene-identification.html#genome"><i class="fa fa-check"></i><b>2.5.2</b> Genome</a></li>
+<li class="chapter" data-level="2.5.3" data-path="loc-gene-identification.html"><a href="loc-gene-identification.html#combine-transcriptome-genome-blast-results"><i class="fa fa-check"></i><b>2.5.3</b> Combine Transcriptome &amp; Genome Blast Results</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="loc-gene-identification.html"><a href="loc-gene-identification.html#combine-with-prior-loc-id-master-list"><i class="fa fa-check"></i><b>2.6</b> Combine with prior LOC ID master list</a></li>
+<li class="chapter" data-level="2.7" data-path="loc-gene-identification.html"><a href="loc-gene-identification.html#update-tidy-gene-count-matrices"><i class="fa fa-check"></i><b>2.7</b> Update &amp; tidy gene count matrices</a></li>
+<li class="chapter" data-level="2.8" data-path="loc-gene-identification.html"><a href="loc-gene-identification.html#remove-hemoglobin-genes"><i class="fa fa-check"></i><b>2.8</b> Remove hemoglobin genes</a></li>
+<li class="chapter" data-level="2.9" data-path="loc-gene-identification.html"><a href="loc-gene-identification.html#export-new-gene-count-matrices"><i class="fa fa-check"></i><b>2.9</b> Export new gene count matrices</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="male-v-female-dge.html"><a href="male-v-female-dge.html"><i class="fa fa-check"></i><b>3</b> Male v Female DGE</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="male-v-female-dge.html"><a href="male-v-female-dge.html#transcriptome---edger"><i class="fa fa-check"></i><b>3.1</b> Transcriptome - edgeR</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="male-v-female-dge.html"><a href="male-v-female-dge.html#libraries"><i class="fa fa-check"></i><b>3.1.1</b> Libraries</a></li>
+<li class="chapter" data-level="3.1.2" data-path="male-v-female-dge.html"><a href="male-v-female-dge.html#data"><i class="fa fa-check"></i><b>3.1.2</b> Data</a></li>
+<li class="chapter" data-level="3.1.3" data-path="male-v-female-dge.html"><a href="male-v-female-dge.html#differential-gene-expression-analysis"><i class="fa fa-check"></i><b>3.1.3</b> Differential Gene Expression Analysis</a></li>
+<li class="chapter" data-level="3.1.4" data-path="male-v-female-dge.html"><a href="male-v-female-dge.html#exploratory-plots"><i class="fa fa-check"></i><b>3.1.4</b> Exploratory Plots</a></li>
+<li class="chapter" data-level="3.1.5" data-path="male-v-female-dge.html"><a href="male-v-female-dge.html#test-for-degs"><i class="fa fa-check"></i><b>3.1.5</b> Test for DEGs</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="male-v-female-dge.html"><a href="male-v-female-dge.html#genome---edger"><i class="fa fa-check"></i><b>3.2</b> Genome - edgeR</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="male-v-female-dge.html"><a href="male-v-female-dge.html#libraries-1"><i class="fa fa-check"></i><b>3.2.1</b> Libraries</a></li>
+<li class="chapter" data-level="3.2.2" data-path="male-v-female-dge.html"><a href="male-v-female-dge.html#data-1"><i class="fa fa-check"></i><b>3.2.2</b> Data</a></li>
+<li class="chapter" data-level="3.2.3" data-path="male-v-female-dge.html"><a href="male-v-female-dge.html#differential-gene-expression-analysis-1"><i class="fa fa-check"></i><b>3.2.3</b> Differential Gene Expression Analysis</a></li>
+<li class="chapter" data-level="3.2.4" data-path="male-v-female-dge.html"><a href="male-v-female-dge.html#exploratory-plots-1"><i class="fa fa-check"></i><b>3.2.4</b> Exploratory Plots</a></li>
+<li class="chapter" data-level="3.2.5" data-path="male-v-female-dge.html"><a href="male-v-female-dge.html#test-for-degs-1"><i class="fa fa-check"></i><b>3.2.5</b> Test for DEGs</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html"><i class="fa fa-check"></i><b>4</b> Virus+ vs Virus- DGE</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#transcriptome---edger---females"><i class="fa fa-check"></i><b>4.1</b> Transcriptome - edgeR - Females</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#libraries-2"><i class="fa fa-check"></i><b>4.1.1</b> Libraries</a></li>
+<li class="chapter" data-level="4.1.2" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#data-2"><i class="fa fa-check"></i><b>4.1.2</b> Data</a></li>
+<li class="chapter" data-level="4.1.3" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#differential-gene-expression-analysis-2"><i class="fa fa-check"></i><b>4.1.3</b> Differential Gene Expression Analysis</a></li>
+<li class="chapter" data-level="4.1.4" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#exploratory-plots-2"><i class="fa fa-check"></i><b>4.1.4</b> Exploratory Plots</a></li>
+<li class="chapter" data-level="4.1.5" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#test-for-degs-2"><i class="fa fa-check"></i><b>4.1.5</b> Test for DEGs</a></li>
+<li class="chapter" data-level="4.1.6" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#go-enrichment-analysis"><i class="fa fa-check"></i><b>4.1.6</b> GO Enrichment Analysis</a></li>
+<li class="chapter" data-level="4.1.7" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#kegg-analysis"><i class="fa fa-check"></i><b>4.1.7</b> KEGG Analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#genome---edger---females"><i class="fa fa-check"></i><b>4.2</b> Genome - edgeR - Females</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#libraries-3"><i class="fa fa-check"></i><b>4.2.1</b> Libraries</a></li>
+<li class="chapter" data-level="4.2.2" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#data-3"><i class="fa fa-check"></i><b>4.2.2</b> Data</a></li>
+<li class="chapter" data-level="4.2.3" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#differential-gene-expression-analysis-3"><i class="fa fa-check"></i><b>4.2.3</b> Differential Gene Expression Analysis</a></li>
+<li class="chapter" data-level="4.2.4" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#exploratory-plots-3"><i class="fa fa-check"></i><b>4.2.4</b> Exploratory Plots</a></li>
+<li class="chapter" data-level="4.2.5" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#test-for-degs-3"><i class="fa fa-check"></i><b>4.2.5</b> Test for DEGs</a></li>
+<li class="chapter" data-level="4.2.6" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#go-enrichment-analysis-1"><i class="fa fa-check"></i><b>4.2.6</b> GO Enrichment Analysis</a></li>
+<li class="chapter" data-level="4.2.7" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#kegg-analysis-1"><i class="fa fa-check"></i><b>4.2.7</b> KEGG Analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#transcriptome-null-set---edger---females"><i class="fa fa-check"></i><b>4.3</b> Transcriptome Null Set - edgeR - Females</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#libraries-4"><i class="fa fa-check"></i><b>4.3.1</b> Libraries</a></li>
+<li class="chapter" data-level="4.3.2" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#data-4"><i class="fa fa-check"></i><b>4.3.2</b> Data</a></li>
+<li class="chapter" data-level="4.3.3" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#loop-differential-gene-expression-analysis"><i class="fa fa-check"></i><b>4.3.3</b> Loop Differential Gene Expression Analysis</a></li>
+<li class="chapter" data-level="4.3.4" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#go-enrichment-analysis-2"><i class="fa fa-check"></i><b>4.3.4</b> GO Enrichment Analysis</a></li>
+<li class="chapter" data-level="4.3.5" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#kegg-analysis-2"><i class="fa fa-check"></i><b>4.3.5</b> KEGG Analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#genome-null-set---edger---females"><i class="fa fa-check"></i><b>4.4</b> Genome Null Set - edgeR - Females</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#libraries-5"><i class="fa fa-check"></i><b>4.4.1</b> Libraries</a></li>
+<li class="chapter" data-level="4.4.2" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#data-5"><i class="fa fa-check"></i><b>4.4.2</b> Data</a></li>
+<li class="chapter" data-level="4.4.3" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#loop-differential-gene-expression-analysis-1"><i class="fa fa-check"></i><b>4.4.3</b> Loop Differential Gene Expression Analysis</a></li>
+<li class="chapter" data-level="4.4.4" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#go-enrichment-analysis-3"><i class="fa fa-check"></i><b>4.4.4</b> GO Enrichment Analysis</a></li>
+<li class="chapter" data-level="4.4.5" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#kegg-analysis-3"><i class="fa fa-check"></i><b>4.4.5</b> KEGG Analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#refine-gokegg"><i class="fa fa-check"></i><b>4.5</b> Refine GO/KEGG</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#libraries-6"><i class="fa fa-check"></i><b>4.5.1</b> Libraries</a></li>
+<li class="chapter" data-level="4.5.2" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#data-6"><i class="fa fa-check"></i><b>4.5.2</b> Data</a></li>
+<li class="chapter" data-level="4.5.3" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#transcriptome-1"><i class="fa fa-check"></i><b>4.5.3</b> Transcriptome</a></li>
+<li class="chapter" data-level="4.5.4" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#genome-1"><i class="fa fa-check"></i><b>4.5.4</b> Genome</a></li>
+<li class="chapter" data-level="4.5.5" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#go-term-figure"><i class="fa fa-check"></i><b>4.5.5</b> GO Term Figure</a></li>
+<li class="chapter" data-level="4.5.6" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#immunne-go-term-genes"><i class="fa fa-check"></i><b>4.5.6</b> Immunne GO term Genes</a></li>
+<li class="chapter" data-level="4.5.7" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#kegg-table---manuscript"><i class="fa fa-check"></i><b>4.5.7</b> KEGG Table - Manuscript</a></li>
+<li class="chapter" data-level="4.5.8" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#supplemental-table"><i class="fa fa-check"></i><b>4.5.8</b> Supplemental Table</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html"><i class="fa fa-check"></i><b>5</b> Influenza Stage DGE</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#transcriptome---edger---females-1"><i class="fa fa-check"></i><b>5.1</b> Transcriptome - edgeR - Females</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#libraries-7"><i class="fa fa-check"></i><b>5.1.1</b> Libraries</a></li>
+<li class="chapter" data-level="5.1.2" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#data-7"><i class="fa fa-check"></i><b>5.1.2</b> Data</a></li>
+<li class="chapter" data-level="5.1.3" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#differential-gene-expression-analysis-4"><i class="fa fa-check"></i><b>5.1.3</b> Differential Gene Expression Analysis</a></li>
+<li class="chapter" data-level="5.1.4" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#exploratory-plots-4"><i class="fa fa-check"></i><b>5.1.4</b> Exploratory Plots</a></li>
+<li class="chapter" data-level="5.1.5" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#test-for-degs-4"><i class="fa fa-check"></i><b>5.1.5</b> Test for DEGs</a></li>
+<li class="chapter" data-level="5.1.6" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#go-enrichment-analysis-4"><i class="fa fa-check"></i><b>5.1.6</b> GO Enrichment Analysis</a></li>
+<li class="chapter" data-level="5.1.7" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#kegg-analysis-4"><i class="fa fa-check"></i><b>5.1.7</b> KEGG Analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#genome---edger---females-1"><i class="fa fa-check"></i><b>5.2</b> Genome - edgeR - Females</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#libraries-8"><i class="fa fa-check"></i><b>5.2.1</b> Libraries</a></li>
+<li class="chapter" data-level="5.2.2" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#data-8"><i class="fa fa-check"></i><b>5.2.2</b> Data</a></li>
+<li class="chapter" data-level="5.2.3" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#differential-gene-expression-analysis-5"><i class="fa fa-check"></i><b>5.2.3</b> Differential Gene Expression Analysis</a></li>
+<li class="chapter" data-level="5.2.4" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#exploratory-plots-5"><i class="fa fa-check"></i><b>5.2.4</b> Exploratory Plots</a></li>
+<li class="chapter" data-level="5.2.5" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#test-for-degs-5"><i class="fa fa-check"></i><b>5.2.5</b> Test for DEGs</a></li>
+<li class="chapter" data-level="5.2.6" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#go-enrichment-analysis-5"><i class="fa fa-check"></i><b>5.2.6</b> GO Enrichment Analysis</a></li>
+<li class="chapter" data-level="5.2.7" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#kegg-analysis-5"><i class="fa fa-check"></i><b>5.2.7</b> KEGG Analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#comapre-t-g-approach---edger---females"><i class="fa fa-check"></i><b>5.3</b> Comapre T &amp; G Approach - edgeR - Females</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#libraries-9"><i class="fa fa-check"></i><b>5.3.1</b> Libraries</a></li>
+<li class="chapter" data-level="5.3.2" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#data-9"><i class="fa fa-check"></i><b>5.3.2</b> Data</a></li>
+<li class="chapter" data-level="5.3.3" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#number-of-up-down-reg-genes"><i class="fa fa-check"></i><b>5.3.3</b> Number of up &amp; down reg genes</a></li>
+<li class="chapter" data-level="5.3.4" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#gene-identities"><i class="fa fa-check"></i><b>5.3.4</b> Gene identities</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#transcriptome-null-set---edger---females-1"><i class="fa fa-check"></i><b>5.4</b> Transcriptome Null Set - edgeR - Females</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#libraries-10"><i class="fa fa-check"></i><b>5.4.1</b> Libraries</a></li>
+<li class="chapter" data-level="5.4.2" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#data-10"><i class="fa fa-check"></i><b>5.4.2</b> Data</a></li>
+<li class="chapter" data-level="5.4.3" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#loop-differential-gene-expression-analysis-2"><i class="fa fa-check"></i><b>5.4.3</b> Loop Differential Gene Expression Analysis</a></li>
+<li class="chapter" data-level="5.4.4" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#go-enrichment-analysis-6"><i class="fa fa-check"></i><b>5.4.4</b> GO Enrichment Analysis</a></li>
+<li class="chapter" data-level="5.4.5" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#kegg-analysis-6"><i class="fa fa-check"></i><b>5.4.5</b> KEGG Analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#genome-null-set---edger---females-1"><i class="fa fa-check"></i><b>5.5</b> Genome Null Set - edgeR - Females</a>
+<ul>
+<li class="chapter" data-level="5.5.1" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#libraries-11"><i class="fa fa-check"></i><b>5.5.1</b> Libraries</a></li>
+<li class="chapter" data-level="5.5.2" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#data-11"><i class="fa fa-check"></i><b>5.5.2</b> Data</a></li>
+<li class="chapter" data-level="5.5.3" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#loop-differential-gene-expression-analysis-3"><i class="fa fa-check"></i><b>5.5.3</b> Loop Differential Gene Expression Analysis</a></li>
+<li class="chapter" data-level="5.5.4" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#go-enrichment-analysis-7"><i class="fa fa-check"></i><b>5.5.4</b> GO Enrichment Analysis</a></li>
+<li class="chapter" data-level="5.5.5" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#kegg-analysis-7"><i class="fa fa-check"></i><b>5.5.5</b> KEGG Analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="5.6" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#refine-gokegg-1"><i class="fa fa-check"></i><b>5.6</b> Refine GO/KEGG</a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#libraries-12"><i class="fa fa-check"></i><b>5.6.1</b> Libraries</a></li>
+<li class="chapter" data-level="5.6.2" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#data-12"><i class="fa fa-check"></i><b>5.6.2</b> Data</a></li>
+<li class="chapter" data-level="5.6.3" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#transcriptome-2"><i class="fa fa-check"></i><b>5.6.3</b> Transcriptome</a></li>
+<li class="chapter" data-level="5.6.4" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#genome-2"><i class="fa fa-check"></i><b>5.6.4</b> Genome</a></li>
+<li class="chapter" data-level="5.6.5" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#go-term-figure-1"><i class="fa fa-check"></i><b>5.6.5</b> GO Term Figure</a></li>
+<li class="chapter" data-level="5.6.6" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#supplemental-table-1"><i class="fa fa-check"></i><b>5.6.6</b> Supplemental Table</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="supplemental-null-set-exploratory-statistics.html"><a href="supplemental-null-set-exploratory-statistics.html"><i class="fa fa-check"></i><b>6</b> Supplemental Null Set Exploratory Statistics</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="supplemental-null-set-exploratory-statistics.html"><a href="supplemental-null-set-exploratory-statistics.html#libaries"><i class="fa fa-check"></i><b>6.1</b> Libaries</a></li>
+<li class="chapter" data-level="6.2" data-path="supplemental-null-set-exploratory-statistics.html"><a href="supplemental-null-set-exploratory-statistics.html#number-of-degs"><i class="fa fa-check"></i><b>6.2</b> Number of DEGs</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="supplemental-null-set-exploratory-statistics.html"><a href="supplemental-null-set-exploratory-statistics.html#data-13"><i class="fa fa-check"></i><b>6.2.1</b> Data</a></li>
+<li class="chapter" data-level="6.2.2" data-path="supplemental-null-set-exploratory-statistics.html"><a href="supplemental-null-set-exploratory-statistics.html#quick-stats"><i class="fa fa-check"></i><b>6.2.2</b> Quick Stats</a></li>
+<li class="chapter" data-level="6.2.3" data-path="supplemental-null-set-exploratory-statistics.html"><a href="supplemental-null-set-exploratory-statistics.html#plot-1"><i class="fa fa-check"></i><b>6.2.3</b> Plot</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="supplemental-null-set-exploratory-statistics.html"><a href="supplemental-null-set-exploratory-statistics.html#deg-frequency"><i class="fa fa-check"></i><b>6.3</b> DEG Frequency</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="supplemental-null-set-exploratory-statistics.html"><a href="supplemental-null-set-exploratory-statistics.html#data---import-configure"><i class="fa fa-check"></i><b>6.3.1</b> Data - Import &amp; Configure</a></li>
+<li class="chapter" data-level="6.3.2" data-path="supplemental-null-set-exploratory-statistics.html"><a href="supplemental-null-set-exploratory-statistics.html#plot-2"><i class="fa fa-check"></i><b>6.3.2</b> Plot</a></li>
+<li class="chapter" data-level="6.3.3" data-path="supplemental-null-set-exploratory-statistics.html"><a href="supplemental-null-set-exploratory-statistics.html#combine-gene-number-frequency-plots"><i class="fa fa-check"></i><b>6.3.3</b> Combine gene number &amp; frequency plots</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="supplemental-null-set-exploratory-statistics.html"><a href="supplemental-null-set-exploratory-statistics.html#number-of-go-terms"><i class="fa fa-check"></i><b>6.4</b> Number of GO terms</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="supplemental-null-set-exploratory-statistics.html"><a href="supplemental-null-set-exploratory-statistics.html#data---import-configure-1"><i class="fa fa-check"></i><b>6.4.1</b> Data - Import &amp; Configure</a></li>
+<li class="chapter" data-level="6.4.2" data-path="supplemental-null-set-exploratory-statistics.html"><a href="supplemental-null-set-exploratory-statistics.html#plot-3"><i class="fa fa-check"></i><b>6.4.2</b> Plot</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="supplemental-null-set-exploratory-statistics.html"><a href="supplemental-null-set-exploratory-statistics.html#number-of-kegg-pathways"><i class="fa fa-check"></i><b>6.5</b> Number of KEGG Pathways</a>
+<ul>
+<li class="chapter" data-level="6.5.1" data-path="supplemental-null-set-exploratory-statistics.html"><a href="supplemental-null-set-exploratory-statistics.html#data-14"><i class="fa fa-check"></i><b>6.5.1</b> Data</a></li>
+<li class="chapter" data-level="6.5.2" data-path="supplemental-null-set-exploratory-statistics.html"><a href="supplemental-null-set-exploratory-statistics.html#plot-4"><i class="fa fa-check"></i><b>6.5.2</b> Plot</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="influenza-dge-deseq2.html"><a href="influenza-dge-deseq2.html"><i class="fa fa-check"></i><b>7</b> Influenza DGE DESeq2</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="influenza-dge-deseq2.html"><a href="influenza-dge-deseq2.html#transcriptome---deseq2---females"><i class="fa fa-check"></i><b>7.1</b> Transcriptome - DESeq2 - Females</a>
+<ul>
+<li class="chapter" data-level="7.1.1" data-path="influenza-dge-deseq2.html"><a href="influenza-dge-deseq2.html#libraries-13"><i class="fa fa-check"></i><b>7.1.1</b> Libraries</a></li>
+<li class="chapter" data-level="7.1.2" data-path="influenza-dge-deseq2.html"><a href="influenza-dge-deseq2.html#data-15"><i class="fa fa-check"></i><b>7.1.2</b> Data</a></li>
+<li class="chapter" data-level="7.1.3" data-path="influenza-dge-deseq2.html"><a href="influenza-dge-deseq2.html#viral-rna"><i class="fa fa-check"></i><b>7.1.3</b> Viral RNA</a></li>
+<li class="chapter" data-level="7.1.4" data-path="influenza-dge-deseq2.html"><a href="influenza-dge-deseq2.html#influenza-stage"><i class="fa fa-check"></i><b>7.1.4</b> Influenza Stage</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="influenza-dge-deseq2.html"><a href="influenza-dge-deseq2.html#genome---deseq2---females"><i class="fa fa-check"></i><b>7.2</b> Genome - DESeq2 - Females</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="influenza-dge-deseq2.html"><a href="influenza-dge-deseq2.html#libraries-14"><i class="fa fa-check"></i><b>7.2.1</b> Libraries</a></li>
+<li class="chapter" data-level="7.2.2" data-path="influenza-dge-deseq2.html"><a href="influenza-dge-deseq2.html#data-16"><i class="fa fa-check"></i><b>7.2.2</b> Data</a></li>
+<li class="chapter" data-level="7.2.3" data-path="influenza-dge-deseq2.html"><a href="influenza-dge-deseq2.html#viral-rna-1"><i class="fa fa-check"></i><b>7.2.3</b> Viral RNA</a></li>
+<li class="chapter" data-level="7.2.4" data-path="influenza-dge-deseq2.html"><a href="influenza-dge-deseq2.html#influenza-stage-1"><i class="fa fa-check"></i><b>7.2.4</b> Influenza Stage</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="r-package-comparison---edger-vs-deseq2.html"><a href="r-package-comparison---edger-vs-deseq2.html"><i class="fa fa-check"></i><b>8</b> R Package Comparison - edgeR vs DESeq2</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="r-package-comparison---edger-vs-deseq2.html"><a href="r-package-comparison---edger-vs-deseq2.html#libraries-15"><i class="fa fa-check"></i><b>8.1</b> Libraries</a></li>
+<li class="chapter" data-level="8.2" data-path="r-package-comparison---edger-vs-deseq2.html"><a href="r-package-comparison---edger-vs-deseq2.html#data-17"><i class="fa fa-check"></i><b>8.2</b> Data</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="r-package-comparison---edger-vs-deseq2.html"><a href="r-package-comparison---edger-vs-deseq2.html#metadata"><i class="fa fa-check"></i><b>8.2.1</b> Metadata</a></li>
+<li class="chapter" data-level="8.2.2" data-path="r-package-comparison---edger-vs-deseq2.html"><a href="r-package-comparison---edger-vs-deseq2.html#results-from-dge-testing"><i class="fa fa-check"></i><b>8.2.2</b> Results from DGE testing</a></li>
+<li class="chapter" data-level="8.2.3" data-path="r-package-comparison---edger-vs-deseq2.html"><a href="r-package-comparison---edger-vs-deseq2.html#differentially-expressed-genes-only"><i class="fa fa-check"></i><b>8.2.3</b> Differentially expressed genes only</a></li>
+<li class="chapter" data-level="8.2.4" data-path="r-package-comparison---edger-vs-deseq2.html"><a href="r-package-comparison---edger-vs-deseq2.html#pre-filter-lists"><i class="fa fa-check"></i><b>8.2.4</b> Pre-filter lists</a></li>
+<li class="chapter" data-level="8.2.5" data-path="r-package-comparison---edger-vs-deseq2.html"><a href="r-package-comparison---edger-vs-deseq2.html#normalized-gene-counts"><i class="fa fa-check"></i><b>8.2.5</b> Normalized gene counts</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="r-package-comparison---edger-vs-deseq2.html"><a href="r-package-comparison---edger-vs-deseq2.html#edger-vs-deseq2"><i class="fa fa-check"></i><b>8.3</b> edgeR vs DESeq2</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="r-package-comparison---edger-vs-deseq2.html"><a href="r-package-comparison---edger-vs-deseq2.html#number-of-pre-vs-post-filter-genes"><i class="fa fa-check"></i><b>8.3.1</b> Number of Pre vs Post Filter Genes</a></li>
+<li class="chapter" data-level="8.3.2" data-path="r-package-comparison---edger-vs-deseq2.html"><a href="r-package-comparison---edger-vs-deseq2.html#merge-results"><i class="fa fa-check"></i><b>8.3.2</b> Merge results</a></li>
+<li class="chapter" data-level="8.3.3" data-path="r-package-comparison---edger-vs-deseq2.html"><a href="r-package-comparison---edger-vs-deseq2.html#p-value"><i class="fa fa-check"></i><b>8.3.3</b> p-value</a></li>
+<li class="chapter" data-level="8.3.4" data-path="r-package-comparison---edger-vs-deseq2.html"><a href="r-package-comparison---edger-vs-deseq2.html#logfc"><i class="fa fa-check"></i><b>8.3.4</b> log(FC)</a></li>
+<li class="chapter" data-level="8.3.5" data-path="r-package-comparison---edger-vs-deseq2.html"><a href="r-package-comparison---edger-vs-deseq2.html#log-mean-expression"><i class="fa fa-check"></i><b>8.3.5</b> log mean expression</a></li>
+<li class="chapter" data-level="8.3.6" data-path="r-package-comparison---edger-vs-deseq2.html"><a href="r-package-comparison---edger-vs-deseq2.html#dge-explortory-stats"><i class="fa fa-check"></i><b>8.3.6</b> DGE explortory stats</a></li>
+<li class="chapter" data-level="8.3.7" data-path="r-package-comparison---edger-vs-deseq2.html"><a href="r-package-comparison---edger-vs-deseq2.html#method-gene-ids"><i class="fa fa-check"></i><b>8.3.7</b> Method Gene IDs</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="r-package-comparison---edger-vs-deseq2.html"><a href="r-package-comparison---edger-vs-deseq2.html#transcriptome-vs-genome"><i class="fa fa-check"></i><b>8.4</b> Transcriptome vs Genome</a>
+<ul>
+<li class="chapter" data-level="8.4.1" data-path="r-package-comparison---edger-vs-deseq2.html"><a href="r-package-comparison---edger-vs-deseq2.html#merge-results-1"><i class="fa fa-check"></i><b>8.4.1</b> Merge results</a></li>
+<li class="chapter" data-level="8.4.2" data-path="r-package-comparison---edger-vs-deseq2.html"><a href="r-package-comparison---edger-vs-deseq2.html#p-value-1"><i class="fa fa-check"></i><b>8.4.2</b> p-value</a></li>
+<li class="chapter" data-level="8.4.3" data-path="r-package-comparison---edger-vs-deseq2.html"><a href="r-package-comparison---edger-vs-deseq2.html#logfc-1"><i class="fa fa-check"></i><b>8.4.3</b> log(FC)</a></li>
+<li class="chapter" data-level="8.4.4" data-path="r-package-comparison---edger-vs-deseq2.html"><a href="r-package-comparison---edger-vs-deseq2.html#log-mean-expression-1"><i class="fa fa-check"></i><b>8.4.4</b> log mean expression</a></li>
+<li class="chapter" data-level="8.4.5" data-path="r-package-comparison---edger-vs-deseq2.html"><a href="r-package-comparison---edger-vs-deseq2.html#pca-plots-6"><i class="fa fa-check"></i><b>8.4.5</b> PCA plots</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="iav-kegg-pathway-candidate-gene-analysis.html"><a href="iav-kegg-pathway-candidate-gene-analysis.html"><i class="fa fa-check"></i><b>9</b> IAV Kegg Pathway Candidate Gene Analysis</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="iav-kegg-pathway-candidate-gene-analysis.html"><a href="iav-kegg-pathway-candidate-gene-analysis.html#libraries-16"><i class="fa fa-check"></i><b>9.1</b> Libraries</a></li>
+<li class="chapter" data-level="9.2" data-path="iav-kegg-pathway-candidate-gene-analysis.html"><a href="iav-kegg-pathway-candidate-gene-analysis.html#data-18"><i class="fa fa-check"></i><b>9.2</b> Data</a></li>
+<li class="chapter" data-level="9.3" data-path="iav-kegg-pathway-candidate-gene-analysis.html"><a href="iav-kegg-pathway-candidate-gene-analysis.html#extract-genes-from-kegg-pathway"><i class="fa fa-check"></i><b>9.3</b> Extract genes from KEGG Pathway</a></li>
+<li class="chapter" data-level="9.4" data-path="iav-kegg-pathway-candidate-gene-analysis.html"><a href="iav-kegg-pathway-candidate-gene-analysis.html#overlap-with-gene-lists"><i class="fa fa-check"></i><b>9.4</b> Overlap with Gene Lists</a>
+<ul>
+<li class="chapter" data-level="9.4.1" data-path="iav-kegg-pathway-candidate-gene-analysis.html"><a href="iav-kegg-pathway-candidate-gene-analysis.html#postfilter"><i class="fa fa-check"></i><b>9.4.1</b> Postfilter</a></li>
+<li class="chapter" data-level="9.4.2" data-path="iav-kegg-pathway-candidate-gene-analysis.html"><a href="iav-kegg-pathway-candidate-gene-analysis.html#differentially-expressed-genes"><i class="fa fa-check"></i><b>9.4.2</b> Differentially Expressed Genes</a></li>
+<li class="chapter" data-level="9.4.3" data-path="iav-kegg-pathway-candidate-gene-analysis.html"><a href="iav-kegg-pathway-candidate-gene-analysis.html#compile-gene-ids"><i class="fa fa-check"></i><b>9.4.3</b> Compile gene IDs</a></li>
+</ul></li>
+<li class="chapter" data-level="9.5" data-path="iav-kegg-pathway-candidate-gene-analysis.html"><a href="iav-kegg-pathway-candidate-gene-analysis.html#plot-pathway-map"><i class="fa fa-check"></i><b>9.5</b> Plot pathway map</a>
+<ul>
+<li class="chapter" data-level="9.5.1" data-path="iav-kegg-pathway-candidate-gene-analysis.html"><a href="iav-kegg-pathway-candidate-gene-analysis.html#create-legend"><i class="fa fa-check"></i><b>9.5.1</b> Create Legend</a></li>
+</ul></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Untitled</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="supplemental-null-set-exploratory-statistics" class="section level1 hasAnchor" number="6">
+<h1><span class="header-section-number">6</span> Supplemental Null Set Exploratory Statistics<a href="supplemental-null-set-exploratory-statistics.html#supplemental-null-set-exploratory-statistics" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="libaries" class="section level2 hasAnchor" number="6.1">
+<h2><span class="header-section-number">6.1</span> Libaries<a href="supplemental-null-set-exploratory-statistics.html#libaries" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb340"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb340-1"><a href="supplemental-null-set-exploratory-statistics.html#cb340-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb340-2"><a href="supplemental-null-set-exploratory-statistics.html#cb340-2" tabindex="-1"></a><span class="fu">library</span>(ggh4x)</span></code></pre></div>
+</div>
+<div id="number-of-degs" class="section level2 hasAnchor" number="6.2">
+<h2><span class="header-section-number">6.2</span> Number of DEGs<a href="supplemental-null-set-exploratory-statistics.html#number-of-degs" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="data-13" class="section level3 hasAnchor" number="6.2.1">
+<h3><span class="header-section-number">6.2.1</span> Data<a href="supplemental-null-set-exploratory-statistics.html#data-13" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb341"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb341-1"><a href="supplemental-null-set-exploratory-statistics.html#cb341-1" tabindex="-1"></a>t_virus_genes <span class="ot">&lt;-</span> </span>
+<span id="cb341-2"><a href="supplemental-null-set-exploratory-statistics.html#cb341-2" tabindex="-1"></a>  <span class="fu">read.csv</span>(<span class="st">&quot;Output Files/txome_female_edgeR_viralRNA_null_DEG.csv&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb341-3"><a href="supplemental-null-set-exploratory-statistics.html#cb341-3" tabindex="-1"></a>  <span class="fu">as.list</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb341-4"><a href="supplemental-null-set-exploratory-statistics.html#cb341-4" tabindex="-1"></a>  <span class="fu">lapply</span>(., <span class="cf">function</span>(x) x[<span class="sc">!</span><span class="fu">is.na</span>(x)]) <span class="sc">%&gt;%</span> </span>
+<span id="cb341-5"><a href="supplemental-null-set-exploratory-statistics.html#cb341-5" tabindex="-1"></a>  <span class="fu">lengths</span>(., <span class="at">use.names=</span><span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb341-6"><a href="supplemental-null-set-exploratory-statistics.html#cb341-6" tabindex="-1"></a>  <span class="fu">data.frame</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb341-7"><a href="supplemental-null-set-exploratory-statistics.html#cb341-7" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">approach=</span><span class="st">&quot;Transcriptome&quot;</span>, </span>
+<span id="cb341-8"><a href="supplemental-null-set-exploratory-statistics.html#cb341-8" tabindex="-1"></a>         <span class="at">stage=</span><span class="st">&quot;V+ vs V-&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb341-9"><a href="supplemental-null-set-exploratory-statistics.html#cb341-9" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="st">&quot;genes&quot;</span> <span class="ot">=</span> <span class="st">&quot;.&quot;</span>)</span>
+<span id="cb341-10"><a href="supplemental-null-set-exploratory-statistics.html#cb341-10" tabindex="-1"></a></span>
+<span id="cb341-11"><a href="supplemental-null-set-exploratory-statistics.html#cb341-11" tabindex="-1"></a>t_acute_genes <span class="ot">&lt;-</span> </span>
+<span id="cb341-12"><a href="supplemental-null-set-exploratory-statistics.html#cb341-12" tabindex="-1"></a>  <span class="fu">read.csv</span>(<span class="st">&quot;Output Files/txome_female_edgeR_null_DEG_acute.csv&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb341-13"><a href="supplemental-null-set-exploratory-statistics.html#cb341-13" tabindex="-1"></a>  <span class="fu">as.list</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb341-14"><a href="supplemental-null-set-exploratory-statistics.html#cb341-14" tabindex="-1"></a>  <span class="fu">lapply</span>(., <span class="cf">function</span>(x) x[<span class="sc">!</span><span class="fu">is.na</span>(x)]) <span class="sc">%&gt;%</span> </span>
+<span id="cb341-15"><a href="supplemental-null-set-exploratory-statistics.html#cb341-15" tabindex="-1"></a>  <span class="fu">lengths</span>(., <span class="at">use.names=</span><span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb341-16"><a href="supplemental-null-set-exploratory-statistics.html#cb341-16" tabindex="-1"></a>  <span class="fu">data.frame</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb341-17"><a href="supplemental-null-set-exploratory-statistics.html#cb341-17" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">approach=</span><span class="st">&quot;Transcriptome&quot;</span>, </span>
+<span id="cb341-18"><a href="supplemental-null-set-exploratory-statistics.html#cb341-18" tabindex="-1"></a>         <span class="at">stage=</span><span class="st">&quot;Acute&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb341-19"><a href="supplemental-null-set-exploratory-statistics.html#cb341-19" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="st">&quot;genes&quot;</span> <span class="ot">=</span> <span class="st">&quot;.&quot;</span>)</span>
+<span id="cb341-20"><a href="supplemental-null-set-exploratory-statistics.html#cb341-20" tabindex="-1"></a></span>
+<span id="cb341-21"><a href="supplemental-null-set-exploratory-statistics.html#cb341-21" tabindex="-1"></a>t_peak_genes <span class="ot">&lt;-</span> </span>
+<span id="cb341-22"><a href="supplemental-null-set-exploratory-statistics.html#cb341-22" tabindex="-1"></a>  <span class="fu">read.csv</span>(<span class="st">&quot;Output Files/txome_female_edgeR_null_DEG_peak.csv&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb341-23"><a href="supplemental-null-set-exploratory-statistics.html#cb341-23" tabindex="-1"></a>  <span class="fu">as.list</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb341-24"><a href="supplemental-null-set-exploratory-statistics.html#cb341-24" tabindex="-1"></a>  <span class="fu">lapply</span>(., <span class="cf">function</span>(x) x[<span class="sc">!</span><span class="fu">is.na</span>(x)]) <span class="sc">%&gt;%</span> </span>
+<span id="cb341-25"><a href="supplemental-null-set-exploratory-statistics.html#cb341-25" tabindex="-1"></a>  <span class="fu">lengths</span>(., <span class="at">use.names=</span><span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb341-26"><a href="supplemental-null-set-exploratory-statistics.html#cb341-26" tabindex="-1"></a>  <span class="fu">data.frame</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb341-27"><a href="supplemental-null-set-exploratory-statistics.html#cb341-27" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">approach=</span><span class="st">&quot;Transcriptome&quot;</span>, </span>
+<span id="cb341-28"><a href="supplemental-null-set-exploratory-statistics.html#cb341-28" tabindex="-1"></a>         <span class="at">stage=</span><span class="st">&quot;Peak&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb341-29"><a href="supplemental-null-set-exploratory-statistics.html#cb341-29" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="st">&quot;genes&quot;</span> <span class="ot">=</span> <span class="st">&quot;.&quot;</span>)</span>
+<span id="cb341-30"><a href="supplemental-null-set-exploratory-statistics.html#cb341-30" tabindex="-1"></a></span>
+<span id="cb341-31"><a href="supplemental-null-set-exploratory-statistics.html#cb341-31" tabindex="-1"></a>t_late_genes <span class="ot">&lt;-</span> </span>
+<span id="cb341-32"><a href="supplemental-null-set-exploratory-statistics.html#cb341-32" tabindex="-1"></a>  <span class="fu">read.csv</span>(<span class="st">&quot;Output Files/txome_female_edgeR_null_DEG_late.csv&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb341-33"><a href="supplemental-null-set-exploratory-statistics.html#cb341-33" tabindex="-1"></a>  <span class="fu">as.list</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb341-34"><a href="supplemental-null-set-exploratory-statistics.html#cb341-34" tabindex="-1"></a>  <span class="fu">lapply</span>(., <span class="cf">function</span>(x) x[<span class="sc">!</span><span class="fu">is.na</span>(x)]) <span class="sc">%&gt;%</span> </span>
+<span id="cb341-35"><a href="supplemental-null-set-exploratory-statistics.html#cb341-35" tabindex="-1"></a>  <span class="fu">lengths</span>(., <span class="at">use.names=</span><span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb341-36"><a href="supplemental-null-set-exploratory-statistics.html#cb341-36" tabindex="-1"></a>  <span class="fu">data.frame</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb341-37"><a href="supplemental-null-set-exploratory-statistics.html#cb341-37" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">approach=</span><span class="st">&quot;Transcriptome&quot;</span>, </span>
+<span id="cb341-38"><a href="supplemental-null-set-exploratory-statistics.html#cb341-38" tabindex="-1"></a>         <span class="at">stage=</span><span class="st">&quot;Late&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb341-39"><a href="supplemental-null-set-exploratory-statistics.html#cb341-39" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="st">&quot;genes&quot;</span> <span class="ot">=</span> <span class="st">&quot;.&quot;</span>)</span>
+<span id="cb341-40"><a href="supplemental-null-set-exploratory-statistics.html#cb341-40" tabindex="-1"></a></span>
+<span id="cb341-41"><a href="supplemental-null-set-exploratory-statistics.html#cb341-41" tabindex="-1"></a>g_virus_genes <span class="ot">&lt;-</span> </span>
+<span id="cb341-42"><a href="supplemental-null-set-exploratory-statistics.html#cb341-42" tabindex="-1"></a>  <span class="fu">read.csv</span>(<span class="st">&quot;Output Files/gnome_female_edgeR_viralRNA_null_DEG.csv&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb341-43"><a href="supplemental-null-set-exploratory-statistics.html#cb341-43" tabindex="-1"></a>  <span class="fu">as.list</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb341-44"><a href="supplemental-null-set-exploratory-statistics.html#cb341-44" tabindex="-1"></a>  <span class="fu">lapply</span>(., <span class="cf">function</span>(x) x[<span class="sc">!</span><span class="fu">is.na</span>(x)]) <span class="sc">%&gt;%</span> </span>
+<span id="cb341-45"><a href="supplemental-null-set-exploratory-statistics.html#cb341-45" tabindex="-1"></a>  <span class="fu">lengths</span>(., <span class="at">use.names=</span><span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb341-46"><a href="supplemental-null-set-exploratory-statistics.html#cb341-46" tabindex="-1"></a>  <span class="fu">data.frame</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb341-47"><a href="supplemental-null-set-exploratory-statistics.html#cb341-47" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">approach=</span><span class="st">&quot;Genome&quot;</span>, </span>
+<span id="cb341-48"><a href="supplemental-null-set-exploratory-statistics.html#cb341-48" tabindex="-1"></a>         <span class="at">stage=</span><span class="st">&quot;V+ vs V-&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb341-49"><a href="supplemental-null-set-exploratory-statistics.html#cb341-49" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="st">&quot;genes&quot;</span> <span class="ot">=</span> <span class="st">&quot;.&quot;</span>)</span>
+<span id="cb341-50"><a href="supplemental-null-set-exploratory-statistics.html#cb341-50" tabindex="-1"></a></span>
+<span id="cb341-51"><a href="supplemental-null-set-exploratory-statistics.html#cb341-51" tabindex="-1"></a>g_acute_genes <span class="ot">&lt;-</span> </span>
+<span id="cb341-52"><a href="supplemental-null-set-exploratory-statistics.html#cb341-52" tabindex="-1"></a>  <span class="fu">read.csv</span>(<span class="st">&quot;Output Files/gnome_female_edgeR_null_DEG_acute.csv&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb341-53"><a href="supplemental-null-set-exploratory-statistics.html#cb341-53" tabindex="-1"></a>  <span class="fu">as.list</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb341-54"><a href="supplemental-null-set-exploratory-statistics.html#cb341-54" tabindex="-1"></a>  <span class="fu">lapply</span>(., <span class="cf">function</span>(x) x[<span class="sc">!</span><span class="fu">is.na</span>(x)]) <span class="sc">%&gt;%</span> </span>
+<span id="cb341-55"><a href="supplemental-null-set-exploratory-statistics.html#cb341-55" tabindex="-1"></a>  <span class="fu">lengths</span>(., <span class="at">use.names=</span><span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb341-56"><a href="supplemental-null-set-exploratory-statistics.html#cb341-56" tabindex="-1"></a>  <span class="fu">data.frame</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb341-57"><a href="supplemental-null-set-exploratory-statistics.html#cb341-57" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">approach=</span><span class="st">&quot;Genome&quot;</span>, </span>
+<span id="cb341-58"><a href="supplemental-null-set-exploratory-statistics.html#cb341-58" tabindex="-1"></a>         <span class="at">stage=</span><span class="st">&quot;Acute&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb341-59"><a href="supplemental-null-set-exploratory-statistics.html#cb341-59" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="st">&quot;genes&quot;</span> <span class="ot">=</span> <span class="st">&quot;.&quot;</span>)</span>
+<span id="cb341-60"><a href="supplemental-null-set-exploratory-statistics.html#cb341-60" tabindex="-1"></a></span>
+<span id="cb341-61"><a href="supplemental-null-set-exploratory-statistics.html#cb341-61" tabindex="-1"></a>g_peak_genes <span class="ot">&lt;-</span> </span>
+<span id="cb341-62"><a href="supplemental-null-set-exploratory-statistics.html#cb341-62" tabindex="-1"></a>  <span class="fu">read.csv</span>(<span class="st">&quot;Output Files/gnome_female_edgeR_null_DEG_peak.csv&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb341-63"><a href="supplemental-null-set-exploratory-statistics.html#cb341-63" tabindex="-1"></a>  <span class="fu">as.list</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb341-64"><a href="supplemental-null-set-exploratory-statistics.html#cb341-64" tabindex="-1"></a>  <span class="fu">lapply</span>(., <span class="cf">function</span>(x) x[<span class="sc">!</span><span class="fu">is.na</span>(x)]) <span class="sc">%&gt;%</span> </span>
+<span id="cb341-65"><a href="supplemental-null-set-exploratory-statistics.html#cb341-65" tabindex="-1"></a>  <span class="fu">lengths</span>(., <span class="at">use.names=</span><span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb341-66"><a href="supplemental-null-set-exploratory-statistics.html#cb341-66" tabindex="-1"></a>  <span class="fu">data.frame</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb341-67"><a href="supplemental-null-set-exploratory-statistics.html#cb341-67" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">approach=</span><span class="st">&quot;Genome&quot;</span>, </span>
+<span id="cb341-68"><a href="supplemental-null-set-exploratory-statistics.html#cb341-68" tabindex="-1"></a>         <span class="at">stage=</span><span class="st">&quot;Peak&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb341-69"><a href="supplemental-null-set-exploratory-statistics.html#cb341-69" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="st">&quot;genes&quot;</span> <span class="ot">=</span> <span class="st">&quot;.&quot;</span>)</span>
+<span id="cb341-70"><a href="supplemental-null-set-exploratory-statistics.html#cb341-70" tabindex="-1"></a></span>
+<span id="cb341-71"><a href="supplemental-null-set-exploratory-statistics.html#cb341-71" tabindex="-1"></a>g_late_genes <span class="ot">&lt;-</span> </span>
+<span id="cb341-72"><a href="supplemental-null-set-exploratory-statistics.html#cb341-72" tabindex="-1"></a>  <span class="fu">read.csv</span>(<span class="st">&quot;Output Files/gnome_female_edgeR_null_DEG_late.csv&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb341-73"><a href="supplemental-null-set-exploratory-statistics.html#cb341-73" tabindex="-1"></a>  <span class="fu">as.list</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb341-74"><a href="supplemental-null-set-exploratory-statistics.html#cb341-74" tabindex="-1"></a>  <span class="fu">lapply</span>(., <span class="cf">function</span>(x) x[<span class="sc">!</span><span class="fu">is.na</span>(x)]) <span class="sc">%&gt;%</span> </span>
+<span id="cb341-75"><a href="supplemental-null-set-exploratory-statistics.html#cb341-75" tabindex="-1"></a>  <span class="fu">lengths</span>(., <span class="at">use.names=</span><span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb341-76"><a href="supplemental-null-set-exploratory-statistics.html#cb341-76" tabindex="-1"></a>  <span class="fu">data.frame</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb341-77"><a href="supplemental-null-set-exploratory-statistics.html#cb341-77" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">approach=</span><span class="st">&quot;Genome&quot;</span>, </span>
+<span id="cb341-78"><a href="supplemental-null-set-exploratory-statistics.html#cb341-78" tabindex="-1"></a>         <span class="at">stage=</span><span class="st">&quot;Late&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb341-79"><a href="supplemental-null-set-exploratory-statistics.html#cb341-79" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="st">&quot;genes&quot;</span> <span class="ot">=</span> <span class="st">&quot;.&quot;</span>)</span>
+<span id="cb341-80"><a href="supplemental-null-set-exploratory-statistics.html#cb341-80" tabindex="-1"></a></span>
+<span id="cb341-81"><a href="supplemental-null-set-exploratory-statistics.html#cb341-81" tabindex="-1"></a></span>
+<span id="cb341-82"><a href="supplemental-null-set-exploratory-statistics.html#cb341-82" tabindex="-1"></a>genes <span class="ot">&lt;-</span> </span>
+<span id="cb341-83"><a href="supplemental-null-set-exploratory-statistics.html#cb341-83" tabindex="-1"></a>  <span class="fu">rbind</span>(t_virus_genes, g_virus_genes,</span>
+<span id="cb341-84"><a href="supplemental-null-set-exploratory-statistics.html#cb341-84" tabindex="-1"></a>        t_acute_genes, t_peak_genes, t_late_genes,</span>
+<span id="cb341-85"><a href="supplemental-null-set-exploratory-statistics.html#cb341-85" tabindex="-1"></a>        g_acute_genes, g_peak_genes, g_late_genes) <span class="sc">%&gt;%</span> </span>
+<span id="cb341-86"><a href="supplemental-null-set-exploratory-statistics.html#cb341-86" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">approach=</span><span class="fu">factor</span>(approach, <span class="at">levels=</span><span class="fu">c</span>(<span class="st">&quot;Transcriptome&quot;</span>, <span class="st">&quot;Genome&quot;</span>)),</span>
+<span id="cb341-87"><a href="supplemental-null-set-exploratory-statistics.html#cb341-87" tabindex="-1"></a>         <span class="at">stage=</span><span class="fu">factor</span>(stage, <span class="at">levels=</span><span class="fu">c</span>(<span class="st">&quot;V+ vs V-&quot;</span>, <span class="st">&quot;Acute&quot;</span>, <span class="st">&quot;Peak&quot;</span>, <span class="st">&quot;Late&quot;</span>)))</span></code></pre></div>
+</div>
+<div id="quick-stats" class="section level3 hasAnchor" number="6.2.2">
+<h3><span class="header-section-number">6.2.2</span> Quick Stats<a href="supplemental-null-set-exploratory-statistics.html#quick-stats" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb342"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb342-1"><a href="supplemental-null-set-exploratory-statistics.html#cb342-1" tabindex="-1"></a><span class="fu">range</span>(t_virus_genes<span class="sc">$</span>genes)</span>
+<span id="cb342-2"><a href="supplemental-null-set-exploratory-statistics.html#cb342-2" tabindex="-1"></a><span class="fu">range</span>(g_virus_genes<span class="sc">$</span>genes)</span>
+<span id="cb342-3"><a href="supplemental-null-set-exploratory-statistics.html#cb342-3" tabindex="-1"></a></span>
+<span id="cb342-4"><a href="supplemental-null-set-exploratory-statistics.html#cb342-4" tabindex="-1"></a><span class="fu">range</span>(t_acute_genes<span class="sc">$</span>genes)</span>
+<span id="cb342-5"><a href="supplemental-null-set-exploratory-statistics.html#cb342-5" tabindex="-1"></a><span class="fu">range</span>(t_peak_genes<span class="sc">$</span>genes)</span>
+<span id="cb342-6"><a href="supplemental-null-set-exploratory-statistics.html#cb342-6" tabindex="-1"></a><span class="fu">range</span>(t_late_genes<span class="sc">$</span>genes)</span>
+<span id="cb342-7"><a href="supplemental-null-set-exploratory-statistics.html#cb342-7" tabindex="-1"></a></span>
+<span id="cb342-8"><a href="supplemental-null-set-exploratory-statistics.html#cb342-8" tabindex="-1"></a><span class="fu">range</span>(g_acute_genes<span class="sc">$</span>genes)</span>
+<span id="cb342-9"><a href="supplemental-null-set-exploratory-statistics.html#cb342-9" tabindex="-1"></a><span class="fu">range</span>(g_peak_genes<span class="sc">$</span>genes)</span>
+<span id="cb342-10"><a href="supplemental-null-set-exploratory-statistics.html#cb342-10" tabindex="-1"></a><span class="fu">range</span>(g_late_genes<span class="sc">$</span>genes)</span>
+<span id="cb342-11"><a href="supplemental-null-set-exploratory-statistics.html#cb342-11" tabindex="-1"></a></span>
+<span id="cb342-12"><a href="supplemental-null-set-exploratory-statistics.html#cb342-12" tabindex="-1"></a><span class="fu">range</span>(t_acute_genefreq<span class="sc">$</span>Freq)</span>
+<span id="cb342-13"><a href="supplemental-null-set-exploratory-statistics.html#cb342-13" tabindex="-1"></a><span class="fu">range</span>(t_peak_genefreq<span class="sc">$</span>Freq)</span>
+<span id="cb342-14"><a href="supplemental-null-set-exploratory-statistics.html#cb342-14" tabindex="-1"></a><span class="fu">range</span>(t_late_genefreq<span class="sc">$</span>Freq)</span>
+<span id="cb342-15"><a href="supplemental-null-set-exploratory-statistics.html#cb342-15" tabindex="-1"></a></span>
+<span id="cb342-16"><a href="supplemental-null-set-exploratory-statistics.html#cb342-16" tabindex="-1"></a><span class="fu">range</span>(g_acute_genefreq<span class="sc">$</span>Freq)</span>
+<span id="cb342-17"><a href="supplemental-null-set-exploratory-statistics.html#cb342-17" tabindex="-1"></a><span class="fu">range</span>(g_peak_genefreq<span class="sc">$</span>Freq)</span>
+<span id="cb342-18"><a href="supplemental-null-set-exploratory-statistics.html#cb342-18" tabindex="-1"></a><span class="fu">range</span>(g_late_genefreq<span class="sc">$</span>Freq)</span></code></pre></div>
+</div>
+<div id="plot-1" class="section level3 hasAnchor" number="6.2.3">
+<h3><span class="header-section-number">6.2.3</span> Plot<a href="supplemental-null-set-exploratory-statistics.html#plot-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb343"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb343-1"><a href="supplemental-null-set-exploratory-statistics.html#cb343-1" tabindex="-1"></a>null_genes_plot <span class="ot">&lt;-</span></span>
+<span id="cb343-2"><a href="supplemental-null-set-exploratory-statistics.html#cb343-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(genes, <span class="fu">aes</span>(<span class="at">x=</span>stage, <span class="at">y=</span><span class="fu">log</span>(genes))) <span class="sc">+</span></span>
+<span id="cb343-3"><a href="supplemental-null-set-exploratory-statistics.html#cb343-3" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb343-4"><a href="supplemental-null-set-exploratory-statistics.html#cb343-4" tabindex="-1"></a>  <span class="fu">facet_grid</span>(<span class="sc">~</span>approach) <span class="sc">+</span></span>
+<span id="cb343-5"><a href="supplemental-null-set-exploratory-statistics.html#cb343-5" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span> <span class="cn">NULL</span>, <span class="at">y=</span><span class="st">&quot;log(# DEGs) per Trial&quot;</span>) <span class="sc">+</span></span>
+<span id="cb343-6"><a href="supplemental-null-set-exploratory-statistics.html#cb343-6" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb343-7"><a href="supplemental-null-set-exploratory-statistics.html#cb343-7" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">panel.grid=</span><span class="fu">element_blank</span>())</span></code></pre></div>
+</div>
+</div>
+<div id="deg-frequency" class="section level2 hasAnchor" number="6.3">
+<h2><span class="header-section-number">6.3</span> DEG Frequency<a href="supplemental-null-set-exploratory-statistics.html#deg-frequency" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="data---import-configure" class="section level3 hasAnchor" number="6.3.1">
+<h3><span class="header-section-number">6.3.1</span> Data - Import &amp; Configure<a href="supplemental-null-set-exploratory-statistics.html#data---import-configure" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb344"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb344-1"><a href="supplemental-null-set-exploratory-statistics.html#cb344-1" tabindex="-1"></a>t_virus_genefreq <span class="ot">&lt;-</span> </span>
+<span id="cb344-2"><a href="supplemental-null-set-exploratory-statistics.html#cb344-2" tabindex="-1"></a>  <span class="fu">read.csv</span>(<span class="st">&quot;Output Files/txome_female_edgeR_viralRNA_null_DEG.csv&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb344-3"><a href="supplemental-null-set-exploratory-statistics.html#cb344-3" tabindex="-1"></a>  <span class="fu">as.list</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb344-4"><a href="supplemental-null-set-exploratory-statistics.html#cb344-4" tabindex="-1"></a>  <span class="fu">lapply</span>(., <span class="cf">function</span>(x) x[<span class="sc">!</span><span class="fu">is.na</span>(x)]) <span class="sc">%&gt;%</span> </span>
+<span id="cb344-5"><a href="supplemental-null-set-exploratory-statistics.html#cb344-5" tabindex="-1"></a>  <span class="fu">unlist</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb344-6"><a href="supplemental-null-set-exploratory-statistics.html#cb344-6" tabindex="-1"></a>  <span class="fu">table</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb344-7"><a href="supplemental-null-set-exploratory-statistics.html#cb344-7" tabindex="-1"></a>  <span class="fu">data.frame</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb344-8"><a href="supplemental-null-set-exploratory-statistics.html#cb344-8" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">approach=</span><span class="st">&quot;Transcriptome&quot;</span>, </span>
+<span id="cb344-9"><a href="supplemental-null-set-exploratory-statistics.html#cb344-9" tabindex="-1"></a>         <span class="at">stage=</span><span class="st">&quot;V+ vs V-&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb344-10"><a href="supplemental-null-set-exploratory-statistics.html#cb344-10" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="st">&quot;genes&quot;</span> <span class="ot">=</span> <span class="st">&quot;.&quot;</span>)</span>
+<span id="cb344-11"><a href="supplemental-null-set-exploratory-statistics.html#cb344-11" tabindex="-1"></a></span>
+<span id="cb344-12"><a href="supplemental-null-set-exploratory-statistics.html#cb344-12" tabindex="-1"></a>t_acute_genefreq <span class="ot">&lt;-</span> </span>
+<span id="cb344-13"><a href="supplemental-null-set-exploratory-statistics.html#cb344-13" tabindex="-1"></a>  <span class="fu">read.csv</span>(<span class="st">&quot;Output Files/txome_female_edgeR_null_DEG_acute.csv&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb344-14"><a href="supplemental-null-set-exploratory-statistics.html#cb344-14" tabindex="-1"></a>  <span class="fu">as.list</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb344-15"><a href="supplemental-null-set-exploratory-statistics.html#cb344-15" tabindex="-1"></a>  <span class="fu">lapply</span>(., <span class="cf">function</span>(x) x[<span class="sc">!</span><span class="fu">is.na</span>(x)]) <span class="sc">%&gt;%</span> </span>
+<span id="cb344-16"><a href="supplemental-null-set-exploratory-statistics.html#cb344-16" tabindex="-1"></a>  <span class="fu">unlist</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb344-17"><a href="supplemental-null-set-exploratory-statistics.html#cb344-17" tabindex="-1"></a>  <span class="fu">table</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb344-18"><a href="supplemental-null-set-exploratory-statistics.html#cb344-18" tabindex="-1"></a>  <span class="fu">data.frame</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb344-19"><a href="supplemental-null-set-exploratory-statistics.html#cb344-19" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">approach=</span><span class="st">&quot;Transcriptome&quot;</span>, </span>
+<span id="cb344-20"><a href="supplemental-null-set-exploratory-statistics.html#cb344-20" tabindex="-1"></a>         <span class="at">stage=</span><span class="st">&quot;Acute&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb344-21"><a href="supplemental-null-set-exploratory-statistics.html#cb344-21" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="st">&quot;genes&quot;</span> <span class="ot">=</span> <span class="st">&quot;.&quot;</span>)</span>
+<span id="cb344-22"><a href="supplemental-null-set-exploratory-statistics.html#cb344-22" tabindex="-1"></a></span>
+<span id="cb344-23"><a href="supplemental-null-set-exploratory-statistics.html#cb344-23" tabindex="-1"></a>t_peak_genefreq <span class="ot">&lt;-</span> </span>
+<span id="cb344-24"><a href="supplemental-null-set-exploratory-statistics.html#cb344-24" tabindex="-1"></a>  <span class="fu">read.csv</span>(<span class="st">&quot;Output Files/txome_female_edgeR_null_DEG_peak.csv&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb344-25"><a href="supplemental-null-set-exploratory-statistics.html#cb344-25" tabindex="-1"></a>  <span class="fu">as.list</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb344-26"><a href="supplemental-null-set-exploratory-statistics.html#cb344-26" tabindex="-1"></a>  <span class="fu">lapply</span>(., <span class="cf">function</span>(x) x[<span class="sc">!</span><span class="fu">is.na</span>(x)]) <span class="sc">%&gt;%</span> </span>
+<span id="cb344-27"><a href="supplemental-null-set-exploratory-statistics.html#cb344-27" tabindex="-1"></a>  <span class="fu">unlist</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb344-28"><a href="supplemental-null-set-exploratory-statistics.html#cb344-28" tabindex="-1"></a>  <span class="fu">table</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb344-29"><a href="supplemental-null-set-exploratory-statistics.html#cb344-29" tabindex="-1"></a>  <span class="fu">data.frame</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb344-30"><a href="supplemental-null-set-exploratory-statistics.html#cb344-30" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">approach=</span><span class="st">&quot;Transcriptome&quot;</span>, </span>
+<span id="cb344-31"><a href="supplemental-null-set-exploratory-statistics.html#cb344-31" tabindex="-1"></a>         <span class="at">stage=</span><span class="st">&quot;Peak&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb344-32"><a href="supplemental-null-set-exploratory-statistics.html#cb344-32" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="st">&quot;genes&quot;</span> <span class="ot">=</span> <span class="st">&quot;.&quot;</span>)</span>
+<span id="cb344-33"><a href="supplemental-null-set-exploratory-statistics.html#cb344-33" tabindex="-1"></a></span>
+<span id="cb344-34"><a href="supplemental-null-set-exploratory-statistics.html#cb344-34" tabindex="-1"></a>t_late_genefreq <span class="ot">&lt;-</span> </span>
+<span id="cb344-35"><a href="supplemental-null-set-exploratory-statistics.html#cb344-35" tabindex="-1"></a>  <span class="fu">read.csv</span>(<span class="st">&quot;Output Files/txome_female_edgeR_null_DEG_late.csv&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb344-36"><a href="supplemental-null-set-exploratory-statistics.html#cb344-36" tabindex="-1"></a>  <span class="fu">as.list</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb344-37"><a href="supplemental-null-set-exploratory-statistics.html#cb344-37" tabindex="-1"></a>  <span class="fu">lapply</span>(., <span class="cf">function</span>(x) x[<span class="sc">!</span><span class="fu">is.na</span>(x)]) <span class="sc">%&gt;%</span> </span>
+<span id="cb344-38"><a href="supplemental-null-set-exploratory-statistics.html#cb344-38" tabindex="-1"></a>  <span class="fu">unlist</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb344-39"><a href="supplemental-null-set-exploratory-statistics.html#cb344-39" tabindex="-1"></a>  <span class="fu">table</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb344-40"><a href="supplemental-null-set-exploratory-statistics.html#cb344-40" tabindex="-1"></a>  <span class="fu">data.frame</span>() <span class="sc">%&gt;%</span>  </span>
+<span id="cb344-41"><a href="supplemental-null-set-exploratory-statistics.html#cb344-41" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">approach=</span><span class="st">&quot;Transcriptome&quot;</span>, </span>
+<span id="cb344-42"><a href="supplemental-null-set-exploratory-statistics.html#cb344-42" tabindex="-1"></a>         <span class="at">stage=</span><span class="st">&quot;Late&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb344-43"><a href="supplemental-null-set-exploratory-statistics.html#cb344-43" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="st">&quot;genes&quot;</span> <span class="ot">=</span> <span class="st">&quot;.&quot;</span>)</span>
+<span id="cb344-44"><a href="supplemental-null-set-exploratory-statistics.html#cb344-44" tabindex="-1"></a></span>
+<span id="cb344-45"><a href="supplemental-null-set-exploratory-statistics.html#cb344-45" tabindex="-1"></a></span>
+<span id="cb344-46"><a href="supplemental-null-set-exploratory-statistics.html#cb344-46" tabindex="-1"></a>g_virus_genefreq <span class="ot">&lt;-</span> </span>
+<span id="cb344-47"><a href="supplemental-null-set-exploratory-statistics.html#cb344-47" tabindex="-1"></a>  <span class="fu">read.csv</span>(<span class="st">&quot;Output Files/gnome_female_edgeR_viralRNA_null_DEG.csv&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb344-48"><a href="supplemental-null-set-exploratory-statistics.html#cb344-48" tabindex="-1"></a>  <span class="fu">as.list</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb344-49"><a href="supplemental-null-set-exploratory-statistics.html#cb344-49" tabindex="-1"></a>  <span class="fu">lapply</span>(., <span class="cf">function</span>(x) x[<span class="sc">!</span><span class="fu">is.na</span>(x)]) <span class="sc">%&gt;%</span> </span>
+<span id="cb344-50"><a href="supplemental-null-set-exploratory-statistics.html#cb344-50" tabindex="-1"></a>  <span class="fu">unlist</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb344-51"><a href="supplemental-null-set-exploratory-statistics.html#cb344-51" tabindex="-1"></a>  <span class="fu">table</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb344-52"><a href="supplemental-null-set-exploratory-statistics.html#cb344-52" tabindex="-1"></a>  <span class="fu">data.frame</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb344-53"><a href="supplemental-null-set-exploratory-statistics.html#cb344-53" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">approach=</span><span class="st">&quot;Genome&quot;</span>, </span>
+<span id="cb344-54"><a href="supplemental-null-set-exploratory-statistics.html#cb344-54" tabindex="-1"></a>         <span class="at">stage=</span><span class="st">&quot;V+ vs V-&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb344-55"><a href="supplemental-null-set-exploratory-statistics.html#cb344-55" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="st">&quot;genes&quot;</span> <span class="ot">=</span> <span class="st">&quot;.&quot;</span>)</span>
+<span id="cb344-56"><a href="supplemental-null-set-exploratory-statistics.html#cb344-56" tabindex="-1"></a></span>
+<span id="cb344-57"><a href="supplemental-null-set-exploratory-statistics.html#cb344-57" tabindex="-1"></a>g_acute_genefreq <span class="ot">&lt;-</span> </span>
+<span id="cb344-58"><a href="supplemental-null-set-exploratory-statistics.html#cb344-58" tabindex="-1"></a>  <span class="fu">read.csv</span>(<span class="st">&quot;Output Files/gnome_female_edgeR_null_DEG_acute.csv&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb344-59"><a href="supplemental-null-set-exploratory-statistics.html#cb344-59" tabindex="-1"></a>  <span class="fu">as.list</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb344-60"><a href="supplemental-null-set-exploratory-statistics.html#cb344-60" tabindex="-1"></a>  <span class="fu">lapply</span>(., <span class="cf">function</span>(x) x[<span class="sc">!</span><span class="fu">is.na</span>(x)]) <span class="sc">%&gt;%</span> </span>
+<span id="cb344-61"><a href="supplemental-null-set-exploratory-statistics.html#cb344-61" tabindex="-1"></a>  <span class="fu">unlist</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb344-62"><a href="supplemental-null-set-exploratory-statistics.html#cb344-62" tabindex="-1"></a>  <span class="fu">table</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb344-63"><a href="supplemental-null-set-exploratory-statistics.html#cb344-63" tabindex="-1"></a>  <span class="fu">data.frame</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb344-64"><a href="supplemental-null-set-exploratory-statistics.html#cb344-64" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">approach=</span><span class="st">&quot;Genome&quot;</span>, </span>
+<span id="cb344-65"><a href="supplemental-null-set-exploratory-statistics.html#cb344-65" tabindex="-1"></a>         <span class="at">stage=</span><span class="st">&quot;Acute&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb344-66"><a href="supplemental-null-set-exploratory-statistics.html#cb344-66" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="st">&quot;genes&quot;</span> <span class="ot">=</span> <span class="st">&quot;.&quot;</span>)</span>
+<span id="cb344-67"><a href="supplemental-null-set-exploratory-statistics.html#cb344-67" tabindex="-1"></a></span>
+<span id="cb344-68"><a href="supplemental-null-set-exploratory-statistics.html#cb344-68" tabindex="-1"></a>g_peak_genefreq <span class="ot">&lt;-</span> </span>
+<span id="cb344-69"><a href="supplemental-null-set-exploratory-statistics.html#cb344-69" tabindex="-1"></a>  <span class="fu">read.csv</span>(<span class="st">&quot;Output Files/gnome_female_edgeR_null_DEG_peak.csv&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb344-70"><a href="supplemental-null-set-exploratory-statistics.html#cb344-70" tabindex="-1"></a>  <span class="fu">as.list</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb344-71"><a href="supplemental-null-set-exploratory-statistics.html#cb344-71" tabindex="-1"></a>  <span class="fu">lapply</span>(., <span class="cf">function</span>(x) x[<span class="sc">!</span><span class="fu">is.na</span>(x)]) <span class="sc">%&gt;%</span> </span>
+<span id="cb344-72"><a href="supplemental-null-set-exploratory-statistics.html#cb344-72" tabindex="-1"></a>  <span class="fu">unlist</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb344-73"><a href="supplemental-null-set-exploratory-statistics.html#cb344-73" tabindex="-1"></a>  <span class="fu">table</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb344-74"><a href="supplemental-null-set-exploratory-statistics.html#cb344-74" tabindex="-1"></a>  <span class="fu">data.frame</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb344-75"><a href="supplemental-null-set-exploratory-statistics.html#cb344-75" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">approach=</span><span class="st">&quot;Genome&quot;</span>, </span>
+<span id="cb344-76"><a href="supplemental-null-set-exploratory-statistics.html#cb344-76" tabindex="-1"></a>         <span class="at">stage=</span><span class="st">&quot;Peak&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb344-77"><a href="supplemental-null-set-exploratory-statistics.html#cb344-77" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="st">&quot;genes&quot;</span> <span class="ot">=</span> <span class="st">&quot;.&quot;</span>)</span>
+<span id="cb344-78"><a href="supplemental-null-set-exploratory-statistics.html#cb344-78" tabindex="-1"></a></span>
+<span id="cb344-79"><a href="supplemental-null-set-exploratory-statistics.html#cb344-79" tabindex="-1"></a>g_late_genefreq <span class="ot">&lt;-</span> </span>
+<span id="cb344-80"><a href="supplemental-null-set-exploratory-statistics.html#cb344-80" tabindex="-1"></a>  <span class="fu">read.csv</span>(<span class="st">&quot;Output Files/gnome_female_edgeR_null_DEG_late.csv&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb344-81"><a href="supplemental-null-set-exploratory-statistics.html#cb344-81" tabindex="-1"></a>  <span class="fu">as.list</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb344-82"><a href="supplemental-null-set-exploratory-statistics.html#cb344-82" tabindex="-1"></a>  <span class="fu">lapply</span>(., <span class="cf">function</span>(x) x[<span class="sc">!</span><span class="fu">is.na</span>(x)]) <span class="sc">%&gt;%</span> </span>
+<span id="cb344-83"><a href="supplemental-null-set-exploratory-statistics.html#cb344-83" tabindex="-1"></a>  <span class="fu">unlist</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb344-84"><a href="supplemental-null-set-exploratory-statistics.html#cb344-84" tabindex="-1"></a>  <span class="fu">table</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb344-85"><a href="supplemental-null-set-exploratory-statistics.html#cb344-85" tabindex="-1"></a>  <span class="fu">data.frame</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb344-86"><a href="supplemental-null-set-exploratory-statistics.html#cb344-86" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">approach=</span><span class="st">&quot;Genome&quot;</span>, </span>
+<span id="cb344-87"><a href="supplemental-null-set-exploratory-statistics.html#cb344-87" tabindex="-1"></a>         <span class="at">stage=</span><span class="st">&quot;Late&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb344-88"><a href="supplemental-null-set-exploratory-statistics.html#cb344-88" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="st">&quot;genes&quot;</span> <span class="ot">=</span> <span class="st">&quot;.&quot;</span>)</span>
+<span id="cb344-89"><a href="supplemental-null-set-exploratory-statistics.html#cb344-89" tabindex="-1"></a></span>
+<span id="cb344-90"><a href="supplemental-null-set-exploratory-statistics.html#cb344-90" tabindex="-1"></a>genefreq <span class="ot">&lt;-</span> </span>
+<span id="cb344-91"><a href="supplemental-null-set-exploratory-statistics.html#cb344-91" tabindex="-1"></a>  <span class="fu">rbind</span>(t_virus_genefreq, g_virus_genefreq, </span>
+<span id="cb344-92"><a href="supplemental-null-set-exploratory-statistics.html#cb344-92" tabindex="-1"></a>        t_acute_genefreq, t_peak_genefreq, t_late_genefreq,</span>
+<span id="cb344-93"><a href="supplemental-null-set-exploratory-statistics.html#cb344-93" tabindex="-1"></a>        g_acute_genefreq, g_peak_genefreq, g_late_genefreq) <span class="sc">%&gt;%</span> </span>
+<span id="cb344-94"><a href="supplemental-null-set-exploratory-statistics.html#cb344-94" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">approach=</span><span class="fu">factor</span>(approach, <span class="at">levels=</span><span class="fu">c</span>(<span class="st">&quot;Transcriptome&quot;</span>, <span class="st">&quot;Genome&quot;</span>)),</span>
+<span id="cb344-95"><a href="supplemental-null-set-exploratory-statistics.html#cb344-95" tabindex="-1"></a>         <span class="at">stage=</span><span class="fu">factor</span>(stage, <span class="at">levels=</span><span class="fu">c</span>(<span class="st">&quot;V+ vs V-&quot;</span>, <span class="st">&quot;Acute&quot;</span>, <span class="st">&quot;Peak&quot;</span>, <span class="st">&quot;Late&quot;</span>)))</span></code></pre></div>
+</div>
+<div id="plot-2" class="section level3 hasAnchor" number="6.3.2">
+<h3><span class="header-section-number">6.3.2</span> Plot<a href="supplemental-null-set-exploratory-statistics.html#plot-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb345"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb345-1"><a href="supplemental-null-set-exploratory-statistics.html#cb345-1" tabindex="-1"></a>null_genefreq_plot <span class="ot">&lt;-</span></span>
+<span id="cb345-2"><a href="supplemental-null-set-exploratory-statistics.html#cb345-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(genefreq, <span class="fu">aes</span>(<span class="at">x=</span>stage, <span class="at">y=</span><span class="fu">log</span>(Freq))) <span class="sc">+</span></span>
+<span id="cb345-3"><a href="supplemental-null-set-exploratory-statistics.html#cb345-3" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb345-4"><a href="supplemental-null-set-exploratory-statistics.html#cb345-4" tabindex="-1"></a>  <span class="fu">facet_grid</span>(<span class="sc">~</span>approach) <span class="sc">+</span></span>
+<span id="cb345-5"><a href="supplemental-null-set-exploratory-statistics.html#cb345-5" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y=</span><span class="st">&quot;log(Gene Frequency)&quot;</span>) <span class="sc">+</span></span>
+<span id="cb345-6"><a href="supplemental-null-set-exploratory-statistics.html#cb345-6" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb345-7"><a href="supplemental-null-set-exploratory-statistics.html#cb345-7" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">panel.grid=</span><span class="fu">element_blank</span>())</span></code></pre></div>
+</div>
+<div id="combine-gene-number-frequency-plots" class="section level3 hasAnchor" number="6.3.3">
+<h3><span class="header-section-number">6.3.3</span> Combine gene number &amp; frequency plots<a href="supplemental-null-set-exploratory-statistics.html#combine-gene-number-frequency-plots" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb346"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb346-1"><a href="supplemental-null-set-exploratory-statistics.html#cb346-1" tabindex="-1"></a>gene_numfreq <span class="ot">&lt;-</span></span>
+<span id="cb346-2"><a href="supplemental-null-set-exploratory-statistics.html#cb346-2" tabindex="-1"></a>  <span class="fu">grid.arrange</span>(null_genes_plot, null_genefreq_plot,</span>
+<span id="cb346-3"><a href="supplemental-null-set-exploratory-statistics.html#cb346-3" tabindex="-1"></a>               <span class="at">ncol=</span><span class="dv">1</span>, <span class="at">bottom=</span><span class="st">&quot;Influenza Stage&quot;</span>)</span>
+<span id="cb346-4"><a href="supplemental-null-set-exploratory-statistics.html#cb346-4" tabindex="-1"></a></span>
+<span id="cb346-5"><a href="supplemental-null-set-exploratory-statistics.html#cb346-5" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">&quot;Figures/supplemental_TG_F_null_genenum-freq.jpg&quot;</span>, gene_numfreq, </span>
+<span id="cb346-6"><a href="supplemental-null-set-exploratory-statistics.html#cb346-6" tabindex="-1"></a>       <span class="at">width=</span><span class="dv">6</span>, <span class="at">height=</span><span class="dv">6</span>, <span class="at">units=</span><span class="st">&quot;in&quot;</span>)</span></code></pre></div>
+</div>
+</div>
+<div id="number-of-go-terms" class="section level2 hasAnchor" number="6.4">
+<h2><span class="header-section-number">6.4</span> Number of GO terms<a href="supplemental-null-set-exploratory-statistics.html#number-of-go-terms" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="data---import-configure-1" class="section level3 hasAnchor" number="6.4.1">
+<h3><span class="header-section-number">6.4.1</span> Data - Import &amp; Configure<a href="supplemental-null-set-exploratory-statistics.html#data---import-configure-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb347"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb347-1"><a href="supplemental-null-set-exploratory-statistics.html#cb347-1" tabindex="-1"></a>t_virus_bp <span class="ot">&lt;-</span></span>
+<span id="cb347-2"><a href="supplemental-null-set-exploratory-statistics.html#cb347-2" tabindex="-1"></a>   <span class="fu">read.csv</span>(<span class="st">&quot;Output Files/txome_female_edgeR_viralRNA_null_GO_bp.csv&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb347-3"><a href="supplemental-null-set-exploratory-statistics.html#cb347-3" tabindex="-1"></a>  <span class="fu">as.list</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb347-4"><a href="supplemental-null-set-exploratory-statistics.html#cb347-4" tabindex="-1"></a>  <span class="fu">lapply</span>(., <span class="cf">function</span>(x) x[<span class="sc">!</span><span class="fu">is.na</span>(x)]) <span class="sc">%&gt;%</span> </span>
+<span id="cb347-5"><a href="supplemental-null-set-exploratory-statistics.html#cb347-5" tabindex="-1"></a>  <span class="fu">lengths</span>(., <span class="at">use.names=</span><span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb347-6"><a href="supplemental-null-set-exploratory-statistics.html#cb347-6" tabindex="-1"></a>  <span class="fu">data.frame</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb347-7"><a href="supplemental-null-set-exploratory-statistics.html#cb347-7" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">approach=</span><span class="st">&quot;Transcriptome&quot;</span>, </span>
+<span id="cb347-8"><a href="supplemental-null-set-exploratory-statistics.html#cb347-8" tabindex="-1"></a>         <span class="at">stage=</span><span class="st">&quot;V+ vs V-&quot;</span>,</span>
+<span id="cb347-9"><a href="supplemental-null-set-exploratory-statistics.html#cb347-9" tabindex="-1"></a>         <span class="at">go=</span><span class="st">&quot;Biological Process&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb347-10"><a href="supplemental-null-set-exploratory-statistics.html#cb347-10" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="st">&quot;terms&quot;</span> <span class="ot">=</span> <span class="st">&quot;.&quot;</span>)</span>
+<span id="cb347-11"><a href="supplemental-null-set-exploratory-statistics.html#cb347-11" tabindex="-1"></a></span>
+<span id="cb347-12"><a href="supplemental-null-set-exploratory-statistics.html#cb347-12" tabindex="-1"></a>t_virus_cc <span class="ot">&lt;-</span></span>
+<span id="cb347-13"><a href="supplemental-null-set-exploratory-statistics.html#cb347-13" tabindex="-1"></a>   <span class="fu">read.csv</span>(<span class="st">&quot;Output Files/txome_female_edgeR_viralRNA_null_GO_cc.csv&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb347-14"><a href="supplemental-null-set-exploratory-statistics.html#cb347-14" tabindex="-1"></a>  <span class="fu">as.list</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb347-15"><a href="supplemental-null-set-exploratory-statistics.html#cb347-15" tabindex="-1"></a>  <span class="fu">lapply</span>(., <span class="cf">function</span>(x) x[<span class="sc">!</span><span class="fu">is.na</span>(x)]) <span class="sc">%&gt;%</span> </span>
+<span id="cb347-16"><a href="supplemental-null-set-exploratory-statistics.html#cb347-16" tabindex="-1"></a>  <span class="fu">lengths</span>(., <span class="at">use.names=</span><span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb347-17"><a href="supplemental-null-set-exploratory-statistics.html#cb347-17" tabindex="-1"></a>  <span class="fu">data.frame</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb347-18"><a href="supplemental-null-set-exploratory-statistics.html#cb347-18" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">approach=</span><span class="st">&quot;Transcriptome&quot;</span>, </span>
+<span id="cb347-19"><a href="supplemental-null-set-exploratory-statistics.html#cb347-19" tabindex="-1"></a>         <span class="at">stage=</span><span class="st">&quot;V+ vs V-&quot;</span>,</span>
+<span id="cb347-20"><a href="supplemental-null-set-exploratory-statistics.html#cb347-20" tabindex="-1"></a>         <span class="at">go=</span><span class="st">&quot;Cellular Component&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb347-21"><a href="supplemental-null-set-exploratory-statistics.html#cb347-21" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="st">&quot;terms&quot;</span> <span class="ot">=</span> <span class="st">&quot;.&quot;</span>)</span>
+<span id="cb347-22"><a href="supplemental-null-set-exploratory-statistics.html#cb347-22" tabindex="-1"></a></span>
+<span id="cb347-23"><a href="supplemental-null-set-exploratory-statistics.html#cb347-23" tabindex="-1"></a>t_virus_mf <span class="ot">&lt;-</span></span>
+<span id="cb347-24"><a href="supplemental-null-set-exploratory-statistics.html#cb347-24" tabindex="-1"></a>   <span class="fu">read.csv</span>(<span class="st">&quot;Output Files/txome_female_edgeR_viralRNA_null_GO_mf.csv&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb347-25"><a href="supplemental-null-set-exploratory-statistics.html#cb347-25" tabindex="-1"></a>  <span class="fu">as.list</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb347-26"><a href="supplemental-null-set-exploratory-statistics.html#cb347-26" tabindex="-1"></a>  <span class="fu">lapply</span>(., <span class="cf">function</span>(x) x[<span class="sc">!</span><span class="fu">is.na</span>(x)]) <span class="sc">%&gt;%</span> </span>
+<span id="cb347-27"><a href="supplemental-null-set-exploratory-statistics.html#cb347-27" tabindex="-1"></a>  <span class="fu">lengths</span>(., <span class="at">use.names=</span><span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb347-28"><a href="supplemental-null-set-exploratory-statistics.html#cb347-28" tabindex="-1"></a>  <span class="fu">data.frame</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb347-29"><a href="supplemental-null-set-exploratory-statistics.html#cb347-29" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">approach=</span><span class="st">&quot;Transcriptome&quot;</span>, </span>
+<span id="cb347-30"><a href="supplemental-null-set-exploratory-statistics.html#cb347-30" tabindex="-1"></a>         <span class="at">stage=</span><span class="st">&quot;V+ vs V-&quot;</span>,</span>
+<span id="cb347-31"><a href="supplemental-null-set-exploratory-statistics.html#cb347-31" tabindex="-1"></a>         <span class="at">go=</span><span class="st">&quot;Molecular Function&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb347-32"><a href="supplemental-null-set-exploratory-statistics.html#cb347-32" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="st">&quot;terms&quot;</span> <span class="ot">=</span> <span class="st">&quot;.&quot;</span>)</span>
+<span id="cb347-33"><a href="supplemental-null-set-exploratory-statistics.html#cb347-33" tabindex="-1"></a></span>
+<span id="cb347-34"><a href="supplemental-null-set-exploratory-statistics.html#cb347-34" tabindex="-1"></a>t_acute_bp <span class="ot">&lt;-</span> </span>
+<span id="cb347-35"><a href="supplemental-null-set-exploratory-statistics.html#cb347-35" tabindex="-1"></a>  <span class="fu">read.csv</span>(<span class="st">&quot;Output Files/txome_female_edgeR_null_GO_bp_acute.csv&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb347-36"><a href="supplemental-null-set-exploratory-statistics.html#cb347-36" tabindex="-1"></a>  <span class="fu">as.list</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb347-37"><a href="supplemental-null-set-exploratory-statistics.html#cb347-37" tabindex="-1"></a>  <span class="fu">lapply</span>(., <span class="cf">function</span>(x) x[<span class="sc">!</span><span class="fu">is.na</span>(x)]) <span class="sc">%&gt;%</span> </span>
+<span id="cb347-38"><a href="supplemental-null-set-exploratory-statistics.html#cb347-38" tabindex="-1"></a>  <span class="fu">lengths</span>(., <span class="at">use.names=</span><span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb347-39"><a href="supplemental-null-set-exploratory-statistics.html#cb347-39" tabindex="-1"></a>  <span class="fu">data.frame</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb347-40"><a href="supplemental-null-set-exploratory-statistics.html#cb347-40" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">approach=</span><span class="st">&quot;Transcriptome&quot;</span>, </span>
+<span id="cb347-41"><a href="supplemental-null-set-exploratory-statistics.html#cb347-41" tabindex="-1"></a>         <span class="at">stage=</span><span class="st">&quot;Acute&quot;</span>,</span>
+<span id="cb347-42"><a href="supplemental-null-set-exploratory-statistics.html#cb347-42" tabindex="-1"></a>         <span class="at">go=</span><span class="st">&quot;Biological Process&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb347-43"><a href="supplemental-null-set-exploratory-statistics.html#cb347-43" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="st">&quot;terms&quot;</span> <span class="ot">=</span> <span class="st">&quot;.&quot;</span>)</span>
+<span id="cb347-44"><a href="supplemental-null-set-exploratory-statistics.html#cb347-44" tabindex="-1"></a></span>
+<span id="cb347-45"><a href="supplemental-null-set-exploratory-statistics.html#cb347-45" tabindex="-1"></a>t_acute_cc <span class="ot">&lt;-</span> </span>
+<span id="cb347-46"><a href="supplemental-null-set-exploratory-statistics.html#cb347-46" tabindex="-1"></a>  <span class="fu">read.csv</span>(<span class="st">&quot;Output Files/txome_female_edgeR_null_GO_cc_acute.csv&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb347-47"><a href="supplemental-null-set-exploratory-statistics.html#cb347-47" tabindex="-1"></a>  <span class="fu">as.list</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb347-48"><a href="supplemental-null-set-exploratory-statistics.html#cb347-48" tabindex="-1"></a>  <span class="fu">lapply</span>(., <span class="cf">function</span>(x) x[<span class="sc">!</span><span class="fu">is.na</span>(x)]) <span class="sc">%&gt;%</span> </span>
+<span id="cb347-49"><a href="supplemental-null-set-exploratory-statistics.html#cb347-49" tabindex="-1"></a>  <span class="fu">lengths</span>(., <span class="at">use.names=</span><span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb347-50"><a href="supplemental-null-set-exploratory-statistics.html#cb347-50" tabindex="-1"></a>  <span class="fu">data.frame</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb347-51"><a href="supplemental-null-set-exploratory-statistics.html#cb347-51" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">approach=</span><span class="st">&quot;Transcriptome&quot;</span>, </span>
+<span id="cb347-52"><a href="supplemental-null-set-exploratory-statistics.html#cb347-52" tabindex="-1"></a>         <span class="at">stage=</span><span class="st">&quot;Acute&quot;</span>,</span>
+<span id="cb347-53"><a href="supplemental-null-set-exploratory-statistics.html#cb347-53" tabindex="-1"></a>         <span class="at">go=</span><span class="st">&quot;Cellular Component&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb347-54"><a href="supplemental-null-set-exploratory-statistics.html#cb347-54" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="st">&quot;terms&quot;</span> <span class="ot">=</span> <span class="st">&quot;.&quot;</span>)</span>
+<span id="cb347-55"><a href="supplemental-null-set-exploratory-statistics.html#cb347-55" tabindex="-1"></a></span>
+<span id="cb347-56"><a href="supplemental-null-set-exploratory-statistics.html#cb347-56" tabindex="-1"></a>t_acute_mf <span class="ot">&lt;-</span> </span>
+<span id="cb347-57"><a href="supplemental-null-set-exploratory-statistics.html#cb347-57" tabindex="-1"></a>  <span class="fu">read.csv</span>(<span class="st">&quot;Output Files/txome_female_edgeR_null_GO_mf_acute.csv&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb347-58"><a href="supplemental-null-set-exploratory-statistics.html#cb347-58" tabindex="-1"></a>  <span class="fu">as.list</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb347-59"><a href="supplemental-null-set-exploratory-statistics.html#cb347-59" tabindex="-1"></a>  <span class="fu">lapply</span>(., <span class="cf">function</span>(x) x[<span class="sc">!</span><span class="fu">is.na</span>(x)]) <span class="sc">%&gt;%</span> </span>
+<span id="cb347-60"><a href="supplemental-null-set-exploratory-statistics.html#cb347-60" tabindex="-1"></a>  <span class="fu">lengths</span>(., <span class="at">use.names=</span><span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb347-61"><a href="supplemental-null-set-exploratory-statistics.html#cb347-61" tabindex="-1"></a>  <span class="fu">data.frame</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb347-62"><a href="supplemental-null-set-exploratory-statistics.html#cb347-62" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">approach=</span><span class="st">&quot;Transcriptome&quot;</span>, </span>
+<span id="cb347-63"><a href="supplemental-null-set-exploratory-statistics.html#cb347-63" tabindex="-1"></a>         <span class="at">stage=</span><span class="st">&quot;Acute&quot;</span>,</span>
+<span id="cb347-64"><a href="supplemental-null-set-exploratory-statistics.html#cb347-64" tabindex="-1"></a>         <span class="at">go=</span><span class="st">&quot;Molecular Function&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb347-65"><a href="supplemental-null-set-exploratory-statistics.html#cb347-65" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="st">&quot;terms&quot;</span> <span class="ot">=</span> <span class="st">&quot;.&quot;</span>)</span>
+<span id="cb347-66"><a href="supplemental-null-set-exploratory-statistics.html#cb347-66" tabindex="-1"></a></span>
+<span id="cb347-67"><a href="supplemental-null-set-exploratory-statistics.html#cb347-67" tabindex="-1"></a>t_peak_bp <span class="ot">&lt;-</span> </span>
+<span id="cb347-68"><a href="supplemental-null-set-exploratory-statistics.html#cb347-68" tabindex="-1"></a>  <span class="fu">read.csv</span>(<span class="st">&quot;Output Files/txome_female_edgeR_null_GO_bp_peak.csv&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb347-69"><a href="supplemental-null-set-exploratory-statistics.html#cb347-69" tabindex="-1"></a>  <span class="fu">as.list</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb347-70"><a href="supplemental-null-set-exploratory-statistics.html#cb347-70" tabindex="-1"></a>  <span class="fu">lapply</span>(., <span class="cf">function</span>(x) x[<span class="sc">!</span><span class="fu">is.na</span>(x)]) <span class="sc">%&gt;%</span> </span>
+<span id="cb347-71"><a href="supplemental-null-set-exploratory-statistics.html#cb347-71" tabindex="-1"></a>  <span class="fu">lengths</span>(., <span class="at">use.names=</span><span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb347-72"><a href="supplemental-null-set-exploratory-statistics.html#cb347-72" tabindex="-1"></a>  <span class="fu">data.frame</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb347-73"><a href="supplemental-null-set-exploratory-statistics.html#cb347-73" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">approach=</span><span class="st">&quot;Transcriptome&quot;</span>, </span>
+<span id="cb347-74"><a href="supplemental-null-set-exploratory-statistics.html#cb347-74" tabindex="-1"></a>         <span class="at">stage=</span><span class="st">&quot;Peak&quot;</span>,</span>
+<span id="cb347-75"><a href="supplemental-null-set-exploratory-statistics.html#cb347-75" tabindex="-1"></a>         <span class="at">go=</span><span class="st">&quot;Biological Process&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb347-76"><a href="supplemental-null-set-exploratory-statistics.html#cb347-76" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="st">&quot;terms&quot;</span> <span class="ot">=</span> <span class="st">&quot;.&quot;</span>)</span>
+<span id="cb347-77"><a href="supplemental-null-set-exploratory-statistics.html#cb347-77" tabindex="-1"></a></span>
+<span id="cb347-78"><a href="supplemental-null-set-exploratory-statistics.html#cb347-78" tabindex="-1"></a>t_peak_cc <span class="ot">&lt;-</span> </span>
+<span id="cb347-79"><a href="supplemental-null-set-exploratory-statistics.html#cb347-79" tabindex="-1"></a>  <span class="fu">read.csv</span>(<span class="st">&quot;Output Files/txome_female_edgeR_null_GO_cc_peak.csv&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb347-80"><a href="supplemental-null-set-exploratory-statistics.html#cb347-80" tabindex="-1"></a>  <span class="fu">as.list</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb347-81"><a href="supplemental-null-set-exploratory-statistics.html#cb347-81" tabindex="-1"></a>  <span class="fu">lapply</span>(., <span class="cf">function</span>(x) x[<span class="sc">!</span><span class="fu">is.na</span>(x)]) <span class="sc">%&gt;%</span> </span>
+<span id="cb347-82"><a href="supplemental-null-set-exploratory-statistics.html#cb347-82" tabindex="-1"></a>  <span class="fu">lengths</span>(., <span class="at">use.names=</span><span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb347-83"><a href="supplemental-null-set-exploratory-statistics.html#cb347-83" tabindex="-1"></a>  <span class="fu">data.frame</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb347-84"><a href="supplemental-null-set-exploratory-statistics.html#cb347-84" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">approach=</span><span class="st">&quot;Transcriptome&quot;</span>, </span>
+<span id="cb347-85"><a href="supplemental-null-set-exploratory-statistics.html#cb347-85" tabindex="-1"></a>         <span class="at">stage=</span><span class="st">&quot;Peak&quot;</span>,</span>
+<span id="cb347-86"><a href="supplemental-null-set-exploratory-statistics.html#cb347-86" tabindex="-1"></a>         <span class="at">go=</span><span class="st">&quot;Cellular Component&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb347-87"><a href="supplemental-null-set-exploratory-statistics.html#cb347-87" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="st">&quot;terms&quot;</span> <span class="ot">=</span> <span class="st">&quot;.&quot;</span>)</span>
+<span id="cb347-88"><a href="supplemental-null-set-exploratory-statistics.html#cb347-88" tabindex="-1"></a></span>
+<span id="cb347-89"><a href="supplemental-null-set-exploratory-statistics.html#cb347-89" tabindex="-1"></a>t_peak_mf <span class="ot">&lt;-</span> </span>
+<span id="cb347-90"><a href="supplemental-null-set-exploratory-statistics.html#cb347-90" tabindex="-1"></a>  <span class="fu">read.csv</span>(<span class="st">&quot;Output Files/txome_female_edgeR_null_GO_mf_peak.csv&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb347-91"><a href="supplemental-null-set-exploratory-statistics.html#cb347-91" tabindex="-1"></a>  <span class="fu">as.list</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb347-92"><a href="supplemental-null-set-exploratory-statistics.html#cb347-92" tabindex="-1"></a>  <span class="fu">lapply</span>(., <span class="cf">function</span>(x) x[<span class="sc">!</span><span class="fu">is.na</span>(x)]) <span class="sc">%&gt;%</span> </span>
+<span id="cb347-93"><a href="supplemental-null-set-exploratory-statistics.html#cb347-93" tabindex="-1"></a>  <span class="fu">lengths</span>(., <span class="at">use.names=</span><span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb347-94"><a href="supplemental-null-set-exploratory-statistics.html#cb347-94" tabindex="-1"></a>  <span class="fu">data.frame</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb347-95"><a href="supplemental-null-set-exploratory-statistics.html#cb347-95" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">approach=</span><span class="st">&quot;Transcriptome&quot;</span>, </span>
+<span id="cb347-96"><a href="supplemental-null-set-exploratory-statistics.html#cb347-96" tabindex="-1"></a>         <span class="at">stage=</span><span class="st">&quot;Peak&quot;</span>,</span>
+<span id="cb347-97"><a href="supplemental-null-set-exploratory-statistics.html#cb347-97" tabindex="-1"></a>         <span class="at">go=</span><span class="st">&quot;Molecular Function&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb347-98"><a href="supplemental-null-set-exploratory-statistics.html#cb347-98" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="st">&quot;terms&quot;</span> <span class="ot">=</span> <span class="st">&quot;.&quot;</span>)</span>
+<span id="cb347-99"><a href="supplemental-null-set-exploratory-statistics.html#cb347-99" tabindex="-1"></a></span>
+<span id="cb347-100"><a href="supplemental-null-set-exploratory-statistics.html#cb347-100" tabindex="-1"></a>t_late_bp <span class="ot">&lt;-</span> </span>
+<span id="cb347-101"><a href="supplemental-null-set-exploratory-statistics.html#cb347-101" tabindex="-1"></a>  <span class="fu">read.csv</span>(<span class="st">&quot;Output Files/txome_female_edgeR_null_GO_bp_late.csv&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb347-102"><a href="supplemental-null-set-exploratory-statistics.html#cb347-102" tabindex="-1"></a>  <span class="fu">as.list</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb347-103"><a href="supplemental-null-set-exploratory-statistics.html#cb347-103" tabindex="-1"></a>  <span class="fu">lapply</span>(., <span class="cf">function</span>(x) x[<span class="sc">!</span><span class="fu">is.na</span>(x)]) <span class="sc">%&gt;%</span> </span>
+<span id="cb347-104"><a href="supplemental-null-set-exploratory-statistics.html#cb347-104" tabindex="-1"></a>  <span class="fu">lengths</span>(., <span class="at">use.names=</span><span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb347-105"><a href="supplemental-null-set-exploratory-statistics.html#cb347-105" tabindex="-1"></a>  <span class="fu">data.frame</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb347-106"><a href="supplemental-null-set-exploratory-statistics.html#cb347-106" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">approach=</span><span class="st">&quot;Transcriptome&quot;</span>, </span>
+<span id="cb347-107"><a href="supplemental-null-set-exploratory-statistics.html#cb347-107" tabindex="-1"></a>         <span class="at">stage=</span><span class="st">&quot;Late&quot;</span>,</span>
+<span id="cb347-108"><a href="supplemental-null-set-exploratory-statistics.html#cb347-108" tabindex="-1"></a>         <span class="at">go=</span><span class="st">&quot;Biological Process&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb347-109"><a href="supplemental-null-set-exploratory-statistics.html#cb347-109" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="st">&quot;terms&quot;</span> <span class="ot">=</span> <span class="st">&quot;.&quot;</span>)</span>
+<span id="cb347-110"><a href="supplemental-null-set-exploratory-statistics.html#cb347-110" tabindex="-1"></a></span>
+<span id="cb347-111"><a href="supplemental-null-set-exploratory-statistics.html#cb347-111" tabindex="-1"></a>t_late_cc <span class="ot">&lt;-</span> </span>
+<span id="cb347-112"><a href="supplemental-null-set-exploratory-statistics.html#cb347-112" tabindex="-1"></a>  <span class="fu">read.csv</span>(<span class="st">&quot;Output Files/txome_female_edgeR_null_GO_cc_late.csv&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb347-113"><a href="supplemental-null-set-exploratory-statistics.html#cb347-113" tabindex="-1"></a>  <span class="fu">as.list</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb347-114"><a href="supplemental-null-set-exploratory-statistics.html#cb347-114" tabindex="-1"></a>  <span class="fu">lapply</span>(., <span class="cf">function</span>(x) x[<span class="sc">!</span><span class="fu">is.na</span>(x)]) <span class="sc">%&gt;%</span> </span>
+<span id="cb347-115"><a href="supplemental-null-set-exploratory-statistics.html#cb347-115" tabindex="-1"></a>  <span class="fu">lengths</span>(., <span class="at">use.names=</span><span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb347-116"><a href="supplemental-null-set-exploratory-statistics.html#cb347-116" tabindex="-1"></a>  <span class="fu">data.frame</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb347-117"><a href="supplemental-null-set-exploratory-statistics.html#cb347-117" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">approach=</span><span class="st">&quot;Transcriptome&quot;</span>, </span>
+<span id="cb347-118"><a href="supplemental-null-set-exploratory-statistics.html#cb347-118" tabindex="-1"></a>         <span class="at">stage=</span><span class="st">&quot;Late&quot;</span>,</span>
+<span id="cb347-119"><a href="supplemental-null-set-exploratory-statistics.html#cb347-119" tabindex="-1"></a>         <span class="at">go=</span><span class="st">&quot;Cellular Component&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb347-120"><a href="supplemental-null-set-exploratory-statistics.html#cb347-120" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="st">&quot;terms&quot;</span> <span class="ot">=</span> <span class="st">&quot;.&quot;</span>)</span>
+<span id="cb347-121"><a href="supplemental-null-set-exploratory-statistics.html#cb347-121" tabindex="-1"></a></span>
+<span id="cb347-122"><a href="supplemental-null-set-exploratory-statistics.html#cb347-122" tabindex="-1"></a>t_late_mf <span class="ot">&lt;-</span> </span>
+<span id="cb347-123"><a href="supplemental-null-set-exploratory-statistics.html#cb347-123" tabindex="-1"></a>  <span class="fu">read.csv</span>(<span class="st">&quot;Output Files/txome_female_edgeR_null_GO_mf_late.csv&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb347-124"><a href="supplemental-null-set-exploratory-statistics.html#cb347-124" tabindex="-1"></a>  <span class="fu">as.list</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb347-125"><a href="supplemental-null-set-exploratory-statistics.html#cb347-125" tabindex="-1"></a>  <span class="fu">lapply</span>(., <span class="cf">function</span>(x) x[<span class="sc">!</span><span class="fu">is.na</span>(x)]) <span class="sc">%&gt;%</span> </span>
+<span id="cb347-126"><a href="supplemental-null-set-exploratory-statistics.html#cb347-126" tabindex="-1"></a>  <span class="fu">lengths</span>(., <span class="at">use.names=</span><span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb347-127"><a href="supplemental-null-set-exploratory-statistics.html#cb347-127" tabindex="-1"></a>  <span class="fu">data.frame</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb347-128"><a href="supplemental-null-set-exploratory-statistics.html#cb347-128" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">approach=</span><span class="st">&quot;Transcriptome&quot;</span>, </span>
+<span id="cb347-129"><a href="supplemental-null-set-exploratory-statistics.html#cb347-129" tabindex="-1"></a>         <span class="at">stage=</span><span class="st">&quot;Late&quot;</span>,</span>
+<span id="cb347-130"><a href="supplemental-null-set-exploratory-statistics.html#cb347-130" tabindex="-1"></a>         <span class="at">go=</span><span class="st">&quot;Molecular Function&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb347-131"><a href="supplemental-null-set-exploratory-statistics.html#cb347-131" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="st">&quot;terms&quot;</span> <span class="ot">=</span> <span class="st">&quot;.&quot;</span>)</span>
+<span id="cb347-132"><a href="supplemental-null-set-exploratory-statistics.html#cb347-132" tabindex="-1"></a></span>
+<span id="cb347-133"><a href="supplemental-null-set-exploratory-statistics.html#cb347-133" tabindex="-1"></a></span>
+<span id="cb347-134"><a href="supplemental-null-set-exploratory-statistics.html#cb347-134" tabindex="-1"></a>g_virus_bp <span class="ot">&lt;-</span></span>
+<span id="cb347-135"><a href="supplemental-null-set-exploratory-statistics.html#cb347-135" tabindex="-1"></a>   <span class="fu">read.csv</span>(<span class="st">&quot;Output Files/gnome_female_edgeR_viralRNA_null_GO_bp.csv&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb347-136"><a href="supplemental-null-set-exploratory-statistics.html#cb347-136" tabindex="-1"></a>  <span class="fu">as.list</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb347-137"><a href="supplemental-null-set-exploratory-statistics.html#cb347-137" tabindex="-1"></a>  <span class="fu">lapply</span>(., <span class="cf">function</span>(x) x[<span class="sc">!</span><span class="fu">is.na</span>(x)]) <span class="sc">%&gt;%</span> </span>
+<span id="cb347-138"><a href="supplemental-null-set-exploratory-statistics.html#cb347-138" tabindex="-1"></a>  <span class="fu">lengths</span>(., <span class="at">use.names=</span><span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb347-139"><a href="supplemental-null-set-exploratory-statistics.html#cb347-139" tabindex="-1"></a>  <span class="fu">data.frame</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb347-140"><a href="supplemental-null-set-exploratory-statistics.html#cb347-140" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">approach=</span><span class="st">&quot;Genome&quot;</span>, </span>
+<span id="cb347-141"><a href="supplemental-null-set-exploratory-statistics.html#cb347-141" tabindex="-1"></a>         <span class="at">stage=</span><span class="st">&quot;V+ vs V-&quot;</span>,</span>
+<span id="cb347-142"><a href="supplemental-null-set-exploratory-statistics.html#cb347-142" tabindex="-1"></a>         <span class="at">go=</span><span class="st">&quot;Biological Process&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb347-143"><a href="supplemental-null-set-exploratory-statistics.html#cb347-143" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="st">&quot;terms&quot;</span> <span class="ot">=</span> <span class="st">&quot;.&quot;</span>)</span>
+<span id="cb347-144"><a href="supplemental-null-set-exploratory-statistics.html#cb347-144" tabindex="-1"></a></span>
+<span id="cb347-145"><a href="supplemental-null-set-exploratory-statistics.html#cb347-145" tabindex="-1"></a>g_virus_cc <span class="ot">&lt;-</span></span>
+<span id="cb347-146"><a href="supplemental-null-set-exploratory-statistics.html#cb347-146" tabindex="-1"></a>   <span class="fu">read.csv</span>(<span class="st">&quot;Output Files/gnome_female_edgeR_viralRNA_null_GO_cc.csv&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb347-147"><a href="supplemental-null-set-exploratory-statistics.html#cb347-147" tabindex="-1"></a>  <span class="fu">as.list</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb347-148"><a href="supplemental-null-set-exploratory-statistics.html#cb347-148" tabindex="-1"></a>  <span class="fu">lapply</span>(., <span class="cf">function</span>(x) x[<span class="sc">!</span><span class="fu">is.na</span>(x)]) <span class="sc">%&gt;%</span> </span>
+<span id="cb347-149"><a href="supplemental-null-set-exploratory-statistics.html#cb347-149" tabindex="-1"></a>  <span class="fu">lengths</span>(., <span class="at">use.names=</span><span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb347-150"><a href="supplemental-null-set-exploratory-statistics.html#cb347-150" tabindex="-1"></a>  <span class="fu">data.frame</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb347-151"><a href="supplemental-null-set-exploratory-statistics.html#cb347-151" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">approach=</span><span class="st">&quot;Genome&quot;</span>, </span>
+<span id="cb347-152"><a href="supplemental-null-set-exploratory-statistics.html#cb347-152" tabindex="-1"></a>         <span class="at">stage=</span><span class="st">&quot;V+ vs V-&quot;</span>,</span>
+<span id="cb347-153"><a href="supplemental-null-set-exploratory-statistics.html#cb347-153" tabindex="-1"></a>         <span class="at">go=</span><span class="st">&quot;Cellular Component&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb347-154"><a href="supplemental-null-set-exploratory-statistics.html#cb347-154" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="st">&quot;terms&quot;</span> <span class="ot">=</span> <span class="st">&quot;.&quot;</span>)</span>
+<span id="cb347-155"><a href="supplemental-null-set-exploratory-statistics.html#cb347-155" tabindex="-1"></a></span>
+<span id="cb347-156"><a href="supplemental-null-set-exploratory-statistics.html#cb347-156" tabindex="-1"></a>g_virus_mf <span class="ot">&lt;-</span></span>
+<span id="cb347-157"><a href="supplemental-null-set-exploratory-statistics.html#cb347-157" tabindex="-1"></a>   <span class="fu">read.csv</span>(<span class="st">&quot;Output Files/gnome_female_edgeR_viralRNA_null_GO_mf.csv&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb347-158"><a href="supplemental-null-set-exploratory-statistics.html#cb347-158" tabindex="-1"></a>  <span class="fu">as.list</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb347-159"><a href="supplemental-null-set-exploratory-statistics.html#cb347-159" tabindex="-1"></a>  <span class="fu">lapply</span>(., <span class="cf">function</span>(x) x[<span class="sc">!</span><span class="fu">is.na</span>(x)]) <span class="sc">%&gt;%</span> </span>
+<span id="cb347-160"><a href="supplemental-null-set-exploratory-statistics.html#cb347-160" tabindex="-1"></a>  <span class="fu">lengths</span>(., <span class="at">use.names=</span><span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb347-161"><a href="supplemental-null-set-exploratory-statistics.html#cb347-161" tabindex="-1"></a>  <span class="fu">data.frame</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb347-162"><a href="supplemental-null-set-exploratory-statistics.html#cb347-162" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">approach=</span><span class="st">&quot;Genome&quot;</span>, </span>
+<span id="cb347-163"><a href="supplemental-null-set-exploratory-statistics.html#cb347-163" tabindex="-1"></a>         <span class="at">stage=</span><span class="st">&quot;V+ vs V-&quot;</span>,</span>
+<span id="cb347-164"><a href="supplemental-null-set-exploratory-statistics.html#cb347-164" tabindex="-1"></a>         <span class="at">go=</span><span class="st">&quot;Molecular Function&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb347-165"><a href="supplemental-null-set-exploratory-statistics.html#cb347-165" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="st">&quot;terms&quot;</span> <span class="ot">=</span> <span class="st">&quot;.&quot;</span>)</span>
+<span id="cb347-166"><a href="supplemental-null-set-exploratory-statistics.html#cb347-166" tabindex="-1"></a></span>
+<span id="cb347-167"><a href="supplemental-null-set-exploratory-statistics.html#cb347-167" tabindex="-1"></a>g_acute_bp <span class="ot">&lt;-</span> </span>
+<span id="cb347-168"><a href="supplemental-null-set-exploratory-statistics.html#cb347-168" tabindex="-1"></a>  <span class="fu">read.csv</span>(<span class="st">&quot;Output Files/gnome_female_edgeR_null_GO_bp_acute.csv&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb347-169"><a href="supplemental-null-set-exploratory-statistics.html#cb347-169" tabindex="-1"></a>  <span class="fu">as.list</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb347-170"><a href="supplemental-null-set-exploratory-statistics.html#cb347-170" tabindex="-1"></a>  <span class="fu">lapply</span>(., <span class="cf">function</span>(x) x[<span class="sc">!</span><span class="fu">is.na</span>(x)]) <span class="sc">%&gt;%</span> </span>
+<span id="cb347-171"><a href="supplemental-null-set-exploratory-statistics.html#cb347-171" tabindex="-1"></a>  <span class="fu">lengths</span>(., <span class="at">use.names=</span><span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb347-172"><a href="supplemental-null-set-exploratory-statistics.html#cb347-172" tabindex="-1"></a>  <span class="fu">data.frame</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb347-173"><a href="supplemental-null-set-exploratory-statistics.html#cb347-173" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">approach=</span><span class="st">&quot;Genome&quot;</span>, </span>
+<span id="cb347-174"><a href="supplemental-null-set-exploratory-statistics.html#cb347-174" tabindex="-1"></a>         <span class="at">stage=</span><span class="st">&quot;Acute&quot;</span>,</span>
+<span id="cb347-175"><a href="supplemental-null-set-exploratory-statistics.html#cb347-175" tabindex="-1"></a>         <span class="at">go=</span><span class="st">&quot;Biological Process&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb347-176"><a href="supplemental-null-set-exploratory-statistics.html#cb347-176" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="st">&quot;terms&quot;</span> <span class="ot">=</span> <span class="st">&quot;.&quot;</span>)</span>
+<span id="cb347-177"><a href="supplemental-null-set-exploratory-statistics.html#cb347-177" tabindex="-1"></a></span>
+<span id="cb347-178"><a href="supplemental-null-set-exploratory-statistics.html#cb347-178" tabindex="-1"></a>g_acute_cc <span class="ot">&lt;-</span> </span>
+<span id="cb347-179"><a href="supplemental-null-set-exploratory-statistics.html#cb347-179" tabindex="-1"></a>  <span class="fu">read.csv</span>(<span class="st">&quot;Output Files/gnome_female_edgeR_null_GO_cc_acute.csv&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb347-180"><a href="supplemental-null-set-exploratory-statistics.html#cb347-180" tabindex="-1"></a>  <span class="fu">as.list</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb347-181"><a href="supplemental-null-set-exploratory-statistics.html#cb347-181" tabindex="-1"></a>  <span class="fu">lapply</span>(., <span class="cf">function</span>(x) x[<span class="sc">!</span><span class="fu">is.na</span>(x)]) <span class="sc">%&gt;%</span> </span>
+<span id="cb347-182"><a href="supplemental-null-set-exploratory-statistics.html#cb347-182" tabindex="-1"></a>  <span class="fu">lengths</span>(., <span class="at">use.names=</span><span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb347-183"><a href="supplemental-null-set-exploratory-statistics.html#cb347-183" tabindex="-1"></a>  <span class="fu">data.frame</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb347-184"><a href="supplemental-null-set-exploratory-statistics.html#cb347-184" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">approach=</span><span class="st">&quot;Genome&quot;</span>, </span>
+<span id="cb347-185"><a href="supplemental-null-set-exploratory-statistics.html#cb347-185" tabindex="-1"></a>         <span class="at">stage=</span><span class="st">&quot;Acute&quot;</span>,</span>
+<span id="cb347-186"><a href="supplemental-null-set-exploratory-statistics.html#cb347-186" tabindex="-1"></a>         <span class="at">go=</span><span class="st">&quot;Cellular Component&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb347-187"><a href="supplemental-null-set-exploratory-statistics.html#cb347-187" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="st">&quot;terms&quot;</span> <span class="ot">=</span> <span class="st">&quot;.&quot;</span>)</span>
+<span id="cb347-188"><a href="supplemental-null-set-exploratory-statistics.html#cb347-188" tabindex="-1"></a></span>
+<span id="cb347-189"><a href="supplemental-null-set-exploratory-statistics.html#cb347-189" tabindex="-1"></a>g_acute_mf <span class="ot">&lt;-</span> </span>
+<span id="cb347-190"><a href="supplemental-null-set-exploratory-statistics.html#cb347-190" tabindex="-1"></a>  <span class="fu">read.csv</span>(<span class="st">&quot;Output Files/gnome_female_edgeR_null_GO_mf_acute.csv&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb347-191"><a href="supplemental-null-set-exploratory-statistics.html#cb347-191" tabindex="-1"></a>  <span class="fu">as.list</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb347-192"><a href="supplemental-null-set-exploratory-statistics.html#cb347-192" tabindex="-1"></a>  <span class="fu">lapply</span>(., <span class="cf">function</span>(x) x[<span class="sc">!</span><span class="fu">is.na</span>(x)]) <span class="sc">%&gt;%</span> </span>
+<span id="cb347-193"><a href="supplemental-null-set-exploratory-statistics.html#cb347-193" tabindex="-1"></a>  <span class="fu">lengths</span>(., <span class="at">use.names=</span><span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb347-194"><a href="supplemental-null-set-exploratory-statistics.html#cb347-194" tabindex="-1"></a>  <span class="fu">data.frame</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb347-195"><a href="supplemental-null-set-exploratory-statistics.html#cb347-195" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">approach=</span><span class="st">&quot;Genome&quot;</span>, </span>
+<span id="cb347-196"><a href="supplemental-null-set-exploratory-statistics.html#cb347-196" tabindex="-1"></a>         <span class="at">stage=</span><span class="st">&quot;Acute&quot;</span>,</span>
+<span id="cb347-197"><a href="supplemental-null-set-exploratory-statistics.html#cb347-197" tabindex="-1"></a>         <span class="at">go=</span><span class="st">&quot;Molecular Function&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb347-198"><a href="supplemental-null-set-exploratory-statistics.html#cb347-198" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="st">&quot;terms&quot;</span> <span class="ot">=</span> <span class="st">&quot;.&quot;</span>)</span>
+<span id="cb347-199"><a href="supplemental-null-set-exploratory-statistics.html#cb347-199" tabindex="-1"></a></span>
+<span id="cb347-200"><a href="supplemental-null-set-exploratory-statistics.html#cb347-200" tabindex="-1"></a>g_peak_bp <span class="ot">&lt;-</span> </span>
+<span id="cb347-201"><a href="supplemental-null-set-exploratory-statistics.html#cb347-201" tabindex="-1"></a>  <span class="fu">read.csv</span>(<span class="st">&quot;Output Files/gnome_female_edgeR_null_GO_bp_peak.csv&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb347-202"><a href="supplemental-null-set-exploratory-statistics.html#cb347-202" tabindex="-1"></a>  <span class="fu">as.list</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb347-203"><a href="supplemental-null-set-exploratory-statistics.html#cb347-203" tabindex="-1"></a>  <span class="fu">lapply</span>(., <span class="cf">function</span>(x) x[<span class="sc">!</span><span class="fu">is.na</span>(x)]) <span class="sc">%&gt;%</span> </span>
+<span id="cb347-204"><a href="supplemental-null-set-exploratory-statistics.html#cb347-204" tabindex="-1"></a>  <span class="fu">lengths</span>(., <span class="at">use.names=</span><span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb347-205"><a href="supplemental-null-set-exploratory-statistics.html#cb347-205" tabindex="-1"></a>  <span class="fu">data.frame</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb347-206"><a href="supplemental-null-set-exploratory-statistics.html#cb347-206" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">approach=</span><span class="st">&quot;Genome&quot;</span>, </span>
+<span id="cb347-207"><a href="supplemental-null-set-exploratory-statistics.html#cb347-207" tabindex="-1"></a>         <span class="at">stage=</span><span class="st">&quot;Peak&quot;</span>,</span>
+<span id="cb347-208"><a href="supplemental-null-set-exploratory-statistics.html#cb347-208" tabindex="-1"></a>         <span class="at">go=</span><span class="st">&quot;Biological Process&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb347-209"><a href="supplemental-null-set-exploratory-statistics.html#cb347-209" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="st">&quot;terms&quot;</span> <span class="ot">=</span> <span class="st">&quot;.&quot;</span>)</span>
+<span id="cb347-210"><a href="supplemental-null-set-exploratory-statistics.html#cb347-210" tabindex="-1"></a></span>
+<span id="cb347-211"><a href="supplemental-null-set-exploratory-statistics.html#cb347-211" tabindex="-1"></a>g_peak_cc <span class="ot">&lt;-</span> </span>
+<span id="cb347-212"><a href="supplemental-null-set-exploratory-statistics.html#cb347-212" tabindex="-1"></a>  <span class="fu">read.csv</span>(<span class="st">&quot;Output Files/gnome_female_edgeR_null_GO_cc_peak.csv&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb347-213"><a href="supplemental-null-set-exploratory-statistics.html#cb347-213" tabindex="-1"></a>  <span class="fu">as.list</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb347-214"><a href="supplemental-null-set-exploratory-statistics.html#cb347-214" tabindex="-1"></a>  <span class="fu">lapply</span>(., <span class="cf">function</span>(x) x[<span class="sc">!</span><span class="fu">is.na</span>(x)]) <span class="sc">%&gt;%</span> </span>
+<span id="cb347-215"><a href="supplemental-null-set-exploratory-statistics.html#cb347-215" tabindex="-1"></a>  <span class="fu">lengths</span>(., <span class="at">use.names=</span><span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb347-216"><a href="supplemental-null-set-exploratory-statistics.html#cb347-216" tabindex="-1"></a>  <span class="fu">data.frame</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb347-217"><a href="supplemental-null-set-exploratory-statistics.html#cb347-217" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">approach=</span><span class="st">&quot;Genome&quot;</span>, </span>
+<span id="cb347-218"><a href="supplemental-null-set-exploratory-statistics.html#cb347-218" tabindex="-1"></a>         <span class="at">stage=</span><span class="st">&quot;Peak&quot;</span>,</span>
+<span id="cb347-219"><a href="supplemental-null-set-exploratory-statistics.html#cb347-219" tabindex="-1"></a>         <span class="at">go=</span><span class="st">&quot;Cellular Component&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb347-220"><a href="supplemental-null-set-exploratory-statistics.html#cb347-220" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="st">&quot;terms&quot;</span> <span class="ot">=</span> <span class="st">&quot;.&quot;</span>)</span>
+<span id="cb347-221"><a href="supplemental-null-set-exploratory-statistics.html#cb347-221" tabindex="-1"></a></span>
+<span id="cb347-222"><a href="supplemental-null-set-exploratory-statistics.html#cb347-222" tabindex="-1"></a>g_peak_mf <span class="ot">&lt;-</span> </span>
+<span id="cb347-223"><a href="supplemental-null-set-exploratory-statistics.html#cb347-223" tabindex="-1"></a>  <span class="fu">read.csv</span>(<span class="st">&quot;Output Files/gnome_female_edgeR_null_GO_mf_peak.csv&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb347-224"><a href="supplemental-null-set-exploratory-statistics.html#cb347-224" tabindex="-1"></a>  <span class="fu">as.list</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb347-225"><a href="supplemental-null-set-exploratory-statistics.html#cb347-225" tabindex="-1"></a>  <span class="fu">lapply</span>(., <span class="cf">function</span>(x) x[<span class="sc">!</span><span class="fu">is.na</span>(x)]) <span class="sc">%&gt;%</span> </span>
+<span id="cb347-226"><a href="supplemental-null-set-exploratory-statistics.html#cb347-226" tabindex="-1"></a>  <span class="fu">lengths</span>(., <span class="at">use.names=</span><span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb347-227"><a href="supplemental-null-set-exploratory-statistics.html#cb347-227" tabindex="-1"></a>  <span class="fu">data.frame</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb347-228"><a href="supplemental-null-set-exploratory-statistics.html#cb347-228" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">approach=</span><span class="st">&quot;Genome&quot;</span>, </span>
+<span id="cb347-229"><a href="supplemental-null-set-exploratory-statistics.html#cb347-229" tabindex="-1"></a>         <span class="at">stage=</span><span class="st">&quot;Peak&quot;</span>,</span>
+<span id="cb347-230"><a href="supplemental-null-set-exploratory-statistics.html#cb347-230" tabindex="-1"></a>         <span class="at">go=</span><span class="st">&quot;Molecular Function&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb347-231"><a href="supplemental-null-set-exploratory-statistics.html#cb347-231" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="st">&quot;terms&quot;</span> <span class="ot">=</span> <span class="st">&quot;.&quot;</span>)</span>
+<span id="cb347-232"><a href="supplemental-null-set-exploratory-statistics.html#cb347-232" tabindex="-1"></a></span>
+<span id="cb347-233"><a href="supplemental-null-set-exploratory-statistics.html#cb347-233" tabindex="-1"></a>g_late_bp <span class="ot">&lt;-</span> </span>
+<span id="cb347-234"><a href="supplemental-null-set-exploratory-statistics.html#cb347-234" tabindex="-1"></a>  <span class="fu">read.csv</span>(<span class="st">&quot;Output Files/gnome_female_edgeR_null_GO_bp_late.csv&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb347-235"><a href="supplemental-null-set-exploratory-statistics.html#cb347-235" tabindex="-1"></a>  <span class="fu">as.list</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb347-236"><a href="supplemental-null-set-exploratory-statistics.html#cb347-236" tabindex="-1"></a>  <span class="fu">lapply</span>(., <span class="cf">function</span>(x) x[<span class="sc">!</span><span class="fu">is.na</span>(x)]) <span class="sc">%&gt;%</span> </span>
+<span id="cb347-237"><a href="supplemental-null-set-exploratory-statistics.html#cb347-237" tabindex="-1"></a>  <span class="fu">lengths</span>(., <span class="at">use.names=</span><span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb347-238"><a href="supplemental-null-set-exploratory-statistics.html#cb347-238" tabindex="-1"></a>  <span class="fu">data.frame</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb347-239"><a href="supplemental-null-set-exploratory-statistics.html#cb347-239" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">approach=</span><span class="st">&quot;Genome&quot;</span>, </span>
+<span id="cb347-240"><a href="supplemental-null-set-exploratory-statistics.html#cb347-240" tabindex="-1"></a>         <span class="at">stage=</span><span class="st">&quot;Late&quot;</span>,</span>
+<span id="cb347-241"><a href="supplemental-null-set-exploratory-statistics.html#cb347-241" tabindex="-1"></a>         <span class="at">go=</span><span class="st">&quot;Biological Process&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb347-242"><a href="supplemental-null-set-exploratory-statistics.html#cb347-242" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="st">&quot;terms&quot;</span> <span class="ot">=</span> <span class="st">&quot;.&quot;</span>)</span>
+<span id="cb347-243"><a href="supplemental-null-set-exploratory-statistics.html#cb347-243" tabindex="-1"></a></span>
+<span id="cb347-244"><a href="supplemental-null-set-exploratory-statistics.html#cb347-244" tabindex="-1"></a>g_late_cc <span class="ot">&lt;-</span> </span>
+<span id="cb347-245"><a href="supplemental-null-set-exploratory-statistics.html#cb347-245" tabindex="-1"></a>  <span class="fu">read.csv</span>(<span class="st">&quot;Output Files/gnome_female_edgeR_null_GO_cc_late.csv&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb347-246"><a href="supplemental-null-set-exploratory-statistics.html#cb347-246" tabindex="-1"></a>  <span class="fu">as.list</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb347-247"><a href="supplemental-null-set-exploratory-statistics.html#cb347-247" tabindex="-1"></a>  <span class="fu">lapply</span>(., <span class="cf">function</span>(x) x[<span class="sc">!</span><span class="fu">is.na</span>(x)]) <span class="sc">%&gt;%</span> </span>
+<span id="cb347-248"><a href="supplemental-null-set-exploratory-statistics.html#cb347-248" tabindex="-1"></a>  <span class="fu">lengths</span>(., <span class="at">use.names=</span><span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb347-249"><a href="supplemental-null-set-exploratory-statistics.html#cb347-249" tabindex="-1"></a>  <span class="fu">data.frame</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb347-250"><a href="supplemental-null-set-exploratory-statistics.html#cb347-250" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">approach=</span><span class="st">&quot;Genome&quot;</span>, </span>
+<span id="cb347-251"><a href="supplemental-null-set-exploratory-statistics.html#cb347-251" tabindex="-1"></a>         <span class="at">stage=</span><span class="st">&quot;Late&quot;</span>,</span>
+<span id="cb347-252"><a href="supplemental-null-set-exploratory-statistics.html#cb347-252" tabindex="-1"></a>         <span class="at">go=</span><span class="st">&quot;Cellular Component&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb347-253"><a href="supplemental-null-set-exploratory-statistics.html#cb347-253" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="st">&quot;terms&quot;</span> <span class="ot">=</span> <span class="st">&quot;.&quot;</span>)</span>
+<span id="cb347-254"><a href="supplemental-null-set-exploratory-statistics.html#cb347-254" tabindex="-1"></a></span>
+<span id="cb347-255"><a href="supplemental-null-set-exploratory-statistics.html#cb347-255" tabindex="-1"></a>g_late_mf <span class="ot">&lt;-</span> </span>
+<span id="cb347-256"><a href="supplemental-null-set-exploratory-statistics.html#cb347-256" tabindex="-1"></a>  <span class="fu">read.csv</span>(<span class="st">&quot;Output Files/gnome_female_edgeR_null_GO_mf_late.csv&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb347-257"><a href="supplemental-null-set-exploratory-statistics.html#cb347-257" tabindex="-1"></a>  <span class="fu">as.list</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb347-258"><a href="supplemental-null-set-exploratory-statistics.html#cb347-258" tabindex="-1"></a>  <span class="fu">lapply</span>(., <span class="cf">function</span>(x) x[<span class="sc">!</span><span class="fu">is.na</span>(x)]) <span class="sc">%&gt;%</span> </span>
+<span id="cb347-259"><a href="supplemental-null-set-exploratory-statistics.html#cb347-259" tabindex="-1"></a>  <span class="fu">lengths</span>(., <span class="at">use.names=</span><span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb347-260"><a href="supplemental-null-set-exploratory-statistics.html#cb347-260" tabindex="-1"></a>  <span class="fu">data.frame</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb347-261"><a href="supplemental-null-set-exploratory-statistics.html#cb347-261" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">approach=</span><span class="st">&quot;Genome&quot;</span>, </span>
+<span id="cb347-262"><a href="supplemental-null-set-exploratory-statistics.html#cb347-262" tabindex="-1"></a>         <span class="at">stage=</span><span class="st">&quot;Late&quot;</span>,</span>
+<span id="cb347-263"><a href="supplemental-null-set-exploratory-statistics.html#cb347-263" tabindex="-1"></a>         <span class="at">go=</span><span class="st">&quot;Molecular Function&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb347-264"><a href="supplemental-null-set-exploratory-statistics.html#cb347-264" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="st">&quot;terms&quot;</span> <span class="ot">=</span> <span class="st">&quot;.&quot;</span>)</span>
+<span id="cb347-265"><a href="supplemental-null-set-exploratory-statistics.html#cb347-265" tabindex="-1"></a></span>
+<span id="cb347-266"><a href="supplemental-null-set-exploratory-statistics.html#cb347-266" tabindex="-1"></a></span>
+<span id="cb347-267"><a href="supplemental-null-set-exploratory-statistics.html#cb347-267" tabindex="-1"></a>goterms <span class="ot">&lt;-</span> <span class="fu">rbind</span>(t_virus_bp, t_virus_cc, t_virus_mf,</span>
+<span id="cb347-268"><a href="supplemental-null-set-exploratory-statistics.html#cb347-268" tabindex="-1"></a>                 t_acute_bp, t_acute_cc, t_acute_mf,</span>
+<span id="cb347-269"><a href="supplemental-null-set-exploratory-statistics.html#cb347-269" tabindex="-1"></a>                 t_peak_bp, t_peak_cc, t_peak_mf, </span>
+<span id="cb347-270"><a href="supplemental-null-set-exploratory-statistics.html#cb347-270" tabindex="-1"></a>                 t_late_bp, t_late_cc, t_late_mf,</span>
+<span id="cb347-271"><a href="supplemental-null-set-exploratory-statistics.html#cb347-271" tabindex="-1"></a>                 g_virus_bp, g_virus_cc, g_virus_mf,</span>
+<span id="cb347-272"><a href="supplemental-null-set-exploratory-statistics.html#cb347-272" tabindex="-1"></a>                 g_acute_bp, g_acute_cc, g_acute_mf,</span>
+<span id="cb347-273"><a href="supplemental-null-set-exploratory-statistics.html#cb347-273" tabindex="-1"></a>                 g_peak_bp, g_peak_cc, g_peak_mf, </span>
+<span id="cb347-274"><a href="supplemental-null-set-exploratory-statistics.html#cb347-274" tabindex="-1"></a>                 g_late_bp, g_late_cc, g_late_mf) <span class="sc">%&gt;%</span> </span>
+<span id="cb347-275"><a href="supplemental-null-set-exploratory-statistics.html#cb347-275" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">approach=</span><span class="fu">factor</span>(approach, <span class="at">levels=</span><span class="fu">c</span>(<span class="st">&quot;Transcriptome&quot;</span>, <span class="st">&quot;Genome&quot;</span>)),</span>
+<span id="cb347-276"><a href="supplemental-null-set-exploratory-statistics.html#cb347-276" tabindex="-1"></a>         <span class="at">stage=</span><span class="fu">factor</span>(stage, <span class="at">levels=</span><span class="fu">c</span>(<span class="st">&quot;V+ vs V-&quot;</span>, <span class="st">&quot;Acute&quot;</span>, <span class="st">&quot;Peak&quot;</span>, <span class="st">&quot;Late&quot;</span>)))</span></code></pre></div>
+</div>
+<div id="plot-3" class="section level3 hasAnchor" number="6.4.2">
+<h3><span class="header-section-number">6.4.2</span> Plot<a href="supplemental-null-set-exploratory-statistics.html#plot-3" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb348"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb348-1"><a href="supplemental-null-set-exploratory-statistics.html#cb348-1" tabindex="-1"></a>null_go_plot <span class="ot">&lt;-</span></span>
+<span id="cb348-2"><a href="supplemental-null-set-exploratory-statistics.html#cb348-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(goterms, <span class="fu">aes</span>(<span class="at">x=</span>stage, <span class="at">y=</span><span class="fu">log</span>(terms))) <span class="sc">+</span></span>
+<span id="cb348-3"><a href="supplemental-null-set-exploratory-statistics.html#cb348-3" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb348-4"><a href="supplemental-null-set-exploratory-statistics.html#cb348-4" tabindex="-1"></a>  <span class="fu">facet_nested_wrap</span>(<span class="fu">vars</span>(approach, go), <span class="at">dir=</span><span class="st">&quot;h&quot;</span>, </span>
+<span id="cb348-5"><a href="supplemental-null-set-exploratory-statistics.html#cb348-5" tabindex="-1"></a>                    <span class="at">strip.position=</span><span class="st">&quot;top&quot;</span>, <span class="at">ncol=</span><span class="dv">3</span>, <span class="at">drop=</span><span class="cn">TRUE</span>) <span class="sc">+</span></span>
+<span id="cb348-6"><a href="supplemental-null-set-exploratory-statistics.html#cb348-6" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Influenza Stage&quot;</span>, <span class="at">y=</span><span class="st">&quot;log(# GO Terms) per Trial&quot;</span>) <span class="sc">+</span></span>
+<span id="cb348-7"><a href="supplemental-null-set-exploratory-statistics.html#cb348-7" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb348-8"><a href="supplemental-null-set-exploratory-statistics.html#cb348-8" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">panel.grid=</span><span class="fu">element_blank</span>())</span>
+<span id="cb348-9"><a href="supplemental-null-set-exploratory-statistics.html#cb348-9" tabindex="-1"></a></span>
+<span id="cb348-10"><a href="supplemental-null-set-exploratory-statistics.html#cb348-10" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">&quot;Figures/supplemental_TG_F_null_#gotermsplot.jpg&quot;</span>, null_go_plot, </span>
+<span id="cb348-11"><a href="supplemental-null-set-exploratory-statistics.html#cb348-11" tabindex="-1"></a>       <span class="at">width=</span><span class="dv">5</span>, <span class="at">height=</span><span class="dv">7</span>, <span class="at">units=</span><span class="st">&quot;in&quot;</span>)</span></code></pre></div>
+</div>
+</div>
+<div id="number-of-kegg-pathways" class="section level2 hasAnchor" number="6.5">
+<h2><span class="header-section-number">6.5</span> Number of KEGG Pathways<a href="supplemental-null-set-exploratory-statistics.html#number-of-kegg-pathways" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="data-14" class="section level3 hasAnchor" number="6.5.1">
+<h3><span class="header-section-number">6.5.1</span> Data<a href="supplemental-null-set-exploratory-statistics.html#data-14" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb349"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb349-1"><a href="supplemental-null-set-exploratory-statistics.html#cb349-1" tabindex="-1"></a>t_virus_kegg <span class="ot">&lt;-</span></span>
+<span id="cb349-2"><a href="supplemental-null-set-exploratory-statistics.html#cb349-2" tabindex="-1"></a>   <span class="fu">read.csv</span>(<span class="st">&quot;Output Files/txome_female_edgeR_viralRNA_null_kegg.csv&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb349-3"><a href="supplemental-null-set-exploratory-statistics.html#cb349-3" tabindex="-1"></a>  <span class="fu">as.list</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb349-4"><a href="supplemental-null-set-exploratory-statistics.html#cb349-4" tabindex="-1"></a>  <span class="fu">lapply</span>(., <span class="cf">function</span>(x) x[<span class="sc">!</span><span class="fu">is.na</span>(x)]) <span class="sc">%&gt;%</span> </span>
+<span id="cb349-5"><a href="supplemental-null-set-exploratory-statistics.html#cb349-5" tabindex="-1"></a>  <span class="fu">lengths</span>(., <span class="at">use.names=</span><span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb349-6"><a href="supplemental-null-set-exploratory-statistics.html#cb349-6" tabindex="-1"></a>  <span class="fu">data.frame</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb349-7"><a href="supplemental-null-set-exploratory-statistics.html#cb349-7" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">approach=</span><span class="st">&quot;Transcriptome&quot;</span>, </span>
+<span id="cb349-8"><a href="supplemental-null-set-exploratory-statistics.html#cb349-8" tabindex="-1"></a>         <span class="at">stage=</span><span class="st">&quot;V+ vs V-&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb349-9"><a href="supplemental-null-set-exploratory-statistics.html#cb349-9" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="st">&quot;terms&quot;</span> <span class="ot">=</span> <span class="st">&quot;.&quot;</span>)</span>
+<span id="cb349-10"><a href="supplemental-null-set-exploratory-statistics.html#cb349-10" tabindex="-1"></a></span>
+<span id="cb349-11"><a href="supplemental-null-set-exploratory-statistics.html#cb349-11" tabindex="-1"></a>t_acute_kegg <span class="ot">&lt;-</span> </span>
+<span id="cb349-12"><a href="supplemental-null-set-exploratory-statistics.html#cb349-12" tabindex="-1"></a>  <span class="fu">read.csv</span>(<span class="st">&quot;Output Files/txome_female_edgeR_null_kegg_acute.csv&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb349-13"><a href="supplemental-null-set-exploratory-statistics.html#cb349-13" tabindex="-1"></a>  <span class="fu">as.list</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb349-14"><a href="supplemental-null-set-exploratory-statistics.html#cb349-14" tabindex="-1"></a>  <span class="fu">lapply</span>(., <span class="cf">function</span>(x) x[<span class="sc">!</span><span class="fu">is.na</span>(x)]) <span class="sc">%&gt;%</span> </span>
+<span id="cb349-15"><a href="supplemental-null-set-exploratory-statistics.html#cb349-15" tabindex="-1"></a>  <span class="fu">lengths</span>(., <span class="at">use.names=</span><span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb349-16"><a href="supplemental-null-set-exploratory-statistics.html#cb349-16" tabindex="-1"></a>  <span class="fu">data.frame</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb349-17"><a href="supplemental-null-set-exploratory-statistics.html#cb349-17" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">approach=</span><span class="st">&quot;Transcriptome&quot;</span>, </span>
+<span id="cb349-18"><a href="supplemental-null-set-exploratory-statistics.html#cb349-18" tabindex="-1"></a>         <span class="at">stage=</span><span class="st">&quot;Acute&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb349-19"><a href="supplemental-null-set-exploratory-statistics.html#cb349-19" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="st">&quot;terms&quot;</span> <span class="ot">=</span> <span class="st">&quot;.&quot;</span>)</span>
+<span id="cb349-20"><a href="supplemental-null-set-exploratory-statistics.html#cb349-20" tabindex="-1"></a></span>
+<span id="cb349-21"><a href="supplemental-null-set-exploratory-statistics.html#cb349-21" tabindex="-1"></a>t_peak_kegg <span class="ot">&lt;-</span> </span>
+<span id="cb349-22"><a href="supplemental-null-set-exploratory-statistics.html#cb349-22" tabindex="-1"></a>  <span class="fu">read.csv</span>(<span class="st">&quot;Output Files/txome_female_edgeR_null_kegg_peak.csv&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb349-23"><a href="supplemental-null-set-exploratory-statistics.html#cb349-23" tabindex="-1"></a>  <span class="fu">as.list</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb349-24"><a href="supplemental-null-set-exploratory-statistics.html#cb349-24" tabindex="-1"></a>  <span class="fu">lapply</span>(., <span class="cf">function</span>(x) x[<span class="sc">!</span><span class="fu">is.na</span>(x)]) <span class="sc">%&gt;%</span> </span>
+<span id="cb349-25"><a href="supplemental-null-set-exploratory-statistics.html#cb349-25" tabindex="-1"></a>  <span class="fu">lengths</span>(., <span class="at">use.names=</span><span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb349-26"><a href="supplemental-null-set-exploratory-statistics.html#cb349-26" tabindex="-1"></a>  <span class="fu">data.frame</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb349-27"><a href="supplemental-null-set-exploratory-statistics.html#cb349-27" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">approach=</span><span class="st">&quot;Transcriptome&quot;</span>, </span>
+<span id="cb349-28"><a href="supplemental-null-set-exploratory-statistics.html#cb349-28" tabindex="-1"></a>         <span class="at">stage=</span><span class="st">&quot;Peak&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb349-29"><a href="supplemental-null-set-exploratory-statistics.html#cb349-29" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="st">&quot;terms&quot;</span> <span class="ot">=</span> <span class="st">&quot;.&quot;</span>)</span>
+<span id="cb349-30"><a href="supplemental-null-set-exploratory-statistics.html#cb349-30" tabindex="-1"></a></span>
+<span id="cb349-31"><a href="supplemental-null-set-exploratory-statistics.html#cb349-31" tabindex="-1"></a>t_late_kegg <span class="ot">&lt;-</span> </span>
+<span id="cb349-32"><a href="supplemental-null-set-exploratory-statistics.html#cb349-32" tabindex="-1"></a>  <span class="fu">read.csv</span>(<span class="st">&quot;Output Files/txome_female_edgeR_null_kegg_late.csv&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb349-33"><a href="supplemental-null-set-exploratory-statistics.html#cb349-33" tabindex="-1"></a>  <span class="fu">as.list</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb349-34"><a href="supplemental-null-set-exploratory-statistics.html#cb349-34" tabindex="-1"></a>  <span class="fu">lapply</span>(., <span class="cf">function</span>(x) x[<span class="sc">!</span><span class="fu">is.na</span>(x)]) <span class="sc">%&gt;%</span> </span>
+<span id="cb349-35"><a href="supplemental-null-set-exploratory-statistics.html#cb349-35" tabindex="-1"></a>  <span class="fu">lengths</span>(., <span class="at">use.names=</span><span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb349-36"><a href="supplemental-null-set-exploratory-statistics.html#cb349-36" tabindex="-1"></a>  <span class="fu">data.frame</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb349-37"><a href="supplemental-null-set-exploratory-statistics.html#cb349-37" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">approach=</span><span class="st">&quot;Transcriptome&quot;</span>, </span>
+<span id="cb349-38"><a href="supplemental-null-set-exploratory-statistics.html#cb349-38" tabindex="-1"></a>         <span class="at">stage=</span><span class="st">&quot;Late&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb349-39"><a href="supplemental-null-set-exploratory-statistics.html#cb349-39" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="st">&quot;terms&quot;</span> <span class="ot">=</span> <span class="st">&quot;.&quot;</span>)</span>
+<span id="cb349-40"><a href="supplemental-null-set-exploratory-statistics.html#cb349-40" tabindex="-1"></a></span>
+<span id="cb349-41"><a href="supplemental-null-set-exploratory-statistics.html#cb349-41" tabindex="-1"></a></span>
+<span id="cb349-42"><a href="supplemental-null-set-exploratory-statistics.html#cb349-42" tabindex="-1"></a>g_virus_kegg <span class="ot">&lt;-</span></span>
+<span id="cb349-43"><a href="supplemental-null-set-exploratory-statistics.html#cb349-43" tabindex="-1"></a>   <span class="fu">read.csv</span>(<span class="st">&quot;Output Files/gnome_female_edgeR_viralRNA_null_kegg.csv&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb349-44"><a href="supplemental-null-set-exploratory-statistics.html#cb349-44" tabindex="-1"></a>  <span class="fu">as.list</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb349-45"><a href="supplemental-null-set-exploratory-statistics.html#cb349-45" tabindex="-1"></a>  <span class="fu">lapply</span>(., <span class="cf">function</span>(x) x[<span class="sc">!</span><span class="fu">is.na</span>(x)]) <span class="sc">%&gt;%</span> </span>
+<span id="cb349-46"><a href="supplemental-null-set-exploratory-statistics.html#cb349-46" tabindex="-1"></a>  <span class="fu">lengths</span>(., <span class="at">use.names=</span><span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb349-47"><a href="supplemental-null-set-exploratory-statistics.html#cb349-47" tabindex="-1"></a>  <span class="fu">data.frame</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb349-48"><a href="supplemental-null-set-exploratory-statistics.html#cb349-48" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">approach=</span><span class="st">&quot;Genome&quot;</span>, </span>
+<span id="cb349-49"><a href="supplemental-null-set-exploratory-statistics.html#cb349-49" tabindex="-1"></a>         <span class="at">stage=</span><span class="st">&quot;V+ vs V-&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb349-50"><a href="supplemental-null-set-exploratory-statistics.html#cb349-50" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="st">&quot;terms&quot;</span> <span class="ot">=</span> <span class="st">&quot;.&quot;</span>)</span>
+<span id="cb349-51"><a href="supplemental-null-set-exploratory-statistics.html#cb349-51" tabindex="-1"></a></span>
+<span id="cb349-52"><a href="supplemental-null-set-exploratory-statistics.html#cb349-52" tabindex="-1"></a>g_acute_kegg <span class="ot">&lt;-</span> </span>
+<span id="cb349-53"><a href="supplemental-null-set-exploratory-statistics.html#cb349-53" tabindex="-1"></a>  <span class="fu">read.csv</span>(<span class="st">&quot;Output Files/gnome_female_edgeR_null_kegg_acute.csv&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb349-54"><a href="supplemental-null-set-exploratory-statistics.html#cb349-54" tabindex="-1"></a>  <span class="fu">as.list</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb349-55"><a href="supplemental-null-set-exploratory-statistics.html#cb349-55" tabindex="-1"></a>  <span class="fu">lapply</span>(., <span class="cf">function</span>(x) x[<span class="sc">!</span><span class="fu">is.na</span>(x)]) <span class="sc">%&gt;%</span> </span>
+<span id="cb349-56"><a href="supplemental-null-set-exploratory-statistics.html#cb349-56" tabindex="-1"></a>  <span class="fu">lengths</span>(., <span class="at">use.names=</span><span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb349-57"><a href="supplemental-null-set-exploratory-statistics.html#cb349-57" tabindex="-1"></a>  <span class="fu">data.frame</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb349-58"><a href="supplemental-null-set-exploratory-statistics.html#cb349-58" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">approach=</span><span class="st">&quot;Genome&quot;</span>, </span>
+<span id="cb349-59"><a href="supplemental-null-set-exploratory-statistics.html#cb349-59" tabindex="-1"></a>         <span class="at">stage=</span><span class="st">&quot;Acute&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb349-60"><a href="supplemental-null-set-exploratory-statistics.html#cb349-60" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="st">&quot;terms&quot;</span> <span class="ot">=</span> <span class="st">&quot;.&quot;</span>)</span>
+<span id="cb349-61"><a href="supplemental-null-set-exploratory-statistics.html#cb349-61" tabindex="-1"></a></span>
+<span id="cb349-62"><a href="supplemental-null-set-exploratory-statistics.html#cb349-62" tabindex="-1"></a>g_peak_kegg <span class="ot">&lt;-</span> </span>
+<span id="cb349-63"><a href="supplemental-null-set-exploratory-statistics.html#cb349-63" tabindex="-1"></a>  <span class="fu">read.csv</span>(<span class="st">&quot;Output Files/gnome_female_edgeR_null_kegg_peak.csv&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb349-64"><a href="supplemental-null-set-exploratory-statistics.html#cb349-64" tabindex="-1"></a>  <span class="fu">as.list</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb349-65"><a href="supplemental-null-set-exploratory-statistics.html#cb349-65" tabindex="-1"></a>  <span class="fu">lapply</span>(., <span class="cf">function</span>(x) x[<span class="sc">!</span><span class="fu">is.na</span>(x)]) <span class="sc">%&gt;%</span> </span>
+<span id="cb349-66"><a href="supplemental-null-set-exploratory-statistics.html#cb349-66" tabindex="-1"></a>  <span class="fu">lengths</span>(., <span class="at">use.names=</span><span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb349-67"><a href="supplemental-null-set-exploratory-statistics.html#cb349-67" tabindex="-1"></a>  <span class="fu">data.frame</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb349-68"><a href="supplemental-null-set-exploratory-statistics.html#cb349-68" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">approach=</span><span class="st">&quot;Genome&quot;</span>, </span>
+<span id="cb349-69"><a href="supplemental-null-set-exploratory-statistics.html#cb349-69" tabindex="-1"></a>         <span class="at">stage=</span><span class="st">&quot;Peak&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb349-70"><a href="supplemental-null-set-exploratory-statistics.html#cb349-70" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="st">&quot;terms&quot;</span> <span class="ot">=</span> <span class="st">&quot;.&quot;</span>)</span>
+<span id="cb349-71"><a href="supplemental-null-set-exploratory-statistics.html#cb349-71" tabindex="-1"></a></span>
+<span id="cb349-72"><a href="supplemental-null-set-exploratory-statistics.html#cb349-72" tabindex="-1"></a>g_late_kegg <span class="ot">&lt;-</span> </span>
+<span id="cb349-73"><a href="supplemental-null-set-exploratory-statistics.html#cb349-73" tabindex="-1"></a>  <span class="fu">read.csv</span>(<span class="st">&quot;Output Files/gnome_female_edgeR_null_kegg_late.csv&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb349-74"><a href="supplemental-null-set-exploratory-statistics.html#cb349-74" tabindex="-1"></a>  <span class="fu">as.list</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb349-75"><a href="supplemental-null-set-exploratory-statistics.html#cb349-75" tabindex="-1"></a>  <span class="fu">lapply</span>(., <span class="cf">function</span>(x) x[<span class="sc">!</span><span class="fu">is.na</span>(x)]) <span class="sc">%&gt;%</span> </span>
+<span id="cb349-76"><a href="supplemental-null-set-exploratory-statistics.html#cb349-76" tabindex="-1"></a>  <span class="fu">lengths</span>(., <span class="at">use.names=</span><span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb349-77"><a href="supplemental-null-set-exploratory-statistics.html#cb349-77" tabindex="-1"></a>  <span class="fu">data.frame</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb349-78"><a href="supplemental-null-set-exploratory-statistics.html#cb349-78" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">approach=</span><span class="st">&quot;Genome&quot;</span>, </span>
+<span id="cb349-79"><a href="supplemental-null-set-exploratory-statistics.html#cb349-79" tabindex="-1"></a>         <span class="at">stage=</span><span class="st">&quot;Late&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb349-80"><a href="supplemental-null-set-exploratory-statistics.html#cb349-80" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="st">&quot;terms&quot;</span> <span class="ot">=</span> <span class="st">&quot;.&quot;</span>)</span>
+<span id="cb349-81"><a href="supplemental-null-set-exploratory-statistics.html#cb349-81" tabindex="-1"></a></span>
+<span id="cb349-82"><a href="supplemental-null-set-exploratory-statistics.html#cb349-82" tabindex="-1"></a></span>
+<span id="cb349-83"><a href="supplemental-null-set-exploratory-statistics.html#cb349-83" tabindex="-1"></a>kegg <span class="ot">&lt;-</span> <span class="fu">rbind</span>(t_virus_kegg,</span>
+<span id="cb349-84"><a href="supplemental-null-set-exploratory-statistics.html#cb349-84" tabindex="-1"></a>              t_acute_kegg, </span>
+<span id="cb349-85"><a href="supplemental-null-set-exploratory-statistics.html#cb349-85" tabindex="-1"></a>              t_peak_kegg, </span>
+<span id="cb349-86"><a href="supplemental-null-set-exploratory-statistics.html#cb349-86" tabindex="-1"></a>              t_late_kegg,</span>
+<span id="cb349-87"><a href="supplemental-null-set-exploratory-statistics.html#cb349-87" tabindex="-1"></a>              g_virus_kegg,</span>
+<span id="cb349-88"><a href="supplemental-null-set-exploratory-statistics.html#cb349-88" tabindex="-1"></a>              g_acute_kegg, </span>
+<span id="cb349-89"><a href="supplemental-null-set-exploratory-statistics.html#cb349-89" tabindex="-1"></a>              g_peak_kegg,</span>
+<span id="cb349-90"><a href="supplemental-null-set-exploratory-statistics.html#cb349-90" tabindex="-1"></a>              g_late_kegg) <span class="sc">%&gt;%</span> </span>
+<span id="cb349-91"><a href="supplemental-null-set-exploratory-statistics.html#cb349-91" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">approach=</span><span class="fu">factor</span>(approach, <span class="at">levels=</span><span class="fu">c</span>(<span class="st">&quot;Transcriptome&quot;</span>, <span class="st">&quot;Genome&quot;</span>)),</span>
+<span id="cb349-92"><a href="supplemental-null-set-exploratory-statistics.html#cb349-92" tabindex="-1"></a>         <span class="at">stage=</span><span class="fu">factor</span>(stage, <span class="at">levels=</span><span class="fu">c</span>( <span class="st">&quot;V+ vs V-&quot;</span>, <span class="st">&quot;Acute&quot;</span>, <span class="st">&quot;Peak&quot;</span>, <span class="st">&quot;Late&quot;</span>)))</span></code></pre></div>
+</div>
+<div id="plot-4" class="section level3 hasAnchor" number="6.5.2">
+<h3><span class="header-section-number">6.5.2</span> Plot<a href="supplemental-null-set-exploratory-statistics.html#plot-4" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb350"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb350-1"><a href="supplemental-null-set-exploratory-statistics.html#cb350-1" tabindex="-1"></a>null_kegg_plot <span class="ot">&lt;-</span></span>
+<span id="cb350-2"><a href="supplemental-null-set-exploratory-statistics.html#cb350-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(kegg, <span class="fu">aes</span>(<span class="at">x=</span>stage, <span class="at">y=</span><span class="fu">log</span>(terms))) <span class="sc">+</span></span>
+<span id="cb350-3"><a href="supplemental-null-set-exploratory-statistics.html#cb350-3" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb350-4"><a href="supplemental-null-set-exploratory-statistics.html#cb350-4" tabindex="-1"></a>  <span class="fu">facet_grid</span>(<span class="sc">~</span>approach) <span class="sc">+</span></span>
+<span id="cb350-5"><a href="supplemental-null-set-exploratory-statistics.html#cb350-5" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Influenza Stage&quot;</span>, <span class="at">y=</span><span class="st">&quot;log(# KEGG Pathways) per Trial&quot;</span>) <span class="sc">+</span></span>
+<span id="cb350-6"><a href="supplemental-null-set-exploratory-statistics.html#cb350-6" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb350-7"><a href="supplemental-null-set-exploratory-statistics.html#cb350-7" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">panel.grid=</span><span class="fu">element_blank</span>())</span>
+<span id="cb350-8"><a href="supplemental-null-set-exploratory-statistics.html#cb350-8" tabindex="-1"></a></span>
+<span id="cb350-9"><a href="supplemental-null-set-exploratory-statistics.html#cb350-9" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">&quot;Figures/supplemental_TG_F_null_#keggplot.jpg&quot;</span>, null_kegg_plot, </span>
+<span id="cb350-10"><a href="supplemental-null-set-exploratory-statistics.html#cb350-10" tabindex="-1"></a>       <span class="at">width=</span><span class="dv">6</span>, <span class="at">height=</span><span class="dv">3</span>, <span class="at">units=</span><span class="st">&quot;in&quot;</span>)</span></code></pre></div>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="influenza-stage-dge.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="influenza-dge-deseq2.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "section",
+"scroll_highlight": true
+},
+"info": false
+});
+});
+</script>
+
+</body>
+
+</html>

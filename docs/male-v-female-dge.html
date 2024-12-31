@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>3 Male v Female DGE | Untitled</title>
+  <meta name="description" content="McCosker Dissertation Chapter 1 Statistical Analyses" />
+  <meta name="generator" content="bookdown 0.41 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="3 Male v Female DGE | Untitled" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="McCosker Dissertation Chapter 1 Statistical Analyses" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="3 Male v Female DGE | Untitled" />
+  
+  <meta name="twitter:description" content="McCosker Dissertation Chapter 1 Statistical Analyses" />
+  
+
+<meta name="author" content="Christina McCosker" />
+
+
+<meta name="date" content="2024-12-31" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="loc-gene-identification.html"/>
+<link rel="next" href="virus-vs-virus--dge.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Hg-RNA Stats</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Publication Information</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#authors"><i class="fa fa-check"></i><b>1.1</b> Authors</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#abstract"><i class="fa fa-check"></i><b>1.2</b> Abstract</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="loc-gene-identification.html"><a href="loc-gene-identification.html"><i class="fa fa-check"></i><b>2</b> LOC Gene Identification</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="loc-gene-identification.html"><a href="loc-gene-identification.html#load-required-libraries"><i class="fa fa-check"></i><b>2.1</b> Load required libraries</a></li>
+<li class="chapter" data-level="2.2" data-path="loc-gene-identification.html"><a href="loc-gene-identification.html#load-data"><i class="fa fa-check"></i><b>2.2</b> Load data</a></li>
+<li class="chapter" data-level="2.3" data-path="loc-gene-identification.html"><a href="loc-gene-identification.html#extract-gene-sequences"><i class="fa fa-check"></i><b>2.3</b> Extract gene sequences</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="loc-gene-identification.html"><a href="loc-gene-identification.html#extract-loc-genes-from-gene-count-matrices"><i class="fa fa-check"></i><b>2.3.1</b> Extract LOC genes from gene count matrices</a></li>
+<li class="chapter" data-level="2.3.2" data-path="loc-gene-identification.html"><a href="loc-gene-identification.html#extract-transcript-ids-for-all-sequence-ids"><i class="fa fa-check"></i><b>2.3.2</b> Extract transcript IDs for all sequence IDs</a></li>
+<li class="chapter" data-level="2.3.3" data-path="loc-gene-identification.html"><a href="loc-gene-identification.html#extract-transcript-sequences-for-blast"><i class="fa fa-check"></i><b>2.3.3</b> Extract transcript sequences for blast</a></li>
+<li class="chapter" data-level="2.3.4" data-path="loc-gene-identification.html"><a href="loc-gene-identification.html#export-sequences"><i class="fa fa-check"></i><b>2.3.4</b> Export sequences</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="loc-gene-identification.html"><a href="loc-gene-identification.html#blast-sequences"><i class="fa fa-check"></i><b>2.4</b> Blast sequences</a></li>
+<li class="chapter" data-level="2.5" data-path="loc-gene-identification.html"><a href="loc-gene-identification.html#process-blastn-results"><i class="fa fa-check"></i><b>2.5</b> Process BLASTn Results</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="loc-gene-identification.html"><a href="loc-gene-identification.html#transcriptome"><i class="fa fa-check"></i><b>2.5.1</b> Transcriptome</a></li>
+<li class="chapter" data-level="2.5.2" data-path="loc-gene-identification.html"><a href="loc-gene-identification.html#genome"><i class="fa fa-check"></i><b>2.5.2</b> Genome</a></li>
+<li class="chapter" data-level="2.5.3" data-path="loc-gene-identification.html"><a href="loc-gene-identification.html#combine-transcriptome-genome-blast-results"><i class="fa fa-check"></i><b>2.5.3</b> Combine Transcriptome &amp; Genome Blast Results</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="loc-gene-identification.html"><a href="loc-gene-identification.html#combine-with-prior-loc-id-master-list"><i class="fa fa-check"></i><b>2.6</b> Combine with prior LOC ID master list</a></li>
+<li class="chapter" data-level="2.7" data-path="loc-gene-identification.html"><a href="loc-gene-identification.html#update-tidy-gene-count-matrices"><i class="fa fa-check"></i><b>2.7</b> Update &amp; tidy gene count matrices</a></li>
+<li class="chapter" data-level="2.8" data-path="loc-gene-identification.html"><a href="loc-gene-identification.html#remove-hemoglobin-genes"><i class="fa fa-check"></i><b>2.8</b> Remove hemoglobin genes</a></li>
+<li class="chapter" data-level="2.9" data-path="loc-gene-identification.html"><a href="loc-gene-identification.html#export-new-gene-count-matrices"><i class="fa fa-check"></i><b>2.9</b> Export new gene count matrices</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="male-v-female-dge.html"><a href="male-v-female-dge.html"><i class="fa fa-check"></i><b>3</b> Male v Female DGE</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="male-v-female-dge.html"><a href="male-v-female-dge.html#transcriptome---edger"><i class="fa fa-check"></i><b>3.1</b> Transcriptome - edgeR</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="male-v-female-dge.html"><a href="male-v-female-dge.html#libraries"><i class="fa fa-check"></i><b>3.1.1</b> Libraries</a></li>
+<li class="chapter" data-level="3.1.2" data-path="male-v-female-dge.html"><a href="male-v-female-dge.html#data"><i class="fa fa-check"></i><b>3.1.2</b> Data</a></li>
+<li class="chapter" data-level="3.1.3" data-path="male-v-female-dge.html"><a href="male-v-female-dge.html#differential-gene-expression-analysis"><i class="fa fa-check"></i><b>3.1.3</b> Differential Gene Expression Analysis</a></li>
+<li class="chapter" data-level="3.1.4" data-path="male-v-female-dge.html"><a href="male-v-female-dge.html#exploratory-plots"><i class="fa fa-check"></i><b>3.1.4</b> Exploratory Plots</a></li>
+<li class="chapter" data-level="3.1.5" data-path="male-v-female-dge.html"><a href="male-v-female-dge.html#test-for-degs"><i class="fa fa-check"></i><b>3.1.5</b> Test for DEGs</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="male-v-female-dge.html"><a href="male-v-female-dge.html#genome---edger"><i class="fa fa-check"></i><b>3.2</b> Genome - edgeR</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="male-v-female-dge.html"><a href="male-v-female-dge.html#libraries-1"><i class="fa fa-check"></i><b>3.2.1</b> Libraries</a></li>
+<li class="chapter" data-level="3.2.2" data-path="male-v-female-dge.html"><a href="male-v-female-dge.html#data-1"><i class="fa fa-check"></i><b>3.2.2</b> Data</a></li>
+<li class="chapter" data-level="3.2.3" data-path="male-v-female-dge.html"><a href="male-v-female-dge.html#differential-gene-expression-analysis-1"><i class="fa fa-check"></i><b>3.2.3</b> Differential Gene Expression Analysis</a></li>
+<li class="chapter" data-level="3.2.4" data-path="male-v-female-dge.html"><a href="male-v-female-dge.html#exploratory-plots-1"><i class="fa fa-check"></i><b>3.2.4</b> Exploratory Plots</a></li>
+<li class="chapter" data-level="3.2.5" data-path="male-v-female-dge.html"><a href="male-v-female-dge.html#test-for-degs-1"><i class="fa fa-check"></i><b>3.2.5</b> Test for DEGs</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html"><i class="fa fa-check"></i><b>4</b> Virus+ vs Virus- DGE</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#transcriptome---edger---females"><i class="fa fa-check"></i><b>4.1</b> Transcriptome - edgeR - Females</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#libraries-2"><i class="fa fa-check"></i><b>4.1.1</b> Libraries</a></li>
+<li class="chapter" data-level="4.1.2" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#data-2"><i class="fa fa-check"></i><b>4.1.2</b> Data</a></li>
+<li class="chapter" data-level="4.1.3" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#differential-gene-expression-analysis-2"><i class="fa fa-check"></i><b>4.1.3</b> Differential Gene Expression Analysis</a></li>
+<li class="chapter" data-level="4.1.4" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#exploratory-plots-2"><i class="fa fa-check"></i><b>4.1.4</b> Exploratory Plots</a></li>
+<li class="chapter" data-level="4.1.5" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#test-for-degs-2"><i class="fa fa-check"></i><b>4.1.5</b> Test for DEGs</a></li>
+<li class="chapter" data-level="4.1.6" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#go-enrichment-analysis"><i class="fa fa-check"></i><b>4.1.6</b> GO Enrichment Analysis</a></li>
+<li class="chapter" data-level="4.1.7" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#kegg-analysis"><i class="fa fa-check"></i><b>4.1.7</b> KEGG Analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#genome---edger---females"><i class="fa fa-check"></i><b>4.2</b> Genome - edgeR - Females</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#libraries-3"><i class="fa fa-check"></i><b>4.2.1</b> Libraries</a></li>
+<li class="chapter" data-level="4.2.2" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#data-3"><i class="fa fa-check"></i><b>4.2.2</b> Data</a></li>
+<li class="chapter" data-level="4.2.3" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#differential-gene-expression-analysis-3"><i class="fa fa-check"></i><b>4.2.3</b> Differential Gene Expression Analysis</a></li>
+<li class="chapter" data-level="4.2.4" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#exploratory-plots-3"><i class="fa fa-check"></i><b>4.2.4</b> Exploratory Plots</a></li>
+<li class="chapter" data-level="4.2.5" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#test-for-degs-3"><i class="fa fa-check"></i><b>4.2.5</b> Test for DEGs</a></li>
+<li class="chapter" data-level="4.2.6" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#go-enrichment-analysis-1"><i class="fa fa-check"></i><b>4.2.6</b> GO Enrichment Analysis</a></li>
+<li class="chapter" data-level="4.2.7" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#kegg-analysis-1"><i class="fa fa-check"></i><b>4.2.7</b> KEGG Analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#transcriptome-null-set---edger---females"><i class="fa fa-check"></i><b>4.3</b> Transcriptome Null Set - edgeR - Females</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#libraries-4"><i class="fa fa-check"></i><b>4.3.1</b> Libraries</a></li>
+<li class="chapter" data-level="4.3.2" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#data-4"><i class="fa fa-check"></i><b>4.3.2</b> Data</a></li>
+<li class="chapter" data-level="4.3.3" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#loop-differential-gene-expression-analysis"><i class="fa fa-check"></i><b>4.3.3</b> Loop Differential Gene Expression Analysis</a></li>
+<li class="chapter" data-level="4.3.4" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#go-enrichment-analysis-2"><i class="fa fa-check"></i><b>4.3.4</b> GO Enrichment Analysis</a></li>
+<li class="chapter" data-level="4.3.5" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#kegg-analysis-2"><i class="fa fa-check"></i><b>4.3.5</b> KEGG Analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#genome-null-set---edger---females"><i class="fa fa-check"></i><b>4.4</b> Genome Null Set - edgeR - Females</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#libraries-5"><i class="fa fa-check"></i><b>4.4.1</b> Libraries</a></li>
+<li class="chapter" data-level="4.4.2" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#data-5"><i class="fa fa-check"></i><b>4.4.2</b> Data</a></li>
+<li class="chapter" data-level="4.4.3" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#loop-differential-gene-expression-analysis-1"><i class="fa fa-check"></i><b>4.4.3</b> Loop Differential Gene Expression Analysis</a></li>
+<li class="chapter" data-level="4.4.4" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#go-enrichment-analysis-3"><i class="fa fa-check"></i><b>4.4.4</b> GO Enrichment Analysis</a></li>
+<li class="chapter" data-level="4.4.5" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#kegg-analysis-3"><i class="fa fa-check"></i><b>4.4.5</b> KEGG Analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#refine-gokegg"><i class="fa fa-check"></i><b>4.5</b> Refine GO/KEGG</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#libraries-6"><i class="fa fa-check"></i><b>4.5.1</b> Libraries</a></li>
+<li class="chapter" data-level="4.5.2" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#data-6"><i class="fa fa-check"></i><b>4.5.2</b> Data</a></li>
+<li class="chapter" data-level="4.5.3" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#transcriptome-1"><i class="fa fa-check"></i><b>4.5.3</b> Transcriptome</a></li>
+<li class="chapter" data-level="4.5.4" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#genome-1"><i class="fa fa-check"></i><b>4.5.4</b> Genome</a></li>
+<li class="chapter" data-level="4.5.5" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#go-term-figure"><i class="fa fa-check"></i><b>4.5.5</b> GO Term Figure</a></li>
+<li class="chapter" data-level="4.5.6" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#immunne-go-term-genes"><i class="fa fa-check"></i><b>4.5.6</b> Immunne GO term Genes</a></li>
+<li class="chapter" data-level="4.5.7" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#kegg-table---manuscript"><i class="fa fa-check"></i><b>4.5.7</b> KEGG Table - Manuscript</a></li>
+<li class="chapter" data-level="4.5.8" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#supplemental-table"><i class="fa fa-check"></i><b>4.5.8</b> Supplemental Table</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html"><i class="fa fa-check"></i><b>5</b> Influenza Stage DGE</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#transcriptome---edger---females-1"><i class="fa fa-check"></i><b>5.1</b> Transcriptome - edgeR - Females</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#libraries-7"><i class="fa fa-check"></i><b>5.1.1</b> Libraries</a></li>
+<li class="chapter" data-level="5.1.2" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#data-7"><i class="fa fa-check"></i><b>5.1.2</b> Data</a></li>
+<li class="chapter" data-level="5.1.3" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#differential-gene-expression-analysis-4"><i class="fa fa-check"></i><b>5.1.3</b> Differential Gene Expression Analysis</a></li>
+<li class="chapter" data-level="5.1.4" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#exploratory-plots-4"><i class="fa fa-check"></i><b>5.1.4</b> Exploratory Plots</a></li>
+<li class="chapter" data-level="5.1.5" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#test-for-degs-4"><i class="fa fa-check"></i><b>5.1.5</b> Test for DEGs</a></li>
+<li class="chapter" data-level="5.1.6" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#go-enrichment-analysis-4"><i class="fa fa-check"></i><b>5.1.6</b> GO Enrichment Analysis</a></li>
+<li class="chapter" data-level="5.1.7" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#kegg-analysis-4"><i class="fa fa-check"></i><b>5.1.7</b> KEGG Analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#genome---edger---females-1"><i class="fa fa-check"></i><b>5.2</b> Genome - edgeR - Females</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#libraries-8"><i class="fa fa-check"></i><b>5.2.1</b> Libraries</a></li>
+<li class="chapter" data-level="5.2.2" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#data-8"><i class="fa fa-check"></i><b>5.2.2</b> Data</a></li>
+<li class="chapter" data-level="5.2.3" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#differential-gene-expression-analysis-5"><i class="fa fa-check"></i><b>5.2.3</b> Differential Gene Expression Analysis</a></li>
+<li class="chapter" data-level="5.2.4" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#exploratory-plots-5"><i class="fa fa-check"></i><b>5.2.4</b> Exploratory Plots</a></li>
+<li class="chapter" data-level="5.2.5" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#test-for-degs-5"><i class="fa fa-check"></i><b>5.2.5</b> Test for DEGs</a></li>
+<li class="chapter" data-level="5.2.6" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#go-enrichment-analysis-5"><i class="fa fa-check"></i><b>5.2.6</b> GO Enrichment Analysis</a></li>
+<li class="chapter" data-level="5.2.7" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#kegg-analysis-5"><i class="fa fa-check"></i><b>5.2.7</b> KEGG Analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#comapre-t-g-approach---edger---females"><i class="fa fa-check"></i><b>5.3</b> Comapre T &amp; G Approach - edgeR - Females</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#libraries-9"><i class="fa fa-check"></i><b>5.3.1</b> Libraries</a></li>
+<li class="chapter" data-level="5.3.2" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#data-9"><i class="fa fa-check"></i><b>5.3.2</b> Data</a></li>
+<li class="chapter" data-level="5.3.3" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#number-of-up-down-reg-genes"><i class="fa fa-check"></i><b>5.3.3</b> Number of up &amp; down reg genes</a></li>
+<li class="chapter" data-level="5.3.4" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#gene-identities"><i class="fa fa-check"></i><b>5.3.4</b> Gene identities</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#transcriptome-null-set---edger---females-1"><i class="fa fa-check"></i><b>5.4</b> Transcriptome Null Set - edgeR - Females</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#libraries-10"><i class="fa fa-check"></i><b>5.4.1</b> Libraries</a></li>
+<li class="chapter" data-level="5.4.2" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#data-10"><i class="fa fa-check"></i><b>5.4.2</b> Data</a></li>
+<li class="chapter" data-level="5.4.3" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#loop-differential-gene-expression-analysis-2"><i class="fa fa-check"></i><b>5.4.3</b> Loop Differential Gene Expression Analysis</a></li>
+<li class="chapter" data-level="5.4.4" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#go-enrichment-analysis-6"><i class="fa fa-check"></i><b>5.4.4</b> GO Enrichment Analysis</a></li>
+<li class="chapter" data-level="5.4.5" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#kegg-analysis-6"><i class="fa fa-check"></i><b>5.4.5</b> KEGG Analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#genome-null-set---edger---females-1"><i class="fa fa-check"></i><b>5.5</b> Genome Null Set - edgeR - Females</a>
+<ul>
+<li class="chapter" data-level="5.5.1" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#libraries-11"><i class="fa fa-check"></i><b>5.5.1</b> Libraries</a></li>
+<li class="chapter" data-level="5.5.2" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#data-11"><i class="fa fa-check"></i><b>5.5.2</b> Data</a></li>
+<li class="chapter" data-level="5.5.3" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#loop-differential-gene-expression-analysis-3"><i class="fa fa-check"></i><b>5.5.3</b> Loop Differential Gene Expression Analysis</a></li>
+<li class="chapter" data-level="5.5.4" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#go-enrichment-analysis-7"><i class="fa fa-check"></i><b>5.5.4</b> GO Enrichment Analysis</a></li>
+<li class="chapter" data-level="5.5.5" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#kegg-analysis-7"><i class="fa fa-check"></i><b>5.5.5</b> KEGG Analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="5.6" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#refine-gokegg-1"><i class="fa fa-check"></i><b>5.6</b> Refine GO/KEGG</a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#libraries-12"><i class="fa fa-check"></i><b>5.6.1</b> Libraries</a></li>
+<li class="chapter" data-level="5.6.2" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#data-12"><i class="fa fa-check"></i><b>5.6.2</b> Data</a></li>
+<li class="chapter" data-level="5.6.3" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#transcriptome-2"><i class="fa fa-check"></i><b>5.6.3</b> Transcriptome</a></li>
+<li class="chapter" data-level="5.6.4" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#genome-2"><i class="fa fa-check"></i><b>5.6.4</b> Genome</a></li>
+<li class="chapter" data-level="5.6.5" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#go-term-figure-1"><i class="fa fa-check"></i><b>5.6.5</b> GO Term Figure</a></li>
+<li class="chapter" data-level="5.6.6" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#supplemental-table-1"><i class="fa fa-check"></i><b>5.6.6</b> Supplemental Table</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="supplemental-null-set-exploratory-statistics.html"><a href="supplemental-null-set-exploratory-statistics.html"><i class="fa fa-check"></i><b>6</b> Supplemental Null Set Exploratory Statistics</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="supplemental-null-set-exploratory-statistics.html"><a href="supplemental-null-set-exploratory-statistics.html#libaries"><i class="fa fa-check"></i><b>6.1</b> Libaries</a></li>
+<li class="chapter" data-level="6.2" data-path="supplemental-null-set-exploratory-statistics.html"><a href="supplemental-null-set-exploratory-statistics.html#number-of-degs"><i class="fa fa-check"></i><b>6.2</b> Number of DEGs</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="supplemental-null-set-exploratory-statistics.html"><a href="supplemental-null-set-exploratory-statistics.html#data-13"><i class="fa fa-check"></i><b>6.2.1</b> Data</a></li>
+<li class="chapter" data-level="6.2.2" data-path="supplemental-null-set-exploratory-statistics.html"><a href="supplemental-null-set-exploratory-statistics.html#quick-stats"><i class="fa fa-check"></i><b>6.2.2</b> Quick Stats</a></li>
+<li class="chapter" data-level="6.2.3" data-path="supplemental-null-set-exploratory-statistics.html"><a href="supplemental-null-set-exploratory-statistics.html#plot-1"><i class="fa fa-check"></i><b>6.2.3</b> Plot</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="supplemental-null-set-exploratory-statistics.html"><a href="supplemental-null-set-exploratory-statistics.html#deg-frequency"><i class="fa fa-check"></i><b>6.3</b> DEG Frequency</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="supplemental-null-set-exploratory-statistics.html"><a href="supplemental-null-set-exploratory-statistics.html#data---import-configure"><i class="fa fa-check"></i><b>6.3.1</b> Data - Import &amp; Configure</a></li>
+<li class="chapter" data-level="6.3.2" data-path="supplemental-null-set-exploratory-statistics.html"><a href="supplemental-null-set-exploratory-statistics.html#plot-2"><i class="fa fa-check"></i><b>6.3.2</b> Plot</a></li>
+<li class="chapter" data-level="6.3.3" data-path="supplemental-null-set-exploratory-statistics.html"><a href="supplemental-null-set-exploratory-statistics.html#combine-gene-number-frequency-plots"><i class="fa fa-check"></i><b>6.3.3</b> Combine gene number &amp; frequency plots</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="supplemental-null-set-exploratory-statistics.html"><a href="supplemental-null-set-exploratory-statistics.html#number-of-go-terms"><i class="fa fa-check"></i><b>6.4</b> Number of GO terms</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="supplemental-null-set-exploratory-statistics.html"><a href="supplemental-null-set-exploratory-statistics.html#data---import-configure-1"><i class="fa fa-check"></i><b>6.4.1</b> Data - Import &amp; Configure</a></li>
+<li class="chapter" data-level="6.4.2" data-path="supplemental-null-set-exploratory-statistics.html"><a href="supplemental-null-set-exploratory-statistics.html#plot-3"><i class="fa fa-check"></i><b>6.4.2</b> Plot</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="supplemental-null-set-exploratory-statistics.html"><a href="supplemental-null-set-exploratory-statistics.html#number-of-kegg-pathways"><i class="fa fa-check"></i><b>6.5</b> Number of KEGG Pathways</a>
+<ul>
+<li class="chapter" data-level="6.5.1" data-path="supplemental-null-set-exploratory-statistics.html"><a href="supplemental-null-set-exploratory-statistics.html#data-14"><i class="fa fa-check"></i><b>6.5.1</b> Data</a></li>
+<li class="chapter" data-level="6.5.2" data-path="supplemental-null-set-exploratory-statistics.html"><a href="supplemental-null-set-exploratory-statistics.html#plot-4"><i class="fa fa-check"></i><b>6.5.2</b> Plot</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="influenza-dge-deseq2.html"><a href="influenza-dge-deseq2.html"><i class="fa fa-check"></i><b>7</b> Influenza DGE DESeq2</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="influenza-dge-deseq2.html"><a href="influenza-dge-deseq2.html#transcriptome---deseq2---females"><i class="fa fa-check"></i><b>7.1</b> Transcriptome - DESeq2 - Females</a>
+<ul>
+<li class="chapter" data-level="7.1.1" data-path="influenza-dge-deseq2.html"><a href="influenza-dge-deseq2.html#libraries-13"><i class="fa fa-check"></i><b>7.1.1</b> Libraries</a></li>
+<li class="chapter" data-level="7.1.2" data-path="influenza-dge-deseq2.html"><a href="influenza-dge-deseq2.html#data-15"><i class="fa fa-check"></i><b>7.1.2</b> Data</a></li>
+<li class="chapter" data-level="7.1.3" data-path="influenza-dge-deseq2.html"><a href="influenza-dge-deseq2.html#viral-rna"><i class="fa fa-check"></i><b>7.1.3</b> Viral RNA</a></li>
+<li class="chapter" data-level="7.1.4" data-path="influenza-dge-deseq2.html"><a href="influenza-dge-deseq2.html#influenza-stage"><i class="fa fa-check"></i><b>7.1.4</b> Influenza Stage</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="influenza-dge-deseq2.html"><a href="influenza-dge-deseq2.html#genome---deseq2---females"><i class="fa fa-check"></i><b>7.2</b> Genome - DESeq2 - Females</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="influenza-dge-deseq2.html"><a href="influenza-dge-deseq2.html#libraries-14"><i class="fa fa-check"></i><b>7.2.1</b> Libraries</a></li>
+<li class="chapter" data-level="7.2.2" data-path="influenza-dge-deseq2.html"><a href="influenza-dge-deseq2.html#data-16"><i class="fa fa-check"></i><b>7.2.2</b> Data</a></li>
+<li class="chapter" data-level="7.2.3" data-path="influenza-dge-deseq2.html"><a href="influenza-dge-deseq2.html#viral-rna-1"><i class="fa fa-check"></i><b>7.2.3</b> Viral RNA</a></li>
+<li class="chapter" data-level="7.2.4" data-path="influenza-dge-deseq2.html"><a href="influenza-dge-deseq2.html#influenza-stage-1"><i class="fa fa-check"></i><b>7.2.4</b> Influenza Stage</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="r-package-comparison---edger-vs-deseq2.html"><a href="r-package-comparison---edger-vs-deseq2.html"><i class="fa fa-check"></i><b>8</b> R Package Comparison - edgeR vs DESeq2</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="r-package-comparison---edger-vs-deseq2.html"><a href="r-package-comparison---edger-vs-deseq2.html#libraries-15"><i class="fa fa-check"></i><b>8.1</b> Libraries</a></li>
+<li class="chapter" data-level="8.2" data-path="r-package-comparison---edger-vs-deseq2.html"><a href="r-package-comparison---edger-vs-deseq2.html#data-17"><i class="fa fa-check"></i><b>8.2</b> Data</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="r-package-comparison---edger-vs-deseq2.html"><a href="r-package-comparison---edger-vs-deseq2.html#metadata"><i class="fa fa-check"></i><b>8.2.1</b> Metadata</a></li>
+<li class="chapter" data-level="8.2.2" data-path="r-package-comparison---edger-vs-deseq2.html"><a href="r-package-comparison---edger-vs-deseq2.html#results-from-dge-testing"><i class="fa fa-check"></i><b>8.2.2</b> Results from DGE testing</a></li>
+<li class="chapter" data-level="8.2.3" data-path="r-package-comparison---edger-vs-deseq2.html"><a href="r-package-comparison---edger-vs-deseq2.html#differentially-expressed-genes-only"><i class="fa fa-check"></i><b>8.2.3</b> Differentially expressed genes only</a></li>
+<li class="chapter" data-level="8.2.4" data-path="r-package-comparison---edger-vs-deseq2.html"><a href="r-package-comparison---edger-vs-deseq2.html#pre-filter-lists"><i class="fa fa-check"></i><b>8.2.4</b> Pre-filter lists</a></li>
+<li class="chapter" data-level="8.2.5" data-path="r-package-comparison---edger-vs-deseq2.html"><a href="r-package-comparison---edger-vs-deseq2.html#normalized-gene-counts"><i class="fa fa-check"></i><b>8.2.5</b> Normalized gene counts</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="r-package-comparison---edger-vs-deseq2.html"><a href="r-package-comparison---edger-vs-deseq2.html#edger-vs-deseq2"><i class="fa fa-check"></i><b>8.3</b> edgeR vs DESeq2</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="r-package-comparison---edger-vs-deseq2.html"><a href="r-package-comparison---edger-vs-deseq2.html#number-of-pre-vs-post-filter-genes"><i class="fa fa-check"></i><b>8.3.1</b> Number of Pre vs Post Filter Genes</a></li>
+<li class="chapter" data-level="8.3.2" data-path="r-package-comparison---edger-vs-deseq2.html"><a href="r-package-comparison---edger-vs-deseq2.html#merge-results"><i class="fa fa-check"></i><b>8.3.2</b> Merge results</a></li>
+<li class="chapter" data-level="8.3.3" data-path="r-package-comparison---edger-vs-deseq2.html"><a href="r-package-comparison---edger-vs-deseq2.html#p-value"><i class="fa fa-check"></i><b>8.3.3</b> p-value</a></li>
+<li class="chapter" data-level="8.3.4" data-path="r-package-comparison---edger-vs-deseq2.html"><a href="r-package-comparison---edger-vs-deseq2.html#logfc"><i class="fa fa-check"></i><b>8.3.4</b> log(FC)</a></li>
+<li class="chapter" data-level="8.3.5" data-path="r-package-comparison---edger-vs-deseq2.html"><a href="r-package-comparison---edger-vs-deseq2.html#log-mean-expression"><i class="fa fa-check"></i><b>8.3.5</b> log mean expression</a></li>
+<li class="chapter" data-level="8.3.6" data-path="r-package-comparison---edger-vs-deseq2.html"><a href="r-package-comparison---edger-vs-deseq2.html#dge-explortory-stats"><i class="fa fa-check"></i><b>8.3.6</b> DGE explortory stats</a></li>
+<li class="chapter" data-level="8.3.7" data-path="r-package-comparison---edger-vs-deseq2.html"><a href="r-package-comparison---edger-vs-deseq2.html#method-gene-ids"><i class="fa fa-check"></i><b>8.3.7</b> Method Gene IDs</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="r-package-comparison---edger-vs-deseq2.html"><a href="r-package-comparison---edger-vs-deseq2.html#transcriptome-vs-genome"><i class="fa fa-check"></i><b>8.4</b> Transcriptome vs Genome</a>
+<ul>
+<li class="chapter" data-level="8.4.1" data-path="r-package-comparison---edger-vs-deseq2.html"><a href="r-package-comparison---edger-vs-deseq2.html#merge-results-1"><i class="fa fa-check"></i><b>8.4.1</b> Merge results</a></li>
+<li class="chapter" data-level="8.4.2" data-path="r-package-comparison---edger-vs-deseq2.html"><a href="r-package-comparison---edger-vs-deseq2.html#p-value-1"><i class="fa fa-check"></i><b>8.4.2</b> p-value</a></li>
+<li class="chapter" data-level="8.4.3" data-path="r-package-comparison---edger-vs-deseq2.html"><a href="r-package-comparison---edger-vs-deseq2.html#logfc-1"><i class="fa fa-check"></i><b>8.4.3</b> log(FC)</a></li>
+<li class="chapter" data-level="8.4.4" data-path="r-package-comparison---edger-vs-deseq2.html"><a href="r-package-comparison---edger-vs-deseq2.html#log-mean-expression-1"><i class="fa fa-check"></i><b>8.4.4</b> log mean expression</a></li>
+<li class="chapter" data-level="8.4.5" data-path="r-package-comparison---edger-vs-deseq2.html"><a href="r-package-comparison---edger-vs-deseq2.html#pca-plots-6"><i class="fa fa-check"></i><b>8.4.5</b> PCA plots</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="iav-kegg-pathway-candidate-gene-analysis.html"><a href="iav-kegg-pathway-candidate-gene-analysis.html"><i class="fa fa-check"></i><b>9</b> IAV Kegg Pathway Candidate Gene Analysis</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="iav-kegg-pathway-candidate-gene-analysis.html"><a href="iav-kegg-pathway-candidate-gene-analysis.html#libraries-16"><i class="fa fa-check"></i><b>9.1</b> Libraries</a></li>
+<li class="chapter" data-level="9.2" data-path="iav-kegg-pathway-candidate-gene-analysis.html"><a href="iav-kegg-pathway-candidate-gene-analysis.html#data-18"><i class="fa fa-check"></i><b>9.2</b> Data</a></li>
+<li class="chapter" data-level="9.3" data-path="iav-kegg-pathway-candidate-gene-analysis.html"><a href="iav-kegg-pathway-candidate-gene-analysis.html#extract-genes-from-kegg-pathway"><i class="fa fa-check"></i><b>9.3</b> Extract genes from KEGG Pathway</a></li>
+<li class="chapter" data-level="9.4" data-path="iav-kegg-pathway-candidate-gene-analysis.html"><a href="iav-kegg-pathway-candidate-gene-analysis.html#overlap-with-gene-lists"><i class="fa fa-check"></i><b>9.4</b> Overlap with Gene Lists</a>
+<ul>
+<li class="chapter" data-level="9.4.1" data-path="iav-kegg-pathway-candidate-gene-analysis.html"><a href="iav-kegg-pathway-candidate-gene-analysis.html#postfilter"><i class="fa fa-check"></i><b>9.4.1</b> Postfilter</a></li>
+<li class="chapter" data-level="9.4.2" data-path="iav-kegg-pathway-candidate-gene-analysis.html"><a href="iav-kegg-pathway-candidate-gene-analysis.html#differentially-expressed-genes"><i class="fa fa-check"></i><b>9.4.2</b> Differentially Expressed Genes</a></li>
+<li class="chapter" data-level="9.4.3" data-path="iav-kegg-pathway-candidate-gene-analysis.html"><a href="iav-kegg-pathway-candidate-gene-analysis.html#compile-gene-ids"><i class="fa fa-check"></i><b>9.4.3</b> Compile gene IDs</a></li>
+</ul></li>
+<li class="chapter" data-level="9.5" data-path="iav-kegg-pathway-candidate-gene-analysis.html"><a href="iav-kegg-pathway-candidate-gene-analysis.html#plot-pathway-map"><i class="fa fa-check"></i><b>9.5</b> Plot pathway map</a>
+<ul>
+<li class="chapter" data-level="9.5.1" data-path="iav-kegg-pathway-candidate-gene-analysis.html"><a href="iav-kegg-pathway-candidate-gene-analysis.html#create-legend"><i class="fa fa-check"></i><b>9.5.1</b> Create Legend</a></li>
+</ul></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Untitled</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="male-v-female-dge" class="section level1 hasAnchor" number="3">
+<h1><span class="header-section-number">3</span> Male v Female DGE<a href="male-v-female-dge.html#male-v-female-dge" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="transcriptome---edger" class="section level2 hasAnchor" number="3.1">
+<h2><span class="header-section-number">3.1</span> Transcriptome - edgeR<a href="male-v-female-dge.html#transcriptome---edger" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="libraries" class="section level3 hasAnchor" number="3.1.1">
+<h3><span class="header-section-number">3.1.1</span> Libraries<a href="male-v-female-dge.html#libraries" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="male-v-female-dge.html#cb18-1" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb18-2"><a href="male-v-female-dge.html#cb18-2" tabindex="-1"></a><span class="fu">library</span>(edgeR)</span>
+<span id="cb18-3"><a href="male-v-female-dge.html#cb18-3" tabindex="-1"></a><span class="fu">library</span>(ggfortify)</span>
+<span id="cb18-4"><a href="male-v-female-dge.html#cb18-4" tabindex="-1"></a><span class="fu">library</span>(gplots)</span></code></pre></div>
+</div>
+<div id="data" class="section level3 hasAnchor" number="3.1.2">
+<h3><span class="header-section-number">3.1.2</span> Data<a href="male-v-female-dge.html#data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="male-v-female-dge.html#cb19-1" tabindex="-1"></a>SampleInfo <span class="ot">&lt;-</span> </span>
+<span id="cb19-2"><a href="male-v-female-dge.html#cb19-2" tabindex="-1"></a>  <span class="fu">read.csv</span>(<span class="st">&quot;Input Files/metadata.csv&quot;</span>, </span>
+<span id="cb19-3"><a href="male-v-female-dge.html#cb19-3" tabindex="-1"></a>           <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb19-4"><a href="male-v-female-dge.html#cb19-4" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">year=</span><span class="fu">as.factor</span>(year)) </span>
+<span id="cb19-5"><a href="male-v-female-dge.html#cb19-5" tabindex="-1"></a></span>
+<span id="cb19-6"><a href="male-v-female-dge.html#cb19-6" tabindex="-1"></a>Raw <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="at">file =</span> <span class="st">&quot;Output Files/txome_genecounts_locid_nohemo.csv&quot;</span>, </span>
+<span id="cb19-7"><a href="male-v-female-dge.html#cb19-7" tabindex="-1"></a>                <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb19-8"><a href="male-v-female-dge.html#cb19-8" tabindex="-1"></a>                <span class="at">header =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb19-9"><a href="male-v-female-dge.html#cb19-9" tabindex="-1"></a>                <span class="at">row.names =</span> <span class="dv">1</span>)</span></code></pre></div>
+</div>
+<div id="differential-gene-expression-analysis" class="section level3 hasAnchor" number="3.1.3">
+<h3><span class="header-section-number">3.1.3</span> Differential Gene Expression Analysis<a href="male-v-female-dge.html#differential-gene-expression-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="dgelist" class="section level4 hasAnchor" number="3.1.3.1">
+<h4><span class="header-section-number">3.1.3.1</span> DGElist<a href="male-v-female-dge.html#dgelist" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="male-v-female-dge.html#cb20-1" tabindex="-1"></a>DGE <span class="ot">&lt;-</span> <span class="fu">DGEList</span>(<span class="at">counts=</span>Raw, <span class="at">group=</span>SampleInfo<span class="sc">$</span>sex)</span>
+<span id="cb20-2"><a href="male-v-female-dge.html#cb20-2" tabindex="-1"></a>DGE<span class="sc">$</span>samples</span></code></pre></div>
+<pre><code>##           group lib.size norm.factors
+## Hg11513  female  2842670            1
+## Hg1354   female  3618804            1
+## Hg1403   female  6100522            1
+## Hg1404   female  3533565            1
+## Hg908b   female  5871501            1
+## Hg1274     male  3026478            1
+## Hg1407     male  4238107            1
+## Hg1256   female  4573826            1
+## Hg1265  unknown  2979315            1
+## Hg1288   female  2823770            1
+## Hg266    female  3543715            1
+## Hg1402     male  6560784            1
+## Hg270      male  3772971            1
+## Hg1261   female  1943267            1
+## Hg1272   female  4708624            1
+## Hg1380   female  3204059            1
+## Hg1387   female  4158987            1
+## Hg1397   female  4343361            1
+## Hg1421   female  4508013            1
+## Hg1528   female  2894695            1
+## Hg861a   female  5407908            1
+## Hg862a   female  4075756            1
+## Hg934    female  3956989            1
+## Hg1262   female  4653972            1
+## Hg1273   female  5011031            1
+## Hg1282   female  2951861            1
+## Hg1283   female  4658064            1
+## Hg1286   female  4284639            1
+## Hg1351   female  1430600            1
+## Hg1516   female  4688415            1
+## Hg1527   female  3763080            1</code></pre>
+</div>
+<div id="filter-out-lowly-expressed-genes" class="section level4 hasAnchor" number="3.1.3.2">
+<h4><span class="header-section-number">3.1.3.2</span> Filter out lowly expressed genes<a href="male-v-female-dge.html#filter-out-lowly-expressed-genes" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="male-v-female-dge.html#cb22-1" tabindex="-1"></a>keep <span class="ot">&lt;-</span> <span class="fu">filterByExpr</span>(DGE)</span>
+<span id="cb22-2"><a href="male-v-female-dge.html#cb22-2" tabindex="-1"></a>DGE <span class="ot">&lt;-</span> DGE[keep, , keep.lib.sizes<span class="ot">=</span><span class="cn">FALSE</span>]</span>
+<span id="cb22-3"><a href="male-v-female-dge.html#cb22-3" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">rownames</span>(DGE<span class="sc">$</span>counts))</span></code></pre></div>
+<pre><code>## [1] 13093</code></pre>
+</div>
+<div id="normalize-based-on-library-sizes" class="section level4 hasAnchor" number="3.1.3.3">
+<h4><span class="header-section-number">3.1.3.3</span> Normalize based on library sizes<a href="male-v-female-dge.html#normalize-based-on-library-sizes" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="male-v-female-dge.html#cb24-1" tabindex="-1"></a>DGE <span class="ot">&lt;-</span> <span class="fu">calcNormFactors</span>(DGE)</span></code></pre></div>
+</div>
+<div id="estimate-dispersion" class="section level4 hasAnchor" number="3.1.3.4">
+<h4><span class="header-section-number">3.1.3.4</span> Estimate Dispersion<a href="male-v-female-dge.html#estimate-dispersion" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>On average, the true abundance for each gene can vary up or down by xx% (BCV) between replicates
+Differentially expressed = needs to vary by more than xx%</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="male-v-female-dge.html#cb25-1" tabindex="-1"></a><span class="co"># Overall common dispersion</span></span>
+<span id="cb25-2"><a href="male-v-female-dge.html#cb25-2" tabindex="-1"></a>DGE <span class="ot">&lt;-</span> <span class="fu">estimateCommonDisp</span>(DGE, <span class="at">verbose =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>## Disp = 0.18267 , BCV = 0.4274</code></pre>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="male-v-female-dge.html#cb27-1" tabindex="-1"></a><span class="co"># Dispersion trend based on gene abundance</span></span>
+<span id="cb27-2"><a href="male-v-female-dge.html#cb27-2" tabindex="-1"></a>DGE <span class="ot">&lt;-</span> <span class="fu">estimateTrendedDisp</span>(DGE)</span>
+<span id="cb27-3"><a href="male-v-female-dge.html#cb27-3" tabindex="-1"></a></span>
+<span id="cb27-4"><a href="male-v-female-dge.html#cb27-4" tabindex="-1"></a><span class="co"># Tagwise dispersion - allows different dispersion for each gene</span></span>
+<span id="cb27-5"><a href="male-v-female-dge.html#cb27-5" tabindex="-1"></a>DGE <span class="ot">&lt;-</span> <span class="fu">estimateTagwiseDisp</span>(DGE, <span class="at">verbose =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>## Using interpolation to estimate tagwise dispersion.</code></pre>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="male-v-female-dge.html#cb29-1" tabindex="-1"></a><span class="fu">plotBCV</span>(DGE)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
+</div>
+</div>
+<div id="exploratory-plots" class="section level3 hasAnchor" number="3.1.4">
+<h3><span class="header-section-number">3.1.4</span> Exploratory Plots<a href="male-v-female-dge.html#exploratory-plots" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="normalized-counts" class="section level4 hasAnchor" number="3.1.4.1">
+<h4><span class="header-section-number">3.1.4.1</span> Normalized counts<a href="male-v-female-dge.html#normalized-counts" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="male-v-female-dge.html#cb30-1" tabindex="-1"></a>CPM <span class="ot">&lt;-</span> </span>
+<span id="cb30-2"><a href="male-v-female-dge.html#cb30-2" tabindex="-1"></a>  <span class="fu">cpm</span>(DGE, <span class="at">normalized.lib.sizes =</span> <span class="cn">TRUE</span>, <span class="at">log =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb30-3"><a href="male-v-female-dge.html#cb30-3" tabindex="-1"></a>  <span class="fu">data.frame</span>()</span>
+<span id="cb30-4"><a href="male-v-female-dge.html#cb30-4" tabindex="-1"></a><span class="fu">boxplot</span>(CPM, <span class="at">las =</span> <span class="dv">2</span>, <span class="at">ylab =</span> <span class="st">&quot;log2 CPM&quot;</span>, <span class="at">main =</span> <span class="st">&quot;Normalized Data&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-24-1.png" width="672" /></p>
+</div>
+<div id="cluster-dendrogram" class="section level4 hasAnchor" number="3.1.4.2">
+<h4><span class="header-section-number">3.1.4.2</span> Cluster dendrogram<a href="male-v-female-dge.html#cluster-dendrogram" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Males = 1274, 1407, 1402, 270
+Unknown = 1265</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="male-v-female-dge.html#cb31-1" tabindex="-1"></a>RawDist <span class="ot">&lt;-</span> <span class="fu">dist</span>(<span class="fu">t</span>(CPM), <span class="at">method =</span> <span class="st">&quot;euclidean&quot;</span>)</span>
+<span id="cb31-2"><a href="male-v-female-dge.html#cb31-2" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">hclust</span>(RawDist, <span class="at">method =</span> <span class="st">&quot;average&quot;</span>), <span class="at">xlab=</span><span class="st">&quot;Average Euclidean Distance&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-25-1.png" width="672" /></p>
+</div>
+<div id="pca-plots" class="section level4 hasAnchor" number="3.1.4.3">
+<h4><span class="header-section-number">3.1.4.3</span> PCA Plots<a href="male-v-female-dge.html#pca-plots" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="male-v-female-dge.html#cb32-1" tabindex="-1"></a>PCA <span class="ot">&lt;-</span> <span class="fu">prcomp</span>(<span class="fu">t</span>(RawDist))</span>
+<span id="cb32-2"><a href="male-v-female-dge.html#cb32-2" tabindex="-1"></a></span>
+<span id="cb32-3"><a href="male-v-female-dge.html#cb32-3" tabindex="-1"></a><span class="co"># PCs 1-2</span></span>
+<span id="cb32-4"><a href="male-v-female-dge.html#cb32-4" tabindex="-1"></a><span class="fu">autoplot</span>(PCA, <span class="at">data=</span>SampleInfo, <span class="at">colour=</span><span class="st">&quot;sex&quot;</span>) <span class="sc">+</span></span>
+<span id="cb32-5"><a href="male-v-female-dge.html#cb32-5" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;bottom&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-26-1.png" width="672" /></p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="male-v-female-dge.html#cb33-1" tabindex="-1"></a><span class="fu">autoplot</span>(PCA, <span class="at">data=</span>SampleInfo, <span class="at">colour=</span><span class="st">&quot;disease_stage&quot;</span>) <span class="sc">+</span></span>
+<span id="cb33-2"><a href="male-v-female-dge.html#cb33-2" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;bottom&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-26-2.png" width="672" /></p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="male-v-female-dge.html#cb34-1" tabindex="-1"></a><span class="fu">autoplot</span>(PCA, <span class="at">data=</span>SampleInfo, <span class="at">colour=</span><span class="st">&quot;year&quot;</span>) <span class="sc">+</span></span>
+<span id="cb34-2"><a href="male-v-female-dge.html#cb34-2" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;bottom&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-26-3.png" width="672" /></p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="male-v-female-dge.html#cb35-1" tabindex="-1"></a><span class="fu">autoplot</span>(PCA, <span class="at">data=</span>SampleInfo, <span class="at">colour=</span><span class="st">&quot;molt&quot;</span>) <span class="sc">+</span></span>
+<span id="cb35-2"><a href="male-v-female-dge.html#cb35-2" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;bottom&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-26-4.png" width="672" /></p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="male-v-female-dge.html#cb36-1" tabindex="-1"></a><span class="co"># PCs 3-4</span></span>
+<span id="cb36-2"><a href="male-v-female-dge.html#cb36-2" tabindex="-1"></a><span class="fu">autoplot</span>(PCA, <span class="at">data=</span>SampleInfo, <span class="at">x=</span><span class="dv">3</span>, <span class="at">y=</span><span class="dv">4</span>, <span class="at">colour=</span><span class="st">&quot;sex&quot;</span>) <span class="sc">+</span></span>
+<span id="cb36-3"><a href="male-v-female-dge.html#cb36-3" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;bottom&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-26-5.png" width="672" /></p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="male-v-female-dge.html#cb37-1" tabindex="-1"></a><span class="fu">autoplot</span>(PCA, <span class="at">data=</span>SampleInfo, <span class="at">x=</span><span class="dv">3</span>, <span class="at">y=</span><span class="dv">4</span>, <span class="at">colour=</span><span class="st">&quot;disease_stage&quot;</span>) <span class="sc">+</span></span>
+<span id="cb37-2"><a href="male-v-female-dge.html#cb37-2" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;bottom&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-26-6.png" width="672" /></p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="male-v-female-dge.html#cb38-1" tabindex="-1"></a><span class="fu">autoplot</span>(PCA, <span class="at">data=</span>SampleInfo, <span class="at">x=</span><span class="dv">3</span>, <span class="at">y=</span><span class="dv">4</span>, <span class="at">colour=</span><span class="st">&quot;year&quot;</span>) <span class="sc">+</span></span>
+<span id="cb38-2"><a href="male-v-female-dge.html#cb38-2" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;bottom&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-26-7.png" width="672" /></p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="male-v-female-dge.html#cb39-1" tabindex="-1"></a><span class="fu">autoplot</span>(PCA, <span class="at">data=</span>SampleInfo, <span class="at">x=</span><span class="dv">3</span>, <span class="at">y=</span><span class="dv">4</span>, <span class="at">colour=</span><span class="st">&quot;molt&quot;</span>) <span class="sc">+</span></span>
+<span id="cb39-2"><a href="male-v-female-dge.html#cb39-2" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;bottom&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-26-8.png" width="672" /></p>
+</div>
+</div>
+<div id="test-for-degs" class="section level3 hasAnchor" number="3.1.5">
+<h3><span class="header-section-number">3.1.5</span> Test for DEGs<a href="male-v-female-dge.html#test-for-degs" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="male-v-female-dge.html#cb40-1" tabindex="-1"></a>et <span class="ot">&lt;-</span> <span class="fu">exactTest</span>(DGE, <span class="at">pair=</span><span class="fu">c</span>(<span class="st">&quot;male&quot;</span>, <span class="st">&quot;female&quot;</span>))</span></code></pre></div>
+<div id="select-degs-by-fold-change-pvalue" class="section level4 hasAnchor" number="3.1.5.1">
+<h4><span class="header-section-number">3.1.5.1</span> Select DEGs by fold change &amp; pvalue<a href="male-v-female-dge.html#select-degs-by-fold-change-pvalue" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Uncorrected p &lt; 0.05
+log2FC &gt; 1 (2-fold change)</p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="male-v-female-dge.html#cb41-1" tabindex="-1"></a>results <span class="ot">&lt;-</span> <span class="fu">topTags</span>(et, <span class="at">n =</span> <span class="fu">dim</span>(DGE)[<span class="dv">1</span>]) <span class="sc">%&gt;%</span> </span>
+<span id="cb41-2"><a href="male-v-female-dge.html#cb41-2" tabindex="-1"></a>  <span class="fu">data.frame</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb41-3"><a href="male-v-female-dge.html#cb41-3" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">abs</span>(logFC) <span class="sc">&gt;</span> <span class="dv">1</span> <span class="sc">&amp;</span> PValue <span class="sc">&lt;</span> <span class="fl">0.05</span>)</span>
+<span id="cb41-4"><a href="male-v-female-dge.html#cb41-4" tabindex="-1"></a><span class="fu">nrow</span>(results)</span></code></pre></div>
+<pre><code>## [1] 198</code></pre>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="male-v-female-dge.html#cb43-1" tabindex="-1"></a><span class="fu">write.csv</span>(results, <span class="st">&quot;Output Files/txome_sex_edgeR_degs.csv&quot;</span>)</span></code></pre></div>
+</div>
+<div id="deg-heatmap" class="section level4 hasAnchor" number="3.1.5.2">
+<h4><span class="header-section-number">3.1.5.2</span> DEG Heatmap<a href="male-v-female-dge.html#deg-heatmap" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="male-v-female-dge.html#cb44-1" tabindex="-1"></a><span class="fu">jpeg</span>(<span class="st">&quot;Figures/transcriptome_sex_edgeR_heatmap.jpg&quot;</span>, <span class="at">width=</span><span class="dv">9</span>, <span class="at">height=</span><span class="dv">9</span>, <span class="at">units=</span><span class="st">&#39;in&#39;</span>, <span class="at">res=</span><span class="dv">900</span>)</span>
+<span id="cb44-2"><a href="male-v-female-dge.html#cb44-2" tabindex="-1"></a><span class="fu">heatmap.2</span>(<span class="fu">as.matrix</span>(CPM[<span class="fu">rownames</span>(CPM) <span class="sc">%in%</span> <span class="fu">rownames</span>(results), ]),</span>
+<span id="cb44-3"><a href="male-v-female-dge.html#cb44-3" tabindex="-1"></a>          <span class="at">scale =</span> <span class="st">&quot;row&quot;</span>, <span class="at">trace =</span> <span class="st">&quot;none&quot;</span>, <span class="at">margins=</span><span class="fu">c</span>(<span class="dv">5</span>,<span class="dv">8</span>), </span>
+<span id="cb44-4"><a href="male-v-female-dge.html#cb44-4" tabindex="-1"></a>          <span class="at">cexRow =</span> <span class="fl">0.5</span>, <span class="at">labRow=</span><span class="cn">FALSE</span>)</span>
+<span id="cb44-5"><a href="male-v-female-dge.html#cb44-5" tabindex="-1"></a><span class="fu">dev.off</span>()</span></code></pre></div>
+<pre><code>## png 
+##   2</code></pre>
+
+</div>
+</div>
+</div>
+<div id="genome---edger" class="section level2 hasAnchor" number="3.2">
+<h2><span class="header-section-number">3.2</span> Genome - edgeR<a href="male-v-female-dge.html#genome---edger" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="libraries-1" class="section level3 hasAnchor" number="3.2.1">
+<h3><span class="header-section-number">3.2.1</span> Libraries<a href="male-v-female-dge.html#libraries-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="male-v-female-dge.html#cb46-1" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb46-2"><a href="male-v-female-dge.html#cb46-2" tabindex="-1"></a><span class="fu">library</span>(edgeR)</span>
+<span id="cb46-3"><a href="male-v-female-dge.html#cb46-3" tabindex="-1"></a><span class="fu">library</span>(ggfortify)</span>
+<span id="cb46-4"><a href="male-v-female-dge.html#cb46-4" tabindex="-1"></a><span class="fu">library</span>(gplots)</span></code></pre></div>
+</div>
+<div id="data-1" class="section level3 hasAnchor" number="3.2.2">
+<h3><span class="header-section-number">3.2.2</span> Data<a href="male-v-female-dge.html#data-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="male-v-female-dge.html#cb47-1" tabindex="-1"></a>SampleInfo <span class="ot">&lt;-</span> </span>
+<span id="cb47-2"><a href="male-v-female-dge.html#cb47-2" tabindex="-1"></a>  <span class="fu">read.csv</span>(<span class="st">&quot;Input Files/metadata.csv&quot;</span>, </span>
+<span id="cb47-3"><a href="male-v-female-dge.html#cb47-3" tabindex="-1"></a>           <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb47-4"><a href="male-v-female-dge.html#cb47-4" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">year=</span><span class="fu">as.factor</span>(year)) </span>
+<span id="cb47-5"><a href="male-v-female-dge.html#cb47-5" tabindex="-1"></a></span>
+<span id="cb47-6"><a href="male-v-female-dge.html#cb47-6" tabindex="-1"></a>Raw <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="at">file =</span> <span class="st">&quot;Output Files/gnome_genecounts_locid_nohemo.csv&quot;</span>, </span>
+<span id="cb47-7"><a href="male-v-female-dge.html#cb47-7" tabindex="-1"></a>                <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb47-8"><a href="male-v-female-dge.html#cb47-8" tabindex="-1"></a>                <span class="at">header =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb47-9"><a href="male-v-female-dge.html#cb47-9" tabindex="-1"></a>                <span class="at">row.names =</span> <span class="dv">1</span>)</span></code></pre></div>
+</div>
+<div id="differential-gene-expression-analysis-1" class="section level3 hasAnchor" number="3.2.3">
+<h3><span class="header-section-number">3.2.3</span> Differential Gene Expression Analysis<a href="male-v-female-dge.html#differential-gene-expression-analysis-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="dgelist-1" class="section level4 hasAnchor" number="3.2.3.1">
+<h4><span class="header-section-number">3.2.3.1</span> DGElist<a href="male-v-female-dge.html#dgelist-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="male-v-female-dge.html#cb48-1" tabindex="-1"></a>DGE <span class="ot">&lt;-</span> <span class="fu">DGEList</span>(<span class="at">counts=</span>Raw, <span class="at">group=</span>SampleInfo<span class="sc">$</span>sex)</span>
+<span id="cb48-2"><a href="male-v-female-dge.html#cb48-2" tabindex="-1"></a>DGE<span class="sc">$</span>samples</span></code></pre></div>
+<pre><code>##           group lib.size norm.factors
+## Hg11513  female  3894792            1
+## Hg1354   female  4928497            1
+## Hg1403   female  7571672            1
+## Hg1404   female  4696012            1
+## Hg908b   female  7291936            1
+## Hg1274     male  3984216            1
+## Hg1407     male  5400490            1
+## Hg1256   female  5728747            1
+## Hg1265  unknown  3851318            1
+## Hg1288   female  3740785            1
+## Hg266    female  4414778            1
+## Hg1402     male  8016958            1
+## Hg270      male  4804685            1
+## Hg1261   female  2938200            1
+## Hg1272   female  6665010            1
+## Hg1380   female  4719984            1
+## Hg1387   female  5562169            1
+## Hg1397   female  5747795            1
+## Hg1421   female  5958925            1
+## Hg1528   female  3655704            1
+## Hg861a   female  6717503            1
+## Hg862a   female  5273447            1
+## Hg934    female  5089019            1
+## Hg1262   female  5954066            1
+## Hg1273   female  6511255            1
+## Hg1282   female  3997507            1
+## Hg1283   female  5907705            1
+## Hg1286   female  5521600            1
+## Hg1351   female  2230773            1
+## Hg1516   female  6012343            1
+## Hg1527   female  4895128            1</code></pre>
+</div>
+<div id="filter-out-lowly-expressed-genes-1" class="section level4 hasAnchor" number="3.2.3.2">
+<h4><span class="header-section-number">3.2.3.2</span> Filter out lowly expressed genes<a href="male-v-female-dge.html#filter-out-lowly-expressed-genes-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="male-v-female-dge.html#cb50-1" tabindex="-1"></a>keep <span class="ot">&lt;-</span> <span class="fu">filterByExpr</span>(DGE)</span>
+<span id="cb50-2"><a href="male-v-female-dge.html#cb50-2" tabindex="-1"></a>DGE <span class="ot">&lt;-</span> DGE[keep, , keep.lib.sizes<span class="ot">=</span><span class="cn">FALSE</span>]</span>
+<span id="cb50-3"><a href="male-v-female-dge.html#cb50-3" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">rownames</span>(DGE<span class="sc">$</span>counts))</span></code></pre></div>
+<pre><code>## [1] 14063</code></pre>
+</div>
+<div id="normalize-based-on-library-sizes-1" class="section level4 hasAnchor" number="3.2.3.3">
+<h4><span class="header-section-number">3.2.3.3</span> Normalize based on library sizes<a href="male-v-female-dge.html#normalize-based-on-library-sizes-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="male-v-female-dge.html#cb52-1" tabindex="-1"></a>DGE <span class="ot">&lt;-</span> <span class="fu">calcNormFactors</span>(DGE)</span></code></pre></div>
+</div>
+<div id="estimate-dispersion-1" class="section level4 hasAnchor" number="3.2.3.4">
+<h4><span class="header-section-number">3.2.3.4</span> Estimate Dispersion<a href="male-v-female-dge.html#estimate-dispersion-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>On average, the true abundance for each gene can vary up or down by xx% (BCV) between replicates
+Differentially expressed = needs to vary by more than xx%</p>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="male-v-female-dge.html#cb53-1" tabindex="-1"></a><span class="co"># Overall common dispersion</span></span>
+<span id="cb53-2"><a href="male-v-female-dge.html#cb53-2" tabindex="-1"></a>DGE <span class="ot">&lt;-</span> <span class="fu">estimateCommonDisp</span>(DGE, <span class="at">verbose =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>## Disp = 0.22568 , BCV = 0.4751</code></pre>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="male-v-female-dge.html#cb55-1" tabindex="-1"></a><span class="co"># Dispersion trend based on gene abundance</span></span>
+<span id="cb55-2"><a href="male-v-female-dge.html#cb55-2" tabindex="-1"></a>DGE <span class="ot">&lt;-</span> <span class="fu">estimateTrendedDisp</span>(DGE)</span>
+<span id="cb55-3"><a href="male-v-female-dge.html#cb55-3" tabindex="-1"></a></span>
+<span id="cb55-4"><a href="male-v-female-dge.html#cb55-4" tabindex="-1"></a><span class="co"># Tagwise dispersion - allows different dispersion for each gene</span></span>
+<span id="cb55-5"><a href="male-v-female-dge.html#cb55-5" tabindex="-1"></a>DGE <span class="ot">&lt;-</span> <span class="fu">estimateTagwiseDisp</span>(DGE, <span class="at">verbose =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>## Using interpolation to estimate tagwise dispersion.</code></pre>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="male-v-female-dge.html#cb57-1" tabindex="-1"></a><span class="fu">plotBCV</span>(DGE)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-35-1.png" width="672" /></p>
+</div>
+</div>
+<div id="exploratory-plots-1" class="section level3 hasAnchor" number="3.2.4">
+<h3><span class="header-section-number">3.2.4</span> Exploratory Plots<a href="male-v-female-dge.html#exploratory-plots-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="normalized-counts-1" class="section level4 hasAnchor" number="3.2.4.1">
+<h4><span class="header-section-number">3.2.4.1</span> Normalized counts<a href="male-v-female-dge.html#normalized-counts-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="male-v-female-dge.html#cb58-1" tabindex="-1"></a>CPM <span class="ot">&lt;-</span> </span>
+<span id="cb58-2"><a href="male-v-female-dge.html#cb58-2" tabindex="-1"></a>  <span class="fu">cpm</span>(DGE, <span class="at">normalized.lib.sizes =</span> <span class="cn">TRUE</span>, <span class="at">log =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb58-3"><a href="male-v-female-dge.html#cb58-3" tabindex="-1"></a>  <span class="fu">data.frame</span>()</span>
+<span id="cb58-4"><a href="male-v-female-dge.html#cb58-4" tabindex="-1"></a><span class="fu">boxplot</span>(CPM, <span class="at">las =</span> <span class="dv">2</span>, <span class="at">ylab =</span> <span class="st">&quot;log2 CPM&quot;</span>, <span class="at">main =</span> <span class="st">&quot;Normalized Data&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-36-1.png" width="672" /></p>
+</div>
+<div id="cluster-dendrogram-1" class="section level4 hasAnchor" number="3.2.4.2">
+<h4><span class="header-section-number">3.2.4.2</span> Cluster dendrogram<a href="male-v-female-dge.html#cluster-dendrogram-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Males = 1274, 1407, 1402, 270
+Unknown = 1265</p>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="male-v-female-dge.html#cb59-1" tabindex="-1"></a>RawDist <span class="ot">&lt;-</span> <span class="fu">dist</span>(<span class="fu">t</span>(CPM), <span class="at">method =</span> <span class="st">&quot;euclidean&quot;</span>)</span>
+<span id="cb59-2"><a href="male-v-female-dge.html#cb59-2" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">hclust</span>(RawDist, <span class="at">method =</span> <span class="st">&quot;average&quot;</span>), <span class="at">xlab=</span><span class="st">&quot;Average Euclidean Distance&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-37-1.png" width="672" /></p>
+</div>
+<div id="pca-plots-1" class="section level4 hasAnchor" number="3.2.4.3">
+<h4><span class="header-section-number">3.2.4.3</span> PCA Plots<a href="male-v-female-dge.html#pca-plots-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="male-v-female-dge.html#cb60-1" tabindex="-1"></a>PCA <span class="ot">&lt;-</span> <span class="fu">prcomp</span>(<span class="fu">t</span>(RawDist))</span>
+<span id="cb60-2"><a href="male-v-female-dge.html#cb60-2" tabindex="-1"></a></span>
+<span id="cb60-3"><a href="male-v-female-dge.html#cb60-3" tabindex="-1"></a><span class="co"># PCs 1-2</span></span>
+<span id="cb60-4"><a href="male-v-female-dge.html#cb60-4" tabindex="-1"></a><span class="fu">autoplot</span>(PCA, <span class="at">data=</span>SampleInfo, <span class="at">colour=</span><span class="st">&quot;sex&quot;</span>) <span class="sc">+</span></span>
+<span id="cb60-5"><a href="male-v-female-dge.html#cb60-5" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;bottom&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-38-1.png" width="672" /></p>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="male-v-female-dge.html#cb61-1" tabindex="-1"></a><span class="fu">autoplot</span>(PCA, <span class="at">data=</span>SampleInfo, <span class="at">colour=</span><span class="st">&quot;disease_stage&quot;</span>) <span class="sc">+</span></span>
+<span id="cb61-2"><a href="male-v-female-dge.html#cb61-2" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;bottom&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-38-2.png" width="672" /></p>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="male-v-female-dge.html#cb62-1" tabindex="-1"></a><span class="fu">autoplot</span>(PCA, <span class="at">data=</span>SampleInfo, <span class="at">colour=</span><span class="st">&quot;year&quot;</span>) <span class="sc">+</span></span>
+<span id="cb62-2"><a href="male-v-female-dge.html#cb62-2" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;bottom&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-38-3.png" width="672" /></p>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="male-v-female-dge.html#cb63-1" tabindex="-1"></a><span class="fu">autoplot</span>(PCA, <span class="at">data=</span>SampleInfo, <span class="at">colour=</span><span class="st">&quot;molt&quot;</span>) <span class="sc">+</span></span>
+<span id="cb63-2"><a href="male-v-female-dge.html#cb63-2" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;bottom&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-38-4.png" width="672" /></p>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="male-v-female-dge.html#cb64-1" tabindex="-1"></a><span class="co"># PCs 3-4</span></span>
+<span id="cb64-2"><a href="male-v-female-dge.html#cb64-2" tabindex="-1"></a><span class="fu">autoplot</span>(PCA, <span class="at">data=</span>SampleInfo, <span class="at">x=</span><span class="dv">3</span>, <span class="at">y=</span><span class="dv">4</span>, <span class="at">colour=</span><span class="st">&quot;sex&quot;</span>) <span class="sc">+</span></span>
+<span id="cb64-3"><a href="male-v-female-dge.html#cb64-3" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;bottom&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-38-5.png" width="672" /></p>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="male-v-female-dge.html#cb65-1" tabindex="-1"></a><span class="fu">autoplot</span>(PCA, <span class="at">data=</span>SampleInfo, <span class="at">x=</span><span class="dv">3</span>, <span class="at">y=</span><span class="dv">4</span>, <span class="at">colour=</span><span class="st">&quot;disease_stage&quot;</span>) <span class="sc">+</span></span>
+<span id="cb65-2"><a href="male-v-female-dge.html#cb65-2" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;bottom&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-38-6.png" width="672" /></p>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="male-v-female-dge.html#cb66-1" tabindex="-1"></a><span class="fu">autoplot</span>(PCA, <span class="at">data=</span>SampleInfo, <span class="at">x=</span><span class="dv">3</span>, <span class="at">y=</span><span class="dv">4</span>, <span class="at">colour=</span><span class="st">&quot;year&quot;</span>) <span class="sc">+</span></span>
+<span id="cb66-2"><a href="male-v-female-dge.html#cb66-2" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;bottom&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-38-7.png" width="672" /></p>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="male-v-female-dge.html#cb67-1" tabindex="-1"></a><span class="fu">autoplot</span>(PCA, <span class="at">data=</span>SampleInfo, <span class="at">x=</span><span class="dv">3</span>, <span class="at">y=</span><span class="dv">4</span>, <span class="at">colour=</span><span class="st">&quot;molt&quot;</span>) <span class="sc">+</span></span>
+<span id="cb67-2"><a href="male-v-female-dge.html#cb67-2" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;bottom&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-38-8.png" width="672" /></p>
+</div>
+</div>
+<div id="test-for-degs-1" class="section level3 hasAnchor" number="3.2.5">
+<h3><span class="header-section-number">3.2.5</span> Test for DEGs<a href="male-v-female-dge.html#test-for-degs-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="male-v-female-dge.html#cb68-1" tabindex="-1"></a>et <span class="ot">&lt;-</span> <span class="fu">exactTest</span>(DGE, <span class="at">pair=</span><span class="fu">c</span>(<span class="st">&quot;male&quot;</span>, <span class="st">&quot;female&quot;</span>))</span></code></pre></div>
+<div id="select-degs-by-fold-change-pvalue-1" class="section level4 hasAnchor" number="3.2.5.1">
+<h4><span class="header-section-number">3.2.5.1</span> Select DEGs by fold change &amp; pvalue<a href="male-v-female-dge.html#select-degs-by-fold-change-pvalue-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Uncorrected p &lt; 0.05
+log2FC &gt; 1 (2-fold change)</p>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="male-v-female-dge.html#cb69-1" tabindex="-1"></a>results <span class="ot">&lt;-</span> <span class="fu">topTags</span>(et, <span class="at">n =</span> <span class="fu">dim</span>(DGE)[<span class="dv">1</span>]) <span class="sc">%&gt;%</span> </span>
+<span id="cb69-2"><a href="male-v-female-dge.html#cb69-2" tabindex="-1"></a>  <span class="fu">data.frame</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb69-3"><a href="male-v-female-dge.html#cb69-3" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">abs</span>(logFC) <span class="sc">&gt;</span> <span class="dv">1</span> <span class="sc">&amp;</span> PValue <span class="sc">&lt;</span> <span class="fl">0.05</span>)</span>
+<span id="cb69-4"><a href="male-v-female-dge.html#cb69-4" tabindex="-1"></a><span class="fu">nrow</span>(results)</span></code></pre></div>
+<pre><code>## [1] 343</code></pre>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="male-v-female-dge.html#cb71-1" tabindex="-1"></a><span class="fu">write.csv</span>(results, <span class="st">&quot;Output Files/gnome_sex_edgeR_degs.csv&quot;</span>)</span></code></pre></div>
+</div>
+<div id="deg-heatmap-1" class="section level4 hasAnchor" number="3.2.5.2">
+<h4><span class="header-section-number">3.2.5.2</span> DEG Heatmap<a href="male-v-female-dge.html#deg-heatmap-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="male-v-female-dge.html#cb72-1" tabindex="-1"></a><span class="fu">jpeg</span>(<span class="st">&quot;Figures/genome_sex_edgeR_heatmap.jpg&quot;</span>, <span class="at">width=</span><span class="dv">9</span>, <span class="at">height=</span><span class="dv">9</span>, <span class="at">units=</span><span class="st">&#39;in&#39;</span>, <span class="at">res=</span><span class="dv">900</span>)</span>
+<span id="cb72-2"><a href="male-v-female-dge.html#cb72-2" tabindex="-1"></a><span class="fu">heatmap.2</span>(<span class="fu">as.matrix</span>(CPM[<span class="fu">rownames</span>(CPM) <span class="sc">%in%</span> <span class="fu">rownames</span>(results), ]),</span>
+<span id="cb72-3"><a href="male-v-female-dge.html#cb72-3" tabindex="-1"></a>          <span class="at">scale =</span> <span class="st">&quot;row&quot;</span>, <span class="at">trace =</span> <span class="st">&quot;none&quot;</span>, <span class="at">margins=</span><span class="fu">c</span>(<span class="dv">5</span>,<span class="dv">8</span>), </span>
+<span id="cb72-4"><a href="male-v-female-dge.html#cb72-4" tabindex="-1"></a>          <span class="at">cexRow =</span> <span class="fl">0.5</span>, <span class="at">labRow=</span><span class="cn">FALSE</span>)</span>
+<span id="cb72-5"><a href="male-v-female-dge.html#cb72-5" tabindex="-1"></a><span class="fu">dev.off</span>()</span></code></pre></div>
+<pre><code>## png 
+##   2</code></pre>
+
+</div>
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="loc-gene-identification.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="virus-vs-virus--dge.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "section",
+"scroll_highlight": true
+},
+"info": false
+});
+});
+</script>
+
+</body>
+
+</html>
