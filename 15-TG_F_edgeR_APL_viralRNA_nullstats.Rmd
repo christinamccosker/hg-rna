@@ -1,0 +1,672 @@
+---
+title: "Untitled"
+author: "Christina McCosker"
+date: "`r Sys.Date()`"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+# Supplemental Null Set Exploratory Statistics
+
+## Libaries
+```{r}
+library(tidyverse)
+library(ggh4x)
+```
+
+## Number of DEGs
+### Data
+```{r}
+t_virus_genes <- 
+  read.csv("Output Files/txome_female_edgeR_viralRNA_null_DEG.csv") %>% 
+  as.list() %>% 
+  lapply(., function(x) x[!is.na(x)]) %>% 
+  lengths(., use.names=TRUE) %>% 
+  data.frame() %>% 
+  mutate(approach="Transcriptome", 
+         stage="V+ vs V-") %>% 
+  dplyr::rename("genes" = ".")
+
+t_acute_genes <- 
+  read.csv("Output Files/txome_female_edgeR_null_DEG_acute.csv") %>% 
+  as.list() %>% 
+  lapply(., function(x) x[!is.na(x)]) %>% 
+  lengths(., use.names=TRUE) %>% 
+  data.frame() %>% 
+  mutate(approach="Transcriptome", 
+         stage="Acute") %>% 
+  dplyr::rename("genes" = ".")
+
+t_peak_genes <- 
+  read.csv("Output Files/txome_female_edgeR_null_DEG_peak.csv") %>% 
+  as.list() %>% 
+  lapply(., function(x) x[!is.na(x)]) %>% 
+  lengths(., use.names=TRUE) %>% 
+  data.frame() %>% 
+  mutate(approach="Transcriptome", 
+         stage="Peak") %>% 
+  dplyr::rename("genes" = ".")
+
+t_late_genes <- 
+  read.csv("Output Files/txome_female_edgeR_null_DEG_late.csv") %>% 
+  as.list() %>% 
+  lapply(., function(x) x[!is.na(x)]) %>% 
+  lengths(., use.names=TRUE) %>% 
+  data.frame() %>% 
+  mutate(approach="Transcriptome", 
+         stage="Late") %>% 
+  dplyr::rename("genes" = ".")
+
+g_virus_genes <- 
+  read.csv("Output Files/gnome_female_edgeR_viralRNA_null_DEG.csv") %>% 
+  as.list() %>% 
+  lapply(., function(x) x[!is.na(x)]) %>% 
+  lengths(., use.names=TRUE) %>% 
+  data.frame() %>% 
+  mutate(approach="Genome", 
+         stage="V+ vs V-") %>% 
+  dplyr::rename("genes" = ".")
+
+g_acute_genes <- 
+  read.csv("Output Files/gnome_female_edgeR_null_DEG_acute.csv") %>% 
+  as.list() %>% 
+  lapply(., function(x) x[!is.na(x)]) %>% 
+  lengths(., use.names=TRUE) %>% 
+  data.frame() %>% 
+  mutate(approach="Genome", 
+         stage="Acute") %>% 
+  dplyr::rename("genes" = ".")
+
+g_peak_genes <- 
+  read.csv("Output Files/gnome_female_edgeR_null_DEG_peak.csv") %>% 
+  as.list() %>% 
+  lapply(., function(x) x[!is.na(x)]) %>% 
+  lengths(., use.names=TRUE) %>% 
+  data.frame() %>% 
+  mutate(approach="Genome", 
+         stage="Peak") %>% 
+  dplyr::rename("genes" = ".")
+
+g_late_genes <- 
+  read.csv("Output Files/gnome_female_edgeR_null_DEG_late.csv") %>% 
+  as.list() %>% 
+  lapply(., function(x) x[!is.na(x)]) %>% 
+  lengths(., use.names=TRUE) %>% 
+  data.frame() %>% 
+  mutate(approach="Genome", 
+         stage="Late") %>% 
+  dplyr::rename("genes" = ".")
+
+
+genes <- 
+  rbind(t_virus_genes, g_virus_genes,
+        t_acute_genes, t_peak_genes, t_late_genes,
+        g_acute_genes, g_peak_genes, g_late_genes) %>% 
+  mutate(approach=factor(approach, levels=c("Transcriptome", "Genome")),
+         stage=factor(stage, levels=c("V+ vs V-", "Acute", "Peak", "Late")))
+```
+
+### Quick Stats
+```{r}
+range(t_virus_genes$genes)
+range(g_virus_genes$genes)
+
+range(t_acute_genes$genes)
+range(t_peak_genes$genes)
+range(t_late_genes$genes)
+
+range(g_acute_genes$genes)
+range(g_peak_genes$genes)
+range(g_late_genes$genes)
+
+range(t_acute_genefreq$Freq)
+range(t_peak_genefreq$Freq)
+range(t_late_genefreq$Freq)
+
+range(g_acute_genefreq$Freq)
+range(g_peak_genefreq$Freq)
+range(g_late_genefreq$Freq)
+```
+
+
+### Plot
+```{r}
+null_genes_plot <-
+  ggplot(genes, aes(x=stage, y=log(genes))) +
+  geom_boxplot() +
+  facet_grid(~approach) +
+  labs(x= NULL, y="log(# DEGs) per Trial") +
+  theme_bw() +
+  theme(panel.grid=element_blank())
+```
+
+## DEG Frequency
+### Data - Import & Configure
+```{r}
+t_virus_genefreq <- 
+  read.csv("Output Files/txome_female_edgeR_viralRNA_null_DEG.csv") %>% 
+  as.list() %>% 
+  lapply(., function(x) x[!is.na(x)]) %>% 
+  unlist() %>% 
+  table() %>% 
+  data.frame() %>% 
+  mutate(approach="Transcriptome", 
+         stage="V+ vs V-") %>% 
+  dplyr::rename("genes" = ".")
+
+t_acute_genefreq <- 
+  read.csv("Output Files/txome_female_edgeR_null_DEG_acute.csv") %>% 
+  as.list() %>% 
+  lapply(., function(x) x[!is.na(x)]) %>% 
+  unlist() %>% 
+  table() %>% 
+  data.frame() %>% 
+  mutate(approach="Transcriptome", 
+         stage="Acute") %>% 
+  dplyr::rename("genes" = ".")
+
+t_peak_genefreq <- 
+  read.csv("Output Files/txome_female_edgeR_null_DEG_peak.csv") %>% 
+  as.list() %>% 
+  lapply(., function(x) x[!is.na(x)]) %>% 
+  unlist() %>% 
+  table() %>% 
+  data.frame() %>% 
+  mutate(approach="Transcriptome", 
+         stage="Peak") %>% 
+  dplyr::rename("genes" = ".")
+
+t_late_genefreq <- 
+  read.csv("Output Files/txome_female_edgeR_null_DEG_late.csv") %>% 
+  as.list() %>% 
+  lapply(., function(x) x[!is.na(x)]) %>% 
+  unlist() %>% 
+  table() %>% 
+  data.frame() %>%  
+  mutate(approach="Transcriptome", 
+         stage="Late") %>% 
+  dplyr::rename("genes" = ".")
+
+
+g_virus_genefreq <- 
+  read.csv("Output Files/gnome_female_edgeR_viralRNA_null_DEG.csv") %>% 
+  as.list() %>% 
+  lapply(., function(x) x[!is.na(x)]) %>% 
+  unlist() %>% 
+  table() %>% 
+  data.frame() %>% 
+  mutate(approach="Genome", 
+         stage="V+ vs V-") %>% 
+  dplyr::rename("genes" = ".")
+
+g_acute_genefreq <- 
+  read.csv("Output Files/gnome_female_edgeR_null_DEG_acute.csv") %>% 
+  as.list() %>% 
+  lapply(., function(x) x[!is.na(x)]) %>% 
+  unlist() %>% 
+  table() %>% 
+  data.frame() %>% 
+  mutate(approach="Genome", 
+         stage="Acute") %>% 
+  dplyr::rename("genes" = ".")
+
+g_peak_genefreq <- 
+  read.csv("Output Files/gnome_female_edgeR_null_DEG_peak.csv") %>% 
+  as.list() %>% 
+  lapply(., function(x) x[!is.na(x)]) %>% 
+  unlist() %>% 
+  table() %>% 
+  data.frame() %>% 
+  mutate(approach="Genome", 
+         stage="Peak") %>% 
+  dplyr::rename("genes" = ".")
+
+g_late_genefreq <- 
+  read.csv("Output Files/gnome_female_edgeR_null_DEG_late.csv") %>% 
+  as.list() %>% 
+  lapply(., function(x) x[!is.na(x)]) %>% 
+  unlist() %>% 
+  table() %>% 
+  data.frame() %>% 
+  mutate(approach="Genome", 
+         stage="Late") %>% 
+  dplyr::rename("genes" = ".")
+
+genefreq <- 
+  rbind(t_virus_genefreq, g_virus_genefreq, 
+        t_acute_genefreq, t_peak_genefreq, t_late_genefreq,
+        g_acute_genefreq, g_peak_genefreq, g_late_genefreq) %>% 
+  mutate(approach=factor(approach, levels=c("Transcriptome", "Genome")),
+         stage=factor(stage, levels=c("V+ vs V-", "Acute", "Peak", "Late")))
+```
+
+### Plot
+```{r}
+null_genefreq_plot <-
+  ggplot(genefreq, aes(x=stage, y=log(Freq))) +
+  geom_boxplot() +
+  facet_grid(~approach) +
+  labs(x = NULL, y="log(Gene Frequency)") +
+  theme_bw() +
+  theme(panel.grid=element_blank())
+```
+
+### Combine gene number & frequency plots
+```{r}
+gene_numfreq <-
+  grid.arrange(null_genes_plot, null_genefreq_plot,
+               ncol=1, bottom="Influenza Stage")
+
+ggsave("Figures/supplemental_TG_F_null_genenum-freq.jpg", gene_numfreq, 
+       width=6, height=6, units="in")
+```
+
+
+## Number of GO terms
+### Data - Import & Configure
+```{r}
+t_virus_bp <-
+   read.csv("Output Files/txome_female_edgeR_viralRNA_null_GO_bp.csv") %>% 
+  as.list() %>% 
+  lapply(., function(x) x[!is.na(x)]) %>% 
+  lengths(., use.names=TRUE) %>% 
+  data.frame() %>% 
+  mutate(approach="Transcriptome", 
+         stage="V+ vs V-",
+         go="Biological Process") %>% 
+  dplyr::rename("terms" = ".")
+
+t_virus_cc <-
+   read.csv("Output Files/txome_female_edgeR_viralRNA_null_GO_cc.csv") %>% 
+  as.list() %>% 
+  lapply(., function(x) x[!is.na(x)]) %>% 
+  lengths(., use.names=TRUE) %>% 
+  data.frame() %>% 
+  mutate(approach="Transcriptome", 
+         stage="V+ vs V-",
+         go="Cellular Component") %>% 
+  dplyr::rename("terms" = ".")
+
+t_virus_mf <-
+   read.csv("Output Files/txome_female_edgeR_viralRNA_null_GO_mf.csv") %>% 
+  as.list() %>% 
+  lapply(., function(x) x[!is.na(x)]) %>% 
+  lengths(., use.names=TRUE) %>% 
+  data.frame() %>% 
+  mutate(approach="Transcriptome", 
+         stage="V+ vs V-",
+         go="Molecular Function") %>% 
+  dplyr::rename("terms" = ".")
+
+t_acute_bp <- 
+  read.csv("Output Files/txome_female_edgeR_null_GO_bp_acute.csv") %>% 
+  as.list() %>% 
+  lapply(., function(x) x[!is.na(x)]) %>% 
+  lengths(., use.names=TRUE) %>% 
+  data.frame() %>% 
+  mutate(approach="Transcriptome", 
+         stage="Acute",
+         go="Biological Process") %>% 
+  dplyr::rename("terms" = ".")
+
+t_acute_cc <- 
+  read.csv("Output Files/txome_female_edgeR_null_GO_cc_acute.csv") %>% 
+  as.list() %>% 
+  lapply(., function(x) x[!is.na(x)]) %>% 
+  lengths(., use.names=TRUE) %>% 
+  data.frame() %>% 
+  mutate(approach="Transcriptome", 
+         stage="Acute",
+         go="Cellular Component") %>% 
+  dplyr::rename("terms" = ".")
+
+t_acute_mf <- 
+  read.csv("Output Files/txome_female_edgeR_null_GO_mf_acute.csv") %>% 
+  as.list() %>% 
+  lapply(., function(x) x[!is.na(x)]) %>% 
+  lengths(., use.names=TRUE) %>% 
+  data.frame() %>% 
+  mutate(approach="Transcriptome", 
+         stage="Acute",
+         go="Molecular Function") %>% 
+  dplyr::rename("terms" = ".")
+
+t_peak_bp <- 
+  read.csv("Output Files/txome_female_edgeR_null_GO_bp_peak.csv") %>% 
+  as.list() %>% 
+  lapply(., function(x) x[!is.na(x)]) %>% 
+  lengths(., use.names=TRUE) %>% 
+  data.frame() %>% 
+  mutate(approach="Transcriptome", 
+         stage="Peak",
+         go="Biological Process") %>% 
+  dplyr::rename("terms" = ".")
+
+t_peak_cc <- 
+  read.csv("Output Files/txome_female_edgeR_null_GO_cc_peak.csv") %>% 
+  as.list() %>% 
+  lapply(., function(x) x[!is.na(x)]) %>% 
+  lengths(., use.names=TRUE) %>% 
+  data.frame() %>% 
+  mutate(approach="Transcriptome", 
+         stage="Peak",
+         go="Cellular Component") %>% 
+  dplyr::rename("terms" = ".")
+
+t_peak_mf <- 
+  read.csv("Output Files/txome_female_edgeR_null_GO_mf_peak.csv") %>% 
+  as.list() %>% 
+  lapply(., function(x) x[!is.na(x)]) %>% 
+  lengths(., use.names=TRUE) %>% 
+  data.frame() %>% 
+  mutate(approach="Transcriptome", 
+         stage="Peak",
+         go="Molecular Function") %>% 
+  dplyr::rename("terms" = ".")
+
+t_late_bp <- 
+  read.csv("Output Files/txome_female_edgeR_null_GO_bp_late.csv") %>% 
+  as.list() %>% 
+  lapply(., function(x) x[!is.na(x)]) %>% 
+  lengths(., use.names=TRUE) %>% 
+  data.frame() %>% 
+  mutate(approach="Transcriptome", 
+         stage="Late",
+         go="Biological Process") %>% 
+  dplyr::rename("terms" = ".")
+
+t_late_cc <- 
+  read.csv("Output Files/txome_female_edgeR_null_GO_cc_late.csv") %>% 
+  as.list() %>% 
+  lapply(., function(x) x[!is.na(x)]) %>% 
+  lengths(., use.names=TRUE) %>% 
+  data.frame() %>% 
+  mutate(approach="Transcriptome", 
+         stage="Late",
+         go="Cellular Component") %>% 
+  dplyr::rename("terms" = ".")
+
+t_late_mf <- 
+  read.csv("Output Files/txome_female_edgeR_null_GO_mf_late.csv") %>% 
+  as.list() %>% 
+  lapply(., function(x) x[!is.na(x)]) %>% 
+  lengths(., use.names=TRUE) %>% 
+  data.frame() %>% 
+  mutate(approach="Transcriptome", 
+         stage="Late",
+         go="Molecular Function") %>% 
+  dplyr::rename("terms" = ".")
+
+
+g_virus_bp <-
+   read.csv("Output Files/gnome_female_edgeR_viralRNA_null_GO_bp.csv") %>% 
+  as.list() %>% 
+  lapply(., function(x) x[!is.na(x)]) %>% 
+  lengths(., use.names=TRUE) %>% 
+  data.frame() %>% 
+  mutate(approach="Genome", 
+         stage="V+ vs V-",
+         go="Biological Process") %>% 
+  dplyr::rename("terms" = ".")
+
+g_virus_cc <-
+   read.csv("Output Files/gnome_female_edgeR_viralRNA_null_GO_cc.csv") %>% 
+  as.list() %>% 
+  lapply(., function(x) x[!is.na(x)]) %>% 
+  lengths(., use.names=TRUE) %>% 
+  data.frame() %>% 
+  mutate(approach="Genome", 
+         stage="V+ vs V-",
+         go="Cellular Component") %>% 
+  dplyr::rename("terms" = ".")
+
+g_virus_mf <-
+   read.csv("Output Files/gnome_female_edgeR_viralRNA_null_GO_mf.csv") %>% 
+  as.list() %>% 
+  lapply(., function(x) x[!is.na(x)]) %>% 
+  lengths(., use.names=TRUE) %>% 
+  data.frame() %>% 
+  mutate(approach="Genome", 
+         stage="V+ vs V-",
+         go="Molecular Function") %>% 
+  dplyr::rename("terms" = ".")
+
+g_acute_bp <- 
+  read.csv("Output Files/gnome_female_edgeR_null_GO_bp_acute.csv") %>% 
+  as.list() %>% 
+  lapply(., function(x) x[!is.na(x)]) %>% 
+  lengths(., use.names=TRUE) %>% 
+  data.frame() %>% 
+  mutate(approach="Genome", 
+         stage="Acute",
+         go="Biological Process") %>% 
+  dplyr::rename("terms" = ".")
+
+g_acute_cc <- 
+  read.csv("Output Files/gnome_female_edgeR_null_GO_cc_acute.csv") %>% 
+  as.list() %>% 
+  lapply(., function(x) x[!is.na(x)]) %>% 
+  lengths(., use.names=TRUE) %>% 
+  data.frame() %>% 
+  mutate(approach="Genome", 
+         stage="Acute",
+         go="Cellular Component") %>% 
+  dplyr::rename("terms" = ".")
+
+g_acute_mf <- 
+  read.csv("Output Files/gnome_female_edgeR_null_GO_mf_acute.csv") %>% 
+  as.list() %>% 
+  lapply(., function(x) x[!is.na(x)]) %>% 
+  lengths(., use.names=TRUE) %>% 
+  data.frame() %>% 
+  mutate(approach="Genome", 
+         stage="Acute",
+         go="Molecular Function") %>% 
+  dplyr::rename("terms" = ".")
+
+g_peak_bp <- 
+  read.csv("Output Files/gnome_female_edgeR_null_GO_bp_peak.csv") %>% 
+  as.list() %>% 
+  lapply(., function(x) x[!is.na(x)]) %>% 
+  lengths(., use.names=TRUE) %>% 
+  data.frame() %>% 
+  mutate(approach="Genome", 
+         stage="Peak",
+         go="Biological Process") %>% 
+  dplyr::rename("terms" = ".")
+
+g_peak_cc <- 
+  read.csv("Output Files/gnome_female_edgeR_null_GO_cc_peak.csv") %>% 
+  as.list() %>% 
+  lapply(., function(x) x[!is.na(x)]) %>% 
+  lengths(., use.names=TRUE) %>% 
+  data.frame() %>% 
+  mutate(approach="Genome", 
+         stage="Peak",
+         go="Cellular Component") %>% 
+  dplyr::rename("terms" = ".")
+
+g_peak_mf <- 
+  read.csv("Output Files/gnome_female_edgeR_null_GO_mf_peak.csv") %>% 
+  as.list() %>% 
+  lapply(., function(x) x[!is.na(x)]) %>% 
+  lengths(., use.names=TRUE) %>% 
+  data.frame() %>% 
+  mutate(approach="Genome", 
+         stage="Peak",
+         go="Molecular Function") %>% 
+  dplyr::rename("terms" = ".")
+
+g_late_bp <- 
+  read.csv("Output Files/gnome_female_edgeR_null_GO_bp_late.csv") %>% 
+  as.list() %>% 
+  lapply(., function(x) x[!is.na(x)]) %>% 
+  lengths(., use.names=TRUE) %>% 
+  data.frame() %>% 
+  mutate(approach="Genome", 
+         stage="Late",
+         go="Biological Process") %>% 
+  dplyr::rename("terms" = ".")
+
+g_late_cc <- 
+  read.csv("Output Files/gnome_female_edgeR_null_GO_cc_late.csv") %>% 
+  as.list() %>% 
+  lapply(., function(x) x[!is.na(x)]) %>% 
+  lengths(., use.names=TRUE) %>% 
+  data.frame() %>% 
+  mutate(approach="Genome", 
+         stage="Late",
+         go="Cellular Component") %>% 
+  dplyr::rename("terms" = ".")
+
+g_late_mf <- 
+  read.csv("Output Files/gnome_female_edgeR_null_GO_mf_late.csv") %>% 
+  as.list() %>% 
+  lapply(., function(x) x[!is.na(x)]) %>% 
+  lengths(., use.names=TRUE) %>% 
+  data.frame() %>% 
+  mutate(approach="Genome", 
+         stage="Late",
+         go="Molecular Function") %>% 
+  dplyr::rename("terms" = ".")
+
+
+goterms <- rbind(t_virus_bp, t_virus_cc, t_virus_mf,
+                 t_acute_bp, t_acute_cc, t_acute_mf,
+                 t_peak_bp, t_peak_cc, t_peak_mf, 
+                 t_late_bp, t_late_cc, t_late_mf,
+                 g_virus_bp, g_virus_cc, g_virus_mf,
+                 g_acute_bp, g_acute_cc, g_acute_mf,
+                 g_peak_bp, g_peak_cc, g_peak_mf, 
+                 g_late_bp, g_late_cc, g_late_mf) %>% 
+  mutate(approach=factor(approach, levels=c("Transcriptome", "Genome")),
+         stage=factor(stage, levels=c("V+ vs V-", "Acute", "Peak", "Late")))
+```
+
+### Plot
+```{r}
+null_go_plot <-
+  ggplot(goterms, aes(x=stage, y=log(terms))) +
+  geom_boxplot() +
+  facet_nested_wrap(vars(approach, go), dir="h", 
+                    strip.position="top", ncol=3, drop=TRUE) +
+  labs(x="Influenza Stage", y="log(# GO Terms) per Trial") +
+  theme_bw() +
+  theme(panel.grid=element_blank())
+
+ggsave("Figures/supplemental_TG_F_null_#gotermsplot.jpg", null_go_plot, 
+       width=5, height=7, units="in")
+```
+
+
+## Number of KEGG Pathways
+### Data
+```{r}
+t_virus_kegg <-
+   read.csv("Output Files/txome_female_edgeR_viralRNA_null_kegg.csv") %>% 
+  as.list() %>% 
+  lapply(., function(x) x[!is.na(x)]) %>% 
+  lengths(., use.names=TRUE) %>% 
+  data.frame() %>% 
+  mutate(approach="Transcriptome", 
+         stage="V+ vs V-") %>% 
+  dplyr::rename("terms" = ".")
+
+t_acute_kegg <- 
+  read.csv("Output Files/txome_female_edgeR_null_kegg_acute.csv") %>% 
+  as.list() %>% 
+  lapply(., function(x) x[!is.na(x)]) %>% 
+  lengths(., use.names=TRUE) %>% 
+  data.frame() %>% 
+  mutate(approach="Transcriptome", 
+         stage="Acute") %>% 
+  dplyr::rename("terms" = ".")
+
+t_peak_kegg <- 
+  read.csv("Output Files/txome_female_edgeR_null_kegg_peak.csv") %>% 
+  as.list() %>% 
+  lapply(., function(x) x[!is.na(x)]) %>% 
+  lengths(., use.names=TRUE) %>% 
+  data.frame() %>% 
+  mutate(approach="Transcriptome", 
+         stage="Peak") %>% 
+  dplyr::rename("terms" = ".")
+
+t_late_kegg <- 
+  read.csv("Output Files/txome_female_edgeR_null_kegg_late.csv") %>% 
+  as.list() %>% 
+  lapply(., function(x) x[!is.na(x)]) %>% 
+  lengths(., use.names=TRUE) %>% 
+  data.frame() %>% 
+  mutate(approach="Transcriptome", 
+         stage="Late") %>% 
+  dplyr::rename("terms" = ".")
+
+
+g_virus_kegg <-
+   read.csv("Output Files/gnome_female_edgeR_viralRNA_null_kegg.csv") %>% 
+  as.list() %>% 
+  lapply(., function(x) x[!is.na(x)]) %>% 
+  lengths(., use.names=TRUE) %>% 
+  data.frame() %>% 
+  mutate(approach="Genome", 
+         stage="V+ vs V-") %>% 
+  dplyr::rename("terms" = ".")
+
+g_acute_kegg <- 
+  read.csv("Output Files/gnome_female_edgeR_null_kegg_acute.csv") %>% 
+  as.list() %>% 
+  lapply(., function(x) x[!is.na(x)]) %>% 
+  lengths(., use.names=TRUE) %>% 
+  data.frame() %>% 
+  mutate(approach="Genome", 
+         stage="Acute") %>% 
+  dplyr::rename("terms" = ".")
+
+g_peak_kegg <- 
+  read.csv("Output Files/gnome_female_edgeR_null_kegg_peak.csv") %>% 
+  as.list() %>% 
+  lapply(., function(x) x[!is.na(x)]) %>% 
+  lengths(., use.names=TRUE) %>% 
+  data.frame() %>% 
+  mutate(approach="Genome", 
+         stage="Peak") %>% 
+  dplyr::rename("terms" = ".")
+
+g_late_kegg <- 
+  read.csv("Output Files/gnome_female_edgeR_null_kegg_late.csv") %>% 
+  as.list() %>% 
+  lapply(., function(x) x[!is.na(x)]) %>% 
+  lengths(., use.names=TRUE) %>% 
+  data.frame() %>% 
+  mutate(approach="Genome", 
+         stage="Late") %>% 
+  dplyr::rename("terms" = ".")
+
+
+kegg <- rbind(t_virus_kegg,
+              t_acute_kegg, 
+              t_peak_kegg, 
+              t_late_kegg,
+              g_virus_kegg,
+              g_acute_kegg, 
+              g_peak_kegg,
+              g_late_kegg) %>% 
+  mutate(approach=factor(approach, levels=c("Transcriptome", "Genome")),
+         stage=factor(stage, levels=c( "V+ vs V-", "Acute", "Peak", "Late")))
+```
+
+### Plot
+```{r}
+null_kegg_plot <-
+  ggplot(kegg, aes(x=stage, y=log(terms))) +
+  geom_boxplot() +
+  facet_grid(~approach) +
+  labs(x="Influenza Stage", y="log(# KEGG Pathways) per Trial") +
+  theme_bw() +
+  theme(panel.grid=element_blank())
+
+ggsave("Figures/supplemental_TG_F_null_#keggplot.jpg", null_kegg_plot, 
+       width=6, height=3, units="in")
+```

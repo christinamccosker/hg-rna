@@ -1,0 +1,315 @@
+---
+title: ''
+author: "Christina McCosker"
+date: "`r Sys.Date()`"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+## Comapre T & G Approach - edgeR - Females
+
+### Libraries
+```{r, warning=FALSE, message=FALSE}
+library(tidyverse)
+library(VennDiagram)
+library(gridExtra)
+```
+
+### Data
+
+#### Transcriptome results
+```{r}
+t_virus <- read.csv("Output Files/txome_female_edgeR_viralRNA_DGE_results.csv") %>% 
+  dplyr::rename("gene" = "X")
+
+t_acute <- 
+  read.csv("Output Files/txome_female_edgeR_DGE_results_acute.csv") %>% 
+  dplyr::rename("gene" = "X")
+
+t_peak <-
+  read.csv("Output Files/txome_female_edgeR_DGE_results_peak.csv") %>% 
+  dplyr::rename("gene" = "X")
+
+t_late <- 
+  read.csv("Output Files/txome_female_edgeR_DGE_results_late.csv") %>% 
+  dplyr::rename("gene" = "X")
+```
+
+#### Transcriptome DEGs
+```{r}
+tvirus_up <- 
+  read.csv("Output Files/txome_female_edgeR_viralRNA_DEG.csv", row.name=1) %>% 
+  filter(logFC>0)
+tvirus_down <- 
+  read.csv("Output Files/txome_female_edgeR_viralRNA_DEG.csv", row.name=1) %>% 
+  filter(logFC<0)
+
+t_acute_up <- 
+  read.csv("Output Files/txome_female_edgeR_DEG_acute.csv", row.name=1) %>% 
+  filter(logFC>0)
+t_acute_down <- 
+  read.csv("Output Files/txome_female_edgeR_DEG_acute.csv", row.name=1) %>% 
+  filter(logFC<0)
+t_peak_up <- 
+  read.csv("Output Files/txome_female_edgeR_DEG_peak.csv", row.name=1) %>% 
+  filter(logFC>0)
+t_peak_down <- 
+  read.csv("Output Files/txome_female_edgeR_DEG_peak.csv", row.name=1) %>% 
+  filter(logFC<0)
+t_late_up <- 
+  read.csv("Output Files/txome_female_edgeR_DEG_late.csv", row.name=1) %>% 
+  filter(logFC>0)
+t_late_down <- 
+  read.csv("Output Files/txome_female_edgeR_DEG_late.csv", row.name=1) %>% 
+  filter(logFC<0)
+```
+
+#### Genome results
+```{r}
+g_virus <- 
+  read.csv("Output Files/gnome_female_edgeR_viralRNA_DGE_results.csv") %>% 
+  dplyr::rename("gene"= "X")
+
+g_acute <- 
+  read.csv("Output Files/gnome_female_edgeR_DGE_results_acute.csv") %>% 
+  dplyr::rename("gene" = "X")
+
+g_peak <-
+  read.csv("Output Files/gnome_female_edgeR_DGE_results_peak.csv") %>% 
+  dplyr::rename("gene" = "X")
+
+g_late <- 
+  read.csv("Output Files/gnome_female_edgeR_DGE_results_late.csv") %>% 
+  dplyr::rename("gene" = "X")
+```
+
+#### Genome DEGs
+```{r}
+gvirus_up <- 
+  read.csv("Output Files/gnome_female_edgeR_viralRNA_DEG.csv", row.name=1) %>% 
+  filter(logFC>0)
+gvirus_down <- 
+  read.csv("Output Files/gnome_female_edgeR_viralRNA_DEG.csv", row.name=1) %>% 
+  filter(logFC<0)
+
+g_acute_up <- 
+  read.csv("Output Files/gnome_female_edgeR_DEG_acute.csv", row.name=1) %>% 
+  filter(logFC>0)
+g_acute_down <- 
+  read.csv("Output Files/gnome_female_edgeR_DEG_acute.csv", row.name=1) %>% 
+  filter(logFC<0)
+g_peak_up <- 
+  read.csv("Output Files/gnome_female_edgeR_DEG_peak.csv", row.name=1) %>% 
+  filter(logFC>0)
+g_peak_down <- 
+  read.csv("Output Files/gnome_female_edgeR_DEG_peak.csv", row.name=1) %>% 
+  filter(logFC<0)
+g_late_up <- 
+  read.csv("Output Files/gnome_female_edgeR_DEG_late.csv", row.name=1) %>% 
+  filter(logFC>0)
+g_late_down <- 
+  read.csv("Output Files/gnome_female_edgeR_DEG_late.csv", row.name=1) %>% 
+  filter(logFC<0)
+```
+
+
+### Number of up & down reg genes
+
+#### Set up data frame
+```{r}
+gene_num <- 
+  data.frame(
+    approach = c("T", "T", "T", "T",
+                 "T", "T", "T", "T",
+                 "G", "G", "G", "G", 
+                 "G", "G", "G", "G"),
+    stage = c("V+ v V-", "V+ v V-", 
+              "Acute", "Acute", "Peak", "Peak", "Late", "Late",
+              "V+ v V-", "V+ v V-", 
+              "Acute", "Acute", "Peak", "Peak", "Late", "Late"),
+    direction = c("Up", "Down", "Up", "Down",
+                  "Up", "Down", "Up", "Down",
+                  "Up", "Down", "Up", "Down",
+                   "Up", "Down", "Up", "Down"),
+    genes = c(nrow(tvirus_up), nrow(tvirus_down),
+              nrow(t_acute_up), nrow(t_acute_down), 
+              nrow(t_peak_up), nrow(t_peak_down), 
+              nrow(t_late_up), nrow(t_late_down),
+              nrow(gvirus_up), nrow(gvirus_down),
+              nrow(g_acute_up), nrow(g_acute_down), 
+              nrow(g_peak_up), nrow(g_peak_down), 
+              nrow(g_late_up), nrow(g_late_down))) %>% 
+  mutate(stage=factor(stage, levels=c("V+ v V-", "Acute", "Peak", "Late")),
+         direction=factor(direction, levels=c("Up", "Down")),
+         approach=factor(approach, levels=c("T", "G")))
+```
+
+#### Plot
+```{r}
+gene_plot <- 
+  ggplot(gene_num, aes(x=approach, y=genes, fill=direction)) +
+  geom_col() +
+  facet_grid(~stage) +
+  labs(x="Approach", y = "Number of Genes") +
+  scale_fill_manual(values=c("gray75", "gray42"), name=NULL) +
+  theme_bw() +
+  theme(panel.grid=element_blank())
+
+ggsave("Figures/TG_F_edgeR_approachcomp.jpeg", gene_plot, 
+       width=4, height=3, units="in")
+```
+
+
+### Gene identities
+#### Set up lists
+```{r}
+gene_list <- 
+  list(
+    t_acute_up = t_acute_up$gene,
+    t_acute_down = t_acute_down$gene,
+    t_peak_up = t_peak_up$gene,
+    t_peak_down = t_peak_down$gene,
+    t_late_up = t_late_up$gene,
+    t_late_down = t_late_down$gene,
+    t_virus_up = tvirus_up$gene,
+    t_virus_down = tvirus_down$gene,
+    g_acute_up = g_acute_up$gene,
+    g_acute_down = g_acute_down$gene,
+    g_peak_up = g_peak_up$gene,
+    g_peak_down = g_peak_down$gene,
+    g_late_up = g_late_up$gene,
+    g_late_down = g_late_down$gene,
+    g_virus_up = gvirus_up$gene,
+    g_virus_down = gvirus_down$gene
+  )
+```
+
+#### Venn diagram
+```{r, message=FALSE, warnings=FALSE}
+virus_up <- 
+   venn.diagram(gene_list[c(7,15)], 
+               filename=NULL,
+               disable.logging=TRUE,
+               main="V+ v V- Up", main.pos=c(0.5,0.85),
+               category.names = c("T", "G"), 
+               cat.pos=c(0,0),
+               cat.just=list(c(0.5,0) , c(0.5,0)),
+               invert=TRUE,
+               margin=0.3,
+               height=3, 
+               width=3,
+               units="in")
+
+virus_down <- 
+   venn.diagram(gene_list[c(8,16)], 
+               filename=NULL,
+               disable.logging=TRUE,
+               main="V+ v V- Down", main.pos=c(0.5,0.78),
+               category.names = c("T", "G"), 
+               cat.pos=c(0, 0),
+               cat.just=list(c(0.5,0) , c(0.5,0)),
+               margin=0.3,
+               height=3, 
+               width=3,
+               units="in")
+
+acute_up <- 
+   venn.diagram(gene_list[c(1,9)], 
+               filename=NULL,
+               disable.logging=TRUE,
+               main="Acute Up", main.pos=c(0.5,0.85),
+               category.names = c("T", "G"), 
+               cat.pos=c(0, 0),
+               cat.just=list(c(0.5,0) , c(0.5,0)),
+               invert=TRUE,
+               margin=0.3,
+               height=3, 
+               width=3,
+               units="in")
+ 
+acute_down<- 
+    venn.diagram(gene_list[c(2,10)], 
+               filename=NULL,
+               disable.logging=TRUE,
+               main="Acute Down", main.pos=c(0.5,0.8),
+               category.names = c("T", "G"), 
+               cat.pos=c(0, 0),
+               cat.just=list(c(0.5,0) , c(0.5,0)),
+               margin=0.3,
+               height=3, 
+               width=3,
+               units="in")
+peak_up <- 
+   venn.diagram(gene_list[c(3,11)], 
+               filename=NULL,
+               disable.logging=TRUE,
+               main="Peak Up", main.pos=c(0.5,0.85),
+               category.names = c("T", "G"), 
+               cat.pos=c(0,0),
+               cat.just=list(c(0.5,0) , c(0.5,0)),
+               invert=TRUE,
+               margin=0.3,
+               height=3, 
+               width=3,
+               units="in")
+peak_down <- 
+   venn.diagram(gene_list[c(4,12)], 
+               filename=NULL,
+               disable.logging=TRUE,
+               main="Peak Down", main.pos=c(0.5,0.8),
+               category.names = c("T", "G"), 
+               cat.pos=c(0,0),
+               cat.just=list(c(0.5,0) , c(0.5,0)),
+               margin=0.3,
+               height=3, 
+               width=3,
+               units="in")
+
+late_up <- 
+   venn.diagram(gene_list[c(5,13)], 
+               filename=NULL,
+               disable.logging=TRUE,
+               main="Late Up", main.pos=c(0.5,0.85),
+               category.names = c("T", "G"), 
+               cat.pos=c(0,0),
+               cat.just=list(c(0.5,0) , c(0.5,0)),
+               invert=TRUE,
+               margin=0.3,
+               height=3, 
+               width=3,
+               units="in")
+
+late_down <- 
+   venn.diagram(gene_list[c(6,14)], 
+               filename=NULL,
+               disable.logging=TRUE,
+               main="Late Down", main.pos=c(0.5,0.8),
+               category.names = c("T", "G"), 
+               cat.pos=c(0,0),
+               cat.just=list(c(0.5,0) , c(0.5,0)),
+               invert=TRUE,
+               margin=0.3,
+               height=3, 
+               width=3,
+               units="in")
+
+venn <- 
+  grid.arrange(gTree(children=virus_up),
+               gTree(children=acute_up),
+               gTree(children=peak_up),
+               gTree(children=late_up),
+               gTree(children=virus_down),
+               gTree(children=acute_down),
+               gTree(children=peak_down),
+               gTree(children=late_down),
+               ncol=4,
+               rectGrob(x=c(0.5, 1.5, 2.5, 3.5,
+                            0.5, 1.5, 2.5, 3.5), 
+                        y=c(2.5, 2.5, 2.5, 2.5,
+                            1.5, 1.5, 1.5, 1.5), 
+                        gp=gpar(lwd=1, fill=NA))) 
+
+ggsave("Figures/TG_F_edgeR_approachcomp_venn.jpeg", 
+       venn, width=8, height=5, units="in")
+```

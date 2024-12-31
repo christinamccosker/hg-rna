@@ -1,0 +1,7 @@
+"KEGG","Transcriptome","Transcriptome_null","Transcriptome_Genes","Genome","Genome_null","Genome_Genes"
+"Complement and coagulation cascades (hsa04610)","10.3 (0.003)","","C1QB;C1QC;C2;C1QA;CFB;CFD","14.3 (0)","","C1QB;C2;C1QC;C1QA;CFB;CFD"
+"Dilated cardiomyopathy (DCM) (hsa05414)","6.9 (0.037)","","ITGB5;ACTG1;DES;ACTB;TPM2",NA,NA,NA
+"Hypertrophic cardiomyopathy (HCM) (hsa05410)","7.4 (0.032)","","ITGB5;ACTG1;DES;ACTB;TPM2",NA,NA,NA
+"Ribosome (hsa03010)","4.5 (0.029)","","RPS26;RPL36;RPS3;RPS14;RPL13A;RPL14;UBA52;RPS12",NA,NA,NA
+"Staphylococcus aureus infection (hsa05150)","16.4 (0)","","C1QB;C1QC;C2;C1QA;CFB;CFD;HLA-DQA1","19 (0)","","C1QB;C2;C1QC;C1QA;CFB;CFD"
+"Systemic lupus erythematosus (hsa05322)","12.2 (0.005)","","C1QB;C1QC;C2;C1QA;HLA-DQA1","11.8 (0.034)","","C1QB;C2;C1QC;C1QA"

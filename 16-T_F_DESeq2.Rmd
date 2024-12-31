@@ -1,0 +1,172 @@
+---
+author: "Christina McCosker"
+date: "`r Sys.Date()`"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+# Influenza DGE DESeq2 
+
+## Transcriptome - DESeq2 - Females 
+
+### Libraries
+```{r, warning=FALSE, message=FALSE}
+library(tidyverse)
+library(DESeq2)
+library(ggpubr)
+```
+
+### Data
+Unknown = female
+```{r}
+SampleInfo <- 
+  read.csv("Input Files/metadata.csv", 
+           stringsAsFactors = FALSE) %>% 
+  mutate(year=as.factor(year)) %>% 
+  filter(!sex=="male") %>% 
+  mutate(RNA = ifelse(disease_stage == "acute", "viruspos", 
+                        ifelse(disease_stage == "peak", "viruspos", "virusneg")))
+
+Raw <- read.csv(file = "Output Files/txome_genecounts_locid_nohemo.csv", 
+                stringsAsFactors = FALSE,
+                header = TRUE, 
+                row.names = 1) %>% 
+  select(SampleInfo$sample)
+
+SampleInfo <- 
+  SampleInfo %>% 
+  column_to_rownames(var="sample")
+```
+
+### Viral RNA
+
+#### Create DESeq Dataset (dds)
+```{r}
+count_matrix <- as.matrix(Raw)
+
+dds_virus <- DESeqDataSetFromMatrix(countData = round(count_matrix), 
+                              colData = SampleInfo, 
+                              design = ~ RNA)
+dds_virus
+```
+
+#### Filter to remove lowly expressed genes (<10 counts)
+```{r}
+keep <- rowSums(counts(dds_virus)) >= 10
+dds_virus <- dds_virus[keep,]
+```
+
+#### Set reference level to virus neg group - which group to compare against
+```{r}
+dds_virus$RNA <- factor(dds_virus$RNA, levels = c("virusneg","viruspos"))
+dds_virus$RNA <- relevel(dds_virus$RNA, ref = "virusneg")
+```
+
+#### Test for differentially expressed genes
+cooksCutoff = results function automatically flags genes that contain a Cook's distance above a cutoff for samples which have 3 or more replicates
+```{r}
+dds_virus <- DESeq(dds_virus)
+
+results_virus <- 
+  results(dds_virus, contrast=c("RNA", "viruspos", "virusneg"), 
+          cooksCutoff=FALSE) %>% 
+  as.data.frame() %>% 
+  rownames_to_column(var="gene")
+```
+
+#### Save results
+```{r}
+write.csv(results_virus, "Output Files/txome_female_deseq_viralRNA_DGE_results.csv", row.names=FALSE)
+```
+
+#### Select DE genes with absolute logFC>1 and p-value<0.05
+```{r}
+de_virus <- 
+  results_virus %>% 
+  filter(pvalue<0.05 & abs(log2FoldChange)>1) 
+```
+
+#### Save results
+```{r}
+write.csv(de_virus, "Output Files/txome_female_deseq_viralRNA_DEG.csv", row.names=FALSE)
+```
+
+
+
+### Influenza Stage
+
+#### Create DESeq Dataset (dds)
+```{r}
+count_matrix <- as.matrix(Raw)
+
+dds <- DESeqDataSetFromMatrix(countData = round(count_matrix), 
+                              colData = SampleInfo, 
+                              design = ~ disease_stage)
+dds
+```
+
+#### Filter to remove lowly expressed genes (<10 counts)
+```{r}
+keep <- rowSums(counts(dds)) >= 10
+dds <- dds[keep,]
+```
+
+#### Set reference level to control group - which group to compare against
+```{r}
+dds$disease_stage <- factor(dds$disease_stage, levels = c("control","acute","peak","late"))
+dds$disease_stage <- relevel(dds$disease_stage, ref = "control")
+```
+
+#### Test for differentially expressed genes
+cooksCutoff = results function automatically flags genes that contain a Cook's distance above a cutoff for samples which have 3 or more replicates
+```{r}
+dds <- DESeq(dds)
+
+results_acute <- 
+  results(dds, contrast=c("disease_stage", "acute", "control"), 
+          cooksCutoff=FALSE) %>% 
+  as.data.frame() %>% 
+  rownames_to_column(var="gene")
+
+results_peak <- 
+  results(dds, contrast=c("disease_stage", "peak", "control"), 
+          cooksCutoff=FALSE) %>% 
+  as.data.frame() %>% 
+  rownames_to_column(var="gene")
+
+results_late <- 
+  results(dds, contrast=c("disease_stage", "late", "control"), 
+          cooksCutoff=FALSE) %>% 
+  as.data.frame() %>% 
+  rownames_to_column(var="gene")
+```
+
+#### Save results
+```{r}
+write.csv(results_acute, "Output Files/txome_female_deseq_DGE_results_acute.csv", row.names=FALSE)
+write.csv(results_peak, "Output Files/txome_female_deseq_DGE_results_peak.csv", row.names=FALSE)
+write.csv(results_late, "Output Files/txome_female_deseq_DGE_results_late.csv", row.names=FALSE)
+```
+
+#### Select DE genes with absolute logFC>1 and p-value<0.05
+```{r}
+de_acute <- 
+  results_acute %>% 
+  filter(pvalue<0.05 & abs(log2FoldChange)>1) 
+
+de_peak <-
+  results_peak %>% 
+  filter(pvalue<0.05, abs(log2FoldChange)>1)
+
+de_late <-
+  results_late %>% 
+  filter(pvalue<0.05, abs(log2FoldChange)>1) 
+```
+
+#### Save results
+```{r}
+write.csv(de_acute, "Output Files/txome_female_deseq_DEG_acute.csv", row.names=FALSE)
+write.csv(de_peak, "Output Files/txome_female_deseq_DEG_peak.csv", row.names=FALSE)
+write.csv(de_late, "Output Files/txome_female_deseq_DEG_late.csv", row.names=FALSE)
+```

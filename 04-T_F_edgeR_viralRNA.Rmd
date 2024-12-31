@@ -1,0 +1,289 @@
+---
+author: "Christina McCosker"
+date: "`r Sys.Date()`"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+# Virus+ vs Virus- DGE
+
+## Transcriptome - edgeR - Females
+
+### Libraries
+```{r, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(edgeR)
+library(ggfortify)
+library(kableExtra)
+library(knitr)
+library(WebGestaltR)
+```
+
+### Data
+```{r}
+SampleInfo <- read.csv("Input Files/metadata.csv", 
+                       stringsAsFactors = FALSE) %>% 
+  mutate(RNA=ifelse(disease_stage=="acute" | disease_stage=="peak", "virus+", "virus-")) %>% 
+  filter(!sex=="male")
+  
+#Raw RSEM Gene Counts
+Raw <- read.csv(file = "Output Files/txome_genecounts_locid_nohemo.csv", 
+                stringsAsFactors = FALSE,
+                header = TRUE, 
+                row.names = 1) %>% 
+  select(SampleInfo$sample)
+```
+
+### Differential Gene Expression Analysis
+
+
+#### DGElist
+```{r}
+#Create DGE Object with counts & sample groups
+DGE <- DGEList(counts = Raw, group = SampleInfo$RNA)
+
+#Check DGE Object Samples, Groups, Lib Size, and Norm Factor
+DGE$samples 
+```
+
+#### Filter out lowly expressed genes
+```{r}
+keep <- filterByExpr(DGE)
+DGE <- DGE[keep, , keep.lib.sizes=FALSE]
+length(rownames(DGE$counts))
+
+postfilter <- rownames(DGE$counts)
+write.table(postfilter, "Output Files/txome_female_edgeR_viralRNA_postfilter.txt",
+            row.name=FALSE, col.name=FALSE, quote=FALSE)
+```
+
+#### Normalize based on library sizes
+```{r}
+DGE <- calcNormFactors(DGE)
+```
+
+#### Estimate Dispersion
+On average, the true abundance for each gene can vary up or down by xx% (BCV) between replicates
+Differentially expressed = needs to vary by more than xx%
+```{r}
+# Overall common dispersion
+DGE <- estimateCommonDisp(DGE, verbose = TRUE)
+
+# Dispersion trend based on gene abundance
+DGE <- estimateTrendedDisp(DGE)
+
+# Tagwise dispersion - allows different dispersion for each gene
+DGE <- estimateTagwiseDisp(DGE, verbose = TRUE)
+
+plotBCV(DGE)
+```
+
+### Exploratory Plots
+
+#### Normalized counts
+```{r}
+CPM <- 
+  cpm(DGE, normalized.lib.sizes = TRUE, log = TRUE) %>% 
+  data.frame()
+boxplot(CPM, las = 2, ylab = "log2 CPM", main = "Normalized Data")
+
+write.csv(CPM, "Output Files/txome_female_edgeR_viralRNA_normcounts.csv")
+```
+
+#### Cluster dendrogram
+```{r}
+RawDist <- dist(t(CPM), method = "euclidean")
+plot(hclust(RawDist, method = "average"), xlab="Average Euclidean Distance")
+```
+
+#### PCA Plots
+```{r}
+PCA <- prcomp(t(RawDist))
+
+# PCs 1-2
+autoplot(PCA, data=SampleInfo, colour="RNA") +
+  theme(legend.position="bottom")
+autoplot(PCA, data=SampleInfo, colour="sex") +
+  theme(legend.position="bottom")
+autoplot(PCA, data=SampleInfo, colour="year") +
+  theme(legend.position="bottom")
+autoplot(PCA, data=SampleInfo, colour="molt") +
+  theme(legend.position="bottom")
+
+# PCs 3-4
+autoplot(PCA, data=SampleInfo, x=3, y=4, colour="RNA") +
+  theme(legend.position="bottom")
+autoplot(PCA, data=SampleInfo, x=3, y=4, colour="sex") +
+  theme(legend.position="bottom")
+autoplot(PCA, data=SampleInfo, x=3, y=4, colour="year") +
+  theme(legend.position="bottom")
+autoplot(PCA, data=SampleInfo, x=3, y=4, colour="molt") +
+  theme(legend.position="bottom")
+```
+
+### Test for DEGs
+```{r}
+et <- exactTest(DGE, pair=c("virus-", "virus+"))
+
+write.csv(et, "Output Files/txome_female_edgeR_viralRNA_DGE_results.csv")
+```
+
+#### Select DEGs by fold change & pvalue
+Uncorrected p < 0.05
+log2FC > 1 (2-fold change)
+```{r}
+results <- 
+  topTags(et, n = dim(DGE)[1]) %>% 
+  data.frame() %>% 
+  filter(abs(logFC) > 1 & PValue < 0.05) %>% 
+  rownames_to_column(var="gene")
+nrow(results)
+
+write.csv(results, "Output Files/txome_female_edgeR_viralRNA_DEG.csv")
+```
+
+#### Make sure genes are up/down regulated in Virus+ vs Virus-
+Visually compare gene expression across viral RNA status to ensure directional change is correct.
+```{r}
+CPM %>% 
+  rownames_to_column(var="gene") %>% 
+  filter(gene %in% results$gene) %>% 
+  pivot_longer(cols=!gene, names_to="sample", values_to="expression") %>% 
+  mutate(RNA=ifelse(sample %in% SampleInfo$sample, 
+                              SampleInfo[match(sample, SampleInfo$sample), 8],
+                              NA)) %>% 
+  filter(gene %in% results$gene[1:10]) %>% 
+  mutate(RNA=factor(RNA, levels=c("virus-", "virus+"))) %>% 
+  ggplot(., aes(x=RNA, y=expression)) +
+  geom_boxplot() +
+  facet_wrap(~gene)
+```
+
+### GO Enrichment Analysis
+
+#### Configure Gene Lists
+```{r}
+background <- rownames(CPM)
+
+up <- 
+  results %>% 
+  filter(logFC>=1)
+
+down <-
+  results %>% 
+  filter(logFC < 1)
+```
+
+
+#### Up-regulated genes
+
+##### Biological Process
+```{r}
+go_bp_up <-
+    WebGestaltR(enrichMethod="ORA", organism="hsapiens", 
+                enrichDatabase="geneontology_Biological_Process",
+                interestGene = up$gene, interestGeneType = "genesymbol", 
+                referenceGene = background, referenceGeneType = "genesymbol", 
+                sigMethod = "fdr", fdrThr = 0.05, 
+                isOutput = FALSE) %>% 
+  mutate(direction="up",
+         go="bp")
+```
+
+##### Molecular Function
+```{r}
+go_mf_up <- 
+    WebGestaltR(enrichMethod="ORA", organism="hsapiens", 
+                enrichDatabase="geneontology_Molecular_Function",
+                interestGene = up$gene, interestGeneType = "genesymbol", 
+                referenceGene = background, referenceGeneType = "genesymbol", 
+                sigMethod = "fdr", fdrThr = 0.05, 
+                isOutput = FALSE) 
+```
+
+##### Cellular Component
+```{r}
+go_cc_up <- 
+    WebGestaltR(enrichMethod="ORA", organism="hsapiens", 
+                enrichDatabase="geneontology_Cellular_Component",
+                interestGene = up$gene, interestGeneType = "genesymbol", 
+                referenceGene = background, referenceGeneType = "genesymbol", 
+                sigMethod = "fdr", fdrThr = 0.05, 
+                isOutput = FALSE) 
+```
+
+#### Down-regulated Genes
+
+##### Biological Process
+```{r}
+go_bp_down <- 
+    WebGestaltR(enrichMethod="ORA", organism="hsapiens", 
+                enrichDatabase="geneontology_Biological_Process",
+                interestGene = down$gene, interestGeneType = "genesymbol", 
+                referenceGene = background, referenceGeneType = "genesymbol", 
+                sigMethod = "fdr", fdrThr = 0.05, 
+                isOutput = FALSE) %>% 
+  mutate(direction="down",
+         go="bp")
+```
+
+
+##### Molecular Function
+```{r}
+go_mf_down <- 
+    WebGestaltR(enrichMethod="ORA", organism="hsapiens", 
+                enrichDatabase="geneontology_Molecular_Function",
+                interestGene = down$gene, interestGeneType = "genesymbol", 
+                referenceGene = background, referenceGeneType = "genesymbol", 
+                sigMethod = "fdr", fdrThr = 0.05, 
+                isOutput = FALSE) %>% 
+  mutate(direction="down", 
+         go="mf")
+```
+
+##### Cellular Component
+```{r}
+go_cc_down <- 
+    WebGestaltR(enrichMethod="ORA", organism="hsapiens", 
+                enrichDatabase="geneontology_Cellular_Component",
+                interestGene = down$gene, interestGeneType = "genesymbol", 
+                referenceGene = background, referenceGeneType = "genesymbol", 
+                sigMethod = "fdr", fdrThr = 0.05, 
+                isOutput = FALSE) %>% 
+  mutate(direction="down", 
+         go="cc")
+```
+
+
+#### Save Results
+```{r}
+go <-
+  bind_rows(go_bp_down, go_bp_up,
+            go_cc_down, 
+            go_mf_down)
+
+go <- 
+  go %>% 
+  select(!link & !overlapId) 
+
+go %>% 
+  mutate(across(where(is.numeric), \(x) round(x, digits=5))) %>% 
+  kable() %>% 
+  kable_styling("basic", font_size=9)
+
+write.csv(go, "Output Files/txome_female_edgeR_viralRNA_go.csv",
+          row.names=FALSE)
+```
+
+### KEGG Analysis
+
+```{r}
+kegg <-
+  WebGestaltR(enrichMethod = "ORA", organism = "hsapiens", enrichDatabase = "pathway_KEGG",
+              interestGene = results$gene, interestGeneType = "genesymbol", 
+              referenceGene = background, referenceGeneType = "genesymbol", 
+              minNum = 5, sigMethod = "fdr", isOutput = FALSE) 
+
+write.csv(kegg, "Output Files/txome_female_edgeR_viralRNA_kegg.csv")
+```

@@ -1,0 +1,500 @@
+---
+author: "Christina McCosker"
+date: "`r Sys.Date()`"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+## Genome - edgeR - Females
+
+
+### Libraries
+```{r, warning=FALSE, message=FALSE}
+library(tidyverse)
+library(edgeR)
+library(ggfortify)
+library(kableExtra)
+library(knitr)
+library(WebGestaltR)
+```
+
+### Data
+Unknown = female
+```{r}
+SampleInfo <- 
+  read.csv("Input Files/metadata.csv", 
+           stringsAsFactors = FALSE) %>% 
+  mutate(year=as.factor(year)) %>% 
+  filter(!sex=="male")
+
+Raw <- read.csv(file = "Output Files/gnome_genecounts_locid_nohemo.csv", 
+                stringsAsFactors = FALSE,
+                header = TRUE, 
+                row.names = 1) %>% 
+  select(SampleInfo$sample)
+```
+
+### Differential Gene Expression Analysis
+
+#### DGElist
+```{r}
+DGE <- DGEList(counts=Raw, group=SampleInfo$disease_stage)
+DGE$samples
+```
+
+#### Filter out lowly expressed genes
+```{r}
+keep <- filterByExpr(DGE)
+DGE <- DGE[keep, , keep.lib.sizes=FALSE]
+length(rownames(DGE$counts))
+
+postfilter <- rownames(DGE$counts)
+write.table(postfilter, "Output Files/gnome_female_edgeR_postfilter.txt",
+            row.name=FALSE, col.name=FALSE, quote=FALSE)
+```
+
+#### Normalize based on library sizes
+```{r}
+DGE <- calcNormFactors(DGE)
+```
+
+#### Estimate Dispersion
+On average, the true abundance for each gene can vary up or down by xx% (BCV) between replicates
+Differentially expressed = needs to vary by more than xx%
+```{r}
+# Overall common dispersion
+DGE <- estimateCommonDisp(DGE, verbose = TRUE)
+
+# Dispersion trend based on gene abundance
+DGE <- estimateTrendedDisp(DGE)
+
+# Tagwise dispersion - allows different dispersion for each gene
+DGE <- estimateTagwiseDisp(DGE, verbose = TRUE)
+
+plotBCV(DGE)
+```
+
+
+### Exploratory Plots
+
+#### Normalized counts
+```{r}
+CPM <- 
+  cpm(DGE, normalized.lib.sizes = TRUE, log = TRUE) %>% 
+  data.frame()
+boxplot(CPM, las = 2, ylab = "log2 CPM", main = "Normalized Data")
+
+write.csv(CPM, "Output Files/gnome_female_edgeR_normcounts.csv")
+```
+
+#### Cluster dendrogram
+Males = 1274, 1407, 1402, 270
+Unknown = 1265
+```{r}
+RawDist <- dist(t(CPM), method = "euclidean")
+plot(hclust(RawDist, method = "average"), xlab="Average Euclidean Distance")
+```
+
+#### PCA Plots
+```{r}
+PCA <- prcomp(t(RawDist))
+
+# PCs 1-2
+autoplot(PCA, data=SampleInfo, colour="disease_stage") +
+  theme(legend.position="bottom")
+autoplot(PCA, data=SampleInfo, colour="sex") +
+  theme(legend.position="bottom")
+autoplot(PCA, data=SampleInfo, colour="year") +
+  theme(legend.position="bottom")
+autoplot(PCA, data=SampleInfo, colour="molt") +
+  theme(legend.position="bottom")
+
+# PCs 3-4
+autoplot(PCA, data=SampleInfo, x=3, y=4, colour="disease_stage") +
+  theme(legend.position="bottom")
+autoplot(PCA, data=SampleInfo, x=3, y=4, colour="sex") +
+  theme(legend.position="bottom")
+autoplot(PCA, data=SampleInfo, x=3, y=4, colour="year") +
+  theme(legend.position="bottom")
+autoplot(PCA, data=SampleInfo, x=3, y=4, colour="molt") +
+  theme(legend.position="bottom")
+```
+
+
+### Test for DEGs
+```{r}
+et_acute <- exactTest(DGE, pair=c("control", "acute")) 
+et_peak <- exactTest(DGE, pair=c("control", "peak"))
+et_late <- exactTest(DGE, pair=c("control", "late"))
+
+# Save for DESeq2 comparisons
+write.csv(et_acute, "Output Files/gnome_female_edgeR_DGE_results_acute.csv")
+write.csv(et_peak, "Output Files/gnome_female_edgeR_DGE_results_peak.csv")
+write.csv(et_late, "Output Files/gnome_female_edgeR_DGE_results_late.csv")
+```
+
+
+#### Select DEGs by fold change & pvalue
+Uncorrected p < 0.05
+log2FC > 1 (2-fold change)
+```{r}
+results_acute <- 
+  topTags(et_acute, n = dim(DGE)[1]) %>% 
+  data.frame() %>% 
+  filter(abs(logFC) > 1 & PValue < 0.05) %>% 
+  rownames_to_column(var="gene")
+nrow(results_acute)
+
+results_peak <- 
+  topTags(et_peak, n = dim(DGE)[1]) %>% 
+  data.frame() %>% 
+  filter(abs(logFC) > 1 & PValue < 0.05) %>% 
+  rownames_to_column(var="gene")
+nrow(results_peak)
+
+results_late <- 
+  topTags(et_late, n = dim(DGE)[1]) %>% 
+  data.frame() %>% 
+  filter(abs(logFC) > 1 & PValue < 0.05) %>% 
+  rownames_to_column(var="gene")
+nrow(results_late)
+
+write.csv(results_acute, "Output Files/gnome_female_edgeR_DEG_acute.csv")
+write.csv(results_peak, "Output Files/gnome_female_edgeR_DEG_peak.csv")
+write.csv(results_late, "Output Files/gnome_female_edgeR_DEG_late.csv")
+```
+
+
+#### Make sure genes are up/down regulated in APL vs Control
+Visually compare gene expression across disease stages to DEGs in acute, peak, late to ensure directional change is correct.
+```{r}
+CPM %>% 
+  rownames_to_column(var="gene") %>% 
+  filter(gene %in% results_acute$gene) %>% 
+  pivot_longer(cols=!gene, names_to="sample", values_to="expression") %>% 
+  mutate(disease_stage=ifelse(sample %in% SampleInfo$sample, 
+                              SampleInfo[match(sample, SampleInfo$sample), 4],
+                              NA)) %>% 
+  filter(gene %in% results_acute$gene[1:10]) %>% 
+  mutate(disease_stage=factor(disease_stage, levels=c("control", "acute", "peak", "late"))) %>% 
+  ggplot(., aes(x=disease_stage, y=expression)) +
+  geom_boxplot() +
+  facet_wrap(~gene)
+```
+
+
+### GO Enrichment Analysis
+
+#### Configure Gene Lists
+```{r}
+background <- rownames(CPM)
+
+acute_up <- 
+  results_acute %>% 
+  filter(logFC>=1)
+acute_down <-
+  results_acute %>% 
+  filter(logFC < 1)
+
+peak_up <- 
+  results_peak %>% 
+  filter(logFC>=1)
+peak_down <-
+  results_peak %>% 
+  filter(logFC < 1)
+
+late_up <- 
+  results_late %>% 
+  filter(logFC>=1)
+late_down <-
+  results_late %>% 
+  filter(logFC < 1)
+```
+
+
+#### Up-regulated genes
+
+##### Biological Process
+```{r}
+go_bp_up_acute <- 
+    WebGestaltR(enrichMethod="ORA", organism="hsapiens", 
+                enrichDatabase="geneontology_Biological_Process",
+                interestGene = acute_up$gene, interestGeneType = "genesymbol", 
+                referenceGene = background, referenceGeneType = "genesymbol", 
+                sigMethod = "fdr", fdrThr = 0.05, 
+                isOutput = FALSE) %>% 
+  mutate(direction="up", 
+         disease_stage="acute",
+         go="bp")
+
+
+go_bp_up_peak <- 
+    WebGestaltR(enrichMethod="ORA", organism="hsapiens", 
+                enrichDatabase="geneontology_Biological_Process",
+                interestGene = peak_up$gene, interestGeneType = "genesymbol", 
+                referenceGene = background, referenceGeneType = "genesymbol", 
+                sigMethod = "fdr", fdrThr = 0.05, 
+                isOutput = FALSE) %>% 
+  mutate(direction="up",
+         disease_stage="peak",
+         go="bp")
+
+go_bp_up_late <- 
+    WebGestaltR(enrichMethod="ORA", organism="hsapiens", 
+                enrichDatabase="geneontology_Biological_Process",
+                interestGene = late_up$gene, interestGeneType = "genesymbol", 
+                referenceGene = background, referenceGeneType = "genesymbol", 
+                sigMethod = "fdr", fdrThr = 0.05, 
+                isOutput = FALSE) %>% 
+  mutate(direction="up",
+         disease_stage="late",
+         go="bp")
+```
+
+
+##### Molecular Function
+```{r}
+go_mf_up_acute <- 
+    WebGestaltR(enrichMethod="ORA", organism="hsapiens", 
+                enrichDatabase="geneontology_Molecular_Function",
+                interestGene = acute_up$gene, interestGeneType = "genesymbol", 
+                referenceGene = background, referenceGeneType = "genesymbol", 
+                sigMethod = "fdr", fdrThr = 0.05, 
+                isOutput = FALSE) %>% 
+  mutate(direction="up", 
+         disease_stage="acute",
+         go="mf")
+
+go_mf_up_peak <- 
+    WebGestaltR(enrichMethod="ORA", organism="hsapiens", 
+                enrichDatabase="geneontology_Molecular_Function",
+                interestGene = peak_up$gene, interestGeneType = "genesymbol", 
+                referenceGene = background, referenceGeneType = "genesymbol", 
+                sigMethod = "fdr", fdrThr = 0.05, 
+                isOutput = FALSE) %>% 
+  mutate(direction="up", 
+         disease_stage="peak",
+         go="mf")
+
+go_mf_up_late <- 
+    WebGestaltR(enrichMethod="ORA", organism="hsapiens", 
+                enrichDatabase="geneontology_Molecular_Function",
+                interestGene = late_up$gene, interestGeneType = "genesymbol", 
+                referenceGene = background, referenceGeneType = "genesymbol", 
+                sigMethod = "fdr", fdrThr = 0.05, 
+                isOutput = FALSE) %>% 
+  mutate(direction="up", 
+         disease_stage="late",
+         go="mf")
+```
+
+##### Cellular Component
+```{r}
+go_cc_up_acute <- 
+    WebGestaltR(enrichMethod="ORA", organism="hsapiens", 
+                enrichDatabase="geneontology_Cellular_Component",
+                interestGene = acute_up$gene, interestGeneType = "genesymbol", 
+                referenceGene = background, referenceGeneType = "genesymbol", 
+                sigMethod = "fdr", fdrThr = 0.05, 
+                isOutput = FALSE) %>% 
+  mutate(direction="up", 
+         disease_stage="acute",
+         go="cc")
+
+go_cc_up_peak <- 
+    WebGestaltR(enrichMethod="ORA", organism="hsapiens", 
+                enrichDatabase="geneontology_Cellular_Component",
+                interestGene = peak_up$gene, interestGeneType = "genesymbol", 
+                referenceGene = background, referenceGeneType = "genesymbol", 
+                sigMethod = "fdr", fdrThr = 0.05, 
+                isOutput = FALSE) %>% 
+  mutate(direction="up", 
+         disease_stage="peak",
+         go="cc")
+
+go_cc_up_late <- 
+    WebGestaltR(enrichMethod="ORA", organism="hsapiens", 
+                enrichDatabase="geneontology_Cellular_Component",
+                interestGene = late_up$gene, interestGeneType = "genesymbol", 
+                referenceGene = background, referenceGeneType = "genesymbol", 
+                sigMethod = "fdr", fdrThr = 0.05, 
+                isOutput = FALSE) %>% 
+  mutate(direction="up", 
+         disease_stage="late",
+         go="cc")
+```
+
+
+#### Down-regulated genes
+
+##### Biological Process
+```{r}
+go_bp_down_acute <- 
+    WebGestaltR(enrichMethod="ORA", organism="hsapiens", 
+                enrichDatabase="geneontology_Biological_Process",
+                interestGene = acute_down$gene, interestGeneType = "genesymbol", 
+                referenceGene = background, referenceGeneType = "genesymbol", 
+                sigMethod = "fdr", fdrThr = 0.05, 
+                isOutput = FALSE) %>% 
+  mutate(direction="down", 
+         disease_stage="acute",
+         go="bp")
+
+go_bp_down_peak <- 
+    WebGestaltR(enrichMethod="ORA", organism="hsapiens", 
+                enrichDatabase="geneontology_Biological_Process",
+                interestGene = peak_down$gene, interestGeneType = "genesymbol", 
+                referenceGene = background, referenceGeneType = "genesymbol", 
+                sigMethod = "fdr", fdrThr = 0.05, 
+                isOutput = FALSE) %>% 
+  mutate(direction="down", 
+         disease_stage="peak",
+         go="bp")
+
+go_bp_down_late <- 
+    WebGestaltR(enrichMethod="ORA", organism="hsapiens", 
+                enrichDatabase="geneontology_Biological_Process",
+                interestGene = late_down$gene, interestGeneType = "genesymbol", 
+                referenceGene = background, referenceGeneType = "genesymbol", 
+                sigMethod = "fdr", fdrThr = 0.05, 
+                isOutput = FALSE) %>% 
+  mutate(direction="down", 
+         disease_stage="late",
+         go="bp")
+```
+
+
+##### Molecular Function
+```{r}
+go_mf_down_acute <- 
+    WebGestaltR(enrichMethod="ORA", organism="hsapiens", 
+                enrichDatabase="geneontology_Molecular_Function",
+                interestGene = acute_down$gene, interestGeneType = "genesymbol", 
+                referenceGene = background, referenceGeneType = "genesymbol", 
+                sigMethod = "fdr", fdrThr = 0.05, 
+                isOutput = FALSE) %>% 
+  mutate(direction="down", 
+         disease_stage="acute",
+         go="mf")
+
+go_mf_down_peak <- 
+    WebGestaltR(enrichMethod="ORA", organism="hsapiens", 
+                enrichDatabase="geneontology_Molecular_Function",
+                interestGene = peak_down$gene, interestGeneType = "genesymbol", 
+                referenceGene = background, referenceGeneType = "genesymbol", 
+                sigMethod = "fdr", fdrThr = 0.05, 
+                isOutput = FALSE) %>% 
+  mutate(direction="down", 
+         disease_stage="peak",
+         go="mf")
+
+go_mf_down_late <- 
+    WebGestaltR(enrichMethod="ORA", organism="hsapiens", 
+                enrichDatabase="geneontology_Molecular_Function",
+                interestGene = late_down$gene, interestGeneType = "genesymbol", 
+                referenceGene = background, referenceGeneType = "genesymbol", 
+                sigMethod = "fdr", fdrThr = 0.05, 
+                isOutput = FALSE) %>% 
+  mutate(direction="down", 
+         disease_stage="late",
+         go="mf")
+```
+
+##### Cellular Component
+```{r}
+go_cc_down_acute <- 
+    WebGestaltR(enrichMethod="ORA", organism="hsapiens", 
+                enrichDatabase="geneontology_Cellular_Component",
+                interestGene = acute_down$gene, interestGeneType = "genesymbol", 
+                referenceGene = background, referenceGeneType = "genesymbol", 
+                sigMethod = "fdr", fdrThr = 0.05, 
+                isOutput = FALSE) %>% 
+  mutate(direction="down", 
+         disease_stage="acute",
+         go="cc")
+
+go_cc_down_peak <- 
+    WebGestaltR(enrichMethod="ORA", organism="hsapiens", 
+                enrichDatabase="geneontology_Cellular_Component",
+                interestGene = peak_down$gene, interestGeneType = "genesymbol", 
+                referenceGene = background, referenceGeneType = "genesymbol", 
+                sigMethod = "fdr", fdrThr = 0.05, 
+                isOutput = FALSE) %>% 
+  mutate(direction="down", 
+         disease_stage="peak",
+         go="cc")
+
+go_cc_down_late <- 
+    WebGestaltR(enrichMethod="ORA", organism="hsapiens", 
+                enrichDatabase="geneontology_Cellular_Component",
+                interestGene = late_down$gene, interestGeneType = "genesymbol", 
+                referenceGene = background, referenceGeneType = "genesymbol", 
+                sigMethod = "fdr", fdrThr = 0.05, 
+                isOutput = FALSE) %>% 
+  mutate(direction="down", 
+         disease_stage="late",
+         go="cc")
+```
+
+#### Save results
+```{r}
+go <-
+  bind_rows(
+            go_bp_up_peak,
+            go_bp_up_late,
+            
+            go_mf_up_peak,
+            go_mf_up_late,
+            go_cc_down_acute,
+            go_cc_up_peak
+            )
+go <- 
+  go %>% 
+  select(!link & !overlapId) 
+
+go %>% 
+  mutate(across(where(is.numeric), \(x) round(x, digits=5))) %>% 
+  kable() %>% 
+  kable_styling("basic", font_size=9)
+
+write.csv(go, "Output Files/gnome_female_edgeR_go.csv")
+```
+
+### KEGG Analysis
+
+#### Acute
+```{r}
+kegg_acute <-
+  WebGestaltR(enrichMethod = "ORA", organism = "hsapiens", enrichDatabase = "pathway_KEGG",
+              interestGene = results_acute$gene, interestGeneType = "genesymbol", 
+              referenceGene = background, referenceGeneType = "genesymbol", 
+              minNum = 5, sigMethod = "fdr", isOutput = FALSE) 
+```
+
+#### Peak
+```{r}
+kegg_peak <-
+  WebGestaltR(enrichMethod = "ORA", organism = "hsapiens", enrichDatabase = "pathway_KEGG",
+              interestGene = results_peak$gene, interestGeneType = "genesymbol", 
+              referenceGene = background, referenceGeneType = "genesymbol", 
+              minNum = 5, sigMethod = "fdr", isOutput = FALSE)  %>% 
+  mutate(disease_stage="peak")
+```
+
+#### Late
+```{r}
+kegg_late <-
+  WebGestaltR(enrichMethod = "ORA", organism = "hsapiens", enrichDatabase = "pathway_KEGG",
+              interestGene = results_late$gene, interestGeneType = "genesymbol", 
+              referenceGene = background, referenceGeneType = "genesymbol", 
+              minNum = 5, sigMethod = "fdr", isOutput = FALSE)
+```
+
+#### Save results
+```{r}
+kegg <- 
+  bind_rows(kegg_peak) 
+
+write.csv(kegg, "Output Files/gnome_female_edgeR_kegg.csv")
+```

@@ -1,0 +1,20 @@
+--- 
+title: "insert title"
+date: 'Last Updated: `r Sys.Date()`'
+description: McCosker Dissertation Chapter 1 Statistical Analyses
+site: bookdown::bookdown_site
+documentclass: book
+suppresss-bibliography: true
+---
+
+# Publication Information
+
+## Authors 
+Christina McCosker^1^, Ebru Unal, Wendy Puryear^3^, Jon Runstadler^3^, Kimberly Murray^4^, Kristina M. Cammen^1^  
+*^1^School of Marine Sciences, University of Maine, Orono, ME, USA*  
+*^3^ Cummings School of Veterinary Medicine, Tufts University, North Grafton, MA, USA*  
+*^4^ NOAA Northeast Fisheries Science Center, Woods Hole, MA, USA*  
+
+## Abstract
+xxx
+

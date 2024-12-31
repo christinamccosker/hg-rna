@@ -1,0 +1,224 @@
+---
+author: "Christina McCosker"
+date: "`r Sys.Date()`"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+## Genome Null Set - edgeR -  Females
+```{r include=FALSE}
+knitr::opts_chunk$set(eval = FALSE)
+```
+
+### Libraries
+```{r, warning=FALSE, message=FALSE}
+library(tidyverse)
+library(edgeR)
+library(WebGestaltR)
+```
+
+### Data
+Unknown = female
+```{r}
+SampleInfo <- read.csv("Input Files/metadata.csv", 
+                       stringsAsFactors = FALSE) %>% 
+  mutate(RNA=ifelse(disease_stage=="acute" | disease_stage=="peak", "virus+", "virus-")) %>% 
+  filter(!sex=="male")
+
+Raw <- read.csv(file = "Output Files/gnome_genecounts_locid_nohemo.csv", 
+                stringsAsFactors = FALSE,
+                header = TRUE, 
+                row.names = 1) %>% 
+  select(SampleInfo$sample)
+```
+
+### Loop Differential Gene Expression Analysis
+
+#### Configure inputs & set up results lists
+```{r}
+rna <- SampleInfo$RNA
+
+degenes <- setNames(vector('list', 1000), 1:1000)
+
+postfilter <- setNames(vector('list', 1000), 1:1000)
+```
+
+
+#### Loop
+Random number generator used to generate 9 for set.seed() function.
+
+```{r}
+set.seed(9)
+
+for (i in 1:1000) {
+
+#Shuffle group assignments without replacement
+groups <- sample(rna, replace = FALSE, prob = NULL)
+
+# Create DGE Object
+DGE <- DGEList(counts=Raw, group=groups)
+
+# Filter out lowly expressed genes
+keep <- filterByExpr(DGE)
+DGE <- DGE[keep, , keep.lib.sizes=FALSE]
+
+postfilter[[i]] <- 
+  DGE %>% 
+  '[['(1) %>% 
+  rownames()
+
+# Normalize based on library sizes & calculate dispersion
+DGE <- calcNormFactors(DGE)
+DGE <- estimateCommonDisp(DGE)
+DGE <- estimateTrendedDisp(DGE)
+DGE <- estimateTagwiseDisp(DGE)
+
+# Test for DEGs
+et <- exactTest(DGE, pair=c("virus-", "virus+"))
+
+# Select DEGs by fold change & pvalue
+results <- 
+  topTags(et, n = dim(DGE)[1]) %>% 
+  data.frame() %>% 
+  filter(abs(logFC) > 1 & PValue < 0.05) %>% 
+  rownames_to_column(var="gene")
+
+# Save output to list
+degenes[[i]] <- results$gene
+
+# End loop
+}
+```
+
+
+#### Save lists of DEGs
+```{r}
+# Postfilter Lists
+postfilter_df <- data.frame(postfilter[[1]])
+write.csv(postfilter_df, file = "Output Files/gnome_female_edgeR_viralRNA_null_DEG_postfilter.csv", row.names = FALSE)
+
+# DEGs
+max_length <- max(unlist(lapply(degenes, length)))
+filled <-
+  lapply(degenes, function(x) {ans <- rep(NA,length=max_length);
+    ans[0:length(x)]<- x;
+    return(ans)})
+df <- do.call(cbind, filled)
+write.csv(df, file = "Output Files/gnome_female_edgeR_viralRNA_null_DEG.csv", row.names = FALSE)
+```
+
+
+### GO Enrichment Analysis
+
+#### Import data 
+```{r}
+degenes <- read.csv("Output Files/gnome_female_edgeR_viralRNA_null_DEG.csv")
+
+postfilter <- read.csv("Output Files/gnome_female_edgeR_viralRNA_null_DEG_postfilter.csv")
+```
+
+#### Set up results lists
+```{r}
+go_bp <- setNames(vector('list', 1000), 1:1000)
+go_mf <- setNames(vector('list', 1000), 1:1000)
+go_cc <- setNames(vector('list', 1000), 1:1000)
+```
+
+
+#### Loop
+```{r}
+for (i in 1:1000) {
+  genes <- degenes[[i]]
+  background <- postfilter[,1]
+  bp_test <- 
+        WebGestaltR(enrichMethod="ORA", organism="hsapiens", 
+                enrichDatabase="geneontology_Biological_Process",
+                interestGene = genes, interestGeneType = "genesymbol", 
+                referenceGene = background, referenceGeneType = "genesymbol", 
+                sigMethod = "fdr", fdrThr = 0.05, 
+                isOutput = FALSE)
+go_bp[[i]] <- bp_test$description
+
+mf_test <- 
+    WebGestaltR(enrichMethod="ORA", organism="hsapiens", 
+                enrichDatabase="geneontology_Molecular_Function",
+                interestGene = genes, interestGeneType = "genesymbol", 
+                referenceGene = background, referenceGeneType = "genesymbol", 
+                sigMethod = "fdr", fdrThr = 0.05, 
+                isOutput = FALSE)
+go_mf[[i]] <- mf_test$description
+
+cc_test <- 
+    WebGestaltR(enrichMethod="ORA", organism="hsapiens", 
+                enrichDatabase="geneontology_Cellular_Component",
+                interestGene = genes, interestGeneType = "genesymbol", 
+                referenceGene = background, referenceGeneType = "genesymbol", 
+                sigMethod = "fdr", fdrThr = 0.05, 
+                isOutput = FALSE)    
+go_cc[[i]] <- cc_test$description
+}
+```
+
+#### Save files
+```{r}
+max_length <- max(unlist(lapply(go_bp, length)))
+go_bp_filled <-
+  lapply(go_bp, function(x) {ans <- rep(NA,length=max_length);
+  ans[0:length(x)]<- x;
+  return(ans)})
+go_bp_final <- do.call(cbind, go_bp_filled)
+write.csv(go_bp_final, file = "Output Files/gnome_female_edgeR_viralRNA_null_GO_bp.csv", row.names = FALSE)
+
+max_length <- max(unlist(lapply(go_mf, length)))
+go_mf_filled <-
+  lapply(go_mf, function(x) {ans <- rep(NA,length=max_length);
+  ans[0:length(x)]<- x;
+  return(ans)})
+go_mf_final <- do.call(cbind, go_mf_filled)
+write.csv(go_mf_final, file = "Output Files/gnome_female_edgeR_viralRNA_null_GO_mf.csv", row.names = FALSE)
+
+max_length <- max(unlist(lapply(go_cc, length)))
+go_cc_filled <-
+  lapply(go_cc, function(x) {ans <- rep(NA,length=max_length);
+  ans[0:length(x)]<- x;
+  return(ans)})
+go_cc_final <- do.call(cbind, go_cc_filled)
+write.csv(go_cc_final, file = "Output Files/gnome_female_edgeR_viralRNA_null_GO_cc.csv", row.names = FALSE)
+```
+
+
+### KEGG Analysis
+
+#### Set up results lists
+```{r}
+kegg <- setNames(vector('list', 1000), 1:1000)
+```
+
+#### Loop
+```{r}
+for (i in 1:1000) {
+genes <- degenes[[i]]
+background <- postfilter[,1]
+test <-
+  WebGestaltR(enrichMethod = "ORA", organism = "hsapiens", enrichDatabase = "pathway_KEGG",
+              interestGene = genes, interestGeneType = "genesymbol", 
+              referenceGene = background, referenceGeneType = "genesymbol", 
+              minNum = 5, sigMethod = "fdr", isOutput = FALSE)
+
+ifelse(is.data.frame(test)=="FALSE", 
+       kegg[[i]] <- NA, 
+       kegg[[i]] <- test$description)
+}
+```
+
+#### Save results
+```{r}
+max_length <- max(unlist(lapply(kegg, length)))
+kegg <-
+  lapply(kegg, function(x) {ans <- rep(NA,length=max_length);
+  ans[0:length(x)]<- x;
+  return(ans)})
+kegg <- do.call(cbind, kegg)
+write.csv(kegg, file = "Output Files/gnome_female_edgeR_viralRNA_null_kegg.csv", row.names = FALSE)
+```

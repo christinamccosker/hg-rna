@@ -1,0 +1,2 @@
+"","geneSet","description","link","size","overlap","expect","enrichmentRatio","pValue","FDR","overlapId","userId","disease_stage"
+"1","hsa03010","Ribosome","http://www.kegg.jp/kegg-bin/show_pathway?hsa03010+200916+6135+6146+6154+6160+6164+6201+6210+6224+64983+65008",125,11,1.1427949499347,9.62552380952381,8.15175926760503e-09,2.600411206366e-06,"200916;6135;6146;6154;6160;6164;6201;6210;6224;64983;65008","RPL26;RPL22L1;MRPL32;RPL22;RPS20;RPL34;RPL31;RPS7;MRPL1;RPS15A;RPL11","peak"

@@ -1,0 +1,4 @@
+"","geneSet","description","link","size","overlap","expect","enrichmentRatio","pValue","FDR","overlapId","userId"
+"1","hsa05150","Staphylococcus aureus infection","http://www.kegg.jp/kegg-bin/show_pathway?hsa05150+1675+629+712+713+714+717",27,6,0.315293060857849,19.0299145299145,4.63130327199579e-07,0.000147275444049466,"1675;629;712;713;714;717","C1QB;C2;C1QC;C1QA;CFB;CFD"
+"2","hsa04610","Complement and coagulation cascades","http://www.kegg.jp/kegg-bin/show_pathway?hsa04610+1675+629+712+713+714+717",36,6,0.420390747810465,14.2724358974359,2.81271184010556e-06,0.000447221182576785,"1675;629;712;713;714;717","C1QB;C2;C1QC;C1QA;CFB;CFD"
+"3","hsa05322","Systemic lupus erythematosus","http://www.kegg.jp/kegg-bin/show_pathway?hsa05322+712+713+714+717",29,4,0.338648102402874,11.8116710875332,0.00031658152465952,0.0335576416139092,"712;713;714;717","C1QB;C2;C1QC;C1QA"

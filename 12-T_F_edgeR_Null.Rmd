@@ -1,0 +1,441 @@
+---
+author: "Christina McCosker"
+date: "`r Sys.Date()`"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+## Transcriptome Null Set - edgeR - Females
+
+```{r include=FALSE}
+knitr::opts_chunk$set(eval = FALSE)
+```
+
+### Libraries
+```{r, warning=FALSE, message=FALSE}
+library(tidyverse)
+library(edgeR)
+library(WebGestaltR)
+```
+
+### Data
+Unknown = female
+```{r}
+SampleInfo <- 
+  read.csv("Input Files/metadata.csv", 
+           stringsAsFactors = FALSE) %>% 
+  mutate(year=as.factor(year)) %>% 
+  filter(!sex=="male")
+
+Raw <- read.csv(file = "Output Files/txome_genecounts_locid_nohemo.csv", 
+                stringsAsFactors = FALSE,
+                header = TRUE, 
+                row.names = 1) %>% 
+  select(SampleInfo$sample)
+```
+
+### Loop Differential Gene Expression Analysis
+
+#### Configure inputs & set up results lists
+```{r}
+diseasestage <- SampleInfo$disease_stage
+
+acute <- setNames(vector('list', 1000), 1:1000)
+peak <- setNames(vector('list', 1000), 1:1000)
+late <- setNames(vector('list', 1000), 1:1000)
+
+postfilter <- setNames(vector('list', 1000), 1:1000)
+```
+
+#### Loop
+Random number generator used to generate 9 for set.seed() function.
+```{r}
+set.seed(9)
+
+for (i in 1:1000) {
+
+#Shuffle group assignments without replacement
+groups <- sample(diseasestage, replace = FALSE, prob = NULL)
+
+# Create DGE Object
+DGE <- DGEList(counts=Raw, group=groups)
+
+# Filter out lowly expressed genes
+keep <- filterByExpr(DGE)
+DGE <- DGE[keep, , keep.lib.sizes=FALSE]
+
+postfilter[[i]] <- 
+  DGE %>% 
+  '[['(1) %>% 
+  rownames()
+
+# Normalize based on library sizes & calculate dispersion
+DGE <- calcNormFactors(DGE)
+DGE <- estimateCommonDisp(DGE)
+DGE <- estimateTrendedDisp(DGE)
+DGE <- estimateTagwiseDisp(DGE)
+
+# Test for DEGs
+et_acute <- exactTest(DGE, pair=c("control", "acute"))
+et_peak <- exactTest(DGE, pair=c("control", "peak"))
+et_late <- exactTest(DGE, pair=c("control", "late"))
+
+# Select DEGs by fold change & pvalue
+results_acute <- 
+  topTags(et_acute, n = dim(DGE)[1]) %>% 
+  data.frame() %>% 
+  filter(abs(logFC) > 1 & PValue < 0.05) %>% 
+  rownames_to_column(var="gene")
+
+results_peak <- 
+  topTags(et_peak, n = dim(DGE)[1]) %>% 
+  data.frame() %>% 
+  filter(abs(logFC) > 1 & PValue < 0.05) %>% 
+  rownames_to_column(var="gene")
+
+results_late <- 
+  topTags(et_late, n = dim(DGE)[1]) %>% 
+  data.frame() %>% 
+  filter(abs(logFC) > 1 & PValue < 0.05) %>% 
+  rownames_to_column(var="gene")
+
+# Save output to list
+acute[[i]] <- results_acute$gene
+peak[[i]] <- results_peak$gene
+late[[i]] <- results_late$gene
+
+# End loop
+}
+```
+
+#### Save lists of DEGs
+```{r}
+# Postfilter Lists
+postfilter_df <- data.frame(postfilter[[1]])
+write.csv(postfilter_df, file = "Output Files/txome_female_edgeR_null_DEG_postfilter.csv", row.names = FALSE)
+
+# Acute
+max_length <- max(unlist(lapply(acute, length)))
+acute_filled <-
+  lapply(acute, function(x) {ans <- rep(NA,length=max_length);
+    ans[0:length(x)]<- x;
+    return(ans)})
+acute_df <- do.call(cbind, acute_filled)
+write.csv(acute_df, file = "Output Files/txome_female_edgeR_null_DEG_acute.csv", row.names = FALSE)
+
+# Peak
+max_length <- max(unlist(lapply(peak, length)))
+peak_filled <-
+  lapply(peak, function(x) {ans <- rep(NA,length=max_length);
+    ans[0:length(x)]<- x;
+    return(ans)})
+peak_df <- do.call(cbind, peak_filled)
+write.csv(peak_df, file = "Output Files/txome_female_edgeR_null_DEG_peak.csv", row.names = FALSE)
+
+# Late
+max_length <- max(unlist(lapply(late, length)))
+late_filled <-
+  lapply(late, function(x) {ans <- rep(NA,length=max_length);
+    ans[0:length(x)]<- x;
+    return(ans)})
+late_df <- do.call(cbind, late_filled)
+write.csv(late_df, file = "Output Files/txome_female_edgeR_null_DEG_late.csv", row.names = FALSE)
+```
+
+### GO Enrichment Analysis
+
+#### Import data 
+```{r}
+acute <- read.csv("Output Files/txome_female_edgeR_null_DEG_acute.csv")
+peak <- read.csv("Output Files/txome_female_edgeR_null_DEG_peak.csv")
+late <- read.csv("Output Files/txome_female_edgeR_null_DEG_late.csv")
+
+postfilter <- read.csv("Output Files/txome_female_edgeR_null_DEG_postfilter.csv")
+```
+
+#### Set up results lists
+```{r}
+go_bp_acute <- setNames(vector('list', 1000), 1:1000)
+go_bp_peak <- setNames(vector('list', 1000), 1:1000)
+go_bp_late <- setNames(vector('list', 1000), 1:1000)
+
+go_mf_acute <- setNames(vector('list', 1000), 1:1000)
+go_mf_peak <- setNames(vector('list', 1000), 1:1000)
+go_mf_late <- setNames(vector('list', 1000), 1:1000)
+
+go_cc_acute <- setNames(vector('list', 1000), 1:1000)
+go_cc_peak <- setNames(vector('list', 1000), 1:1000)
+go_cc_late <- setNames(vector('list', 1000), 1:1000)
+```
+
+#### Loops!
+```{r}
+# Acute
+for (i in 1:1000) {
+  genes <- acute[[i]]
+  background <- postfilter[[i]]
+  bp_test_acute <- 
+        WebGestaltR(enrichMethod="ORA", organism="hsapiens", 
+                enrichDatabase="geneontology_Biological_Process",
+                interestGene = genes, interestGeneType = "genesymbol", 
+                referenceGene = background, referenceGeneType = "genesymbol", 
+                sigMethod = "fdr", fdrThr = 0.05, 
+                isOutput = FALSE) 
+  go_bp_acute[[i]] <- bp_test_acute$description
+  
+  mf_test_acute <- 
+        WebGestaltR(enrichMethod="ORA", organism="hsapiens", 
+                enrichDatabase="geneontology_Molecular_Function",
+                interestGene = genes, interestGeneType = "genesymbol", 
+                referenceGene = background, referenceGeneType = "genesymbol", 
+                sigMethod = "fdr", fdrThr = 0.05, 
+                isOutput = FALSE) 
+  go_mf_acute[[i]] <- mf_test_acute$description
+
+  cc_test_acute <- 
+        WebGestaltR(enrichMethod="ORA", organism="hsapiens", 
+                enrichDatabase="geneontology_Cellular_Component",
+                interestGene = genes, interestGeneType = "genesymbol", 
+                referenceGene = background, referenceGeneType = "genesymbol", 
+                sigMethod = "fdr", fdrThr = 0.05, 
+                isOutput = FALSE) 
+  go_cc_acute[[i]] <- cc_test_acute$description
+}
+
+
+# Peak
+for (i in 1:1000) {
+  genes <- peak[[i]]
+  background <- postfilter[[i]]
+  bp_test_peak <- 
+        WebGestaltR(enrichMethod="ORA", organism="hsapiens", 
+                enrichDatabase="geneontology_Biological_Process",
+                interestGene = genes, interestGeneType = "genesymbol", 
+                referenceGene = background, referenceGeneType = "genesymbol", 
+                sigMethod = "fdr", fdrThr = 0.05, 
+                isOutput = FALSE) 
+  go_bp_peak[[i]] <- bp_test_peak$description
+  
+  mf_test_peak <- 
+        WebGestaltR(enrichMethod="ORA", organism="hsapiens", 
+                enrichDatabase="geneontology_Molecular_Function",
+                interestGene = genes, interestGeneType = "genesymbol", 
+                referenceGene = background, referenceGeneType = "genesymbol", 
+                sigMethod = "fdr", fdrThr = 0.05, 
+                isOutput = FALSE) 
+  go_mf_peak[[i]] <- mf_test_peak$description
+
+  cc_test_peak <- 
+        WebGestaltR(enrichMethod="ORA", organism="hsapiens", 
+                enrichDatabase="geneontology_Cellular_Component",
+                interestGene = genes, interestGeneType = "genesymbol", 
+                referenceGene = background, referenceGeneType = "genesymbol", 
+                sigMethod = "fdr", fdrThr = 0.05, 
+                isOutput = FALSE) 
+  go_cc_peak[[i]] <- cc_test_peak$description
+}
+
+## Late
+for (i in 1:1000) {
+  genes <- late[[i]]
+  background <- postfilter[[i]]
+  bp_test_late <- 
+        WebGestaltR(enrichMethod="ORA", organism="hsapiens", 
+                enrichDatabase="geneontology_Biological_Process",
+                interestGene = genes, interestGeneType = "genesymbol", 
+                referenceGene = background, referenceGeneType = "genesymbol", 
+                sigMethod = "fdr", fdrThr = 0.05, 
+                isOutput = FALSE) 
+  go_bp_late[[i]] <- bp_test_late$description
+  
+  mf_test_late <- 
+        WebGestaltR(enrichMethod="ORA", organism="hsapiens", 
+                enrichDatabase="geneontology_Molecular_Function",
+                interestGene = genes, interestGeneType = "genesymbol", 
+                referenceGene = background, referenceGeneType = "genesymbol", 
+                sigMethod = "fdr", fdrThr = 0.05, 
+                isOutput = FALSE) 
+  go_mf_late[[i]] <- mf_test_late$description
+
+  cc_test_late <- 
+        WebGestaltR(enrichMethod="ORA", organism="hsapiens", 
+                enrichDatabase="geneontology_Cellular_Component",
+                interestGene = genes, interestGeneType = "genesymbol", 
+                referenceGene = background, referenceGeneType = "genesymbol", 
+                sigMethod = "fdr", fdrThr = 0.05, 
+                isOutput = FALSE) 
+  go_cc_late[[i]] <- cc_test_late$description
+}
+```
+
+#### Save acute files
+```{r}
+max_length <- max(unlist(lapply(go_bp_acute, length)))
+
+go_bp_acute_filled <-
+  lapply(go_bp_acute, function(x) {ans <- rep(NA,length=max_length);
+  ans[0:length(x)]<- x;
+  return(ans)})
+go_bp_acute_final <- do.call(cbind, go_bp_acute_filled)
+write.csv(go_bp_acute_final, file = "Output Files/txome_female_edgeR_null_GO_bp_acute.csv", row.names = FALSE)
+
+max_length <- max(unlist(lapply(go_mf_acute, length)))
+go_mf_acute_filled <-
+  lapply(go_mf_acute, function(x) {ans <- rep(NA,length=max_length);
+  ans[0:length(x)]<- x;
+  return(ans)})
+go_mf_acute_final <- do.call(cbind, go_mf_acute_filled)
+write.csv(go_mf_acute_final, file = "Output Files/txome_female_edgeR_null_GO_mf_acute.csv", row.names = FALSE)
+
+max_length <- max(unlist(lapply(go_cc_acute, length)))
+go_cc_acute_filled <-
+  lapply(go_cc_acute, function(x) {ans <- rep(NA,length=max_length);
+  ans[0:length(x)]<- x;
+  return(ans)})
+go_cc_acute_final <- do.call(cbind, go_cc_acute_filled)
+write.csv(go_cc_acute_final, file = "Output Files/txome_female_edgeR_null_GO_cc_acute.csv", row.names = FALSE)
+```
+
+#### Save peak files
+```{r}
+max_length <- max(unlist(lapply(go_bp_peak, length)))
+go_bp_peak_filled <-
+  lapply(go_bp_peak, function(x) {ans <- rep(NA,length=max_length);
+  ans[0:length(x)]<- x;
+  return(ans)})
+go_bp_peak_final <- do.call(cbind, go_bp_peak_filled)
+write.csv(go_bp_peak_final, file = "Output Files/txome_female_edgeR_null_GO_bp_peak.csv", row.names = FALSE)
+
+max_length <- max(unlist(lapply(go_mf_peak, length)))
+go_mf_peak_filled <-
+  lapply(go_mf_peak, function(x) {ans <- rep(NA,length=max_length);
+  ans[0:length(x)]<- x;
+  return(ans)})
+go_mf_peak_final <- do.call(cbind, go_mf_peak_filled)
+write.csv(go_mf_peak_final, file = "Output Files/txome_female_edgeR_null_GO_mf_peak.csv", row.names = FALSE)
+
+max_length <- max(unlist(lapply(go_cc_peak, length)))
+go_cc_peak_filled <-
+  lapply(go_cc_peak, function(x) {ans <- rep(NA,length=max_length);
+  ans[0:length(x)]<- x;
+  return(ans)})
+go_cc_peak_final <- do.call(cbind, go_cc_peak_filled)
+write.csv(go_cc_peak_final, file = "Output Files/txome_female_edgeR_null_GO_cc_peak.csv", row.names = FALSE)
+```
+
+#### Save late files
+```{r}
+max_length <- max(unlist(lapply(go_bp_late, length)))
+go_bp_late_filled <-
+  lapply(go_bp_late, function(x) {ans <- rep(NA,length=max_length);
+  ans[0:length(x)]<- x;
+  return(ans)})
+go_bp_late_final <- do.call(cbind, go_bp_late_filled)
+write.csv(go_bp_late_final, file = "Output Files/txome_female_edgeR_null_GO_bp_late.csv", row.names = FALSE)
+
+max_length <- max(unlist(lapply(go_mf_late, length)))
+go_mf_late_filled <-
+  lapply(go_mf_late, function(x) {ans <- rep(NA,length=max_length);
+  ans[0:length(x)]<- x;
+  return(ans)})
+go_mf_late_final <- do.call(cbind, go_mf_late_filled)
+write.csv(go_mf_late_final, file = "Output Files/txome_female_edgeR_null_GO_mf_late.csv", row.names = FALSE)
+
+max_length <- max(unlist(lapply(go_cc_late, length)))
+go_cc_late_filled <-
+  lapply(go_cc_late, function(x) {ans <- rep(NA,length=max_length);
+  ans[0:length(x)]<- x;
+  return(ans)})
+go_cc_late_final <- do.call(cbind, go_cc_late_filled)
+write.csv(go_cc_late_final, file = "Output Files/txome_female_edgeR_null_GO_cc_late.csv", row.names = FALSE)
+```
+
+### KEGG Analysis
+
+#### Set up results lists
+```{r}
+kegg_acute <- setNames(vector('list', 1000), 1:1000)
+kegg_peak <- setNames(vector('list', 1000), 1:1000)
+kegg_late <-setNames(vector('list', 1000), 1:1000)
+```
+
+
+#### Acute
+```{r}
+for (i in 1:1000) {
+genes <- acute[[i]]
+background <- postfilter[[i]]
+test <-
+  WebGestaltR(enrichMethod = "ORA", organism = "hsapiens", enrichDatabase = "pathway_KEGG",
+              interestGene = genes, interestGeneType = "genesymbol", 
+              referenceGene = background, referenceGeneType = "genesymbol", 
+              minNum = 5, sigMethod = "fdr", isOutput = FALSE)
+
+ifelse(is.data.frame(test)=="FALSE", 
+       kegg_acute[[i]] <- NA, 
+       kegg_acute[[i]] <- test$description)
+}
+
+# Save results
+max_length <- max(unlist(lapply(kegg_acute, length)))
+kegg_acute <-
+  lapply(kegg_acute, function(x) {ans <- rep(NA,length=max_length);
+  ans[0:length(x)]<- x;
+  return(ans)})
+kegg_acute <- do.call(cbind, kegg_acute)
+write.csv(kegg_acute, file = "Output Files/txome_female_edgeR_null_kegg_acute.csv", row.names = FALSE)
+```
+
+#### Peak
+```{r}
+for (i in 1:1000) {
+genes <- peak[[i]]
+background <- postfilter[[i]]
+test <-
+  WebGestaltR(enrichMethod = "ORA", organism = "hsapiens", enrichDatabase = "pathway_KEGG",
+              interestGene = genes, interestGeneType = "genesymbol", 
+              referenceGene = background, referenceGeneType = "genesymbol", 
+              minNum = 5, sigMethod = "fdr", isOutput = FALSE)
+
+ifelse(is.data.frame(test)=="FALSE", 
+       kegg_peak[[i]] <- NA, 
+       kegg_peak[[i]] <- test$description)
+}
+
+# Save results
+max_length <- max(unlist(lapply(kegg_peak, length)))
+kegg_peak <-
+  lapply(kegg_peak, function(x) {ans <- rep(NA,length=max_length);
+  ans[0:length(x)]<- x;
+  return(ans)})
+kegg_peak <- do.call(cbind, kegg_peak)
+write.csv(kegg_peak, file = "Output Files/txome_female_edgeR_null_kegg_peak.csv", row.names = FALSE)
+```
+
+#### Late
+```{r}
+for (i in 1:1000) {
+genes <- late[[i]]
+background <- postfilter[[i]]
+test <-
+  WebGestaltR(enrichMethod = "ORA", organism = "hsapiens", enrichDatabase = "pathway_KEGG",
+              interestGene = genes, interestGeneType = "genesymbol", 
+              referenceGene = background, referenceGeneType = "genesymbol", 
+              minNum = 5, sigMethod = "fdr", isOutput = FALSE)
+
+ifelse(is.data.frame(test)=="FALSE", 
+       kegg_late[[i]] <- NA, 
+       kegg_late[[i]] <- test$description)
+}
+
+# Save results 
+max_length <- max(unlist(lapply(kegg_late, length)))
+kegg_late <-
+  lapply(kegg_late, function(x) {ans <- rep(NA,length=max_length);
+  ans[0:length(x)]<- x;
+  return(ans)})
+kegg_late <- do.call(cbind, kegg_late)
+write.csv(kegg_late, file = "Output Files/txome_female_edgeR_null_kegg_late.csv", row.names = FALSE)
+```
+

@@ -1,0 +1,140 @@
+---
+title: "Untitled"
+author: "Christina McCosker"
+date: "`r Sys.Date()`"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+# IAV Kegg Pathway Candidate Gene Analysis
+
+## Libraries
+```{r}
+library(limma)
+library(org.Hs.eg.db)
+library(AnnotationDbi) 
+library(tidyverse)
+library(ggkegg)
+library(tidygraph)
+```
+
+## Data
+```{r}
+t_postfilter <- read.table("Output Files/txome_female_edgeR_postfilter.txt")
+  
+t_acute <- read.csv("Output Files/txome_female_edgeR_DEG_acute.csv", row.names=1)
+t_peak <- read.csv("Output Files/txome_female_edgeR_DEG_peak.csv", row.names=1)
+t_late <- read.csv("Output Files/txome_female_edgeR_DEG_late.csv", row.names=1)
+
+g_postfilter <- read.table("Output Files/gnome_female_edgeR_postfilter.txt")
+g_acute <- read.csv("Output Files/gnome_female_edgeR_DEG_acute.csv", row.names=1)
+g_peak <- read.csv("Output Files/gnome_female_edgeR_DEG_peak.csv", row.names=1)
+g_late <- read.csv("Output Files/gnome_female_edgeR_DEG_late.csv", row.names=1)
+
+t_virus_postfilter <- read.table("Output Files/txome_female_edgeR_viralRNA_postfilter.txt")
+t_virus_degs <- read.csv("Output Files/txome_female_edgeR_viralRNA_DEG.csv", row.names=1)
+
+g_virus_postfilter <- read.table("Output Files/gnome_female_edgeR_viralRNA_postfilter.txt")
+g_virus_degs <- read.csv("Output Files/gnome_female_edgeR_viralRNA_DEG.csv", row.names=1)
+```
+
+## Extract genes from KEGG Pathway
+```{r}
+iav <- 
+  getGeneKEGGLinks(species="hsa") %>% 
+  filter(PathwayID == "hsa05164")
+
+iav$Symbol <- mapIds(org.Hs.eg.db, iav$GeneID,
+                     column="SYMBOL", keytype="ENTREZID")
+```
+
+## Overlap with Gene Lists
+### Postfilter
+```{r}
+postfilter <- 
+  rbind(t_postfilter, g_postfilter, t_virus_postfilter) %>% 
+  filter(!duplicated(V1))
+
+iav_postfilter <-
+  intersect(iav$Symbol, postfilter$V1)
+```
+
+### Differentially Expressed Genes
+```{r}
+acute <- 
+  data.frame(
+    genes=c(intersect(iav$Symbol, t_acute$gene), 
+            intersect(iav$Symbol, g_acute$gene)), 
+    category="acute")
+
+peak <- 
+  data.frame(
+    genes=c(intersect(iav$Symbol, t_peak$gene), 
+            intersect(iav$Symbol, g_peak$gene)), 
+    category="peak")
+
+late <- 
+  data.frame(
+    genes=c(intersect(iav$Symbol, t_late$gene),
+            intersect(iav$Symbol, g_late$gene)),
+    category="late") %>% 
+  filter(!duplicated(genes))
+
+virus <- 
+  data.frame(
+    genes=c(intersect(iav$Symbol, t_virus_degs$gene),
+            intersect(iav$Symbol, g_virus_degs$gene)),
+    category="virus") %>% 
+  filter(!duplicated(genes))
+```
+
+### Compile gene IDs
+```{r}
+deg <-
+  rbind(acute, peak, late, virus) %>% 
+  mutate(id = paste0("hsa:", ifelse(genes %in% iav$Symbol, 
+                     iav[match(genes, iav$Symbol),1],
+                     genes)))
+
+expressed <-
+  data.frame(genes=iav_postfilter) %>%  
+  filter(!genes %in% deg$genes) %>% 
+  mutate(id = paste0("hsa:", ifelse(genes %in% iav$Symbol, 
+                     iav[match(genes, iav$Symbol),1],
+                     genes)))
+```
+
+## Plot pathway map
+```{r}
+graph_info <-
+  pathway("hsa05164") %>% 
+  activate(nodes) %>% 
+  mutate(convert_hsa=convert_id("hsa"), 
+         convert_map=convert_id("pathway"),
+         bgcolor=ifelse(convert_hsa %in% expressed$genes, "#ffffe0", 
+                        ifelse(convert_hsa %in% deg$genes, "#fbc69d", "lightgray")))
+
+graph <-
+  ggraph(graph_info, x=x, y=y) +
+   geom_node_rect(aes(filter=type=="gene", 
+                      fill=I(bgcolor)),
+                 color="black") + 
+  overlay_raw_map() +
+  theme_void() 
+graph 
+
+
+ggkeggsave(filename="Figures/iavkegg.jpg", graph, dpi=300)
+```
+
+### Create Legend
+```{r}
+png(filename="Figures/iavkegglegend.png", width = 10, height=5, units="in", res=300)
+  plot(NULL ,xaxt='n',yaxt='n',bty='n',ylab='',xlab='', , xlim=c(0,100), ylim=c(0,10))
+  legend("topleft", legend =c('Ex', 'DE', 'NE'), 
+         pch=15, pt.cex=5, cex=2, bty='o',
+       col = c("#ffffe0", "#fbc69d", "lightgray"), horiz=T)
+dev.off()
+```
+

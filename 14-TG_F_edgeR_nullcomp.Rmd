@@ -1,0 +1,997 @@
+---
+author: "Christina McCosker"
+date: "`r Sys.Date()`"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+## Refine GO/KEGG
+*Based on Null Set results
+
+
+### Libraries
+```{r}
+library(tidyverse)
+library(kableExtra)
+library(knitr)
+library(ggh4x)
+library(gridExtra)
+```
+
+### Data
+
+#### GO and KEGG
+```{r}
+txome_go <- read.csv("Output Files/txome_female_edgeR_go.csv")
+
+t_null_bp_acute <- read.csv("Output Files/txome_female_edgeR_null_GO_bp_acute.csv")
+t_null_mf_acute <- read.csv("Output Files/txome_female_edgeR_null_GO_mf_acute.csv")
+t_null_cc_acute <- read.csv("Output Files/txome_female_edgeR_null_GO_cc_acute.csv")
+
+t_null_bp_peak <- read.csv("Output Files/txome_female_edgeR_null_GO_bp_peak.csv")
+t_null_mf_peak <- read.csv("Output Files/txome_female_edgeR_null_GO_mf_peak.csv")
+t_null_cc_peak <- read.csv("Output Files/txome_female_edgeR_null_GO_cc_peak.csv")
+
+t_null_bp_late <- read.csv("Output Files/txome_female_edgeR_null_GO_bp_late.csv")
+t_null_mf_late <- read.csv("Output Files/txome_female_edgeR_null_GO_mf_late.csv")
+t_null_cc_late <- read.csv("Output Files/txome_female_edgeR_null_GO_cc_late.csv")
+
+txome_kegg <- read.csv("Output Files/txome_female_edgeR_kegg.csv")
+t_kegg_acute <- read.csv("Output Files/txome_female_edgeR_null_kegg_acute.csv")
+t_kegg_peak <- read.csv("Output Files/txome_female_edgeR_null_kegg_peak.csv")
+t_kegg_late <- read.csv("Output Files/txome_female_edgeR_null_kegg_late.csv")
+
+gnome_go <- read.csv("Output Files/gnome_female_edgeR_go.csv")
+
+g_null_bp_acute <- read.csv("Output Files/gnome_female_edgeR_null_GO_bp_acute.csv")
+g_null_mf_acute <- read.csv("Output Files/gnome_female_edgeR_null_GO_mf_acute.csv")
+g_null_cc_acute <- read.csv("Output Files/gnome_female_edgeR_null_GO_cc_acute.csv")
+
+g_null_bp_peak <- read.csv("Output Files/gnome_female_edgeR_null_GO_bp_peak.csv")
+g_null_mf_peak <- read.csv("Output Files/gnome_female_edgeR_null_GO_mf_peak.csv")
+g_null_cc_peak <- read.csv("Output Files/gnome_female_edgeR_null_GO_cc_peak.csv")
+
+g_null_bp_late <- read.csv("Output Files/gnome_female_edgeR_null_GO_bp_late.csv")
+g_null_mf_late <- read.csv("Output Files/gnome_female_edgeR_null_GO_mf_late.csv")
+g_null_cc_late <- read.csv("Output Files/gnome_female_edgeR_null_GO_cc_late.csv")
+
+gnome_kegg <- read.csv("Output Files/gnome_female_edgeR_kegg.csv")
+g_kegg_acute <- read.csv("Output Files/gnome_female_edgeR_null_kegg_acute.csv")
+g_kegg_peak <- read.csv("Output Files/gnome_female_edgeR_null_kegg_peak.csv")
+g_kegg_late <- read.csv("Output Files/gnome_female_edgeR_null_kegg_late.csv")
+```
+
+#### Raw Gene Expression
+```{r}
+t_raw <- read.csv("Output Files/txome_female_edgeR_normcounts.csv") %>% 
+  dplyr::rename("gene" = "X")
+
+meta <- read.csv("Input Files/metadata.csv")
+```
+
+
+### Transcriptome
+
+#### GO Term
+
+##### What terms are overrepresented in >10% of nullsets?
+
+###### Acute
+```{r}
+# BP
+t_null_bp_acute_10 <-
+  t_null_bp_acute %>% 
+  pivot_longer(cols=1:1000) %>% 
+  na.omit(value) %>% 
+  group_by(value) %>% 
+  summarise(count=n()) %>% 
+  filter(count>100) 
+
+# MF
+t_null_mf_acute_10 <-
+  t_null_mf_acute %>% 
+  pivot_longer(cols=1:1000) %>% 
+  na.omit(value) %>% 
+  group_by(value) %>% 
+  summarise(count=n()) %>% 
+  filter(count>100) 
+
+# CC
+t_null_cc_acute_10 <-
+  t_null_cc_acute %>% 
+  pivot_longer(cols=1:1000) %>% 
+  na.omit(value) %>% 
+  group_by(value) %>% 
+  summarise(count=n()) %>% 
+  filter(count>100) 
+```
+
+###### Peak
+```{r}
+# BP
+t_null_bp_peak_10 <-
+  t_null_bp_peak %>% 
+  pivot_longer(cols=1:1000) %>% 
+  na.omit(value) %>% 
+  group_by(value) %>% 
+  summarise(count=n()) %>% 
+  filter(count>100) 
+
+# MF
+t_null_mf_peak_10 <-
+  t_null_mf_peak %>% 
+  pivot_longer(cols=1:1000) %>% 
+  na.omit(value) %>% 
+  group_by(value) %>% 
+  summarise(count=n()) %>% 
+  filter(count>100) 
+
+# CC
+t_null_cc_peak_10 <-
+  t_null_cc_peak %>% 
+  pivot_longer(cols=1:1000) %>% 
+  na.omit(value) %>% 
+  group_by(value) %>% 
+  summarise(count=n()) %>% 
+  filter(count>100) 
+```
+
+###### Late
+```{r}
+# BP
+t_null_bp_late_10 <-
+  t_null_bp_late %>% 
+  pivot_longer(cols=1:1000) %>% 
+  na.omit(value) %>% 
+  group_by(value) %>% 
+  summarise(count=n()) %>% 
+  filter(count>100) 
+
+# MF
+t_null_mf_late_10 <-
+  t_null_mf_late %>% 
+  pivot_longer(cols=1:1000) %>% 
+  na.omit(value) %>% 
+  group_by(value) %>% 
+  summarise(count=n()) %>% 
+  filter(count>100) 
+
+# CC
+t_null_cc_late_10 <-
+  t_null_cc_late %>% 
+  pivot_longer(cols=1:1000) %>% 
+  na.omit(value) %>% 
+  group_by(value) %>% 
+  summarise(count=n()) %>% 
+  filter(count>100) 
+```
+
+##### Filter results
+
+###### Acute
+```{r}
+final_t_bp_acute <- 
+  txome_go %>% 
+  filter(disease_stage=="acute" & 
+         go=="bp" &
+         !description %in% t_null_bp_acute_10$value)
+         
+final_t_mf_acute <-
+  txome_go %>% 
+  filter(disease_stage=="acute" &
+         go=="mf" &
+         !description %in% t_null_mf_acute_10$value)
+
+final_t_cc_acute <-
+  txome_go %>% 
+  filter(disease_stage=="acute" &
+         go=="cc" &
+         !description %in% t_null_cc_acute_10$value)
+```
+
+###### Peak
+```{r}
+final_t_bp_peak <- 
+  txome_go %>% 
+  filter(disease_stage=="peak" & 
+         go=="bp" &
+         !description %in% t_null_bp_peak_10$value)
+         
+final_t_mf_peak <-
+  txome_go %>% 
+  filter(disease_stage=="peak" &
+         go=="mf" &
+         !description %in% t_null_mf_peak_10$value)
+
+final_t_cc_peak <-
+  txome_go %>% 
+  filter(disease_stage=="peak" &
+         go=="cc" &
+         !description %in% t_null_cc_peak_10$value)
+```
+
+###### Late
+```{r}
+final_t_bp_late <- 
+  txome_go %>% 
+  filter(disease_stage=="late" & 
+         go=="bp" &
+         !description %in% t_null_bp_late_10$value)
+         
+final_t_mf_late <-
+  txome_go %>% 
+  filter(disease_stage=="late" &
+         go=="mf" &
+         !description %in% t_null_mf_late_10$value)
+
+final_t_cc_late <-
+  txome_go %>% 
+  filter(disease_stage=="late" &
+         go=="cc" &
+         !description %in% t_null_cc_late_10$value)
+```
+
+
+#### KEGG Pathway
+##### What pathways are overrepreesented  in >10% of nullsets?
+```{r}
+t_kegg_acute <-
+  t_kegg_acute %>% 
+  pivot_longer(cols=1:1000) %>% 
+  na.omit(value) %>% 
+  group_by(value) %>% 
+  summarise(count=n()) %>% 
+  filter(count>100) 
+
+t_kegg_peak <-
+  t_kegg_peak %>% 
+  pivot_longer(cols=1:1000) %>% 
+  na.omit(value) %>% 
+  group_by(value) %>% 
+  summarise(count=n()) %>% 
+  filter(count>100)
+
+t_kegg_late <-
+  t_kegg_late %>% 
+  pivot_longer(cols=1:1000) %>% 
+  na.omit(value) %>% 
+  group_by(value) %>% 
+  summarise(count=n()) %>% 
+  filter(count>100)
+```
+
+##### Filter Results
+```{r}
+txome_kegg_acute <- 
+  txome_kegg %>% 
+  filter(disease_stage=="acute" &
+         !description %in% t_kegg_acute$value)
+txome_kegg_acute %>% 
+  kable()
+
+txome_kegg_peak <- 
+  txome_kegg %>% 
+  filter(disease_stage=="peak" &
+         !description %in% t_kegg_peak$value)
+txome_kegg_peak %>% 
+  kable()
+```
+
+
+### Genome 
+
+#### GO Term
+
+##### What terms are overrepresented in >10% of nullsets?
+
+###### Acute
+```{r}
+# BP
+g_null_bp_acute_10 <-
+  g_null_bp_acute %>% 
+  pivot_longer(cols=1:1000) %>% 
+  na.omit(value) %>% 
+  group_by(value) %>% 
+  summarise(count=n()) %>% 
+  filter(count>100) 
+
+# MF
+g_null_mf_acute_10 <-
+  g_null_mf_acute %>% 
+  pivot_longer(cols=1:1000) %>% 
+  na.omit(value) %>% 
+  group_by(value) %>% 
+  summarise(count=n()) %>% 
+  filter(count>100) 
+
+# CC
+g_null_cc_acute_10 <-
+  g_null_cc_acute %>% 
+  pivot_longer(cols=1:1000) %>% 
+  na.omit(value) %>% 
+  group_by(value) %>% 
+  summarise(count=n()) %>% 
+  filter(count>100) 
+```
+
+###### Peak
+```{r}
+# BP
+g_null_bp_peak_10 <-
+  g_null_bp_peak %>% 
+  pivot_longer(cols=1:1000) %>% 
+  na.omit(value) %>% 
+  group_by(value) %>% 
+  summarise(count=n()) %>% 
+  filter(count>100) 
+
+# MF
+g_null_mf_peak_10 <-
+  g_null_mf_peak %>% 
+  pivot_longer(cols=1:1000) %>% 
+  na.omit(value) %>% 
+  group_by(value) %>% 
+  summarise(count=n()) %>% 
+  filter(count>100) 
+
+# CC
+g_null_cc_peak_10 <-
+  g_null_cc_peak %>% 
+  pivot_longer(cols=1:1000) %>% 
+  na.omit(value) %>% 
+  group_by(value) %>% 
+  summarise(count=n()) %>% 
+  filter(count>100) 
+```
+
+###### Late
+```{r}
+# BP
+g_null_bp_late_10 <-
+  g_null_bp_late %>% 
+  pivot_longer(cols=1:1000) %>% 
+  na.omit(value) %>% 
+  group_by(value) %>% 
+  summarise(count=n()) %>% 
+  filter(count>100) 
+
+# MF
+g_null_mf_late_10 <-
+  g_null_mf_late %>% 
+  pivot_longer(cols=1:1000) %>% 
+  na.omit(value) %>% 
+  group_by(value) %>% 
+  summarise(count=n()) %>% 
+  filter(count>100) 
+
+# CC
+g_null_cc_late_10 <-
+  g_null_cc_late %>% 
+  pivot_longer(cols=1:1000) %>% 
+  na.omit(value) %>% 
+  group_by(value) %>% 
+  summarise(count=n()) %>% 
+  filter(count>100) 
+```
+
+##### Filter results
+
+###### Acute
+```{r}
+final_g_bp_acute <- 
+  gnome_go %>% 
+  filter(disease_stage=="acute" & 
+         go=="bp" &
+         !description %in% g_null_bp_acute_10$value)
+         
+final_g_mf_acute <-
+  gnome_go %>% 
+  filter(disease_stage=="acute" &
+         go=="mf" &
+         !description %in% g_null_mf_acute_10$value)
+
+final_g_cc_acute <-
+  gnome_go %>% 
+  filter(disease_stage=="acute" &
+         go=="cc" &
+         !description %in% g_null_cc_acute_10$value)
+```
+
+###### Peak
+```{r}
+final_g_bp_peak <- 
+  gnome_go %>% 
+  filter(disease_stage=="peak" & 
+         go=="bp" &
+         !description %in% g_null_bp_peak_10$value)
+         
+final_g_mf_peak <-
+  gnome_go %>% 
+  filter(disease_stage=="peak" &
+         go=="mf" &
+         !description %in% g_null_mf_peak_10$value)
+
+final_g_cc_peak <-
+  gnome_go %>% 
+  filter(disease_stage=="peak" &
+         go=="cc" &
+         !description %in% g_null_cc_peak_10$value)
+```
+
+###### Late
+```{r}
+final_g_bp_late <- 
+  gnome_go %>% 
+  filter(disease_stage=="late" & 
+         go=="bp" &
+         !description %in% g_null_bp_late_10$value)
+         
+final_g_mf_late <-
+  gnome_go %>% 
+  filter(disease_stage=="late" &
+         go=="mf" &
+         !description %in% g_null_mf_late_10$value)
+
+final_g_cc_late <-
+  gnome_go %>% 
+  filter(disease_stage=="late" &
+         go=="cc" &
+         !description %in% g_null_cc_late_10$value)
+```
+
+
+#### KEGG Pathway
+##### What pathways are overrepreesented  in >10% of nullsets?
+```{r}
+g_kegg_acute <-
+  g_kegg_acute %>% 
+  pivot_longer(cols=1:1000) %>% 
+  na.omit(value) %>% 
+  group_by(value) %>% 
+  summarise(count=n()) %>% 
+  filter(count>100) 
+
+g_kegg_peak <-
+  g_kegg_peak %>% 
+  pivot_longer(cols=1:1000) %>% 
+  na.omit(value) %>% 
+  group_by(value) %>% 
+  summarise(count=n()) %>% 
+  filter(count>100)
+
+g_kegg_late <-
+  g_kegg_late %>% 
+  pivot_longer(cols=1:1000) %>% 
+  na.omit(value) %>% 
+  group_by(value) %>% 
+  summarise(count=n()) %>% 
+  filter(count>100)
+```
+
+##### Filter Results
+```{r}
+gnome_kegg_peak <- 
+  gnome_kegg %>% 
+  filter(disease_stage=="peak" &
+         !description %in% g_kegg_peak$value)
+gnome_kegg_peak %>% 
+  kable()
+```
+
+
+### GO Term Figure
+```{r}
+t_final <- 
+  rbind(final_t_bp_acute, final_t_bp_peak, final_t_bp_late,
+        final_t_mf_acute, final_t_mf_peak, final_t_mf_late,
+        final_t_cc_acute, final_t_cc_peak, final_t_cc_late) %>% 
+  mutate(approach="Transcriptome")
+write.csv(t_final, "Output Files/txome_female_edgeR_go_refined.csv", row.names=FALSE)
+
+g_final <-
+  rbind(final_g_bp_acute, final_g_bp_peak, final_g_bp_late,
+        final_g_mf_acute, final_g_mf_peak, final_g_mf_late,
+        final_g_cc_acute, final_g_cc_peak, final_g_cc_late) %>% 
+  mutate(approach= "Genome")
+write.csv(g_final, "Output Files/gnome_female_edgeR_go_refined.csv", row.names=FALSE)
+
+
+go_fig <-
+  rbind(t_final, g_final) %>% 
+  mutate(disease_stage=factor(
+          ifelse(disease_stage=="acute", "A", 
+             ifelse(disease_stage=="peak", "P", "L")),
+          levels=c("A", "P", "L")),
+         go=factor(
+           ifelse(go=="bp", "BP", 
+                  ifelse(go=="cc", "CC", "MF")),
+           levels=c("BP", "CC", "MF")), 
+         enrichmentRatio=ifelse(direction=="down", enrichmentRatio*-1, enrichmentRatio)) %>%
+  
+  ggplot(data=., aes(x=fct_reorder(description, enrichmentRatio, .desc=TRUE), 
+                     y=enrichmentRatio, fill=factor(approach))) +
+  geom_bar(stat="identity", position="dodge") +
+  scale_fill_manual(values=c("slategray3", "slategrey"), name=NULL) +
+
+  labs(x="GO Term", y="Enrichment Ratio") +
+  
+  scale_x_discrete(labels = function(description) str_wrap(description, width = 65)) +
+  #scale_y_continuous(limits=c(-5,37), expand=c(0,0), n.breaks=8) +
+  
+  facet_nested_wrap(vars(disease_stage, go), dir="v", scales="free_y",
+                    strip.position="right", ncol=1, drop=TRUE) +
+  
+  force_panelsizes(rows = c(3, 2.5, 2, 4.8, 0.8)) +
+  
+  theme_bw() +
+  theme(panel.grid=element_blank(), text=element_text(size=11), 
+        legend.position="bottom", legend.justification="left", 
+        axis.title.x=element_text(vjust=-3), axis.title.y=element_text(vjust=2)) +
+  
+  geom_hline(yintercept=0, colour="gray40") +
+  geom_vline(xintercept=c(1.5:20.5), colour="gray88") +
+  coord_flip() 
+
+go_fig
+ggsave(filename="Figures/goterm.jpg", width=10, height=9, units="in")
+```
+
+
+### Supplemental Table
+
+#### Acute GO
+
+##### Biological Process
+```{r}
+t_sup_a_bp <- 
+  txome_go %>% 
+  filter(disease_stage=="acute" &
+         go=="bp") %>% 
+  mutate(GOTerm = paste(description, " ", "(", geneSet, ")", sep=""), 
+         enrichmentRatio = round(enrichmentRatio, digits=1),
+         FDR = round(FDR, digits=3),
+         enrichmentRatio = ifelse(direction=="down", paste("-", enrichmentRatio, sep=""),
+                                  paste("+", enrichmentRatio, sep="")),
+         Transcriptome = paste(enrichmentRatio, " ", "(", FDR, ")", sep=""), 
+         Transcriptome_null = ifelse(description %in% t_null_bp_acute_10$value, "x", "")) %>% 
+  select(GOTerm, Transcriptome, Transcriptome_null)
+
+
+g_sup_a_bp <- 
+  gnome_go %>% 
+  filter(disease_stage=="acute" &
+         go=="bp") %>% 
+  mutate(GOTerm = paste(description, " ", "(", geneSet, ")", sep=""), 
+         enrichmentRatio = round(enrichmentRatio, digits=1),
+         FDR = round(FDR, digits=3),
+         enrichmentRatio = ifelse(direction=="down", paste("-", enrichmentRatio, sep=""),
+                                  paste("+", enrichmentRatio, sep="")),
+         Genome = paste(enrichmentRatio, " ", "(", FDR, ")", sep=""), 
+         Genome_null = ifelse(description %in% g_null_bp_acute_10$value, "x", "")) %>% 
+  select(GOTerm, Genome, Genome_null)
+
+sup_a_bp <- 
+  merge(t_sup_a_bp, g_sup_a_bp, all=TRUE) %>% 
+  mutate(go="BP")
+```
+
+
+##### Cellular Component
+```{r}
+t_sup_a_cc <- 
+  txome_go %>% 
+  filter(disease_stage=="acute" &
+         go=="cc") %>% 
+  mutate(GOTerm = paste(description, " ", "(", geneSet, ")", sep=""), 
+         enrichmentRatio = round(enrichmentRatio, digits=1),
+         FDR = round(FDR, digits=3),
+         enrichmentRatio = ifelse(direction=="down", paste("-", enrichmentRatio, sep=""),
+                                  paste("+", enrichmentRatio, sep="")),
+         Transcriptome = paste(enrichmentRatio, " ", "(", FDR, ")", sep=""), 
+         Transcriptome_null = ifelse(description %in% t_null_cc_acute_10$value, "x", "")) %>% 
+  select(GOTerm, Transcriptome, Transcriptome_null)
+
+
+g_sup_a_cc <- 
+  gnome_go %>% 
+  filter(disease_stage=="acute" &
+         go=="cc") %>% 
+  mutate(GOTerm = paste(description, " ", "(", geneSet, ")", sep=""), 
+         enrichmentRatio = round(enrichmentRatio, digits=1),
+         FDR = round(FDR, digits=3),
+         enrichmentRatio = ifelse(direction=="down", paste("-", enrichmentRatio, sep=""),
+                                  paste("+", enrichmentRatio, sep="")),
+         Genome = paste(enrichmentRatio, " ", "(", FDR, ")", sep=""), 
+         Genome_null = ifelse(description %in% g_null_cc_acute_10$value, "x", "")) %>% 
+  select(GOTerm, Genome, Genome_null)
+
+sup_a_cc <- 
+  merge(t_sup_a_cc, g_sup_a_cc, all=TRUE) %>% 
+  mutate(go="CC")
+```
+
+
+##### Molecular Function
+```{r}
+t_sup_a_mf <- 
+  txome_go %>% 
+  filter(disease_stage=="acute" &
+         go=="mf") %>% 
+  mutate(GOTerm = paste(description, " ", "(", geneSet, ")", sep=""), 
+         enrichmentRatio = round(enrichmentRatio, digits=1),
+         FDR = round(FDR, digits=3),
+         enrichmentRatio = ifelse(direction=="down", paste("-", enrichmentRatio, sep=""),
+                                  paste("+", enrichmentRatio, sep="")),
+         Transcriptome = paste(enrichmentRatio, " ", "(", FDR, ")", sep=""), 
+         Transcriptome_null = ifelse(description %in% t_null_mf_acute_10$value, "x", "")) %>% 
+  select(GOTerm, Transcriptome, Transcriptome_null)
+
+
+g_sup_a_mf <- 
+  gnome_go %>% 
+  filter(disease_stage=="acute" &
+         go=="mf") %>% 
+  mutate(GOTerm = paste(description, " ", "(", geneSet, ")", sep=""), 
+         enrichmentRatio = round(enrichmentRatio, digits=1),
+         FDR = round(FDR, digits=3),
+         enrichmentRatio = ifelse(direction=="down", paste("-", enrichmentRatio, sep=""),
+                                  paste("+", enrichmentRatio, sep="")),
+         Genome = paste(enrichmentRatio, " ", "(", FDR, ")", sep=""), 
+         Genome_null = ifelse(description %in% g_null_mf_acute_10$value, "x", "")) %>% 
+  select(GOTerm, Genome, Genome_null)
+
+sup_a_mf <- 
+  merge(t_sup_a_mf, g_sup_a_mf, all=TRUE) %>% 
+  mutate(go="MF")
+```
+
+##### Save Tables
+```{r}
+sup_a <- 
+  rbind(sup_a_bp, sup_a_cc, sup_a_mf)
+
+sup_a %>% 
+  kable()
+
+write.csv(sup_a, "Output Files/supplemental_female_edgeR_go_acute.csv", row.names=FALSE)
+```
+
+
+
+#### Peak GO
+
+##### Biological Process
+```{r}
+t_sup_p_bp <- 
+  txome_go %>% 
+  filter(disease_stage=="peak" &
+         go=="bp") %>% 
+  mutate(GOTerm = paste(description, " ", "(", geneSet, ")", sep=""), 
+         enrichmentRatio = round(enrichmentRatio, digits=1),
+         FDR = round(FDR, digits=3),
+         enrichmentRatio = ifelse(direction=="down", paste("-", enrichmentRatio, sep=""),
+                                  paste("+", enrichmentRatio, sep="")),
+         Transcriptome = paste(enrichmentRatio, " ", "(", FDR, ")", sep=""), 
+         Transcriptome_null = ifelse(description %in% t_null_bp_peak_10$value, "x", "")) %>% 
+  select(GOTerm, Transcriptome, Transcriptome_null)
+
+
+g_sup_p_bp <- 
+  gnome_go %>% 
+  filter(disease_stage=="peak" &
+         go=="bp") %>% 
+  mutate(GOTerm = paste(description, " ", "(", geneSet, ")", sep=""), 
+         enrichmentRatio = round(enrichmentRatio, digits=1),
+         FDR = round(FDR, digits=3),
+         enrichmentRatio = ifelse(direction=="down", paste("-", enrichmentRatio, sep=""),
+                                  paste("+", enrichmentRatio, sep="")),
+         Genome = paste(enrichmentRatio, " ", "(", FDR, ")", sep=""), 
+         Genome_null = ifelse(description %in% g_null_bp_peak_10$value, "x", "")) %>% 
+  select(GOTerm, Genome, Genome_null)
+
+sup_p_bp <- 
+  merge(t_sup_p_bp, g_sup_p_bp, all=TRUE) %>% 
+  mutate(go="BP")
+```
+
+
+##### Cellular Component
+```{r}
+t_sup_p_cc <- 
+  txome_go %>% 
+  filter(disease_stage=="peak" &
+         go=="cc") %>% 
+  mutate(GOTerm = paste(description, " ", "(", geneSet, ")", sep=""), 
+         enrichmentRatio = round(enrichmentRatio, digits=1),
+         FDR = round(FDR, digits=3),
+         enrichmentRatio = ifelse(direction=="down", paste("-", enrichmentRatio, sep=""),
+                                  paste("+", enrichmentRatio, sep="")),
+         Transcriptome = paste(enrichmentRatio, " ", "(", FDR, ")", sep=""), 
+         Transcriptome_null = ifelse(description %in% t_null_cc_peak_10$value, "x", "")) %>% 
+  select(GOTerm, Transcriptome, Transcriptome_null)
+
+
+g_sup_p_cc <- 
+  gnome_go %>% 
+  filter(disease_stage=="peak" &
+         go=="cc") %>% 
+  mutate(GOTerm = paste(description, " ", "(", geneSet, ")", sep=""), 
+         enrichmentRatio = round(enrichmentRatio, digits=1),
+         FDR = round(FDR, digits=3),
+         enrichmentRatio = ifelse(direction=="down", paste("-", enrichmentRatio, sep=""),
+                                  paste("+", enrichmentRatio, sep="")),
+         Genome = paste(enrichmentRatio, " ", "(", FDR, ")", sep=""), 
+         Genome_null = ifelse(description %in% g_null_cc_peak_10$value, "x", "")) %>% 
+  select(GOTerm, Genome, Genome_null)
+
+sup_p_cc <- 
+  merge(t_sup_p_cc, g_sup_p_cc, all=TRUE) %>% 
+  mutate(go="CC")
+```
+
+
+##### Molecular Function
+```{r}
+t_sup_p_mf <- 
+  txome_go %>% 
+  filter(disease_stage=="peak" &
+         go=="mf") %>% 
+  mutate(GOTerm = paste(description, " ", "(", geneSet, ")", sep=""), 
+         enrichmentRatio = round(enrichmentRatio, digits=1),
+         FDR = round(FDR, digits=3),
+         enrichmentRatio = ifelse(direction=="down", paste("-", enrichmentRatio, sep=""),
+                                  paste("+", enrichmentRatio, sep="")),
+         Transcriptome = paste(enrichmentRatio, " ", "(", FDR, ")", sep=""), 
+         Transcriptome_null = ifelse(description %in% t_null_mf_peak_10$value, "x", "")) %>% 
+  select(GOTerm, Transcriptome, Transcriptome_null)
+
+
+g_sup_p_mf <- 
+  gnome_go %>% 
+  filter(disease_stage=="peak" &
+         go=="mf") %>% 
+  mutate(GOTerm = paste(description, " ", "(", geneSet, ")", sep=""), 
+         enrichmentRatio = round(enrichmentRatio, digits=1),
+         FDR = round(FDR, digits=3),
+         enrichmentRatio = ifelse(direction=="down", paste("-", enrichmentRatio, sep=""),
+                                  paste("+", enrichmentRatio, sep="")),
+         Genome = paste(enrichmentRatio, " ", "(", FDR, ")", sep=""), 
+         Genome_null = ifelse(description %in% g_null_mf_peak_10$value, "x", "")) %>% 
+  select(GOTerm, Genome, Genome_null)
+
+sup_p_mf <- 
+  merge(t_sup_p_mf, g_sup_p_mf, all=TRUE) %>% 
+  mutate(go="MF")
+```
+
+##### Save Tables
+```{r}
+sup_p <- 
+  rbind(sup_p_bp, sup_p_cc, sup_p_mf)
+
+sup_p %>% 
+  kable()
+
+write.csv(sup_p, "Output Files/supplemental_female_edgeR_go_peak.csv", row.names=FALSE)
+```
+
+
+#### Late GO
+
+##### Biological Process
+```{r}
+t_sup_l_bp <- 
+  txome_go %>% 
+  filter(disease_stage=="late" &
+         go=="bp") %>% 
+  mutate(GOTerm = paste(description, " ", "(", geneSet, ")", sep=""), 
+         enrichmentRatio = round(enrichmentRatio, digits=1),
+         FDR = round(FDR, digits=3),
+         enrichmentRatio = ifelse(direction=="down", paste("-", enrichmentRatio, sep=""),
+                                  paste("+", enrichmentRatio, sep="")),
+         Transcriptome = paste(enrichmentRatio, " ", "(", FDR, ")", sep=""), 
+         Transcriptome_null = ifelse(description %in% t_null_bp_late_10$value, "x", "")) %>% 
+  select(GOTerm, Transcriptome, Transcriptome_null)
+
+
+g_sup_l_bp <- 
+  gnome_go %>% 
+  filter(disease_stage=="late" &
+         go=="bp") %>% 
+  mutate(GOTerm = paste(description, " ", "(", geneSet, ")", sep=""), 
+         enrichmentRatio = round(enrichmentRatio, digits=1),
+         FDR = round(FDR, digits=3),
+         enrichmentRatio = ifelse(direction=="down", paste("-", enrichmentRatio, sep=""),
+                                  paste("+", enrichmentRatio, sep="")),
+         Genome = paste(enrichmentRatio, " ", "(", FDR, ")", sep=""), 
+         Genome_null = ifelse(description %in% g_null_bp_late_10$value, "x", "")) %>% 
+  select(GOTerm, Genome, Genome_null)
+
+sup_l_bp <- 
+  merge(t_sup_l_bp, g_sup_l_bp, all=TRUE) %>% 
+  mutate(go="BP")
+```
+
+
+##### Cellular Component
+```{r}
+t_sup_l_cc <- 
+  txome_go %>% 
+  filter(disease_stage=="late" &
+         go=="cc") %>% 
+  mutate(GOTerm = paste(description, " ", "(", geneSet, ")", sep=""), 
+         enrichmentRatio = round(enrichmentRatio, digits=1),
+         FDR = round(FDR, digits=3),
+         enrichmentRatio = ifelse(direction=="down", paste("-", enrichmentRatio, sep=""),
+                                  paste("+", enrichmentRatio, sep="")),
+         Transcriptome = paste(enrichmentRatio, " ", "(", FDR, ")", sep=""), 
+         Transcriptome_null = ifelse(description %in% t_null_cc_late_10$value, "x", "")) %>% 
+  select(GOTerm, Transcriptome, Transcriptome_null)
+
+
+g_sup_l_cc <- 
+  gnome_go %>% 
+  filter(disease_stage=="late" &
+         go=="cc") %>% 
+  mutate(GOTerm = paste(description, " ", "(", geneSet, ")", sep=""), 
+         enrichmentRatio = round(enrichmentRatio, digits=1),
+         FDR = round(FDR, digits=3),
+         enrichmentRatio = ifelse(direction=="down", paste("-", enrichmentRatio, sep=""),
+                                  paste("+", enrichmentRatio, sep="")),
+         Genome = paste(enrichmentRatio, " ", "(", FDR, ")", sep=""), 
+         Genome_null = ifelse(description %in% g_null_cc_late_10$value, "x", "")) %>% 
+  select(GOTerm, Genome, Genome_null)
+
+sup_l_cc <- 
+  merge(t_sup_l_cc, g_sup_l_cc, all=TRUE) %>% 
+  mutate(go="CC")
+```
+
+
+##### Molecular Function
+```{r}
+t_sup_l_mf <- 
+  txome_go %>% 
+  filter(disease_stage=="late" &
+         go=="mf") %>% 
+  mutate(GOTerm = paste(description, " ", "(", geneSet, ")", sep=""), 
+         enrichmentRatio = round(enrichmentRatio, digits=1),
+         FDR = round(FDR, digits=3),
+         enrichmentRatio = ifelse(direction=="down", paste("-", enrichmentRatio, sep=""),
+                                  paste("+", enrichmentRatio, sep="")),
+         Transcriptome = paste(enrichmentRatio, " ", "(", FDR, ")", sep=""), 
+         Transcriptome_null = ifelse(description %in% t_null_mf_late_10$value, "x", "")) %>% 
+  select(GOTerm, Transcriptome, Transcriptome_null)
+
+
+g_sup_l_mf <- 
+  gnome_go %>% 
+  filter(disease_stage=="late" &
+         go=="mf") %>% 
+  mutate(GOTerm = paste(description, " ", "(", geneSet, ")", sep=""), 
+         enrichmentRatio = round(enrichmentRatio, digits=1),
+         FDR = round(FDR, digits=3),
+         enrichmentRatio = ifelse(direction=="down", paste("-", enrichmentRatio, sep=""),
+                                  paste("+", enrichmentRatio, sep="")),
+         Genome = paste(enrichmentRatio, " ", "(", FDR, ")", sep=""), 
+         Genome_null = ifelse(description %in% g_null_mf_late_10$value, "x", "")) %>% 
+  select(GOTerm, Genome, Genome_null)
+
+sup_l_mf <- 
+  merge(t_sup_l_mf, g_sup_l_mf, all=TRUE) %>% 
+  mutate(go="MF")
+```
+
+##### Save Tables
+```{r}
+sup_l <- 
+  rbind(sup_l_bp, sup_l_cc, sup_l_mf)
+
+sup_l %>% 
+  kable()
+
+write.csv(sup_l, "Output Files/supplemental_female_edgeR_go_late.csv", row.names=FALSE)
+```
+
+
+#### KEGG
+
+##### Acute
+```{r}
+t_sup_kegg_a <- 
+  txome_kegg %>% 
+  filter(disease_stage=="acute") %>% 
+  mutate(KEGG = paste(description, " ", "(", geneSet, ")", sep=""), 
+         Enrichment = round(enrichmentRatio, digits=1),
+         FDR = round(FDR, digits=3),
+         Transcriptome = paste(Enrichment, " ", "(", FDR, ")", sep=""), 
+         Transcriptome_null = ifelse(description %in% t_kegg_acute$value, "x", ""),
+         Transcriptome_Genes = userId) %>% 
+  select(KEGG, Transcriptome, Transcriptome_null, Transcriptome_Genes)
+
+g_sup_kegg_a <- 
+  gnome_kegg %>% 
+  filter(disease_stage=="acute") %>% 
+  mutate(KEGG = paste(description, " ", "(", geneSet, ")", sep=""), 
+         Enrichment = round(enrichmentRatio, digits=1),
+         FDR = round(FDR, digits=3),
+         Genome = paste(Enrichment, " ", "(", FDR, ")", sep=""), 
+         Genome_null = ifelse(description %in% g_kegg_acute$value, "x", ""),
+         Genome_Genes = userId) %>% 
+  select(KEGG, Genome, Genome_null, Genome_Genes)
+
+sup_kegg_a <- 
+  merge(t_sup_kegg_a, g_sup_kegg_a, all=TRUE)
+
+sup_kegg_a %>% 
+  kable()
+
+write.csv(sup_kegg_a, "Output Files/supplemental_female_edgeR_kegg_acute.csv", row.names=FALSE)
+```
+
+##### Peak
+```{r}
+t_sup_kegg_p <- 
+  txome_kegg %>% 
+  filter(disease_stage=="peak") %>% 
+  mutate(KEGG = paste(description, " ", "(", geneSet, ")", sep=""), 
+         Enrichment = round(enrichmentRatio, digits=1),
+         FDR = round(FDR, digits=3),
+         Transcriptome = paste(Enrichment, " ", "(", FDR, ")", sep=""), 
+         Transcriptome_null = ifelse(description %in% t_kegg_peak$value, "x", ""),
+         Transcriptome_Genes = userId) %>% 
+  select(KEGG, Transcriptome, Transcriptome_null, Transcriptome_Genes)
+
+g_sup_kegg_p <- 
+  gnome_kegg %>% 
+  filter(disease_stage=="peak") %>% 
+  mutate(KEGG = paste(description, " ", "(", geneSet, ")", sep=""), 
+         Enrichment = round(enrichmentRatio, digits=1),
+         FDR = round(FDR, digits=3),
+         Genome = paste(Enrichment, " ", "(", FDR, ")", sep=""), 
+         Genome_null = ifelse(description %in% g_kegg_peak$value, "x", ""),
+         Genome_Genes = userId) %>% 
+  select(KEGG, Genome, Genome_null, Genome_Genes)
+
+sup_kegg_p <- 
+  merge(t_sup_kegg_p, g_sup_kegg_p, all=TRUE)
+
+sup_kegg_p %>% 
+  kable()
+
+write.csv(sup_kegg_p, "Output Files/supplemental_female_edgeR_kegg_peak.csv", row.names=FALSE)
+```
+
+##### Late
+```{r}
+t_sup_kegg_l <- 
+  txome_kegg %>% 
+  filter(disease_stage=="late") %>% 
+  mutate(KEGG = paste(description, " ", "(", geneSet, ")", sep=""), 
+         Enrichment = round(enrichmentRatio, digits=1),
+         FDR = round(FDR, digits=3),
+         Transcriptome = paste(Enrichment, " ", "(", FDR, ")", sep=""), 
+         Transcriptome_null = ifelse(description %in% t_kegg_late$value, "x", ""),
+         Transcriptome_Genes = userId) %>% 
+  select(KEGG, Transcriptome, Transcriptome_null, Transcriptome_Genes)
+
+g_sup_kegg_l <- 
+  gnome_kegg %>% 
+  filter(disease_stage=="late") %>% 
+  mutate(KEGG = paste(description, " ", "(", geneSet, ")", sep=""), 
+         Enrichment = round(enrichmentRatio, digits=1),
+         FDR = round(FDR, digits=3),
+         Genome = paste(Enrichment, " ", "(", FDR, ")", sep=""), 
+         Genome_null = ifelse(description %in% g_kegg_late$value, "x", ""),
+         Genome_Genes = userId) %>% 
+  select(KEGG, Genome, Genome_null, Genome_Genes)
+
+sup_kegg_l <- 
+  merge(t_sup_kegg_l, g_sup_kegg_l, all=TRUE)
+
+sup_kegg_l %>% 
+  kable()
+
+write.csv(sup_kegg_l, "Output Files/supplemental_female_edgeR_kegg_late.csv", row.names=FALSE)
+```

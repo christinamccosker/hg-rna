@@ -1,0 +1,327 @@
+---
+title: ''
+author: "Christina McCosker"
+date: "`r Sys.Date()`"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+# LOC Gene Identification
+
+## Load required libraries
+```{r, warning=FALSE, message=FALSE}
+library(tidyverse)
+library(Biostrings)
+library(BSgenome)
+```
+
+## Load data
+```{r}
+txome_genes <- 
+  read.table("Input Files/txome_genecounts.txt") %>% 
+  rownames_to_column(var="gene")
+txome_map <- read.table("Input Files/txome_transcript-gene_map.txt", 
+                        header=1)
+txome_seqs <- readDNAStringSet(
+  "C:/Users/christina_m/OneDrive - University of Maine System/hg-rna/txome_denovo_GG.okay_trim.txt", 
+                   format = "fasta", seek.first.rec = TRUE, use.names = TRUE)
+
+gnome_genes <- 
+  read.table("Input Files/gnome_genecounts.txt") %>% 
+  rownames_to_column(var="gene")
+gnome_map <- read.table("Input Files/gnome_transcript-gene_map.txt", 
+                        header=1)
+gnome_seqs <- readDNAStringSet(
+  "C:/Users/christina_m/OneDrive - University of Maine System/hg-rna/gnome_Transcript_Seqs_exons_trim.txt", 
+                               format = "fasta", seek.first.rec = TRUE, use.names = TRUE)
+```
+
+
+## Extract gene sequences
+
+### Extract LOC genes from gene count matrices
+```{r}
+txome_loc <- 
+  txome_genes %>% 
+  select(gene) %>% 
+  filter(str_detect(gene, "^LOC"))
+
+gnome_loc <-
+  gnome_genes %>% 
+  select(gene) %>% 
+  filter(str_detect(gene, "^LOC"))
+```
+
+### Extract transcript IDs for all sequence IDs
+```{r}
+txome_loc_txpts <- 
+  merge(txome_loc, txome_map, by.x="gene", by.y="gene_id", all.x=TRUE)
+  
+gnome_loc_txpts <- 
+  merge(gnome_loc, gnome_map, by.x="gene", by.y="gene_id", all.x=TRUE)
+```
+
+### Extract transcript sequences for blast
+```{r}
+txome_loc_seq <- getSeq(x = txome_seqs, txome_loc_txpts$transcript_id)
+
+gnome_loc_seq <- getSeq(x = gnome_seqs, gnome_loc_txpts$transcript_id)
+```
+
+### Export sequences
+```{r}
+writeXStringSet(txome_loc_seq, "Output Files/txome_loc_seqs.fasta")
+writeXStringSet(gnome_loc_seq, "Output Files/gnome_loc_seqs.fasta")
+```
+
+
+## Blast sequences
+blastn against nt database with code:  
+
+- blastn -db nt -query input.fasta -max_target_seqs 2 -max_hsps 1 -evalue 0.01 -perc_identity 80 -outfmt "10 std qcovs qcovhsp stitle" -out output.csv -remote
+
+
+## Process BLASTn Results
+
+### Transcriptome
+
+#### Read in & tidy results
+```{r, message=FALSE}
+txome_blast <- 
+  read.table("Input Files/txome_loc_blastresults.csv",
+             header=FALSE, sep=",", col.names=paste0("V", seq_len(24)), 
+             fill=TRUE, quote="") %>%
+  mutate_all(as.character) %>% 
+  mutate_if(is.character, ~replace_na(.,"")) %>% 
+  mutate(V15=paste0(V15, V16, V17, V18, V19, V20, V21, V22, V23, V24)) %>% 
+  select(!c(16:24)) %>% 
+  setNames(c("transcript_id", "sseqid", "pident", "length", "mismatch", "gapopen", "qstart", 
+           "qend", "sstart", "send", "evalue", "bitscore", "qcovs", "qcovhsp", "stitle")) %>% 
+  select(transcript_id, pident, qcovs, evalue, stitle) %>% 
+  left_join(., txome_map)
+```
+
+#### Prepare output dataframes
+```{r}
+txome_geneassignments <- 
+  data.frame(matrix(ncol = 6, nrow = 0)) %>% 
+  setNames(c("transcript_id", "pident", "qcovs", "evalue", "stitle", "gene_id"))
+
+txome_needcheck <- 
+  data.frame(matrix(ncol = 6, nrow = 0)) %>% 
+  setNames(c("transcript_id", "pident", "qcovs", "evalue", "stitle", "gene_id"))
+```
+
+#### Loop
+```{r}
+for (i in 1:nrow(txome_loc)) {
+  data <- txome_blast[txome_blast$gene_id==txome_loc[i,1],]
+  
+# Remove lines with vague terms in stitle title
+data <- data[grep("uncharacterized", data$stitle, invert = TRUE),]
+data <- data[grep("genome assembly", data$stitle, invert = TRUE),]
+data <- data[grep(" chromosome", data$stitle, invert=TRUE),]
+
+if (nrow(data)==0) {
+  next
+}
+
+# Extract gene names in ()
+for (i in 1:nrow(data)) {
+  stitle <- data[i,]$stitle
+  {if(grepl('\\(', stitle)) {
+    newstitle <- str_extract(stitle, "(?<=\\()([^()]*?)(?=\\)[^()]*$)")
+    }
+    else{newstitle <- NA}
+  }
+  data[i,]$stitle <- newstitle
+}
+
+# Select first stitle for each ID in transcript
+data <- data[ !duplicated(data$transcript_id), ]
+
+# Select only unique stitles for each gene (across transcripts)
+data <- data %>% distinct(stitle, .keep_all=TRUE)
+
+# Exclude rows with irrelevant gene names (NA, LOCs, long names)
+data <- 
+  data %>% 
+  filter(!stitle=="NA" &
+         !stitle=="" & 
+         !grepl("^LOC", stitle) &
+         !nchar(stitle) > 20)
+
+# If there is one row left of the dataframe, save to a list
+{if((nrow(data))==1) {
+  txome_geneassignments <- rbind(data, txome_geneassignments)
+}
+  else{txome_needcheck <- rbind(data, txome_needcheck)}
+}
+
+# End Loop
+
+}
+```
+
+### Genome
+
+#### Read in & configure gnome blastn files
+```{r, message=FALSE}
+gnome_blast <- 
+  read.csv("Input Files/gnome_loc_blastresults.csv", 
+           header=FALSE, sep=",", col.names=paste0("V", seq_len(21)), 
+           fill=TRUE, quote="") %>%
+  mutate_all(as.character) %>% 
+  mutate_if(is.character, ~replace_na(.,"")) %>% 
+  mutate(V15=paste0(V15, V16, V17, V18, V19, V20, V21)) %>% 
+  select(!c(16:21)) %>% 
+  setNames(c("transcript_id", "sseqid", "pident", "length", "mismatch", "gapopen", "qstart", 
+           "qend", "sstart", "send", "evalue", "bitscore", "qcovs", "qcovhsp", "stitle")) %>% 
+  select(transcript_id, pident, qcovs, evalue, stitle) %>% 
+  left_join(., gnome_map)
+```
+
+#### Prepare output dataframes
+```{r}
+gnome_geneassignments <- 
+  data.frame(matrix(ncol = 6, nrow = 0)) %>% 
+  setNames(c("transcript_id", "pident", "qcovs", "evalue", "stitle", "gene_id"))
+
+gnome_needcheck <- 
+  data.frame(matrix(ncol = 6, nrow = 0)) %>% 
+  setNames(c("transcript_id", "pident", "qcovs", "evalue", "stitle", "gene_id"))
+```
+
+#### Loop
+```{r}
+for (i in 1:nrow(gnome_loc)) {
+  data <- gnome_blast[gnome_blast$gene_id==gnome_loc[i,1],]
+  
+# Remove lines with vague terms in stitle title
+data <- data[grep("uncharacterized", data$stitle, invert = TRUE),]
+data <- data[grep("genome assembly", data$stitle, invert = TRUE),]
+data <- data[grep(" chromosome", data$stitle, invert=TRUE),]
+
+if (nrow(data)==0) {
+  next
+}
+
+# Extract gene names in ()
+for (i in 1:nrow(data)) {
+  stitle <- data[i,]$stitle
+  {if(grepl('\\(', stitle)) {
+    newstitle <- str_extract(stitle, "(?<=\\()([^()]*?)(?=\\)[^()]*$)")
+    }
+    else{newstitle <- NA}
+  }
+  data[i,]$stitle <- newstitle
+}
+
+# Select first stitle for each ID in transcript
+data <- data[ !duplicated(data$transcript_id), ]
+
+# Select only unique stitles for each gene (across transcripts)
+data <- data %>% distinct(stitle, .keep_all=TRUE)
+
+# Exclude rows with irrelevant gene names (NA, LOCs, long names)
+data <- 
+  data %>% 
+  filter(!stitle=="NA" &
+         !stitle=="" & 
+         !grepl("^LOC", stitle) &
+         !nchar(stitle) > 20 &
+         pident > 89)
+
+# If there is one row left of the dataframe, save to a list
+{if((nrow(data))==1) {
+  gnome_geneassignments <- rbind(data, gnome_geneassignments)
+}
+  else{gnome_needcheck <- rbind(data, gnome_needcheck)}
+}
+
+# End Loop
+
+}
+```
+
+### Combine Transcriptome & Genome Blast Results
+Note: For duplicates, only using genes for which both T & G blasts yielded the same result (distinct())
+```{r}
+blast_all <-
+  bind_rows(txome_geneassignments, gnome_geneassignments) %>% 
+  select(stitle, gene_id) %>%
+  distinct() %>%
+  distinct(gene_id, .keep_all=TRUE) %>% 
+  mutate(stitle=toupper(stitle))
+```
+
+
+## Combine with prior LOC ID master list
+LOCs identified through blastn & manually through extracting NCBI's description
+```{r}
+null_loc <-
+  read.csv("Input Files/TG_nullset_masterLOC.csv") %>% 
+  mutate(symbol=ifelse(gene=="LOC118528561", "ANKRD13A", symbol)) %>% 
+  filter(!grepl('LOC', symbol))
+
+loc_update <- 
+  merge(blast_all, null_loc, by.x="gene_id", by.y="gene", all=TRUE) %>% 
+  mutate_all(~replace(., is.na(.), 0))
+
+for (i in 1:nrow(loc_update)) {
+  if(loc_update$stitle[i]=="0" && !loc_update$symbol[i]=="0") {
+    loc_update$stitle[i] <- loc_update$symbol[i]
+  }
+  else{loc_update$stitle[i] <- loc_update$stitle[i]}
+}
+
+loc_update <- 
+  loc_update %>% 
+  select(!symbol)
+```
+
+
+## Update & tidy gene count matrices
+Replace LOCs with new IDs & aggregate gene counts
+```{r}
+txome_genes_update <- 
+  txome_genes %>% 
+  mutate(gene=ifelse(gene %in% loc_update$gene_id, 
+                     loc_update[match(gene, loc_update$gene_id),2],
+                     gene)) %>% 
+  aggregate(. ~ gene, sum)
+
+gnome_genes_update <- 
+  gnome_genes %>% 
+  mutate(gene=ifelse(gene %in% loc_update$gene_id, 
+                     loc_update[match(gene, loc_update$gene_id),2],
+                     gene)) %>% 
+  aggregate(. ~ gene, sum)
+```
+
+
+## Remove hemoglobin genes
+Hemoglobin genes identified from Harrington et al. 2020 (suppl table 1) and from NCBI gray seal gene search for "hemoglobin"
+```{r}
+hemoglobin_genes <-
+  c("HBA1", "HBA2", "HBB", "HBBP1", "HBD", "HBE1", "HBG1", "HBG2", "HBM", "HBQ1",
+    "HBZ", "HBZP1","AHSP", "RHEX", "LOC118528782", "LOC118528783", "LOC118528784", 
+    "LOC118528786", "LOC118528797", "LOC118530184", "LOC118530187")
+
+txome_hemo <- 
+  txome_genes_update %>% 
+  filter(!gene %in% hemoglobin_genes)
+
+gnome_hemo <- 
+  gnome_genes_update %>% 
+  filter(!gene %in% hemoglobin_genes)
+```
+
+
+## Export new gene count matrices 
+```{r}
+write.csv(txome_hemo, "Output Files/txome_genecounts_locid_nohemo.csv", row.names=FALSE)
+write.csv(gnome_hemo, "Output Files/gnome_genecounts_locid_nohemo.csv", row.names=FALSE)
+```
+

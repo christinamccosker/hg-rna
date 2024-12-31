@@ -1,0 +1,568 @@
+---
+author: "Christina McCosker"
+date: "`r Sys.Date()`"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+## Refine GO/KEGG
+*Based on Null Set results
+
+### Libraries
+```{r}
+library(tidyverse)
+library(kableExtra)
+library(knitr)
+library(ggh4x)
+library(gridExtra)
+```
+
+### Data
+#### GO/KEGG Data
+```{r}
+txome_go <- read.csv("Output Files/txome_female_edgeR_viralRNA_go.csv")
+t_null_bp <- read.csv("Output Files/txome_female_edgeR_viralRNA_null_GO_bp.csv")
+t_null_mf <- read.csv("Output Files/txome_female_edgeR_viralRNA_null_GO_mf.csv")
+t_null_cc <- read.csv("Output Files/txome_female_edgeR_viralRNA_null_GO_cc.csv")
+
+
+txome_kegg <- read.csv("Output Files/txome_female_edgeR_viralRNA_kegg.csv")
+t_kegg <- read.csv("Output Files/txome_female_edgeR_viralRNA_null_kegg.csv")
+
+gnome_go <- read.csv("Output Files/gnome_female_edgeR_viralRNA_go.csv", row.names=1)
+g_null_bp <- read.csv("Output Files/gnome_female_edgeR_viralRNA_null_GO_bp.csv")
+g_null_mf <- read.csv("Output Files/gnome_female_edgeR_viralRNA_null_GO_mf.csv")
+g_null_cc <- read.csv("Output Files/gnome_female_edgeR_viralRNA_null_GO_cc.csv")
+
+gnome_kegg <- read.csv("Output Files/gnome_female_edgeR_viralRNA_kegg.csv")
+g_kegg <- read.csv("Output Files/gnome_female_edgeR_viralRNA_null_kegg.csv")
+```
+
+#### Raw Gene Expression
+```{r}
+t_raw <- read.csv("Output Files/txome_female_edgeR_viralRNA_normcounts.csv") %>% 
+  dplyr::rename("gene" = "X")
+
+g_raw <- read.csv("Output Files/gnome_female_edgeR_viralRNA_normcounts.csv") %>% 
+  dplyr::rename("gene" = "X")
+
+meta <- read.csv("Input Files/metadata.csv")
+```
+
+### Transcriptome
+
+#### GO Term
+
+##### What terms are overrepresented in >10% of nullsets?
+```{r}
+# BP
+t_null_bp_10 <-
+  t_null_bp %>% 
+  pivot_longer(cols=1:1000) %>% 
+  na.omit(value) %>% 
+  group_by(value) %>% 
+  summarise(count=n()) %>% 
+  filter(count>100) 
+
+# MF
+t_null_mf_10 <-
+  t_null_mf %>% 
+  pivot_longer(cols=1:1000) %>% 
+  na.omit(value) %>% 
+  group_by(value) %>% 
+  summarise(count=n()) %>% 
+  filter(count>100) 
+
+# CC
+t_null_cc_10 <-
+  t_null_cc %>% 
+  pivot_longer(cols=1:1000) %>% 
+  na.omit(value) %>% 
+  group_by(value) %>% 
+  summarise(count=n()) %>% 
+  filter(count>100) 
+```
+
+##### Filter results
+```{r}
+final_t_bp <- 
+  txome_go %>% 
+  filter(go=="bp" &
+         !description %in% t_null_bp_10$value)
+         
+final_t_mf <-
+  txome_go %>% 
+  filter(go=="mf" &
+         !description %in% t_null_mf_10$value)
+
+final_t_cc <-
+  txome_go %>% 
+  filter(go=="cc" &
+         !description %in% t_null_cc_10$value)
+```
+
+#### KEGG Pathway
+##### What pathways are overrepreesented  in >10% of nullsets?
+```{r}
+t_kegg_10 <-
+  t_kegg %>% 
+  pivot_longer(cols=1:1000) %>% 
+  na.omit(value) %>% 
+  group_by(value) %>% 
+  summarise(count=n()) %>% 
+  filter(count>100) 
+```
+
+##### Filter Results
+```{r}
+txome_kegg_final <- 
+  txome_kegg %>% 
+  filter(!description %in% t_kegg_10$value)
+txome_kegg %>% 
+  kable()
+```
+
+
+### Genome
+
+#### GO Term
+
+##### What terms are overrepresented in >10% of nullsets?
+```{r}
+# BP
+g_null_bp_10 <-
+  g_null_bp %>% 
+  pivot_longer(cols=1:1000) %>% 
+  na.omit(value) %>% 
+  group_by(value) %>% 
+  summarise(count=n()) %>% 
+  filter(count>100) 
+
+# MF
+g_null_mf_10 <-
+  g_null_mf %>% 
+  pivot_longer(cols=1:1000) %>% 
+  na.omit(value) %>% 
+  group_by(value) %>% 
+  summarise(count=n()) %>% 
+  filter(count>100) 
+
+# CC
+g_null_cc_10 <-
+  g_null_cc %>% 
+  pivot_longer(cols=1:1000) %>% 
+  na.omit(value) %>% 
+  group_by(value) %>% 
+  summarise(count=n()) %>% 
+  filter(count>100) 
+```
+
+##### Filter results
+```{r}
+final_g_bp <- 
+  gnome_go %>% 
+  filter(go=="bp" &
+         !description %in% g_null_bp_10$value)
+         
+final_g_mf <-
+  gnome_go %>% 
+  filter(go=="mf" &
+         !description %in% g_null_mf_10$value)
+
+final_g_cc <-
+  gnome_go %>% 
+  filter(go=="cc" &
+         !description %in% g_null_cc_10$value)
+```
+
+#### KEGG Pathway
+##### What pathways are overrepreesented  in >10% of nullsets?
+```{r}
+g_kegg_10 <-
+  g_kegg %>% 
+  pivot_longer(cols=1:1000) %>% 
+  na.omit(value) %>% 
+  group_by(value) %>% 
+  summarise(count=n()) %>% 
+  filter(count>100) 
+```
+
+##### Filter Results
+```{r}
+gnome_kegg_final <- 
+  gnome_kegg %>% 
+  filter(!description %in% g_kegg_10$value) 
+gnome_kegg %>% 
+  kable()
+```
+
+### GO Term Figure
+```{r}
+t_final <- 
+  rbind(final_t_bp, final_t_mf, final_t_cc) %>% 
+  mutate(approach="Transcriptome")
+write.csv(t_final, "Output Files/txome_female_edgeR_viralRNA_go_refined.csv", row.names=FALSE)
+
+g_final <-
+  rbind(final_g_bp, final_g_mf, final_g_cc) %>% 
+  mutate(approach= "Genome")
+write.csv(g_final, "Output Files/gnome_female_edgeR_viralRNA_go_refined.csv", row.names=FALSE)
+
+go_all <-
+  rbind(t_final, g_final)
+
+go_fig <-
+  go_all %>% 
+  mutate(go=factor(
+           ifelse(go=="bp", "BP", 
+                  ifelse(go=="cc", "CC", "MF")),
+           levels=c("BP", "CC", "MF")), 
+         enrichmentRatio=ifelse(direction=="down", enrichmentRatio*-1, enrichmentRatio)) %>% 
+  
+  ggplot(data=., aes(x=fct_reorder(description, enrichmentRatio, .desc=TRUE), 
+                     y=enrichmentRatio, fill=factor(approach))) +
+  geom_bar(stat="identity", position="dodge") +
+  scale_fill_manual(values=c("slategray3", "slategrey"), name=NULL) +
+  labs(x="GO Term", y="Enrichment Ratio") +
+  scale_x_discrete(labels = function(description) str_wrap(description, width = 65)) +
+  scale_y_continuous(n.breaks=10) +
+  facet_grid(vars(go), scales="free_y", space="free_y") +
+  theme_bw() +
+  theme(panel.grid=element_blank(), text=element_text(size=11), 
+        legend.position="bottom") +
+  coord_flip() 
+  
+ggsave(filename="Figures/viralRNA_goterm.jpg", go_fig, width=9, height=8, units="in")
+```
+
+
+### Immunne GO term Genes 
+
+#### Extracting Immune GO Genes
+Manually look up function of each gene & categorize. Select subset of 16 genes for presentation in manuscript. 
+```{r}
+immune_go_genes <- 
+  go_all %>% 
+  filter(grepl("immune|viral|inflammatory|interferon|leukocyte", description)) %>% 
+  select(userId) %>% 
+  mutate(genes = str_split_fixed(userId, ";", n=18)) %>% 
+  select(!userId) %>% 
+  unlist() %>% 
+  data.frame() %>% 
+  setNames("genes") %>% 
+  filter(!duplicated(genes)) %>% 
+  filter(!genes=="") %>% 
+  arrange(genes) %>% 
+  mutate(description = c(
+    "Innate Immunity", 
+    "extra", 
+    "Antiviral", 
+    "Innate Immunity & adaptive", 
+    "extra", 
+    "extra", 
+    "Complement", 
+    "Complement", 
+    "Complement", 
+    "Complement", 
+    "adaptive", 
+    "Complement", 
+    "Complement",
+    "Immunoregulation",
+    "Innate Immunity", 
+    "inflammation", 
+    "mhc", 
+    "Innate Immunity",
+    "Immunoregulation",
+    "Immunoregulation", 
+    "Innate Immunity", 
+    "Immunoregulation", 
+    "Innate Immunity", 
+    "extra",
+    "extra", 
+    "Antiviral", 
+    "Antiviral", 
+    "Innate Immunity", 
+    "extra", 
+    "extra", 
+    "extra", 
+    "Antiviral", 
+    "Immunoregulation", 
+    "inflammation", 
+    "extra", 
+    "Innate Immunity", 
+    "Immunoregulation"
+  ))
+
+immune_go_genes_subset <- 
+  immune_go_genes %>% 
+  filter(description == "Innate Immunity" |
+         description == "Complement" |
+         description == "Immunoregulation" |
+         description == "Antiviral") %>% 
+  filter(!genes == "C2" & 
+         !genes == "CFD",
+         !genes == "HSPA8",
+         !genes == "ACTB", 
+         !genes == "DHX58") %>% 
+  mutate(description = factor(description, levels=c("Innate Immunity", "Immunoregulation", "Antiviral", "Complement")))
+```
+
+#### Extract Expression Data
+```{r}
+t_immunegenes_subset <- 
+  t_raw %>% 
+  filter(gene %in% immune_go_genes_subset$genes) %>% 
+  pivot_longer(!gene, names_to="sample", values_to="expression") %>% 
+  mutate(disease=ifelse(sample %in% meta$sample,
+                     meta[match(sample, meta$sample),4],
+                     sample),
+         disease=factor(ifelse(disease=="acute", "A", 
+                               ifelse(disease=="peak", "P", 
+                                      ifelse(disease=="late", "L", "C"))),
+                        levels=c("C", "A", "P", "L")),
+         description = ifelse(gene %in% immune_go_genes$genes, 
+                              immune_go_genes[match(gene, immune_go_genes$genes),2],
+                              gene)) 
+
+t_immune_genes_all <-
+  t_raw %>% 
+  filter(gene %in% immune_go_genes$genes) %>% 
+  pivot_longer(!gene, names_to="sample", values_to="expression") %>% 
+  mutate(disease=ifelse(sample %in% meta$sample,
+                     meta[match(sample, meta$sample),4],
+                     sample),
+         disease=factor(ifelse(disease=="acute", "A", 
+                               ifelse(disease=="peak", "P", 
+                                      ifelse(disease=="late", "L", "C"))),
+                        levels=c("C", "A", "P", "L")))
+
+g_immune_genes_all <- 
+  g_raw %>% 
+  filter(gene %in% immune_go_genes$genes) %>% 
+  pivot_longer(!gene, names_to="sample", values_to="expression") %>% 
+  mutate(disease=ifelse(sample %in% meta$sample,
+                     meta[match(sample, meta$sample),4],
+                     sample),
+         disease=factor(ifelse(disease=="acute", "A", 
+                               ifelse(disease=="peak", "P", 
+                                      ifelse(disease=="late", "L", "C"))),
+                        levels=c("C", "A", "P", "L"))) 
+```
+
+#### Plot for manuscript
+```{r}
+t_plot_manuscript <-
+  t_immunegenes_subset %>% 
+  ggplot(., aes(x=disease, y=expression)) +
+  geom_boxplot() +
+  facet_nested_wrap(vars(description, gene),
+                    nest_line=element_line(colour="black")) +
+  theme(ggh4x.facet.nestline = element_line(linetype = 1)) +
+  labs(x = "Influenza Stage", y = "log2(CPM)") +
+  theme_bw() +
+  theme(panel.grid=element_blank())
+t_plot_manuscript
+
+ggsave("Figures/T_female_edgeR_immunegenes.jpg", t_plot_manuscript, 
+       width=8, height=8, units="in")
+```
+
+#### Plot for supplemental
+```{r}
+t_plot_supplemental <-
+  t_immune_genes_all %>% 
+  ggplot(aes(x=disease, y=expression)) +
+  geom_boxplot() +
+  facet_wrap(~gene, scales="free", ncol=5) +
+  labs(title=NULL,
+       x="Influenza Stage", y="log2(CPM)") +
+  theme_bw() +
+  theme(panel.grid=element_blank())
+
+ggsave("Figures/supplemental_T_female_edgeR_immunegenes.jpg", t_plot_supplemental,
+          width=8, height=10, units="in")
+
+g_plot_supplemental <-
+  g_immune_genes_all %>% 
+  ggplot(aes(x=disease, y=expression)) +
+  geom_boxplot() +
+  facet_wrap(~gene, scales="free", ncol=5) +
+  labs(title=NULL,
+       x="Influenza Stage", y="log2(CPM)") +
+  theme_bw() +
+  theme(panel.grid=element_blank())
+
+ggsave("Figures/supplemental_G_female_edgeR_immunegenes.jpg", g_plot_supplemental,
+          width=8, height=10, units="in")
+```
+
+
+### KEGG Table - Manuscript
+```{r}
+t_kegg_table <- 
+  txome_kegg_final %>% 
+  mutate(`Pairwise Comparison (Approach)` = "Virus+ vs Virus- (Transcriptome)",
+         `KEGG Pathway` = description,
+         `Enrichment Ratio (FDR)` = paste0(round(enrichmentRatio, digits=3), " (", round(FDR, digits=4), ")"),
+         Genes=userId) %>% 
+  select(`Pairwise Comparison (Approach)`, `KEGG Pathway`, `Enrichment Ratio (FDR)`, Genes)
+
+g_kegg_table <-
+  gnome_kegg_final %>% 
+  mutate(`Pairwise Comparison (Approach)` = "Virus+ vs Virus- (Genome)",
+         `KEGG Pathway` = description,
+         `Enrichment Ratio (FDR)` = paste0(round(enrichmentRatio, digits=2), " (", round(FDR, digits=4), ")"),
+         Genes=userId) %>% 
+  select(`Pairwise Comparison (Approach)`, `KEGG Pathway`, `Enrichment Ratio (FDR)`, Genes)
+
+
+kegg_table <- 
+  rbind(t_kegg_table, g_kegg_table)
+
+write.csv(kegg_table, "Output Files/manuscript_keggtable.csv", row.names=FALSE)
+```
+
+
+### Supplemental Table
+
+#### Biological Process
+```{r}
+t_sup_bp <- 
+  txome_go %>% 
+  filter(go=="bp") %>% 
+  mutate(GOTerm = paste(description, " ", "(", geneSet, ")", sep=""), 
+         enrichmentRatio = round(enrichmentRatio, digits=1),
+         FDR = round(FDR, digits=3),
+         enrichmentRatio = ifelse(direction=="down", paste("-", enrichmentRatio, sep=""),
+                                  paste("+", enrichmentRatio, sep="")),
+         Transcriptome = paste(enrichmentRatio, " ", "(", FDR, ")", sep=""), 
+         Transcriptome_null = ifelse(description %in% t_null_bp_10$value, "x", "")) %>% 
+  select(GOTerm, Transcriptome, Transcriptome_null)
+
+
+g_sup_bp <- 
+  gnome_go %>% 
+  filter(go=="bp") %>% 
+  mutate(GOTerm = paste(description, " ", "(", geneSet, ")", sep=""), 
+         enrichmentRatio = round(enrichmentRatio, digits=1),
+         FDR = round(FDR, digits=3),
+         enrichmentRatio = ifelse(direction=="down", paste("-", enrichmentRatio, sep=""),
+                                  paste("+", enrichmentRatio, sep="")),
+         Genome = paste(enrichmentRatio, " ", "(", FDR, ")", sep=""), 
+         Genome_null = ifelse(description %in% g_null_bp_10$value, "x", "")) %>% 
+  select(GOTerm, Genome, Genome_null)
+
+sup_bp <- 
+  merge(t_sup_bp, g_sup_bp, all=TRUE) %>% 
+  mutate(go="BP")
+```
+
+
+#### Cellular Component
+```{r}
+t_sup_cc <- 
+  txome_go %>% 
+  filter(go=="cc") %>% 
+  mutate(GOTerm = paste(description, " ", "(", geneSet, ")", sep=""), 
+         enrichmentRatio = round(enrichmentRatio, digits=1),
+         FDR = round(FDR, digits=3),
+         enrichmentRatio = ifelse(direction=="down", paste("-", enrichmentRatio, sep=""),
+                                  paste("+", enrichmentRatio, sep="")),
+         Transcriptome = paste(enrichmentRatio, " ", "(", FDR, ")", sep=""), 
+         Transcriptome_null = ifelse(description %in% t_null_bp_10$value, "x", "")) %>% 
+  select(GOTerm, Transcriptome, Transcriptome_null)
+
+
+g_sup_cc <- 
+  gnome_go %>% 
+  filter(go=="cc") %>% 
+  mutate(GOTerm = paste(description, " ", "(", geneSet, ")", sep=""), 
+         enrichmentRatio = round(enrichmentRatio, digits=1),
+         FDR = round(FDR, digits=3),
+         enrichmentRatio = ifelse(direction=="down", paste("-", enrichmentRatio, sep=""),
+                                  paste("+", enrichmentRatio, sep="")),
+         Genome = paste(enrichmentRatio, " ", "(", FDR, ")", sep=""), 
+         Genome_null = ifelse(description %in% g_null_bp_10$value, "x", "")) %>% 
+  select(GOTerm, Genome, Genome_null)
+
+sup_cc <- 
+  merge(t_sup_cc, g_sup_cc, all=TRUE) %>% 
+  mutate(go="CC")
+```
+
+
+#### Molecular Function
+```{r}
+t_sup_mf <- 
+  txome_go %>% 
+  filter(go=="mf") %>% 
+  mutate(GOTerm = paste(description, " ", "(", geneSet, ")", sep=""), 
+         enrichmentRatio = round(enrichmentRatio, digits=1),
+         FDR = round(FDR, digits=3),
+         enrichmentRatio = ifelse(direction=="down", paste("-", enrichmentRatio, sep=""),
+                                  paste("+", enrichmentRatio, sep="")),
+         Transcriptome = paste(enrichmentRatio, " ", "(", FDR, ")", sep=""), 
+         Transcriptome_null = ifelse(description %in% t_null_bp_10$value, "x", "")) %>% 
+  select(GOTerm, Transcriptome, Transcriptome_null)
+
+
+g_sup_mf <- 
+  gnome_go %>% 
+  filter(go=="mf") %>% 
+  mutate(GOTerm = paste(description, " ", "(", geneSet, ")", sep=""), 
+         enrichmentRatio = round(enrichmentRatio, digits=1),
+         FDR = round(FDR, digits=3),
+         enrichmentRatio = ifelse(direction=="down", paste("-", enrichmentRatio, sep=""),
+                                  paste("+", enrichmentRatio, sep="")),
+         Genome = paste(enrichmentRatio, " ", "(", FDR, ")", sep=""), 
+         Genome_null = ifelse(description %in% g_null_bp_10$value, "x", "")) %>% 
+  select(GOTerm, Genome, Genome_null)
+
+sup_mf <- 
+  merge(t_sup_mf, g_sup_mf, all=TRUE) %>% 
+  mutate(go="MF")
+```
+
+#### Save GO Tables
+```{r}
+sup <- 
+  rbind(sup_bp, sup_cc, sup_mf)
+
+sup %>% 
+  kable()
+
+write.csv(sup, "Output Files/supplemental_female_edgeR_viralRNA_go.csv", row.names=FALSE)
+```
+
+#### KEGG
+```{r}
+t_sup_kegg <- 
+  txome_kegg %>% 
+  mutate(KEGG = paste(description, " ", "(", geneSet, ")", sep=""), 
+         Enrichment = round(enrichmentRatio, digits=1),
+         FDR = round(FDR, digits=3),
+         Transcriptome = paste(Enrichment, " ", "(", FDR, ")", sep=""), 
+         Transcriptome_null = ifelse(description %in% t_kegg$value, "x", ""),
+         Transcriptome_Genes = userId) %>% 
+  select(KEGG, Transcriptome, Transcriptome_null, Transcriptome_Genes)
+
+g_sup_kegg <- 
+  gnome_kegg %>% 
+  mutate(KEGG = paste(description, " ", "(", geneSet, ")", sep=""), 
+         Enrichment = round(enrichmentRatio, digits=1),
+         FDR = round(FDR, digits=3),
+         Genome = paste(Enrichment, " ", "(", FDR, ")", sep=""), 
+         Genome_null = ifelse(description %in% g_kegg$value, "x", ""),
+         Genome_Genes = userId) %>% 
+  select(KEGG, Genome, Genome_null, Genome_Genes)
+
+
+sup_kegg <- 
+  merge(t_sup_kegg, g_sup_kegg, all=TRUE)
+
+sup_kegg %>% 
+  kable()
+
+write.csv(sup_kegg, "Output Files/supplemental_female_edgeR_viralRNA_kegg.csv", row.names=FALSE)
+```

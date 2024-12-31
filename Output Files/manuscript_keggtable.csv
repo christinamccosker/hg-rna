@@ -1,0 +1,7 @@
+"Pairwise Comparison (Approach)","KEGG Pathway","Enrichment Ratio (FDR)","Genes"
+"Virus+ vs Virus- (Transcriptome)","Complement and coagulation cascades","10.286 (0.0031)","C1QB;C1QC;C2;C1QA;CFB;CFD"
+"Virus+ vs Virus- (Transcriptome)","Systemic lupus erythematosus","12.199 (0.0045)","C1QB;C1QC;C2;C1QA;HLA-DQA1"
+"Virus+ vs Virus- (Transcriptome)","Hypertrophic cardiomyopathy (HCM)","7.376 (0.0323)","ITGB5;ACTG1;DES;ACTB;TPM2"
+"Virus+ vs Virus- (Transcriptome)","Dilated cardiomyopathy (DCM)","6.895 (0.0369)","ITGB5;ACTG1;DES;ACTB;TPM2"
+"Virus+ vs Virus- (Genome)","Complement and coagulation cascades","14.27 (4e-04)","C1QB;C2;C1QC;C1QA;CFB;CFD"
+"Virus+ vs Virus- (Genome)","Systemic lupus erythematosus","11.81 (0.0336)","C1QB;C2;C1QC;C1QA"

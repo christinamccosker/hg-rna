@@ -1,0 +1,1248 @@
+---
+title: ''
+author: "Christina McCosker"
+date: "`r Sys.Date()`"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+# R Package Comparison - edgeR vs DESeq2
+
+## Libraries
+```{r, warning=FALSE, message=FALSE}
+library(tidyverse)
+library(ggpubr)
+library(VennDiagram)
+library(ggfortify)
+library(gridExtra)
+```
+
+## Data
+### Metadata
+```{r}
+metadata <- read.csv("Input Files/metadata.csv") %>% 
+  filter(!sex=="male") %>% 
+  mutate(disease_stage=factor(disease_stage,
+                              levels=c("control","acute","peak","late")),
+         year=factor(year),
+         RNA = ifelse(disease_stage == "acute", "virus+", 
+                        ifelse(disease_stage == "peak", "virus+", "virus-"))) 
+```
+
+### Results from DGE testing
+```{r}
+txome_edge_virus <- 
+  read.csv("Output Files/txome_female_edgeR_viralRNA_DGE_results.csv") %>% 
+  dplyr::rename("gene" = "X") %>% 
+  rename_with(~paste0("edge_", .))
+
+txome_edge_acute <- 
+  read.csv("Output Files/txome_female_edgeR_DGE_results_acute.csv") %>% 
+  dplyr::rename("gene" = "X") %>% 
+  rename_with(~paste0("edge_", .))
+txome_edge_peak <-
+  read.csv("Output Files/txome_female_edgeR_DGE_results_peak.csv") %>% 
+  dplyr::rename("gene" = "X") %>% 
+  rename_with(~paste0("edge_", .))
+txome_edge_late <- 
+  read.csv("Output Files/txome_female_edgeR_DGE_results_late.csv") %>% 
+  dplyr::rename("gene" = "X") %>% 
+  rename_with(~paste0("edge_", .)) 
+
+txome_deseq_virus <- 
+  read.csv("Output Files/txome_female_deseq_viralRNA_DGE_results.csv") %>% 
+  mutate(logbaseMean=log(baseMean)) %>% 
+  rename_with(~paste0("deseq_", .))
+txome_deseq_acute <- 
+  read.csv("Output Files/txome_female_deseq_DGE_results_acute.csv") %>% 
+  mutate(logbaseMean=log(baseMean)) %>% 
+  rename_with(~paste0("deseq_", .))
+txome_deseq_peak <-
+  read.csv("Output Files/txome_female_deseq_DGE_results_peak.csv") %>% 
+  mutate(logbaseMean=log(baseMean)) %>%  
+  rename_with(~paste0("deseq_", .))
+txome_deseq_late <- 
+  read.csv("Output Files/txome_female_deseq_DGE_results_late.csv") %>% 
+  mutate(logbaseMean=log(baseMean)) %>% 
+  rename_with(~paste0("deseq_", .))
+
+gnome_edge_virus <- 
+  read.csv("Output Files/gnome_female_edgeR_viralRNA_DGE_results.csv") %>% 
+  dplyr::rename("gene" = "X") %>% 
+  rename_with(~paste0("edge_", .))
+gnome_edge_acute <- 
+  read.csv("Output Files/gnome_female_edgeR_DGE_results_acute.csv") %>% 
+  dplyr::rename("gene" = "X") %>% 
+  rename_with(~paste0("edge_", .)) 
+gnome_edge_peak <-
+  read.csv("Output Files/gnome_female_edgeR_DGE_results_peak.csv") %>% 
+  dplyr::rename("gene" = "X") %>% 
+  rename_with(~paste0("edge_", .)) 
+gnome_edge_late <- 
+  read.csv("Output Files/gnome_female_edgeR_DGE_results_late.csv") %>% 
+  dplyr::rename("gene" = "X") %>% 
+  rename_with(~paste0("edge_", .)) 
+
+gnome_deseq_virus <- 
+  read.csv("Output Files/gnome_female_deseq_viralRNA_DGE_results.csv") %>% 
+  mutate(logbaseMean=log(baseMean)) %>% 
+  rename_with(~paste0("deseq_", .))
+gnome_deseq_acute <- 
+  read.csv("Output Files/gnome_female_deseq_DGE_results_acute.csv") %>% 
+  mutate(logbaseMean=log(baseMean)) %>% 
+  rename_with(~paste0("deseq_", .))
+gnome_deseq_peak <-
+  read.csv("Output Files/gnome_female_deseq_DGE_results_peak.csv") %>% 
+  mutate(logbaseMean=log(baseMean)) %>% 
+  rename_with(~paste0("deseq_", .))
+gnome_deseq_late <- 
+  read.csv("Output Files/gnome_female_deseq_DGE_results_late.csv") %>% 
+  mutate(logbaseMean=log(baseMean)) %>%  
+  rename_with(~paste0("deseq_", .))
+```
+
+### Differentially expressed genes only
+```{r}
+txome_edge_DEG_virus <-
+  read.csv("Output Files/txome_female_edgeR_viralRNA_DEG.csv", row.names=1) %>% 
+  rename_with(~paste0("edge_", .))
+txome_edge_DEG_acute <- 
+  read.csv("Output Files/txome_female_edgeR_DEG_acute.csv", row.names=1) %>% 
+  rename_with(~paste0("edge_", .))
+txome_edge_DEG_peak <-
+  read.csv("Output Files/txome_female_edgeR_DEG_peak.csv", row.names=1) %>% 
+  rename_with(~paste0("edge_", .))
+txome_edge_DEG_late <- 
+  read.csv("Output Files/txome_female_edgeR_DEG_late.csv", row.names=1) %>% 
+  rename_with(~paste0("edge_", .)) 
+
+txome_deseq_DEG_virus <-
+  read.csv("Output Files/txome_female_deseq_viralRNA_DEG.csv") %>% 
+  mutate(logbaseMean=log(baseMean)) %>% 
+  rename_with(~paste0("deseq_", .))
+txome_deseq_DEG_acute <- 
+  read.csv("Output Files/txome_female_deseq_DEG_acute.csv") %>% 
+  mutate(logbaseMean=log(baseMean)) %>% 
+  rename_with(~paste0("deseq_", .))
+txome_deseq_DEG_peak <-
+  read.csv("Output Files/txome_female_deseq_DEG_peak.csv") %>% 
+  mutate(logbaseMean=log(baseMean)) %>%  
+  rename_with(~paste0("deseq_", .))
+txome_deseq_DEG_late <- 
+  read.csv("Output Files/txome_female_deseq_DEG_late.csv") %>% 
+  mutate(logbaseMean=log(baseMean)) %>% 
+  rename_with(~paste0("deseq_", .))
+
+gnome_edge_DEG_virus <-
+  read.csv("Output Files/gnome_female_edgeR_viralRNA_DEG.csv", row.names=1) %>% 
+  rename_with(~paste0("edge_", .))
+gnome_edge_DEG_acute <- 
+  read.csv("Output Files/gnome_female_edgeR_DEG_acute.csv", row.names=1) %>% 
+  rename_with(~paste0("edge_", .)) 
+gnome_edge_DEG_peak <-
+  read.csv("Output Files/gnome_female_edgeR_DEG_peak.csv", row.names=1) %>% 
+  rename_with(~paste0("edge_", .)) 
+gnome_edge_DEG_late <- 
+  read.csv("Output Files/gnome_female_edgeR_DEG_late.csv", row.names=1) %>% 
+  rename_with(~paste0("edge_", .)) 
+
+gnome_deseq_DEG_virus <-
+  read.csv("Output Files/gnome_female_deseq_viralRNA_DEG.csv") %>% 
+  mutate(logbaseMean=log(baseMean)) %>% 
+  rename_with(~paste0("deseq_", .))
+gnome_deseq_DEG_acute <- 
+  read.csv("Output Files/gnome_female_deseq_DEG_acute.csv") %>% 
+  mutate(logbaseMean=log(baseMean)) %>% 
+  rename_with(~paste0("deseq_", .))
+gnome_deseq_DEG_peak <-
+  read.csv("Output Files/gnome_female_deseq_DEG_peak.csv") %>% 
+  mutate(logbaseMean=log(baseMean)) %>% 
+  rename_with(~paste0("deseq_", .))
+gnome_deseq_DEG_late <- 
+  read.csv("Output Files/gnome_female_deseq_DEG_late.csv") %>% 
+  mutate(logbaseMean=log(baseMean)) %>%  
+  rename_with(~paste0("deseq_", .))
+```
+
+### Pre-filter lists
+```{r}
+txome_raw <- read.table("Input Files/txome_genecounts.txt")
+gnome_raw <- read.table("Input Files/gnome_genecounts.txt")
+```
+
+### Normalized gene counts
+```{r}
+txome_norm <- 
+  read.csv("Output Files/txome_female_edgeR_normcounts.csv", row.names=1)
+txome_norm_virus <-
+  read.csv("Output Files/txome_female_edgeR_viralRNA_normcounts.csv", row.names=1)
+
+gnome_norm <- 
+  read.csv("Output Files/gnome_female_edgeR_normcounts.csv", row.names=1)
+gnome_norm_virus <-
+  read.csv("Output Files/gnome_female_edgeR_viralRNA_normcounts.csv", row.names=1)
+```
+
+
+## edgeR vs DESeq2 
+
+### Number of Pre vs Post Filter Genes
+```{r}
+nrow(txome_raw)
+
+nrow(txome_edge_virus)
+nrow(txome_raw)-nrow(txome_edge_virus)
+(nrow(txome_raw)-nrow(txome_edge_virus))/nrow(txome_raw)
+
+nrow(txome_edge_acute)
+nrow(txome_raw)-nrow(txome_edge_acute)
+(nrow(txome_raw)-nrow(txome_edge_acute))/nrow(txome_raw)
+
+nrow(txome_deseq_virus)
+nrow(txome_raw)-nrow(txome_deseq_virus)
+(nrow(txome_raw)-nrow(txome_deseq_virus))/nrow(txome_raw)
+
+nrow(txome_deseq_acute)
+nrow(txome_raw)-nrow(txome_deseq_acute)
+(nrow(txome_raw)-nrow(txome_deseq_acute))/nrow(txome_raw)
+
+nrow(gnome_raw)
+
+nrow(gnome_edge_virus)
+nrow(gnome_raw)-nrow(gnome_edge_virus)
+(nrow(gnome_raw)-nrow(gnome_edge_virus))/nrow(gnome_raw)
+
+nrow(gnome_edge_acute)
+nrow(gnome_raw)-nrow(gnome_edge_acute)
+(nrow(gnome_raw)-nrow(gnome_edge_acute))/nrow(gnome_raw)
+
+nrow(gnome_deseq_virus)
+nrow(gnome_raw)-nrow(gnome_deseq_virus)
+(nrow(gnome_raw)-nrow(gnome_deseq_virus))/nrow(gnome_raw)
+
+nrow(gnome_deseq_acute)
+nrow(gnome_raw)-nrow(gnome_deseq_acute)
+(nrow(gnome_raw)-nrow(gnome_deseq_acute))/nrow(gnome_raw)
+```
+
+
+### Merge results
+```{r}
+txome_virus <-
+  merge(txome_edge_virus, txome_deseq_virus,
+        all.x=FALSE, by.x="edge_gene", by.y="deseq_gene")
+txome_acute <- 
+  merge(txome_edge_acute, txome_deseq_acute, 
+        all.x=FALSE, by.x ="edge_gene", by.y="deseq_gene")
+txome_peak <- 
+  merge(txome_edge_peak, txome_deseq_peak, 
+        all.x=FALSE, by.x ="edge_gene", by.y="deseq_gene")
+txome_late <- 
+  merge(txome_edge_late, txome_deseq_late, 
+        all.x=FALSE, by.x ="edge_gene", by.y="deseq_gene")
+
+gnome_virus <-
+  merge(gnome_edge_virus, gnome_deseq_virus,
+        all.x=FALSE, by.x="edge_gene", by.y="deseq_gene")
+gnome_acute <- 
+  merge(gnome_edge_acute, gnome_deseq_acute, 
+        all.x=FALSE, by.x ="edge_gene", by.y="deseq_gene")
+gnome_peak <- 
+  merge(gnome_edge_peak, gnome_deseq_peak, 
+        all.x=FALSE, by.x ="edge_gene", by.y="deseq_gene")
+gnome_late <- 
+  merge(gnome_edge_late, gnome_deseq_late, 
+        all.x=FALSE, by.x ="edge_gene", by.y="deseq_gene")
+```
+
+### p-value
+#### Transcriptome
+```{r}
+txome_pvalue_virus <-
+  ggscatter(txome_virus, x = "edge_PValue", y = "deseq_pvalue", 
+          add = "reg.line", add.params = list(color = "darkslategray4"), conf.int = TRUE, 
+          cor.coef = TRUE, cor.method = "pearson",
+          xlab = "edgeR p-value", ylab = "DESeq2 p-value", 
+          main = "Transcriptome Virus+ vs Virus-") + 
+  theme(plot.background = element_rect(color = "black"))
+
+txome_pvalue_acute <-
+  ggscatter(txome_acute, x = "edge_PValue", y = "deseq_pvalue", 
+          add = "reg.line", add.params = list(color = "darkslategray4"), conf.int = TRUE, 
+          cor.coef = TRUE, cor.method = "pearson",
+          xlab = "edgeR p-value", ylab = "DESeq2 p-value", 
+          main = "Transcriptome Control vs Acute") + 
+  theme(plot.background = element_rect(color = "black"))
+
+txome_pvalue_peak <-
+  ggscatter(txome_peak, x = "edge_PValue", y = "deseq_pvalue", 
+          add = "reg.line", add.params = list(color = "darkslategray4"), conf.int = TRUE, 
+          cor.coef = TRUE, cor.method = "pearson",
+          xlab = "edgeR p-value", ylab = "DESeq2 p-value", 
+          main = "Transcriptome Control vs Peak") + 
+  theme(plot.background = element_rect(color = "black"))
+
+txome_pvalue_late <-
+  ggscatter(txome_late, x = "edge_PValue", y = "deseq_pvalue", 
+          add = "reg.line", add.params = list(color = "darkslategray4"), conf.int = TRUE, 
+          cor.coef = TRUE, cor.method = "pearson",
+          xlab = "edgeR p-value", ylab = "DESeq2 p-value", 
+          main = "Transcriptome Control vs Late") + 
+  theme(plot.background = element_rect(color = "black"))
+
+txome_pvalue <- 
+  ggarrange(txome_pvalue_virus, 
+            txome_pvalue_acute, txome_pvalue_peak, txome_pvalue_late, 
+            ncol=4) + 
+  theme(plot.background = element_rect(color = "black"))
+```
+
+#### Genome
+```{r}
+gnome_pvalue_virus <-
+  ggscatter(gnome_virus, x = "edge_PValue", y = "deseq_pvalue", 
+          add = "reg.line", add.params = list(color = "darkslategray4"), conf.int = TRUE, 
+          cor.coef = TRUE, cor.method = "pearson",
+          xlab = "edgeR p-value", ylab = "DESeq2 p-value", 
+          main = "Genome Virus+ vs Virus-") + 
+  theme(plot.background = element_rect(color = "black"))
+
+gnome_pvalue_acute <-
+  ggscatter(gnome_acute, x = "edge_PValue", y = "deseq_pvalue", 
+          add = "reg.line", add.params = list(color = "darkslategray4"), conf.int = TRUE, 
+          cor.coef = TRUE, cor.method = "pearson",
+          xlab = "edgeR p-value", ylab = "DESeq2 p-value", 
+          main = "Genome Control vs Acute") + 
+  theme(plot.background = element_rect(color = "black"))
+
+gnome_pvalue_peak <-
+  ggscatter(gnome_peak, x = "edge_PValue", y = "deseq_pvalue", 
+          add = "reg.line", add.params = list(color = "darkslategray4"), conf.int = TRUE, 
+          cor.coef = TRUE, cor.method = "pearson",
+          xlab = "edgeR p-value", ylab = "DESeq2 p-value", 
+          main = "Genome Control vs Peak") + 
+  theme(plot.background = element_rect(color = "black"))
+
+gnome_pvalue_late <-
+  ggscatter(gnome_late, x = "edge_PValue", y = "deseq_pvalue", 
+          add = "reg.line", add.params = list(color = "darkslategray4"), conf.int = TRUE, 
+          cor.coef = TRUE, cor.method = "pearson",
+          xlab = "edgeR p-value", ylab = "DESeq2 p-value", 
+          main = "Genome Control vs Late") + 
+  theme(plot.background = element_rect(color = "black"))
+
+gnome_pvalue <- 
+  ggarrange(gnome_pvalue_virus,
+            gnome_pvalue_acute, gnome_pvalue_peak, gnome_pvalue_late, 
+            ncol=4) + 
+  theme(plot.background = element_rect(color = "black"))
+```
+
+#### Combine
+```{r}
+method_pvalue <-
+  ggarrange(txome_pvalue, gnome_pvalue, ncol=1) 
+ggsave("Figures/supplemental_TG_methodcomp_pvalue.jpeg", method_pvalue, 
+       width=18, height=9, units="in")
+```
+
+
+### log(FC)
+#### Transcriptome
+```{r}
+txome_fc_virus <-
+  ggscatter(txome_virus, x = "edge_logFC", y = "deseq_log2FoldChange", 
+          add = "reg.line", add.params = list(color = "darkslategray4"), conf.int = TRUE, 
+          cor.coef = TRUE, cor.method = "pearson",
+          xlab = "edgeR log2(Fold Change)", ylab = "DESeq2 log2(Fold Change)", 
+          main = "Transcriptome Virus+ vs Virus-") + 
+  theme(plot.background = element_rect(color = "black"))
+
+txome_fc_acute <-
+  ggscatter(txome_acute, x = "edge_logFC", y = "deseq_log2FoldChange", 
+          add = "reg.line", add.params = list(color = "darkslategray4"), conf.int = TRUE, 
+          cor.coef = TRUE, cor.method = "pearson",
+          xlab = "edgeR log2(Fold Change)", ylab = "DESeq2 log2(Fold Change)", 
+          main = "Transcriptome Control vs Acute") + 
+  theme(plot.background = element_rect(color = "black"))
+
+txome_fc_peak <-
+  ggscatter(txome_peak, x = "edge_logFC", y = "deseq_log2FoldChange", 
+          add = "reg.line", add.params = list(color = "darkslategray4"), conf.int = TRUE, 
+          cor.coef = TRUE, cor.method = "pearson",
+          xlab = "edgeR log2(Fold Change)", ylab = "DESeq2 log2(Fold Change)", 
+          main = "Transcriptome Control vs Peak") + 
+  theme(plot.background = element_rect(color = "black"))
+
+txome_fc_late <-
+  ggscatter(txome_late, x = "edge_logFC", y = "deseq_log2FoldChange", 
+          add = "reg.line", add.params = list(color = "darkslategray4"), conf.int = TRUE, 
+          cor.coef = TRUE, cor.method = "pearson",
+          xlab = "edgeR log2(Fold Change)", ylab = "DESeq2 log2(Fold Change)", 
+          main = "Transcriptome Control vs Late") + 
+  theme(plot.background = element_rect(color = "black"))
+
+txome_fc <- 
+  ggarrange(txome_fc_virus,
+            txome_fc_acute, txome_fc_peak, txome_fc_late, 
+            ncol=4) + 
+  theme(plot.background = element_rect(color = "black"))
+```
+
+#### Genome
+```{r}
+gnome_fc_virus <-
+  ggscatter(gnome_virus, x = "edge_logFC", y = "deseq_log2FoldChange", 
+          add = "reg.line", add.params = list(color = "darkslategray4"), conf.int = TRUE, 
+          cor.coef = TRUE, cor.method = "pearson",
+          xlab = "edgeR log2(Fold Change)", ylab = "DESeq2 log2(Fold Change)", 
+          main = "Genome Virus+ vs Virus-") + 
+  theme(plot.background = element_rect(color = "black"))
+
+gnome_fc_acute <-
+  ggscatter(gnome_acute, x = "edge_logFC", y = "deseq_log2FoldChange", 
+          add = "reg.line", add.params = list(color = "darkslategray4"), conf.int = TRUE, 
+          cor.coef = TRUE, cor.method = "pearson",
+          xlab = "edgeR log2(Fold Change)", ylab = "DESeq2 log2(Fold Change)", 
+          main = "Genome Control vs Acute") + 
+  theme(plot.background = element_rect(color = "black"))
+
+gnome_fc_peak <-
+  ggscatter(gnome_peak, x = "edge_logFC", y = "deseq_log2FoldChange", 
+          add = "reg.line", add.params = list(color = "darkslategray4"), conf.int = TRUE, 
+          cor.coef = TRUE, cor.method = "pearson",
+          xlab = "edgeR log2(Fold Change)", ylab = "DESeq2 log2(Fold Change)", 
+          main = "Genome Control vs Peak") + 
+  theme(plot.background = element_rect(color = "black"))
+
+gnome_fc_late <-
+  ggscatter(gnome_late, x = "edge_logFC", y = "deseq_log2FoldChange", 
+          add = "reg.line", add.params = list(color = "darkslategray4"), conf.int = TRUE, 
+          cor.coef = TRUE, cor.method = "pearson",
+          xlab = "edgeR log2(Fold Change)", ylab = "DESeq2 log2(Fold Change)", 
+          main = "Genome Control vs Late") + 
+  theme(plot.background = element_rect(color = "black"))
+
+gnome_fc <- 
+  ggarrange(gnome_fc_virus,
+            gnome_fc_acute, gnome_fc_peak, gnome_fc_late, 
+            ncol=4) + 
+  theme(plot.background = element_rect(color = "black"))
+```
+
+#### Combine
+```{r}
+method_fc <-
+  ggarrange(txome_fc, gnome_fc, ncol=1) 
+ggsave("Figures/supplemental_TG_methodcomp_foldchange.jpeg", 
+       method_fc, width=18, height=9, units="in")
+```
+
+### log mean expression
+#### Transcriptome
+```{r}
+txome_virus_exp <-
+  ggscatter(txome_virus, x = "edge_logCPM", y = "deseq_logbaseMean", 
+          add = "reg.line", add.params = list(color = "darkslategray4"), conf.int = TRUE, 
+          cor.coef = TRUE, cor.method = "pearson",
+          cor.coeff.args = list(color="black"),
+          xlab = "edgeR log2(CPM)", ylab = "DESeq2 log2(baseMean)", 
+          main = "Transcriptome Virus+ vs Virus-") + 
+  theme(plot.background = element_rect(color = "black"))
+
+txome_exp <-
+    ggscatter(txome_acute, x = "edge_logCPM", y = "deseq_logbaseMean", 
+          add = "reg.line", add.params = list(color = "darkslategray4"), conf.int = TRUE, 
+          cor.coef = TRUE, cor.method = "pearson",
+          cor.coeff.args = list(color="black"),
+          xlab = "edgeR log2(CPM)", ylab = "DESeq2 log2(baseMean)", 
+          main = "Transcriptome Control vs Acute, Peak, Late") + 
+  theme(plot.background = element_rect(color = "black"))
+```
+
+#### Genome
+```{r}
+gnome_virus_exp <-
+    ggscatter(gnome_virus, x = "edge_logCPM", y = "deseq_logbaseMean", 
+          add = "reg.line", add.params = list(color = "darkslategray4"), conf.int = TRUE, 
+          cor.coef = TRUE, cor.method = "pearson",
+          cor.coeff.args = list(color="black"),
+          xlab = "edgeR log2(CPM)", ylab = "DESeq2 log2(baseMean)", 
+          main = "Genome Virus+ vs Virus-") + 
+  theme(plot.background = element_rect(color = "black"))
+
+gnome_exp <-
+    ggscatter(gnome_acute, x = "edge_logCPM", y = "deseq_logbaseMean", 
+          add = "reg.line", add.params = list(color = "darkslategray4"), conf.int = TRUE, 
+          cor.coef = TRUE, cor.method = "pearson",
+          cor.coeff.args = list(color="black"),
+          xlab = "edgeR log2(CPM)", ylab = "DESeq2 log2(baseMean)", 
+          main = "Genome Control vs Acute, Peak, Late") + 
+  theme(plot.background = element_rect(color = "black"))
+```
+
+#### Combine
+```{r}
+method_exp <-
+  ggarrange(txome_virus_exp, txome_exp, 
+            gnome_virus_exp, gnome_exp, 
+            ncol=2, nrow=2) 
+ggsave("Figures/supplemental_TG_methodcomp_expression.jpeg",
+       method_exp, width=10, height=10, units="in")
+```
+
+
+### DGE explortory stats
+#### Pre vs Post Filter
+```{r}
+filter_stats <- 
+  data.frame(
+    approach=c("Transcriptome", 
+               "Transcriptome", "Transcriptome", 
+               "Transcriptome", "Transcriptome",
+               "Genome", 
+               "Genome", "Genome", 
+               "Genome", "Genome"),
+    method=c("Raw",
+             "edgeR_Virus", "DESeq2_Virus", 
+             "edgeR_CAPL", "DESeq2_CAPL", 
+             "Raw", 
+             "edgeR_Virus", "DESeq2_Virus", 
+             "edgeR_CAPL", "DESeq2_CAPL"),
+    genes=c(nrow(txome_raw), 
+            nrow(txome_edge_virus), nrow(txome_deseq_virus), 
+            nrow(txome_edge_acute), nrow(txome_deseq_acute),
+            nrow(gnome_raw), 
+            nrow(gnome_edge_virus), nrow(gnome_deseq_virus),
+            nrow(gnome_edge_acute), nrow(gnome_deseq_acute))) %>% 
+  mutate(method=factor(method, levels=c("Raw", 
+                                        "edgeR_Virus", "DESeq2_Virus", 
+                                        "edgeR_CAPL", "DESeq2_CAPL")),
+         approach=factor(approach, levels=c("Transcriptome", "Genome")))
+
+filter_stats_plot <-
+  ggplot(filter_stats, aes(x=method, y=genes)) +
+  geom_col() +
+  facet_grid(~approach) +
+  labs(x=NULL, y = "Number of Genes") +
+  theme_bw() +
+  theme(panel.grid=element_blank(),
+        axis.text.x = element_text(angle=45, hjust=0.9))
+
+ggsave("Figures/TG_method_prepostfilter.jpg", plot=filter_stats_plot, 
+       width=5, height=4, units="in")
+```
+
+#### Method comparison
+```{r}
+method_stats <-
+  data.frame(
+    approach=c("Transcriptome", "Transcriptome", "Transcriptome", "Transcriptome", 
+               "Transcriptome", "Transcriptome", "Transcriptome", "Transcriptome", 
+               "Genome", "Genome", "Genome", "Genome", 
+               "Genome", "Genome", "Genome", "Genome"),
+    method=c("edgeR", "edgeR", "edgeR", "edgeR",
+             "DESeq2", "DESeq2", "DESeq2", "DESeq2",
+             "edgeR", "edgeR", "edgeR", "edgeR", 
+             "DESeq2", "DESeq2", "DESeq2", "DESeq2"),
+    disease=c("V+ vs V-", "Acute", "Peak", "Late", 
+              "V+ vs V-", "Acute", "Peak", "Late", 
+              "V+ vs V-", "Acute", "Peak", "Late", 
+              "V+ vs V-", "Acute", "Peak", "Late"),
+    genes=c(nrow(txome_edge_DEG_virus),
+            nrow(txome_edge_DEG_acute), nrow(txome_edge_DEG_peak), nrow(txome_edge_DEG_late),
+            nrow(txome_deseq_DEG_virus),
+            nrow(txome_deseq_DEG_acute), nrow(txome_deseq_DEG_peak), nrow(txome_deseq_DEG_late), 
+            nrow(gnome_edge_DEG_virus),
+            nrow(gnome_edge_DEG_acute), nrow(gnome_edge_DEG_peak), nrow(gnome_edge_DEG_late),
+            nrow(gnome_deseq_DEG_virus),
+            nrow(gnome_deseq_DEG_acute), nrow(gnome_deseq_DEG_peak), nrow(gnome_deseq_DEG_late))) %>%
+  mutate(approach=factor(approach, levels=c("Transcriptome", "Genome")),
+         method=factor(method, levels=c("edgeR", "DESeq2")), 
+         disease=factor(disease, levels=c("V+ vs V-", "Acute", "Peak", "Late")))
+
+method_stats %>% 
+  pivot_wider(names_from=approach, values_from=genes)
+
+method_stats_plot <-
+  ggplot(method_stats, aes(x=method, y=genes, fill=disease)) +
+  geom_col(position="dodge") +
+  scale_fill_manual(values=c("darkslategray2", "darkslategray3", "darkslategray4", "darkslategray"),
+                    name="Disease Stage") +
+  facet_grid(~approach) +
+  labs(x="R Package", y="Number of DEGs") +
+  theme_bw() +
+  theme(panel.grid=element_blank(),
+        legend.position="bottom")
+
+ggsave("Figures/TG_method_degcomp.jpg", plot=method_stats_plot,
+       width=5, height=4, units="in")
+```
+
+### Method Gene IDs
+#### Virus
+```{r, message=FALSE}
+virus <-
+  list(`T-edgeR` = txome_edge_DEG_virus$edge_gene,       
+       `T-DESeq2` = txome_deseq_DEG_virus$deseq_gene,
+       `G-edgeR` = gnome_edge_DEG_virus$edge_gene, 
+       `G-DESeq2` = gnome_deseq_DEG_virus$deseq_gene)
+
+venn.diagram(virus, 
+             filename="Figures/TG_method_degID_virus.jpg",
+             disable.logging=TRUE,
+             main="Virus+ vs Virus-", main.pos=c(0.5,0.77),
+             fill=c("#66c2a5", "#fc8d62", "#8da0cb", "#e78ac3"),
+             margin=0.3,
+             height=6, 
+             width=8,
+             units="in")
+```
+
+#### Acute
+```{r}
+acute <- 
+  list(`T-edgeR` = txome_edge_DEG_acute$edge_gene, 
+       `T-DESeq2` = txome_deseq_DEG_acute$deseq_gene,
+       `G-edgeR` = gnome_edge_DEG_acute$edge_gene, 
+       `G-DESeq2` = gnome_deseq_DEG_acute$deseq_gene)
+
+venn.diagram(acute, 
+             filename="Figures/TG_method_degID_acute.jpg",
+             disable.logging=TRUE,
+             main="Control vs Acute", main.pos=c(0.5,0.77),
+             fill=c("#66c2a5", "#fc8d62", "#8da0cb", "#e78ac3"),
+             margin=0.3,
+             height=6, 
+             width=8,
+             units="in")
+```
+
+#### Peak
+```{r}
+peak <- 
+  list(`T-edgeR` = txome_edge_DEG_peak$edge_gene, 
+       `T-DESeq2` = txome_deseq_DEG_peak$deseq_gene,
+       `G-edgeR` = gnome_edge_DEG_peak$edge_gene, 
+       `G-DESeq2` = gnome_deseq_DEG_peak$deseq_gene)
+
+venn.diagram(peak, 
+             filename="Figures/TG_method_degID_peak.jpg",
+             disable.logging=TRUE,
+             main="Control vs Peak", main.pos=c(0.5,0.77),
+             fill=c("#66c2a5", "#fc8d62", "#8da0cb", "#e78ac3"),
+             margin=0.3,
+             height=6, 
+             width=8,
+             units="in")
+```
+
+#### Late
+```{r}
+late <- 
+  list(`T-edgeR` = txome_edge_DEG_late$edge_gene, 
+       `T-DESeq2` = txome_deseq_DEG_late$deseq_gene,
+       `G-edgeR` = gnome_edge_DEG_late$edge_gene, 
+       `G-DESeq2` = gnome_deseq_DEG_late$deseq_gene)
+
+venn.diagram(late, 
+             filename="Figures/TG_method_degID_late.jpg",
+             disable.logging=TRUE,
+             main="Control vs Late", main.pos=c(0.5,0.77),
+             fill=c("#66c2a5", "#fc8d62", "#8da0cb", "#e78ac3"),
+             margin=0.3,
+             height=6, 
+             width=8,
+             units="in")
+```
+
+
+## Transcriptome vs Genome
+### Merge results
+```{r}
+edge_virus <-
+  merge(txome_edge_virus, gnome_edge_virus, all.x=FALSE, by="edge_gene")
+edge_acute <-
+  merge(txome_edge_acute, gnome_edge_acute, all.x=FALSE, by="edge_gene")
+edge_peak <-
+  merge(txome_edge_peak, gnome_edge_peak, all.x=FALSE, by="edge_gene")
+edge_late <-
+  merge(txome_edge_late, gnome_edge_late, all.x=FALSE, by="edge_gene")
+
+deseq_virus <-
+  merge(txome_deseq_virus, gnome_deseq_virus, all.x=FALSE, by="deseq_gene")
+deseq_acute <- 
+  merge(txome_deseq_acute, gnome_deseq_acute, all.x=FALSE, by="deseq_gene")
+deseq_peak <- 
+  merge(txome_deseq_peak, gnome_deseq_peak, all.x=FALSE, by="deseq_gene")
+deseq_late <- 
+  merge(txome_deseq_late, gnome_deseq_late, all.x=FALSE, by="deseq_gene")
+```
+
+### p-value
+#### edgeR
+```{r}
+edge_pvalue_virus <-
+  ggscatter(edge_virus, x = "edge_PValue.x", y = "edge_PValue.y", 
+          add = "reg.line", add.params = list(color = "darkslategray4"), conf.int = TRUE, 
+          cor.coef = TRUE, cor.method = "pearson",
+          cor.coeff.args = list(color="black"), cor.coef.coord = c(0, 1.05),
+          xlab = "Transcriptome p-value", ylab = "Genome p-value", 
+          main = "edgeR Virus+ vs Virus-") + 
+  theme(plot.background = element_rect(color = "black"))
+
+edge_pvalue_acute <-
+  ggscatter(edge_acute, x = "edge_PValue.x", y = "edge_PValue.y", 
+          add = "reg.line", add.params = list(color = "darkslategray4"), conf.int = TRUE, 
+          cor.coef = TRUE, cor.method = "pearson",
+          cor.coeff.args = list(color="black"), cor.coef.coord = c(0, 1.05),
+          xlab = "Transcriptome p-value", ylab = "Genome p-value", 
+          main = "edgeR Control vs Acute") + 
+  theme(plot.background = element_rect(color = "black"))
+
+edge_pvalue_peak <-
+  ggscatter(edge_peak, x = "edge_PValue.x", y = "edge_PValue.y", 
+          add = "reg.line", add.params = list(color = "darkslategray4"), conf.int = TRUE, 
+          cor.coef = TRUE, cor.method = "pearson",
+          cor.coeff.args = list(color="black"), cor.coef.coord = c(0, 1.05),
+          xlab = "Transcriptome p-value", ylab = "Genome p-value", 
+          main = "edgeR Control vs Peak") + 
+  theme(plot.background = element_rect(color = "black"))
+
+edge_pvalue_late <-
+  ggscatter(edge_late, x = "edge_PValue.x", y = "edge_PValue.y", 
+          add = "reg.line", add.params = list(color = "darkslategray4"), conf.int = TRUE, 
+          cor.coef = TRUE, cor.method = "pearson",
+          cor.coeff.args = list(color="black"), cor.coef.coord = c(0, 1.05),
+          xlab = "Transcriptome p-value", ylab = "Genome p-value", 
+          main = "edgeR Control vs Late") + 
+  theme(plot.background = element_rect(color = "black"))
+
+edge_pvalue <- 
+  ggarrange(edge_pvalue_virus, 
+            edge_pvalue_acute, edge_pvalue_peak, edge_pvalue_late, 
+            ncol=4) + 
+  theme(plot.background = element_rect(color = "black"))
+```
+
+#### DESeq2
+```{r}
+deseq_pvalue_virus <-
+  ggscatter(deseq_virus, x = "deseq_pvalue.x", y = "deseq_pvalue.y", 
+          add = "reg.line", add.params = list(color = "darkslategray4"), conf.int = TRUE, 
+          cor.coef = TRUE, cor.method = "pearson",
+          cor.coeff.args = list(color="black"), cor.coef.coord = c(0, 1.05),
+          xlab = "Transcriptome p-value", ylab = "Genome p-value", 
+          main = "DESeq2 Virus+ vs Virus-") + 
+  theme(plot.background = element_rect(color = "black"))
+
+deseq_pvalue_acute <-
+  ggscatter(deseq_acute, x = "deseq_pvalue.x", y = "deseq_pvalue.y", 
+          add = "reg.line", add.params = list(color = "darkslategray4"), conf.int = TRUE, 
+          cor.coef = TRUE, cor.method = "pearson",
+          cor.coeff.args = list(color="black"), cor.coef.coord = c(0, 1.05),
+          xlab = "Transcriptome p-value", ylab = "Genome p-value", 
+          main = "DESeq2 Control vs Acute") + 
+  theme(plot.background = element_rect(color = "black"))
+
+deseq_pvalue_peak <-
+  ggscatter(deseq_peak, x = "deseq_pvalue.x", y = "deseq_pvalue.y", 
+          add = "reg.line", add.params = list(color = "darkslategray4"), conf.int = TRUE, 
+          cor.coef = TRUE, cor.method = "pearson",
+          cor.coeff.args = list(color="black"), cor.coef.coord = c(0, 1.05),
+          xlab = "Transcriptome p-value", ylab = "Genome p-value", 
+          main = "DESeq2 Control vs Peak") + 
+  theme(plot.background = element_rect(color = "black"))
+
+deseq_pvalue_late <-
+  ggscatter(deseq_late, x = "deseq_pvalue.x", y = "deseq_pvalue.y", 
+          add = "reg.line", add.params = list(color = "darkslategray4"), conf.int = TRUE, 
+          cor.coef = TRUE, cor.method = "pearson",
+          cor.coeff.args = list(color="black"), cor.coef.coord = c(0, 1.05),
+          xlab = "Transcriptome p-value", ylab = "Genome p-value", 
+          main = "DESeq2 Control vs Late") + 
+  theme(plot.background = element_rect(color = "black"))
+
+deseq_pvalue <- 
+  ggarrange(deseq_pvalue_virus,
+            deseq_pvalue_acute, deseq_pvalue_peak, deseq_pvalue_late, 
+            ncol=4) + 
+  theme(plot.background = element_rect(color = "black"))
+```
+
+#### Combine
+```{r}
+approach_pvalue <-
+  ggarrange(edge_pvalue, deseq_pvalue, ncol=1) 
+
+ggsave("Figures/supplemental_TG_approachcomp_pvalue.jpeg", 
+       approach_pvalue, width=18, height=9, units="in")
+```
+
+
+### log(FC)
+#### edgeR
+```{r}
+edge_fc_virus <-
+  ggscatter(edge_virus, x = "edge_logFC.x", y = "edge_logFC.y", 
+          add = "reg.line", add.params = list(color = "darkslategray4"), conf.int = TRUE, 
+          cor.coef = TRUE, cor.method = "pearson",
+          cor.coeff.args = list(color="black"),
+          xlab = "Transcriptome log2(Fold Change)", ylab = "Genome log2(Fold Change)", 
+          main = "edgeR Virus+ vs Virus-") + 
+  theme(plot.background = element_rect(color = "black"))
+
+edge_fc_acute <-
+  ggscatter(edge_acute, x = "edge_logFC.x", y = "edge_logFC.y", 
+          add = "reg.line", add.params = list(color = "darkslategray4"), conf.int = TRUE, 
+          cor.coef = TRUE, cor.method = "pearson",
+          cor.coeff.args = list(color="black"),
+          xlab = "Transcriptome log2(Fold Change)", ylab = "Genome log2(Fold Change)", 
+          main = "edgeR Control vs Acute") + 
+  theme(plot.background = element_rect(color = "black"))
+
+edge_fc_peak <-
+  ggscatter(edge_peak, x = "edge_logFC.x", y = "edge_logFC.y", 
+          add = "reg.line", add.params = list(color = "darkslategray4"), conf.int = TRUE, 
+          cor.coef = TRUE, cor.method = "pearson",
+          cor.coeff.args = list(color="black"),
+          xlab = "Transcriptome log2(Fold Change)", ylab = "Genome log2(Fold Change)", 
+          main = "edgeR Control vs Peak") + 
+  theme(plot.background = element_rect(color = "black"))
+
+edge_fc_late <-
+  ggscatter(edge_late, x = "edge_logFC.x", y = "edge_logFC.y", 
+          add = "reg.line", add.params = list(color = "darkslategray4"), conf.int = TRUE, 
+          cor.coef = TRUE, cor.method = "pearson",
+          cor.coeff.args = list(color="black"), 
+          xlab = "Transcriptome log2(Fold Change)", ylab = "Genome log2(Fold Change)", 
+          main = "edgeR Control vs Late") + 
+  theme(plot.background = element_rect(color = "black"))
+
+edge_fc <- 
+  ggarrange(edge_fc_virus,
+            edge_fc_acute, edge_fc_peak, edge_fc_late, 
+            ncol=4) + 
+  theme(plot.background = element_rect(color = "black"))
+```
+
+#### DESeq2
+```{r}
+deseq_fc_virus <-
+  ggscatter(deseq_virus, x = "deseq_log2FoldChange.x", y = "deseq_log2FoldChange.y", 
+          add = "reg.line", add.params = list(color = "darkslategray4"), conf.int = TRUE, 
+          cor.coef = TRUE, cor.method = "pearson",
+          cor.coeff.args = list(color="black"),
+          xlab = "Transcriptome log2(Fold Change)", ylab = "Genome log2(Fold Change)", 
+          main = "DESeq2 Virus+ vs Virus-") + 
+  theme(plot.background = element_rect(color = "black"))
+
+deseq_fc_acute <-
+  ggscatter(deseq_acute, x = "deseq_log2FoldChange.x", y = "deseq_log2FoldChange.y", 
+          add = "reg.line", add.params = list(color = "darkslategray4"), conf.int = TRUE, 
+          cor.coef = TRUE, cor.method = "pearson",
+          cor.coeff.args = list(color="black"),
+          xlab = "Transcriptome log2(Fold Change)", ylab = "Genome log2(Fold Change)", 
+          main = "DESeq2 Control vs Acute") + 
+  theme(plot.background = element_rect(color = "black"))
+
+deseq_fc_peak <-
+  ggscatter(deseq_peak, x = "deseq_log2FoldChange.x", y = "deseq_log2FoldChange.y", 
+          add = "reg.line", add.params = list(color = "darkslategray4"), conf.int = TRUE, 
+          cor.coef = TRUE, cor.method = "pearson",
+          cor.coeff.args = list(color="black"), 
+          xlab = "Transcriptome log2(Fold Change)", ylab = "Genome log2(Fold Change)", 
+          main = "DESeq2 Control vs Peak") + 
+  theme(plot.background = element_rect(color = "black"))
+
+deseq_fc_late <-
+  ggscatter(deseq_late, x = "deseq_log2FoldChange.x", y = "deseq_log2FoldChange.y", 
+          add = "reg.line", add.params = list(color = "darkslategray4"), conf.int = TRUE, 
+          cor.coef = TRUE, cor.method = "pearson",
+          cor.coeff.args = list(color="black"),
+          xlab = "Transcriptome log2(Fold Change)", ylab = "Genome log2(Fold Change)", 
+          main = "DESeq2 Control vs Late") + 
+  theme(plot.background = element_rect(color = "black"))
+
+deseq_fc <- 
+  ggarrange(deseq_fc_virus,
+            deseq_fc_acute, deseq_fc_peak, deseq_fc_late, 
+            ncol=4) + 
+  theme(plot.background = element_rect(color = "black"))
+```
+
+#### Combine
+```{r}
+approach_fc <-
+  ggarrange(edge_fc, deseq_fc, ncol=1) 
+
+ggsave("Figures/supplemental_TG_approachcomp_foldchange.jpeg", 
+       approach_fc, width=18, height=9, units="in")
+```
+
+### log mean expression
+#### edgeR
+```{r}
+edge_virus_exp <-
+    ggscatter(edge_virus, x = "edge_logCPM.x", y = "edge_logCPM.y", 
+          add = "reg.line", add.params = list(color = "darkslategray4"), conf.int = TRUE, 
+          cor.coef = TRUE, cor.method = "pearson",
+          cor.coeff.args = list(color="black"),
+          xlab = "Transcriptome", 
+          ylab = "Genome", 
+          main = " Virus+ vs Virus- edgeR log2(CPM)") + 
+  theme(plot.background = element_rect(color = "black"))
+
+edge_exp <-
+    ggscatter(edge_acute, x = "edge_logCPM.x", y = "edge_logCPM.y", 
+          add = "reg.line", add.params = list(color = "darkslategray4"), conf.int = TRUE, 
+          cor.coef = TRUE, cor.method = "pearson",
+          cor.coeff.args = list(color="black"),
+          xlab = "Transcriptome", 
+          ylab = "Genome", 
+          main = "C vs A,P,L edgeR log2(CPM)") + 
+  theme(plot.background = element_rect(color = "black"))
+```
+
+#### DESeq2
+```{r}
+deseq_virus_exp <- 
+      ggscatter(deseq_virus, x = "deseq_logbaseMean.x", y = "deseq_logbaseMean.y", 
+          add = "reg.line", add.params = list(color = "darkslategray4"), conf.int = TRUE, 
+          cor.coef = TRUE, cor.method = "pearson",
+          cor.coeff.args = list(color="black"),
+          xlab = "Transcriptome", 
+          ylab = "Genome", 
+          main = " Virus+ vs Virus- DESeq2 log2(baseMean)") + 
+  theme(plot.background = element_rect(color = "black"))
+
+deseq_exp <- 
+      ggscatter(deseq_acute, x = "deseq_logbaseMean.x", y = "deseq_logbaseMean.y", 
+          add = "reg.line", add.params = list(color = "darkslategray4"), conf.int = TRUE, 
+          cor.coef = TRUE, cor.method = "pearson",
+          cor.coeff.args = list(color="black"),
+          xlab = "Transcriptome", 
+          ylab = "Genome", 
+          main = " C vs A,P,L DESeq2 log2(baseMean)") + 
+  theme(plot.background = element_rect(color = "black"))
+```
+
+#### Combine
+```{r, warning=FALSE}
+approach_exp <-
+  ggarrange(edge_virus_exp, edge_exp, 
+            deseq_virus_exp, deseq_exp, 
+            ncol=2, nrow=2) + 
+  theme(plot.background = element_rect(color = "black"))
+ggsave("Figures/supplemental_TG_approachcomp_expression.jpeg", 
+       approach_exp, width=10, height=10, units="in")
+```
+
+
+### PCA plots
+#### Viral RNA
+##### PCA
+```{r}
+tPCA_virus <- prcomp(t(txome_norm_virus))
+gPCA_virus <- prcomp(t(gnome_norm_virus))
+```
+
+##### Manuscript
+```{r}
+t_pca_disease_virus <- 
+  autoplot(tPCA_virus, data=metadata, shape="RNA") +
+  scale_shape_manual(values=c(1,16), 
+                     labels=c("Virus-", "Virus+"),
+                     name="IAV RNA") +
+  labs(title="A. Transcriptome") +
+  theme_bw() +
+  theme(panel.grid=element_blank(),
+        legend.position="bottom",
+        legend.background=element_rect(linewidth=0.5, linetype="solid", colour ="black"))
+
+rna_legend <- 
+  get_legend(t_pca_disease_virus)
+
+t_pca_disease_virus <-
+  t_pca_disease_virus +
+  theme(legend.position="none")
+
+g_pca_disease_virus <- 
+  autoplot(gPCA_virus, data=metadata, shape="RNA") +
+  scale_shape_manual(values=c(1,16), 
+                     labels=c("Virus-", "Virus+"),
+                     name="IAV RNA") +
+  labs(title="B. Genome") +
+  theme_bw() +
+  theme(panel.grid=element_blank(),
+        legend.position="none",
+        legend.background=element_rect(linewidth=0.5, linetype="solid", colour ="black"))
+
+pca_disease_virus <- 
+  grid.arrange(arrangeGrob(t_pca_disease_virus, g_pca_disease_virus, ncol=2),
+             arrangeGrob(rna_legend, ncol=1),
+             heights=c(5, 1))
+
+ggsave("Figures/TG_pca_disease_virus.jpg", pca_disease_virus, width=8, height=4, units="in")
+```
+
+##### Supplemental
+###### Transcriptome - Year
+```{r}
+a_virus <- 
+  autoplot(tPCA_virus, data=metadata, shape="year") +
+  scale_shape_manual(values=c(0, 8, 6, 16, 3), 
+                     name=NULL) +
+  labs(title="A. Year") +
+  theme_bw() +
+  theme(panel.grid=element_blank(),
+        legend.position="bottom",
+        legend.background=element_rect(linewidth=0.5, linetype="solid", colour ="black"))
+
+year_legend <- 
+  get_legend(a_virus)
+
+a_virus <-
+  a_virus +
+  theme(legend.position="none")
+```
+
+###### Transcriptome - Molt Stage
+```{r}
+b_virus <- 
+  autoplot(tPCA_virus, data=metadata, shape="molt") +
+  scale_shape_manual(values=c(0, 16, 8), 
+                     name=NULL) +
+  labs(title="B. Molt Stage") +
+  theme_bw() +
+  theme(panel.grid=element_blank(),
+        legend.position="bottom",
+        legend.background=element_rect(linewidth=0.5, linetype="solid", colour ="black"))
+
+molt_legend <- 
+  get_legend(b_virus)
+
+b_virus <-
+  b_virus +
+  theme(legend.position="none")
+```
+
+###### Transcriptome - Location
+```{r}
+c_virus <- 
+  autoplot(tPCA_virus, data=metadata, shape="location") +
+  scale_shape_manual(values=c(16, 8), 
+                     name=NULL,
+                     labels=c("Monomoy", "Muskeget")) +
+  labs(title="C. Location") +
+  theme_bw() +
+  theme(panel.grid=element_blank(),
+        legend.position="bottom",
+        legend.background=element_rect(linewidth=0.5, linetype="solid", colour ="black"))
+
+location_legend <- 
+  get_legend(c_virus)
+
+c_virus <-
+  c_virus +
+  theme(legend.position="none")
+```
+
+###### Genome - Year
+```{r}
+d_virus <- 
+  autoplot(gPCA_virus, data=metadata, shape="year") +
+  scale_shape_manual(values=c(0, 8, 6, 16, 3), 
+                     name="Year") +
+  labs(title="D. Year") +
+  theme_bw() +
+  theme(panel.grid=element_blank(),
+        legend.position="none")
+```
+
+###### Genome - Molt Stage
+```{r}
+e_virus <- 
+  autoplot(gPCA_virus, data=metadata, shape="molt") +
+  scale_shape_manual(values=c(0, 16, 8), 
+                     name="Molt Stage") +
+  labs(title="E. Molt Stage") +
+  theme_bw() +
+  theme(panel.grid=element_blank(),
+        legend.position="none")
+```
+
+###### Genome - Location
+```{r}
+f_virus <- 
+  autoplot(gPCA_virus, data=metadata, shape="location") +
+  scale_shape_manual(values=c(16, 8), 
+                     name="Location") +
+  labs(title="F. Location") +
+  theme_bw() +
+  theme(panel.grid=element_blank(),
+        legend.position="none")
+```
+
+###### Combine
+```{r}
+pca_grid <-
+  grid.arrange(arrangeGrob(a_virus, b_virus, c_virus, ncol=3), 
+               arrangeGrob(year_legend, molt_legend, location_legend, ncol=3), 
+               arrangeGrob(d_virus, e_virus, f_virus, ncol=3), 
+               nrow=3, heights=c(8,2,8))
+ggsave("Figures/supplemental_TG_pca_grid_virus.jpg", 
+       pca_grid, width=14, height=7, units="in")
+```
+
+
+
+#### Influenza Stages
+##### PCA
+```{r}
+tPCA <- prcomp(t(txome_norm))
+gPCA <- prcomp(t(gnome_norm))
+```
+
+##### Transcriptome - Influenza Stages
+```{r}
+a <- 
+  autoplot(tPCA, data=metadata, shape="disease_stage") +
+  scale_shape_manual(values=c(2,17,16,1), 
+                     labels=c("C", "A", "P", "L"),
+                     name=NULL) +
+  labs(title="A. Influenza Stage") +
+  theme_bw() +
+  theme(panel.grid=element_blank(),
+        legend.position="bottom",
+        legend.background=element_rect(linewidth=0.5, linetype="solid", colour ="black"))
+
+disease_legend <- 
+  get_legend(a)
+
+a <-
+  a +
+  theme(legend.position="none")
+```
+
+##### Transcriptome - Year
+```{r}
+b <- 
+  autoplot(tPCA, data=metadata, shape="year") +
+  scale_shape_manual(values=c(0, 8, 6, 16, 3), 
+                     name=NULL) +
+  labs(title="B. Year") +
+  theme_bw() +
+  theme(panel.grid=element_blank(),
+        legend.position="bottom",
+        legend.background=element_rect(linewidth=0.5, linetype="solid", colour ="black"))
+
+year_legend <- 
+  get_legend(b)
+
+b <-
+  b +
+  theme(legend.position="none")
+```
+
+##### Transcriptome - Molt Stage
+```{r}
+c <- 
+  autoplot(tPCA, data=metadata, shape="molt") +
+  scale_shape_manual(values=c(0, 16, 8), 
+                     name=NULL) +
+  labs(title="C. Molt Stage") +
+  theme_bw() +
+  theme(panel.grid=element_blank(),
+        legend.position="bottom",
+        legend.background=element_rect(linewidth=0.5, linetype="solid", colour ="black"))
+
+molt_legend <- 
+  get_legend(c)
+
+c <-
+  c +
+  theme(legend.position="none")
+```
+
+##### Transcriptome - Location
+```{r}
+d <- 
+  autoplot(tPCA, data=metadata, shape="location") +
+  scale_shape_manual(values=c(16, 8), 
+                     name=NULL,
+                     labels=c("Monomoy", "Muskeget")) +
+  labs(title="D. Location") +
+  theme_bw() +
+  theme(panel.grid=element_blank(),
+        legend.position="bottom",
+        legend.background=element_rect(linewidth=0.5, linetype="solid", colour ="black"))
+
+location_legend <- 
+  get_legend(d)
+
+d <-
+  d +
+  theme(legend.position="none")
+```
+
+##### Genome - Influenza Stages
+```{r}
+e <- 
+  autoplot(gPCA, data=metadata, shape="disease_stage") +
+  scale_shape_manual(values=c(2,17,16,1), 
+                     labels=c("Control", "Acute", "Peak", "Late"),
+                     name="Influenza Stage") +
+  labs(title="E. Influenza Stage") +
+  theme_bw() +
+  theme(panel.grid=element_blank(),
+        legend.position="none")
+```
+
+##### Genome - Year
+```{r}
+f <- 
+  autoplot(gPCA, data=metadata, shape="year") +
+  scale_shape_manual(values=c(0, 8, 6, 16, 3), 
+                     name="Year") +
+  labs(title="F. Year") +
+  theme_bw() +
+  theme(panel.grid=element_blank(),
+        legend.position="none")
+```
+
+##### Transcriptome - Molt Stage
+```{r}
+g <- 
+  autoplot(gPCA, data=metadata, shape="molt") +
+  scale_shape_manual(values=c(0, 16, 8), 
+                     name="Molt Stage") +
+  labs(title="G. Molt Stage") +
+  theme_bw() +
+  theme(panel.grid=element_blank(),
+        legend.position="none")
+```
+
+##### Transcriptome - Location
+```{r}
+h <- 
+  autoplot(gPCA, data=metadata, shape="location") +
+  scale_shape_manual(values=c(16, 8), 
+                     name="Location") +
+  labs(title="H. Location") +
+  theme_bw() +
+  theme(panel.grid=element_blank(),
+        legend.position="none")
+```
+
+##### Combine
+```{r}
+pca_grid <-
+  grid.arrange(arrangeGrob(a, b, c, d, ncol=4), 
+               arrangeGrob(disease_legend, year_legend, molt_legend, location_legend, ncol=4), 
+               arrangeGrob(e, f, g, h, ncol=4), 
+               nrow=3, heights=c(8,2,8))
+ggsave("Figures/supplemental_TG_pca_grid_influenzastage.jpg", 
+       pca_grid, width=14, height=7, units="in")
+```
