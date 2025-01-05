@@ -1,63 +1,63 @@
-"GOTerm","Transcriptome","Transcriptome_null","Genome","Genome_null","go"
-"cellular nitrogen compound catabolic process (GO:0044270)",NA,NA,"+4.2 (0.007)","x","BP"
-"cotranslational protein targeting to membrane (GO:0006613)","+19.2 (0.001)","x","+16.6 (0)","x","BP"
-"cotranslational protein targeting to membrane (GO:0006613)","-10.4 (0.046)","x","+16.6 (0)","x","BP"
-"cytokine-mediated signaling pathway (GO:0019221)","-3.9 (0.046)","x",NA,NA,"BP"
-"establishment of protein localization to endoplasmic reticulum (GO:0072599)","+17.4 (0.001)","x","+15 (0)","x","BP"
-"establishment of protein localization to endoplasmic reticulum (GO:0072599)","-9.4 (0.046)","x","+15 (0)","x","BP"
-"establishment of protein localization to membrane (GO:0090150)",NA,NA,"+5.9 (0.007)","x","BP"
-"heterocycle catabolic process (GO:0046700)",NA,NA,"+4.2 (0.007)","x","BP"
-"mitochondrial translation (GO:0032543)",NA,NA,"+8.1 (0.025)","","BP"
-"mitochondrial translational elongation (GO:0070125)",NA,NA,"+10.2 (0.03)","","BP"
-"mitochondrial translational termination (GO:0070126)",NA,NA,"+10.2 (0.03)","","BP"
-"mRNA catabolic process (GO:0006402)",NA,NA,"+6.7 (0)","x","BP"
-"nuclear-transcribed mRNA catabolic process (GO:0000956)",NA,NA,"+8.9 (0)","x","BP"
-"nuclear-transcribed mRNA catabolic process, nonsense-mediated decay (GO:0000184)","+12.8 (0.025)","x","+12 (0)","x","BP"
-"nucleobase-containing compound catabolic process (GO:0034655)",NA,NA,"+4.1 (0.017)","x","BP"
-"positive regulation of signal transduction by p53 class mediator (GO:1901798)",NA,NA,"+32.6 (0.026)","","BP"
-"protein localization to endoplasmic reticulum (GO:0070972)","+14.1 (0.004)","x","+12.2 (0)","x","BP"
-"protein targeting (GO:0006605)",NA,NA,"+5 (0.008)","x","BP"
-"protein targeting to ER (GO:0045047)","+18 (0.001)","x","+15.5 (0)","x","BP"
-"protein targeting to ER (GO:0045047)","-9.7 (0.046)","x","+15.5 (0)","x","BP"
-"protein targeting to membrane (GO:0006612)","+11.1 (0.012)","x","+9.8 (0)","x","BP"
-"regulation of intrinsic apoptotic signaling pathway by p53 class mediator (GO:1902253)",NA,NA,"+27.8 (0.005)","","BP"
-"RNA catabolic process (GO:0006401)",NA,NA,"+6.1 (0.001)","x","BP"
-"SRP-dependent cotranslational protein targeting to membrane (GO:0006614)","+20.1 (0.001)","x","+17.4 (0)","x","BP"
-"SRP-dependent cotranslational protein targeting to membrane (GO:0006614)","-10.8 (0.046)","x","+17.4 (0)","x","BP"
-"translation (GO:0006412)","+5.1 (0.025)","x",NA,NA,"BP"
-"translational initiation (GO:0006413)",NA,NA,"+8.8 (0)","x","BP"
-"translational termination (GO:0006415)",NA,NA,"+9.1 (0.049)","","BP"
-"cytosolic large ribosomal subunit (GO:0022625)","+22.8 (0)","x","+21.4 (0)","x","CC"
-"cytosolic part (GO:0044445)","+10.4 (0)","x","+8.6 (0)","x","CC"
-"cytosolic part (GO:0044445)","-5.7 (0.014)","x","+8.6 (0)","x","CC"
-"cytosolic ribosome (GO:0022626)","+18.8 (0)","x","+17.6 (0)","x","CC"
-"cytosolic ribosome (GO:0022626)","-11.8 (0)","x","+17.6 (0)","x","CC"
-"cytosolic small ribosomal subunit (GO:0022627)","-27.4 (0)","x","+13.7 (0.042)","x","CC"
-"endocytic vesicle (GO:0030139)","-5.6 (0.014)","",NA,NA,"CC"
-"endocytic vesicle membrane (GO:0030666)","-9 (0.006)","",NA,NA,"CC"
-"endosomal part (GO:0044440)","-3.8 (0.028)","",NA,NA,"CC"
-"endosome membrane (GO:0010008)","-4.1 (0.016)","",NA,NA,"CC"
-"integral component of lumenal side of endoplasmic reticulum membrane (GO:0071556)","-36.9 (0.006)","",NA,NA,"CC"
-"large ribosomal subunit (GO:0015934)","+14.9 (0)","x","+19 (0)","x","CC"
-"lumenal side of endoplasmic reticulum membrane (GO:0098553)","-36.9 (0.006)","",NA,NA,"CC"
-"mitochondrial large ribosomal subunit (GO:0005762)",NA,NA,"+16.7 (0.001)","","CC"
-"mitochondrial protein complex (GO:0098798)",NA,NA,"+5.2 (0.015)","x","CC"
-"mitochondrial ribosome (GO:0005761)",NA,NA,"+10.6 (0.005)","","CC"
-"organellar large ribosomal subunit (GO:0000315)",NA,NA,"+16.7 (0.001)","","CC"
-"organellar ribosome (GO:0000313)",NA,NA,"+10.6 (0.005)","","CC"
-"precatalytic spliceosome (GO:0071011)",NA,NA,"+21.1 (0.002)","","CC"
-"ribosomal subunit (GO:0044391)","-7.1 (0.006)","x","+15.1 (0)","x","CC"
-"ribosomal subunit (GO:0044391)","+12.9 (0)","x","+15.1 (0)","x","CC"
-"ribosome (GO:0005840)","+10.5 (0)","x","+12.4 (0)","x","CC"
-"ribosome (GO:0005840)","-5.7 (0.014)","x","+12.4 (0)","x","CC"
-"side of membrane (GO:0098552)","-4.6 (0.01)","",NA,NA,"CC"
-"Sm-like protein family complex (GO:0120114)",NA,NA,"+9.7 (0.027)","","CC"
-"small nuclear ribonucleoprotein complex (GO:0030532)",NA,NA,"+11 (0.018)","","CC"
-"small ribosomal subunit (GO:0015935)","-16.5 (0)","x","+10.5 (0.02)","x","CC"
-"spliceosomal snRNP complex (GO:0097525)",NA,NA,"+12.4 (0.013)","","CC"
-"spliceosomal tri-snRNP complex (GO:0097526)",NA,NA,"+21.8 (0.002)","","CC"
-"U2-type precatalytic spliceosome (GO:0071005)",NA,NA,"+21.1 (0.002)","","CC"
-"U2-type spliceosomal complex (GO:0005684)",NA,NA,"+9.4 (0.028)","","CC"
-"U4/U6 x U5 tri-snRNP complex (GO:0046540)",NA,NA,"+21.8 (0.002)","","CC"
-"structural constituent of ribosome (GO:0003735)","+14.8 (0)","x","+15.2 (0)","x","MF"
-"structural molecule activity (GO:0005198)","-5.1 (0)","x","+5.2 (0)","x","MF"
+GOTerm,Transcriptome,Transcriptome_null,Genome,Genome_null,go
+cellular nitrogen compound catabolic process (GO:0044270),NA,NA,+4.2 (0.007),,BP
+cotranslational protein targeting to membrane (GO:0006613),+19.2 (0.001),x,+16.6 (0),,BP
+cotranslational protein targeting to membrane (GO:0006613),-10.4 (0.046),x,+16.6 (0),,BP
+cytokine-mediated signaling pathway (GO:0019221),-3.9 (0.046),x,NA,NA,BP
+establishment of protein localization to endoplasmic reticulum (GO:0072599),+17.4 (0.001),x,+15 (0),,BP
+establishment of protein localization to endoplasmic reticulum (GO:0072599),-9.4 (0.046),x,+15 (0),,BP
+establishment of protein localization to membrane (GO:0090150),NA,NA,+5.9 (0.007),,BP
+heterocycle catabolic process (GO:0046700),NA,NA,+4.2 (0.007),,BP
+mitochondrial translation (GO:0032543),NA,NA,+8.1 (0.025),,BP
+mitochondrial translational elongation (GO:0070125),NA,NA,+10.2 (0.03),,BP
+mitochondrial translational termination (GO:0070126),NA,NA,+10.2 (0.03),,BP
+mRNA catabolic process (GO:0006402),NA,NA,+6.7 (0),,BP
+nuclear-transcribed mRNA catabolic process (GO:0000956),NA,NA,+8.9 (0),,BP
+"nuclear-transcribed mRNA catabolic process, nonsense-mediated decay (GO:0000184)",+12.8 (0.025),x,+12 (0),,BP
+nucleobase-containing compound catabolic process (GO:0034655),NA,NA,+4.1 (0.017),,BP
+positive regulation of signal transduction by p53 class mediator (GO:1901798),NA,NA,+32.6 (0.026),x,BP
+protein localization to endoplasmic reticulum (GO:0070972),+14.1 (0.004),x,+12.2 (0),,BP
+protein targeting (GO:0006605),NA,NA,+5 (0.008),,BP
+protein targeting to ER (GO:0045047),+18 (0.001),x,+15.5 (0),,BP
+protein targeting to ER (GO:0045047),-9.7 (0.046),x,+15.5 (0),,BP
+protein targeting to membrane (GO:0006612),+11.1 (0.012),x,+9.8 (0),,BP
+regulation of intrinsic apoptotic signaling pathway by p53 class mediator (GO:1902253),NA,NA,+27.8 (0.005),,BP
+RNA catabolic process (GO:0006401),NA,NA,+6.1 (0.001),,BP
+SRP-dependent cotranslational protein targeting to membrane (GO:0006614),+20.1 (0.001),x,+17.4 (0),,BP
+SRP-dependent cotranslational protein targeting to membrane (GO:0006614),-10.8 (0.046),x,+17.4 (0),,BP
+translation (GO:0006412),+5.1 (0.025),x,NA,NA,BP
+translational initiation (GO:0006413),NA,NA,+8.8 (0),,BP
+translational termination (GO:0006415),NA,NA,+9.1 (0.049),,BP
+cytosolic large ribosomal subunit (GO:0022625),+22.8 (0),x,+21.4 (0),x,CC
+cytosolic part (GO:0044445),+10.4 (0),x,+8.6 (0),,CC
+cytosolic part (GO:0044445),-5.7 (0.014),x,+8.6 (0),,CC
+cytosolic ribosome (GO:0022626),+18.8 (0),x,+17.6 (0),x,CC
+cytosolic ribosome (GO:0022626),-11.8 (0),x,+17.6 (0),x,CC
+cytosolic small ribosomal subunit (GO:0022627),-27.4 (0),x,+13.7 (0.042),x,CC
+endocytic vesicle (GO:0030139),-5.6 (0.014),,NA,NA,CC
+endocytic vesicle membrane (GO:0030666),-9 (0.006),,NA,NA,CC
+endosomal part (GO:0044440),-3.8 (0.028),,NA,NA,CC
+endosome membrane (GO:0010008),-4.1 (0.016),,NA,NA,CC
+integral component of lumenal side of endoplasmic reticulum membrane (GO:0071556),-36.9 (0.006),,NA,NA,CC
+large ribosomal subunit (GO:0015934),+14.9 (0),x,+19 (0),x,CC
+lumenal side of endoplasmic reticulum membrane (GO:0098553),-36.9 (0.006),,NA,NA,CC
+mitochondrial large ribosomal subunit (GO:0005762),NA,NA,+16.7 (0.001),,CC
+mitochondrial protein complex (GO:0098798),NA,NA,+5.2 (0.015),,CC
+mitochondrial ribosome (GO:0005761),NA,NA,+10.6 (0.005),,CC
+organellar large ribosomal subunit (GO:0000315),NA,NA,+16.7 (0.001),,CC
+organellar ribosome (GO:0000313),NA,NA,+10.6 (0.005),,CC
+precatalytic spliceosome (GO:0071011),NA,NA,+21.1 (0.002),,CC
+ribosomal subunit (GO:0044391),-7.1 (0.006),x,+15.1 (0),x,CC
+ribosomal subunit (GO:0044391),+12.9 (0),x,+15.1 (0),x,CC
+ribosome (GO:0005840),+10.5 (0),x,+12.4 (0),x,CC
+ribosome (GO:0005840),-5.7 (0.014),x,+12.4 (0),x,CC
+side of membrane (GO:0098552),-4.6 (0.01),,NA,NA,CC
+Sm-like protein family complex (GO:0120114),NA,NA,+9.7 (0.027),,CC
+small nuclear ribonucleoprotein complex (GO:0030532),NA,NA,+11 (0.018),,CC
+small ribosomal subunit (GO:0015935),-16.5 (0),x,+10.5 (0.02),x,CC
+spliceosomal snRNP complex (GO:0097525),NA,NA,+12.4 (0.013),,CC
+spliceosomal tri-snRNP complex (GO:0097526),NA,NA,+21.8 (0.002),,CC
+U2-type precatalytic spliceosome (GO:0071005),NA,NA,+21.1 (0.002),,CC
+U2-type spliceosomal complex (GO:0005684),NA,NA,+9.4 (0.028),,CC
+U4/U6 x U5 tri-snRNP complex (GO:0046540),NA,NA,+21.8 (0.002),,CC
+structural constituent of ribosome (GO:0003735),+14.8 (0),x,+15.2 (0),x,MF
+structural molecule activity (GO:0005198),-5.1 (0),x,+5.2 (0),x,MF

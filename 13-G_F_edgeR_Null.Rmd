@@ -111,7 +111,7 @@ late[[i]] <- results_late$gene
 #### Save lists of DEGs
 ```{r}
 # Postfilter Lists
-postfilter_df <- data.frame(postfilter[[1]]
+postfilter_df <- data.frame(postfilter[[1]])
 write.csv(postfilter_df, file = "Output Files/gnome_female_edgeR_null_DEG_postfilter.csv", row.names = FALSE)
 
 
@@ -173,7 +173,7 @@ go_cc_late <- setNames(vector('list', 1000), 1:1000)
 ```{r}
 for (i in 1:1000) {
   genes <- acute[[i]]
-  background <- postfilter[[i]]
+  background <- postfilter[,1]
   bp_test_acute <- 
         WebGestaltR(enrichMethod="ORA", organism="hsapiens", 
                 enrichDatabase="geneontology_Biological_Process",
@@ -204,7 +204,7 @@ for (i in 1:1000) {
 
 for (i in 1:1000) {
   genes <- peak[[i]]
-  background <- postfilter[[i]]
+  background <- postfilter[,1]
   bp_test_peak <- 
         WebGestaltR(enrichMethod="ORA", organism="hsapiens", 
                 enrichDatabase="geneontology_Biological_Process",
@@ -235,7 +235,7 @@ for (i in 1:1000) {
 
 for (i in 1:1000) {
   genes <- late[[i]]
-  background <- postfilter[[i]]
+  background <- postfilter[,1]
   bp_test_late <- 
         WebGestaltR(enrichMethod="ORA", organism="hsapiens", 
                 enrichDatabase="geneontology_Biological_Process",
@@ -362,7 +362,7 @@ kegg_late <-setNames(vector('list', 1000), 1:1000)
 ```{r}
 for (i in 1:1000) {
 genes <- acute[[i]]
-background <- postfilter[[i]]
+background <- postfilter[,1]
 test <-
   WebGestaltR(enrichMethod = "ORA", organism = "hsapiens", enrichDatabase = "pathway_KEGG",
               interestGene = genes, interestGeneType = "genesymbol", 
@@ -388,7 +388,7 @@ write.csv(kegg_acute, file = "Output Files/gnome_female_edgeR_null_kegg_acute.cs
 ```{r}
 for (i in 1:1000) {
 genes <- peak[[i]]
-background <- postfilter[[i]]
+background <- postfilter[,1]
 test <-
   WebGestaltR(enrichMethod = "ORA", organism = "hsapiens", enrichDatabase = "pathway_KEGG",
               interestGene = genes, interestGeneType = "genesymbol", 
@@ -414,7 +414,7 @@ write.csv(kegg_peak, file = "Output Files/gnome_female_edgeR_null_kegg_peak.csv"
 ```{r}
 for (i in 1:1000) {
 genes <- late[[i]]
-background <- postfilter[[i]]
+background <- postfilter[,1]
 test <-
   WebGestaltR(enrichMethod = "ORA", organism = "hsapiens", enrichDatabase = "pathway_KEGG",
               interestGene = genes, interestGeneType = "genesymbol", 

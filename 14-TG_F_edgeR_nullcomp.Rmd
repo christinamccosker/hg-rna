@@ -500,9 +500,9 @@ write.csv(g_final, "Output Files/gnome_female_edgeR_go_refined.csv", row.names=F
 go_fig <-
   rbind(t_final, g_final) %>% 
   mutate(disease_stage=factor(
-          ifelse(disease_stage=="acute", "A", 
-             ifelse(disease_stage=="peak", "P", "L")),
-          levels=c("A", "P", "L")),
+          ifelse(disease_stage=="acute", "Acute", 
+             ifelse(disease_stage=="peak", "Peak", "Late")),
+          levels=c("Acute", "Peak", "Late")),
          go=factor(
            ifelse(go=="bp", "BP", 
                   ifelse(go=="cc", "CC", "MF")),
@@ -516,13 +516,13 @@ go_fig <-
 
   labs(x="GO Term", y="Enrichment Ratio") +
   
-  scale_x_discrete(labels = function(description) str_wrap(description, width = 65)) +
+ # scale_x_discrete(labels = function(description) str_wrap(description, width = 65))+
   #scale_y_continuous(limits=c(-5,37), expand=c(0,0), n.breaks=8) +
   
   facet_nested_wrap(vars(disease_stage, go), dir="v", scales="free_y",
                     strip.position="right", ncol=1, drop=TRUE) +
   
-  force_panelsizes(rows = c(3, 2.5, 2, 4.8, 0.8)) +
+  force_panelsizes(rows = c(3.75, 2.5, 5.25, 5.25, 0.35, 0.75)) +
   
   theme_bw() +
   theme(panel.grid=element_blank(), text=element_text(size=11), 
@@ -534,7 +534,7 @@ go_fig <-
   coord_flip() 
 
 go_fig
-ggsave(filename="Figures/goterm.jpg", width=10, height=9, units="in")
+ggsave(filename="Figures/goterm.jpg", width=10, height=10, units="in")
 ```
 
 

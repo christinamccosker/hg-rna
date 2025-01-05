@@ -103,17 +103,26 @@ expressed <-
   mutate(id = paste0("hsa:", ifelse(genes %in% iav$Symbol, 
                      iav[match(genes, iav$Symbol),1],
                      genes)))
+
+notexpressed <- 
+  data.frame(iav) %>% 
+  filter(!Symbol %in% expressed$genes) %>% 
+  filter(!Symbol %in% deg$genes) %>% 
+  mutate(id = paste0("hsa:", ifelse(Symbol %in% iav$Symbol, 
+                     iav[match(Symbol, iav$Symbol),1],
+                     Symbol)))
 ```
 
 ## Plot pathway map
-```{r}
+** no longer used - cannot figure out coloring for some genes. Created map online.
+```{r, eval=FALSE}
 graph_info <-
   pathway("hsa05164") %>% 
   activate(nodes) %>% 
   mutate(convert_hsa=convert_id("hsa"), 
          convert_map=convert_id("pathway"),
-         bgcolor=ifelse(convert_hsa %in% expressed$genes, "#ffffe0", 
-                        ifelse(convert_hsa %in% deg$genes, "#fbc69d", "lightgray")))
+         bgcolor=ifelse(convert_hsa %in% expressed$id, "#ffffe0", 
+                        ifelse(convert_hsa %in% deg$id, "#fbc69d", "white")))
 
 graph <-
   ggraph(graph_info, x=x, y=y) +
@@ -124,17 +133,18 @@ graph <-
   theme_void() 
 graph 
 
-
-ggkeggsave(filename="Figures/iavkegg.jpg", graph, dpi=300)
+#ggkeggsave(filename="Figures/iavkegg.jpg", graph, dpi=300)
 ```
 
 ### Create Legend
 ```{r}
-png(filename="Figures/iavkegglegend.png", width = 10, height=5, units="in", res=300)
+png(filename="Figures/iavkeggleg.png", width = 6, height=7, units="in", res=300)
   plot(NULL ,xaxt='n',yaxt='n',bty='n',ylab='',xlab='', , xlim=c(0,100), ylim=c(0,10))
-  legend("topleft", legend =c('Ex', 'DE', 'NE'), 
-         pch=15, pt.cex=5, cex=2, bty='o',
-       col = c("#ffffe0", "#fbc69d", "lightgray"), horiz=T)
+  legend("topleft", 
+         legend =c("Acute", "Peak", "Late", "Virus", "Expressed", "Not Expressed"), 
+         pch=15, pt.cex=7, cex=3, bty='o',
+         col = c("darkslategray1", "darkslategray3", "darkslategray4", "gray80", "coral", "wheat2"), 
+         horiz=F)
 dev.off()
 ```
 

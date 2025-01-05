@@ -119,14 +119,6 @@ range(t_late_genes$genes)
 range(g_acute_genes$genes)
 range(g_peak_genes$genes)
 range(g_late_genes$genes)
-
-range(t_acute_genefreq$Freq)
-range(t_peak_genefreq$Freq)
-range(t_late_genefreq$Freq)
-
-range(g_acute_genefreq$Freq)
-range(g_peak_genefreq$Freq)
-range(g_late_genefreq$Freq)
 ```
 
 
@@ -142,7 +134,7 @@ null_genes_plot <-
 ```
 
 ## DEG Frequency
-### Data - Import & Configure
+### Data
 ```{r}
 t_virus_genefreq <- 
   read.csv("Output Files/txome_female_edgeR_viralRNA_null_DEG.csv") %>% 
@@ -240,6 +232,18 @@ genefreq <-
   mutate(approach=factor(approach, levels=c("Transcriptome", "Genome")),
          stage=factor(stage, levels=c("V+ vs V-", "Acute", "Peak", "Late")))
 ```
+
+### Quick Stats
+```{r}
+range(t_acute_genefreq$Freq)
+range(t_peak_genefreq$Freq)
+range(t_late_genefreq$Freq)
+
+range(g_acute_genefreq$Freq)
+range(g_peak_genefreq$Freq)
+range(g_late_genefreq$Freq)
+```
+
 
 ### Plot
 ```{r}

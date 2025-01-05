@@ -261,13 +261,13 @@ immune_go_genes <-
     "Innate Immunity & adaptive", 
     "extra", 
     "extra", 
-    "Complement", 
-    "Complement", 
-    "Complement", 
-    "Complement", 
+    "Complement System", 
+    "Complement System", 
+    "Complement System", 
+    "Complement System", 
     "adaptive", 
-    "Complement", 
-    "Complement",
+    "Complement System", 
+    "Complement System",
     "Immunoregulation",
     "Innate Immunity", 
     "inflammation", 
@@ -297,7 +297,7 @@ immune_go_genes <-
 immune_go_genes_subset <- 
   immune_go_genes %>% 
   filter(description == "Innate Immunity" |
-         description == "Complement" |
+         description == "Complement System" |
          description == "Immunoregulation" |
          description == "Antiviral") %>% 
   filter(!genes == "C2" & 
@@ -305,7 +305,7 @@ immune_go_genes_subset <-
          !genes == "HSPA8",
          !genes == "ACTB", 
          !genes == "DHX58") %>% 
-  mutate(description = factor(description, levels=c("Innate Immunity", "Immunoregulation", "Antiviral", "Complement")))
+  mutate(description = factor(description, levels=c("Innate Immunity", "Immunoregulation", "Antiviral", "Complement System")))
 ```
 
 #### Extract Expression Data
