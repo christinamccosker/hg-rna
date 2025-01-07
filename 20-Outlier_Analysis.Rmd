@@ -1,0 +1,176 @@
+---
+output: html_document
+date: "2025-01-07"
+editor_options: 
+  chunk_output_type: console
+---
+
+# Outlier Analysis
+
+## Libraries 
+```{r, warning=FALSE, message=FALSE}
+library(tidyverse)
+library(ggfortify)
+```
+
+## Data
+```{r}
+tcpm <- 
+  read.csv("Output Files/txome_female_edgeR_viralRNA_normcounts.csv",
+           row.names=1) %>% 
+  relocate(Hg862a, .before=1) %>% 
+  relocate(Hg1351, .before=2) %>% 
+  relocate(Hg1380, .before=3)
+
+gcpm <- 
+  read.csv("Output Files/gnome_female_edgeR_viralRNA_normcounts.csv",
+           row.names=1) %>% 
+  relocate(Hg862a, .before=1) %>% 
+  relocate(Hg1351, .before=2) %>% 
+  relocate(Hg1380, .before=3)
+
+meta <- read.csv("Input Files/metadata.csv") %>% 
+  filter(!sex=="male") %>% 
+  mutate(RNA = ifelse(disease_stage=="acute", "virus+", 
+                      ifelse(disease_stage=="peak", "virus+", "virus-"))) %>% 
+  mutate(year=factor(year),
+         disease_stage=factor(disease_stage, 
+                              levels=c("control", "acute", "peak", "late"))) %>% 
+  mutate(sample=factor(sample, levels=colnames(tcpm)))
+
+meta_out <- 
+  meta %>% 
+  filter(!sample=="Hg862a" &
+         !sample=="Hg1380" &
+         !sample=="Hg1351")
+
+traw <- 
+  read.csv("Output Files/txome_genecounts_locid_nohemo.csv",
+           row.names=1) %>% 
+  select(meta$sample)
+
+graw <- 
+  read.csv("Output Files/gnome_genecounts_locid_nohemo.csv",
+           row.names=1) %>% 
+    select(meta$sample)
+```
+
+## PCA
+### Transcriptome
+#### PCA Original
+```{r}
+tdist <- dist(t(tcpm), method = "euclidean")
+tpca <- prcomp(t(tdist))
+autoplot(tpca, data=meta, shape=FALSE)
+```
+
+#### PCA w/o Outliers
+```{r}
+tcpm_out <- 
+  tcpm %>% 
+  select(!c(Hg1380, Hg862a, Hg1351))
+
+tdist_out <- dist(t(tcpm_out), method = "euclidean")
+tpca_out <- prcomp(t(tdist_out))
+autoplot(tpca_out, data=meta_out, shape=FALSE)
+
+autoplot(tpca_out, data=meta_out, colour="RNA", size=3) +
+  theme(legend.position="bottom")
+autoplot(tpca_out, data=meta_out, colour="disease_stage", size=3) +
+  theme(legend.position="bottom")
+autoplot(tpca_out, data=meta_out, colour="year", size=3) +
+  theme(legend.position="bottom")
+autoplot(tpca_out, data=meta_out, colour="molt", size=3) +
+  theme(legend.position="bottom")
+
+autoplot(tpca_out, data=meta_out, x=3, y=4, colour="RNA", size=3) +
+  theme(legend.position="bottom")
+autoplot(tpca_out, data=meta_out, x=3, y=4, colour="disease_stage", size=3) +
+  theme(legend.position="bottom")
+autoplot(tpca_out, data=meta_out, x=3, y=4, colour="year", size=3) +
+  theme(legend.position="bottom")
+autoplot(tpca_out, data=meta_out, x=3, y=4, colour="molt", size=3) +
+  theme(legend.position="bottom")
+```
+
+
+### Genome
+#### PCA Original
+```{r}
+gdist <- dist(t(gcpm), method = "euclidean")
+gpca <- prcomp(t(tdist))
+autoplot(gpca, data=meta, shape=FALSE)
+```
+
+#### PCA w/o Outliers
+```{r}
+gcpm_out <- 
+  gcpm %>% 
+  select(!c(Hg1380, Hg862a, Hg1351))
+
+gdist_out <- dist(t(gcpm_out), method = "euclidean")
+gpca_out <- prcomp(t(gdist_out))
+autoplot(gpca_out, data=meta_out, shape=FALSE)
+
+autoplot(gpca_out, data=meta_out, colour="RNA", size=3) +
+  theme(legend.position="bottom")
+autoplot(gpca_out, data=meta_out, colour="disease_stage", size=3) +
+  theme(legend.position="bottom")
+autoplot(gpca_out, data=meta_out, colour="year", size=3) +
+  theme(legend.position="bottom")
+autoplot(gpca_out, data=meta_out, colour="molt", size=3) +
+  theme(legend.position="bottom")
+
+autoplot(gpca_out, data=meta_out, x=3, y=4, colour="RNA", size=3) +
+  theme(legend.position="bottom")
+autoplot(gpca_out, data=meta_out, x=3, y=4, colour="disease_stage", size=3) +
+  theme(legend.position="bottom")
+autoplot(gpca_out, data=meta_out, x=3, y=4, colour="year", size=3) +
+  theme(legend.position="bottom")
+autoplot(gpca_out, data=meta_out, x=3, y=4, colour="molt", size=3) +
+  theme(legend.position="bottom")
+```
+
+### Number of Reads
+#### Raw Reads
+```{r}
+treads <- 
+  traw %>% 
+  rownames_to_column(var="genes") %>% 
+  pivot_longer(!genes, names_to="sample", values_to="reads")
+
+ggplot(treads, aes(x=factor(sample, levels=colnames(tcpm)), y=log(reads))) +
+  geom_boxplot() +
+  theme(axis.text.x = element_text(angle=90))
+
+greads <- 
+  graw %>% 
+  rownames_to_column(var="genes") %>% 
+  pivot_longer(!genes, names_to="sample", values_to="reads")
+
+ggplot(greads, aes(x=factor(sample, levels=colnames(gcpm)), y=log(reads))) +
+  geom_boxplot() +
+  theme(axis.text.x = element_text(angle=90))
+```
+
+#### Read sum
+```{r}
+treadsum <- 
+  treads %>% 
+  group_by(sample) %>% 
+  summarize(totalreads=sum(reads))
+
+ggplot(treadsum, aes(x=factor(sample, levels=colnames(tcpm)), y=totalreads)) +
+  geom_col() +
+  theme(axis.text.x = element_text(angle=90))
+
+greadsum <- 
+  greads %>% 
+  group_by(sample) %>% 
+  summarize(totalreads=sum(reads))
+
+ggplot(greadsum, aes(x=factor(sample, levels=colnames(gcpm)), y=totalreads)) +
+  geom_col() +
+  theme(axis.text.x = element_text(angle=90))
+```
+
