@@ -1,0 +1,176 @@
+---
+output: html_document
+date: "2025-01-07"
+editor_options: 
+  chunk_output_type: console
+---
+
+# Downsample Late Group  to test # DEGs
+
+## Libraries
+```{r}
+library(tidyverse)
+library(edgeR)
+```
+
+## Data
+```{r}
+meta <- 
+   read.csv("Input Files/metadata.csv", 
+           stringsAsFactors = FALSE) %>% 
+  filter(!sex=="male")
+
+traw <- 
+  read.csv(file = "Output Files/txome_genecounts_locid_nohemo.csv", 
+                header = TRUE, 
+                row.names = 1) %>% 
+  select(meta$sample)
+
+graw <- 
+  read.csv(file = "Output Files/gnome_genecounts_locid_nohemo.csv", 
+                header = TRUE, 
+                row.names = 1) %>% 
+  select(meta$sample)
+```
+
+## Transcriptome 
+### Downsample & Loop
+```{r}
+# Set up results list
+  tresults <- 
+    setNames(vector('list', 100), 1:100)
+
+# Set seed for reproducibility
+  set.seed(2)
+
+for (i in 1:100) {
+# Subsample late individuals
+  late <- 
+    meta %>% 
+    filter(disease_stage=="late") %>% 
+    group_by(disease_stage) %>% 
+    sample_n(size=5) 
+
+# Create new metadata
+  meta_new <- 
+    meta %>% 
+    filter(!disease_stage=="late") %>% 
+    rbind(late)
+  
+# Create new count matrix
+  raw_new <- 
+    traw %>% 
+    select(meta_new$sample)
+
+# Create DGE Object
+  DGE <- DGEList(counts=raw_new, group=meta_new$disease_stage)
+
+# Filter out lowly expressed genes
+  keep <- filterByExpr(DGE)
+  DGE <- DGE[keep, , keep.lib.sizes=FALSE]
+
+# Normalize based on library sizes & calculate dispersion
+  DGE <- calcNormFactors(DGE)
+  DGE <- estimateCommonDisp(DGE)
+  DGE <- estimateTrendedDisp(DGE)
+  DGE <- estimateTagwiseDisp(DGE)
+
+# Test for DEGs
+  et_late <- exactTest(DGE, pair=c("control", "late"))
+
+# Select DEGs by fold change & pvalue
+  results_late <- 
+    topTags(et_late, n = dim(DGE)[1]) %>% 
+    data.frame() %>% 
+    filter(abs(logFC) > 1 & PValue < 0.05) %>% 
+    rownames_to_column(var="gene")
+
+# Save output to list
+  tresults[[i]] <- results_late$gene
+}
+
+tnum <- 
+  data.frame(
+    genes = lengths(tresults),
+    approach = "Transcriptome")
+```
+
+## Genome 
+### Downsample & Loop
+```{r}
+# Set up results list
+  gresults <- 
+    setNames(vector('list', 100), 1:100)
+
+# Set seed for reproducibility
+  set.seed(2)
+
+for (i in 1:100) {
+# Subsample late individuals
+  late <- 
+    meta %>% 
+    filter(disease_stage=="late") %>% 
+    group_by(disease_stage) %>% 
+    sample_n(size=5) 
+
+# Create new metadata
+  meta_new <- 
+    meta %>% 
+    filter(!disease_stage=="late") %>% 
+    rbind(late)
+  
+# Create new count matrix
+  raw_new <- 
+    graw %>% 
+    select(meta_new$sample)
+
+# Create DGE Object
+  DGE <- DGEList(counts=raw_new, group=meta_new$disease_stage)
+
+# Filter out lowly expressed genes
+  keep <- filterByExpr(DGE)
+  DGE <- DGE[keep, , keep.lib.sizes=FALSE]
+
+# Normalize based on library sizes & calculate dispersion
+  DGE <- calcNormFactors(DGE)
+  DGE <- estimateCommonDisp(DGE)
+  DGE <- estimateTrendedDisp(DGE)
+  DGE <- estimateTagwiseDisp(DGE)
+
+# Test for DEGs
+  et_late <- exactTest(DGE, pair=c("control", "late"))
+
+# Select DEGs by fold change & pvalue
+  results_late <- 
+    topTags(et_late, n = dim(DGE)[1]) %>% 
+    data.frame() %>% 
+    filter(abs(logFC) > 1 & PValue < 0.05) %>% 
+    rownames_to_column(var="gene")
+
+# Save output to list
+  gresults[[i]] <- results_late$gene
+}
+
+gnum <- 
+  data.frame(
+    genes = lengths(gresults),
+    approach = "Genome")
+```
+
+### Summarize # DEGs
+```{r}
+num <- 
+  rbind(tnum, gnum)
+
+num_plot <- 
+  ggplot(num, aes(x=approach, y=genes)) +
+  geom_boxplot() +
+  labs(x="Approach", y="Number of DEGs") +
+  scale_y_continuous(n.breaks=10) +
+  stat_summary(fun.y=mean, colour="black", geom="text", show_guide = FALSE, 
+               vjust=c(8,4.8), aes( label=round(..y.., digits=0))) +
+  theme_classic()
+num_plot
+ggsave(filename="Figures/supplemental_latedownsample.jpg", num_plot, width=4, height=4, units="in")
+```
+

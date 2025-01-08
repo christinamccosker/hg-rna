@@ -9,11 +9,12 @@ editor_options:
 
 # LOC Gene Identification
 
-## Load required libraries
+## Libraries
 ```{r, warning=FALSE, message=FALSE}
 library(tidyverse)
 library(Biostrings)
 library(BSgenome)
+library(gridExtra)
 ```
 
 ## Load data
@@ -24,7 +25,7 @@ txome_genes <-
 txome_map <- read.table("Input Files/txome_transcript-gene_map.txt", 
                         header=1)
 txome_seqs <- readDNAStringSet(
-  "C:/Users/christina_m/OneDrive - University of Maine System/hg-rna/txome_denovo_GG.okay_trim.txt", 
+  "C:/Users/Christina/OneDrive - University of Maine System/hg-rna/txome_denovo_GG.okay_trim.txt", 
                    format = "fasta", seek.first.rec = TRUE, use.names = TRUE)
 
 gnome_genes <- 
@@ -33,8 +34,13 @@ gnome_genes <-
 gnome_map <- read.table("Input Files/gnome_transcript-gene_map.txt", 
                         header=1)
 gnome_seqs <- readDNAStringSet(
-  "C:/Users/christina_m/OneDrive - University of Maine System/hg-rna/gnome_Transcript_Seqs_exons_trim.txt", 
+  "C:/Users/Christina/OneDrive - University of Maine System/hg-rna/gnome_Transcript_Seqs_exons_trim.txt", 
                                format = "fasta", seek.first.rec = TRUE, use.names = TRUE)
+
+meta <- 
+  read.csv("Input Files/metadata.csv") %>% 
+  mutate(rna=ifelse(disease_stage=="acute", "Virus+", 
+                    ifelse(disease_stage=="peak", "Virus+", "Virus-")))
 ```
 
 
@@ -300,15 +306,82 @@ gnome_genes_update <-
   aggregate(. ~ gene, sum)
 ```
 
-
-## Remove hemoglobin genes
+## Hemoglobin
+### Extract hemoglobin genes
 Hemoglobin genes identified from Harrington et al. 2020 (suppl table 1) and from NCBI gray seal gene search for "hemoglobin"
 ```{r}
 hemoglobin_genes <-
   c("HBA1", "HBA2", "HBB", "HBBP1", "HBD", "HBE1", "HBG1", "HBG2", "HBM", "HBQ1",
     "HBZ", "HBZP1","AHSP", "RHEX", "LOC118528782", "LOC118528783", "LOC118528784", 
     "LOC118528786", "LOC118528797", "LOC118530184", "LOC118530187")
+```
 
+### Prop of total gene counts
+```{r}
+t_all <- 
+  txome_genes_update %>% 
+  pivot_longer(!gene, names_to="sample", values_to="expression") %>% 
+  group_by(sample) %>% 
+  summarise(total=sum(expression))
+
+g_all <-
+  gnome_genes_update %>% 
+  pivot_longer(!gene, names_to="sample", values_to="expression") %>% 
+  group_by(sample) %>% 
+  summarise(total=sum(expression))
+
+t_hemo <- 
+  txome_genes_update %>% 
+  filter(gene %in% hemoglobin_genes) %>%
+  pivot_longer(!gene, names_to="sample", values_to="expression") %>% 
+  group_by(sample) %>% 
+  summarise(hemoglobin=sum(expression)) %>% 
+  merge(., t_all, by="sample") %>% 
+  mutate(Transcriptome = (hemoglobin/total)*100)
+
+g_hemo <- 
+  gnome_genes_update %>% 
+  filter(gene %in% hemoglobin_genes) %>% 
+  pivot_longer(!gene, names_to="sample", values_to="expression") %>% 
+  group_by(sample) %>% 
+  summarise(hemoglobin=sum(expression)) %>% 
+  merge(., g_all, by="sample") %>% 
+  mutate(Genome = (hemoglobin/total)*100)
+
+hemo_plotdata <-
+  merge(t_hemo, g_hemo, by="sample") %>% 
+  select(sample, Transcriptome, Genome) %>% 
+  pivot_longer(!sample, names_to="approach", values_to="prop") %>% 
+  merge(., meta, by="sample") %>% 
+  mutate(approach=factor(approach, levels=c("Transcriptome", "Genome")),
+         disease_stage=factor(disease_stage, levels=c("control", "acute", "peak", "late")),
+         rna=factor(rna, levels=c("Virus-", "Virus+")))
+
+hemo_plot1 <- 
+  ggplot(hemo_plotdata, aes(x=rna, y=prop)) +
+  geom_boxplot() +
+  facet_grid(~approach) +
+  labs(x="Influenza Viral RNA Status", y=NULL) +
+  theme_bw() +
+  theme(panel.grid=element_blank())
+
+hemo_plot2 <-
+  ggplot(hemo_plotdata, aes(x=disease_stage, y=prop)) +
+  geom_boxplot() +
+  facet_grid(~approach) +
+  labs(x="Influenza Stage", y=NULL) +
+  scale_x_discrete(labels=c("Control", "Acute", "Peak", "Late")) +
+  theme_bw() +
+  theme(panel.grid=element_blank())
+
+hemo_plot <-
+  grid.arrange(hemo_plot1, hemo_plot2, ncol=1, left="Proportion of Hemoglobin Reads")
+
+ggsave("Figures/supplemental_hemoplot.jpg", hemo_plot, width=5, height=6, units="in")
+```
+
+### Remove hemoglobin genes
+```{r}
 txome_hemo <- 
   txome_genes_update %>% 
   filter(!gene %in% hemoglobin_genes)
@@ -318,8 +391,7 @@ gnome_hemo <-
   filter(!gene %in% hemoglobin_genes)
 ```
 
-
-## Export new gene count matrices 
+### Export new gene count matrices 
 ```{r}
 write.csv(txome_hemo, "Output Files/txome_genecounts_locid_nohemo.csv", row.names=FALSE)
 write.csv(gnome_hemo, "Output Files/gnome_genecounts_locid_nohemo.csv", row.names=FALSE)
