@@ -1,5 +1,5 @@
 --- 
-title: "insert title"
+title: Molecular mechanisms underlying response to influenza in grey seals (*Halichoerus grypus*), a potential wild reservoir
 date: 'Last Updated: `r Sys.Date()`'
 description: McCosker Dissertation Chapter 1 Statistical Analyses
 site: bookdown::bookdown_site
@@ -10,10 +10,14 @@ suppresss-bibliography: true
 # Publication Information
 
 ## Authors 
-Christina McCosker^1^, Ebru Unal, Wendy Puryear^3^, Jon Runstadler^3^, Kimberly Murray^4^, Kristina M. Cammen^1^  
+Christina M. McCosker^1^, Ebru Unal^2,3^, Alayna Gigliotti^1^, Wendy B. Puryear^4^, Jonathan A. Runstadler^4^, Kimberly T. Murray^5^, Benjamin L. King^6^, Kristina M. Cammen^1^  
+
 *^1^School of Marine Sciences, University of Maine, Orono, ME, USA*  
-*^3^ Cummings School of Veterinary Medicine, Tufts University, North Grafton, MA, USA*  
-*^4^ NOAA Northeast Fisheries Science Center, Woods Hole, MA, USA*  
+*^2^Mystic Aquarium, Mystic, CT, USA*  
+*^3^Department of Marine Sciences, University of Connecticut, Groton, CT, USA*  
+*^4^ Cummings School of Veterinary Medicine, Tufts University, North Grafton, MA, USA*   
+*^5^ NOAA Northeast Fisheries Science Center, Woods Hole, MA, USA*  
+*^6^ Department of Molecular and Biomedical Sciences, University of Maine, Orono, ME, USA*  
 
 ## Abstract
 xxx

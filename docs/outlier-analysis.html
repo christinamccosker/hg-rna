@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>10 Outlier Analysis | Untitled</title>
+  <meta name="description" content="McCosker Dissertation Chapter 1 Statistical Analyses" />
+  <meta name="generator" content="bookdown 0.42 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="10 Outlier Analysis | Untitled" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="McCosker Dissertation Chapter 1 Statistical Analyses" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="10 Outlier Analysis | Untitled" />
+  
+  <meta name="twitter:description" content="McCosker Dissertation Chapter 1 Statistical Analyses" />
+  
+
+<meta name="author" content="Christina McCosker" />
+
+
+<meta name="date" content="2025-01-07" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="iav-kegg-pathway-candidate-gene-analysis.html"/>
+<link rel="next" href="downsample-late-group-to-test-degs.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Hg-RNA Stats</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Publication Information</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#authors"><i class="fa fa-check"></i><b>1.1</b> Authors</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#abstract"><i class="fa fa-check"></i><b>1.2</b> Abstract</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="loc-gene-identification.html"><a href="loc-gene-identification.html"><i class="fa fa-check"></i><b>2</b> LOC Gene Identification</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="loc-gene-identification.html"><a href="loc-gene-identification.html#libraries"><i class="fa fa-check"></i><b>2.1</b> Libraries</a></li>
+<li class="chapter" data-level="2.2" data-path="loc-gene-identification.html"><a href="loc-gene-identification.html#load-data"><i class="fa fa-check"></i><b>2.2</b> Load data</a></li>
+<li class="chapter" data-level="2.3" data-path="loc-gene-identification.html"><a href="loc-gene-identification.html#extract-gene-sequences"><i class="fa fa-check"></i><b>2.3</b> Extract gene sequences</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="loc-gene-identification.html"><a href="loc-gene-identification.html#extract-loc-genes-from-gene-count-matrices"><i class="fa fa-check"></i><b>2.3.1</b> Extract LOC genes from gene count matrices</a></li>
+<li class="chapter" data-level="2.3.2" data-path="loc-gene-identification.html"><a href="loc-gene-identification.html#extract-transcript-ids-for-all-sequence-ids"><i class="fa fa-check"></i><b>2.3.2</b> Extract transcript IDs for all sequence IDs</a></li>
+<li class="chapter" data-level="2.3.3" data-path="loc-gene-identification.html"><a href="loc-gene-identification.html#extract-transcript-sequences-for-blast"><i class="fa fa-check"></i><b>2.3.3</b> Extract transcript sequences for blast</a></li>
+<li class="chapter" data-level="2.3.4" data-path="loc-gene-identification.html"><a href="loc-gene-identification.html#export-sequences"><i class="fa fa-check"></i><b>2.3.4</b> Export sequences</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="loc-gene-identification.html"><a href="loc-gene-identification.html#blast-sequences"><i class="fa fa-check"></i><b>2.4</b> Blast sequences</a></li>
+<li class="chapter" data-level="2.5" data-path="loc-gene-identification.html"><a href="loc-gene-identification.html#process-blastn-results"><i class="fa fa-check"></i><b>2.5</b> Process BLASTn Results</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="loc-gene-identification.html"><a href="loc-gene-identification.html#transcriptome"><i class="fa fa-check"></i><b>2.5.1</b> Transcriptome</a></li>
+<li class="chapter" data-level="2.5.2" data-path="loc-gene-identification.html"><a href="loc-gene-identification.html#genome"><i class="fa fa-check"></i><b>2.5.2</b> Genome</a></li>
+<li class="chapter" data-level="2.5.3" data-path="loc-gene-identification.html"><a href="loc-gene-identification.html#combine-transcriptome-genome-blast-results"><i class="fa fa-check"></i><b>2.5.3</b> Combine Transcriptome &amp; Genome Blast Results</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="loc-gene-identification.html"><a href="loc-gene-identification.html#combine-with-prior-loc-id-master-list"><i class="fa fa-check"></i><b>2.6</b> Combine with prior LOC ID master list</a></li>
+<li class="chapter" data-level="2.7" data-path="loc-gene-identification.html"><a href="loc-gene-identification.html#update-tidy-gene-count-matrices"><i class="fa fa-check"></i><b>2.7</b> Update &amp; tidy gene count matrices</a></li>
+<li class="chapter" data-level="2.8" data-path="loc-gene-identification.html"><a href="loc-gene-identification.html#hemoglobin"><i class="fa fa-check"></i><b>2.8</b> Hemoglobin</a>
+<ul>
+<li class="chapter" data-level="2.8.1" data-path="loc-gene-identification.html"><a href="loc-gene-identification.html#extract-hemoglobin-genes"><i class="fa fa-check"></i><b>2.8.1</b> Extract hemoglobin genes</a></li>
+<li class="chapter" data-level="2.8.2" data-path="loc-gene-identification.html"><a href="loc-gene-identification.html#prop-of-total-gene-counts"><i class="fa fa-check"></i><b>2.8.2</b> Prop of total gene counts</a></li>
+<li class="chapter" data-level="2.8.3" data-path="loc-gene-identification.html"><a href="loc-gene-identification.html#remove-hemoglobin-genes"><i class="fa fa-check"></i><b>2.8.3</b> Remove hemoglobin genes</a></li>
+<li class="chapter" data-level="2.8.4" data-path="loc-gene-identification.html"><a href="loc-gene-identification.html#export-new-gene-count-matrices"><i class="fa fa-check"></i><b>2.8.4</b> Export new gene count matrices</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="male-v-female-dge.html"><a href="male-v-female-dge.html"><i class="fa fa-check"></i><b>3</b> Male v Female DGE</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="male-v-female-dge.html"><a href="male-v-female-dge.html#transcriptome---edger"><i class="fa fa-check"></i><b>3.1</b> Transcriptome - edgeR</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="male-v-female-dge.html"><a href="male-v-female-dge.html#libraries-1"><i class="fa fa-check"></i><b>3.1.1</b> Libraries</a></li>
+<li class="chapter" data-level="3.1.2" data-path="male-v-female-dge.html"><a href="male-v-female-dge.html#data"><i class="fa fa-check"></i><b>3.1.2</b> Data</a></li>
+<li class="chapter" data-level="3.1.3" data-path="male-v-female-dge.html"><a href="male-v-female-dge.html#differential-gene-expression-analysis"><i class="fa fa-check"></i><b>3.1.3</b> Differential Gene Expression Analysis</a></li>
+<li class="chapter" data-level="3.1.4" data-path="male-v-female-dge.html"><a href="male-v-female-dge.html#exploratory-plots"><i class="fa fa-check"></i><b>3.1.4</b> Exploratory Plots</a></li>
+<li class="chapter" data-level="3.1.5" data-path="male-v-female-dge.html"><a href="male-v-female-dge.html#test-for-degs"><i class="fa fa-check"></i><b>3.1.5</b> Test for DEGs</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="male-v-female-dge.html"><a href="male-v-female-dge.html#genome---edger"><i class="fa fa-check"></i><b>3.2</b> Genome - edgeR</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="male-v-female-dge.html"><a href="male-v-female-dge.html#libraries-2"><i class="fa fa-check"></i><b>3.2.1</b> Libraries</a></li>
+<li class="chapter" data-level="3.2.2" data-path="male-v-female-dge.html"><a href="male-v-female-dge.html#data-1"><i class="fa fa-check"></i><b>3.2.2</b> Data</a></li>
+<li class="chapter" data-level="3.2.3" data-path="male-v-female-dge.html"><a href="male-v-female-dge.html#differential-gene-expression-analysis-1"><i class="fa fa-check"></i><b>3.2.3</b> Differential Gene Expression Analysis</a></li>
+<li class="chapter" data-level="3.2.4" data-path="male-v-female-dge.html"><a href="male-v-female-dge.html#exploratory-plots-1"><i class="fa fa-check"></i><b>3.2.4</b> Exploratory Plots</a></li>
+<li class="chapter" data-level="3.2.5" data-path="male-v-female-dge.html"><a href="male-v-female-dge.html#test-for-degs-1"><i class="fa fa-check"></i><b>3.2.5</b> Test for DEGs</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html"><i class="fa fa-check"></i><b>4</b> Virus+ vs Virus- DGE</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#transcriptome---edger---females"><i class="fa fa-check"></i><b>4.1</b> Transcriptome - edgeR - Females</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#libraries-3"><i class="fa fa-check"></i><b>4.1.1</b> Libraries</a></li>
+<li class="chapter" data-level="4.1.2" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#data-2"><i class="fa fa-check"></i><b>4.1.2</b> Data</a></li>
+<li class="chapter" data-level="4.1.3" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#differential-gene-expression-analysis-2"><i class="fa fa-check"></i><b>4.1.3</b> Differential Gene Expression Analysis</a></li>
+<li class="chapter" data-level="4.1.4" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#exploratory-plots-2"><i class="fa fa-check"></i><b>4.1.4</b> Exploratory Plots</a></li>
+<li class="chapter" data-level="4.1.5" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#test-for-degs-2"><i class="fa fa-check"></i><b>4.1.5</b> Test for DEGs</a></li>
+<li class="chapter" data-level="4.1.6" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#go-enrichment-analysis"><i class="fa fa-check"></i><b>4.1.6</b> GO Enrichment Analysis</a></li>
+<li class="chapter" data-level="4.1.7" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#kegg-analysis"><i class="fa fa-check"></i><b>4.1.7</b> KEGG Analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#genome---edger---females"><i class="fa fa-check"></i><b>4.2</b> Genome - edgeR - Females</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#libraries-4"><i class="fa fa-check"></i><b>4.2.1</b> Libraries</a></li>
+<li class="chapter" data-level="4.2.2" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#data-3"><i class="fa fa-check"></i><b>4.2.2</b> Data</a></li>
+<li class="chapter" data-level="4.2.3" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#differential-gene-expression-analysis-3"><i class="fa fa-check"></i><b>4.2.3</b> Differential Gene Expression Analysis</a></li>
+<li class="chapter" data-level="4.2.4" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#exploratory-plots-3"><i class="fa fa-check"></i><b>4.2.4</b> Exploratory Plots</a></li>
+<li class="chapter" data-level="4.2.5" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#test-for-degs-3"><i class="fa fa-check"></i><b>4.2.5</b> Test for DEGs</a></li>
+<li class="chapter" data-level="4.2.6" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#go-enrichment-analysis-1"><i class="fa fa-check"></i><b>4.2.6</b> GO Enrichment Analysis</a></li>
+<li class="chapter" data-level="4.2.7" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#kegg-analysis-1"><i class="fa fa-check"></i><b>4.2.7</b> KEGG Analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#transcriptome-null-set---edger---females"><i class="fa fa-check"></i><b>4.3</b> Transcriptome Null Set - edgeR - Females</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#libraries-5"><i class="fa fa-check"></i><b>4.3.1</b> Libraries</a></li>
+<li class="chapter" data-level="4.3.2" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#data-4"><i class="fa fa-check"></i><b>4.3.2</b> Data</a></li>
+<li class="chapter" data-level="4.3.3" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#loop-differential-gene-expression-analysis"><i class="fa fa-check"></i><b>4.3.3</b> Loop Differential Gene Expression Analysis</a></li>
+<li class="chapter" data-level="4.3.4" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#go-enrichment-analysis-2"><i class="fa fa-check"></i><b>4.3.4</b> GO Enrichment Analysis</a></li>
+<li class="chapter" data-level="4.3.5" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#kegg-analysis-2"><i class="fa fa-check"></i><b>4.3.5</b> KEGG Analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#genome-null-set---edger---females"><i class="fa fa-check"></i><b>4.4</b> Genome Null Set - edgeR - Females</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#libraries-6"><i class="fa fa-check"></i><b>4.4.1</b> Libraries</a></li>
+<li class="chapter" data-level="4.4.2" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#data-5"><i class="fa fa-check"></i><b>4.4.2</b> Data</a></li>
+<li class="chapter" data-level="4.4.3" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#loop-differential-gene-expression-analysis-1"><i class="fa fa-check"></i><b>4.4.3</b> Loop Differential Gene Expression Analysis</a></li>
+<li class="chapter" data-level="4.4.4" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#go-enrichment-analysis-3"><i class="fa fa-check"></i><b>4.4.4</b> GO Enrichment Analysis</a></li>
+<li class="chapter" data-level="4.4.5" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#kegg-analysis-3"><i class="fa fa-check"></i><b>4.4.5</b> KEGG Analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#refine-gokegg"><i class="fa fa-check"></i><b>4.5</b> Refine GO/KEGG</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#libraries-7"><i class="fa fa-check"></i><b>4.5.1</b> Libraries</a></li>
+<li class="chapter" data-level="4.5.2" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#data-6"><i class="fa fa-check"></i><b>4.5.2</b> Data</a></li>
+<li class="chapter" data-level="4.5.3" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#transcriptome-1"><i class="fa fa-check"></i><b>4.5.3</b> Transcriptome</a></li>
+<li class="chapter" data-level="4.5.4" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#genome-1"><i class="fa fa-check"></i><b>4.5.4</b> Genome</a></li>
+<li class="chapter" data-level="4.5.5" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#go-term-figure"><i class="fa fa-check"></i><b>4.5.5</b> GO Term Figure</a></li>
+<li class="chapter" data-level="4.5.6" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#immunne-go-term-genes"><i class="fa fa-check"></i><b>4.5.6</b> Immunne GO term Genes</a></li>
+<li class="chapter" data-level="4.5.7" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#kegg-table---manuscript"><i class="fa fa-check"></i><b>4.5.7</b> KEGG Table - Manuscript</a></li>
+<li class="chapter" data-level="4.5.8" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#supplemental-table"><i class="fa fa-check"></i><b>4.5.8</b> Supplemental Table</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html"><i class="fa fa-check"></i><b>5</b> Influenza Stage DGE</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#transcriptome---edger---females-1"><i class="fa fa-check"></i><b>5.1</b> Transcriptome - edgeR - Females</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#libraries-8"><i class="fa fa-check"></i><b>5.1.1</b> Libraries</a></li>
+<li class="chapter" data-level="5.1.2" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#data-7"><i class="fa fa-check"></i><b>5.1.2</b> Data</a></li>
+<li class="chapter" data-level="5.1.3" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#differential-gene-expression-analysis-4"><i class="fa fa-check"></i><b>5.1.3</b> Differential Gene Expression Analysis</a></li>
+<li class="chapter" data-level="5.1.4" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#exploratory-plots-4"><i class="fa fa-check"></i><b>5.1.4</b> Exploratory Plots</a></li>
+<li class="chapter" data-level="5.1.5" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#test-for-degs-4"><i class="fa fa-check"></i><b>5.1.5</b> Test for DEGs</a></li>
+<li class="chapter" data-level="5.1.6" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#go-enrichment-analysis-4"><i class="fa fa-check"></i><b>5.1.6</b> GO Enrichment Analysis</a></li>
+<li class="chapter" data-level="5.1.7" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#kegg-analysis-4"><i class="fa fa-check"></i><b>5.1.7</b> KEGG Analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#genome---edger---females-1"><i class="fa fa-check"></i><b>5.2</b> Genome - edgeR - Females</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#libraries-9"><i class="fa fa-check"></i><b>5.2.1</b> Libraries</a></li>
+<li class="chapter" data-level="5.2.2" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#data-8"><i class="fa fa-check"></i><b>5.2.2</b> Data</a></li>
+<li class="chapter" data-level="5.2.3" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#differential-gene-expression-analysis-5"><i class="fa fa-check"></i><b>5.2.3</b> Differential Gene Expression Analysis</a></li>
+<li class="chapter" data-level="5.2.4" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#exploratory-plots-5"><i class="fa fa-check"></i><b>5.2.4</b> Exploratory Plots</a></li>
+<li class="chapter" data-level="5.2.5" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#test-for-degs-5"><i class="fa fa-check"></i><b>5.2.5</b> Test for DEGs</a></li>
+<li class="chapter" data-level="5.2.6" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#go-enrichment-analysis-5"><i class="fa fa-check"></i><b>5.2.6</b> GO Enrichment Analysis</a></li>
+<li class="chapter" data-level="5.2.7" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#kegg-analysis-5"><i class="fa fa-check"></i><b>5.2.7</b> KEGG Analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#comapre-t-g-approach---edger---females"><i class="fa fa-check"></i><b>5.3</b> Comapre T &amp; G Approach - edgeR - Females</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#libraries-10"><i class="fa fa-check"></i><b>5.3.1</b> Libraries</a></li>
+<li class="chapter" data-level="5.3.2" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#data-9"><i class="fa fa-check"></i><b>5.3.2</b> Data</a></li>
+<li class="chapter" data-level="5.3.3" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#number-of-up-down-reg-genes"><i class="fa fa-check"></i><b>5.3.3</b> Number of up &amp; down reg genes</a></li>
+<li class="chapter" data-level="5.3.4" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#gene-identities"><i class="fa fa-check"></i><b>5.3.4</b> Gene identities</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#transcriptome-null-set---edger---females-1"><i class="fa fa-check"></i><b>5.4</b> Transcriptome Null Set - edgeR - Females</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#libraries-11"><i class="fa fa-check"></i><b>5.4.1</b> Libraries</a></li>
+<li class="chapter" data-level="5.4.2" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#data-10"><i class="fa fa-check"></i><b>5.4.2</b> Data</a></li>
+<li class="chapter" data-level="5.4.3" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#loop-differential-gene-expression-analysis-2"><i class="fa fa-check"></i><b>5.4.3</b> Loop Differential Gene Expression Analysis</a></li>
+<li class="chapter" data-level="5.4.4" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#go-enrichment-analysis-6"><i class="fa fa-check"></i><b>5.4.4</b> GO Enrichment Analysis</a></li>
+<li class="chapter" data-level="5.4.5" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#kegg-analysis-6"><i class="fa fa-check"></i><b>5.4.5</b> KEGG Analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#genome-null-set---edger---females-1"><i class="fa fa-check"></i><b>5.5</b> Genome Null Set - edgeR - Females</a>
+<ul>
+<li class="chapter" data-level="5.5.1" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#libraries-12"><i class="fa fa-check"></i><b>5.5.1</b> Libraries</a></li>
+<li class="chapter" data-level="5.5.2" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#data-11"><i class="fa fa-check"></i><b>5.5.2</b> Data</a></li>
+<li class="chapter" data-level="5.5.3" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#loop-differential-gene-expression-analysis-3"><i class="fa fa-check"></i><b>5.5.3</b> Loop Differential Gene Expression Analysis</a></li>
+<li class="chapter" data-level="5.5.4" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#go-enrichment-analysis-7"><i class="fa fa-check"></i><b>5.5.4</b> GO Enrichment Analysis</a></li>
+<li class="chapter" data-level="5.5.5" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#kegg-analysis-7"><i class="fa fa-check"></i><b>5.5.5</b> KEGG Analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="5.6" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#refine-gokegg-1"><i class="fa fa-check"></i><b>5.6</b> Refine GO/KEGG</a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#libraries-13"><i class="fa fa-check"></i><b>5.6.1</b> Libraries</a></li>
+<li class="chapter" data-level="5.6.2" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#data-12"><i class="fa fa-check"></i><b>5.6.2</b> Data</a></li>
+<li class="chapter" data-level="5.6.3" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#transcriptome-2"><i class="fa fa-check"></i><b>5.6.3</b> Transcriptome</a></li>
+<li class="chapter" data-level="5.6.4" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#genome-2"><i class="fa fa-check"></i><b>5.6.4</b> Genome</a></li>
+<li class="chapter" data-level="5.6.5" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#go-term-figure-1"><i class="fa fa-check"></i><b>5.6.5</b> GO Term Figure</a></li>
+<li class="chapter" data-level="5.6.6" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#supplemental-table-1"><i class="fa fa-check"></i><b>5.6.6</b> Supplemental Table</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="supplemental-null-set-exploratory-statistics.html"><a href="supplemental-null-set-exploratory-statistics.html"><i class="fa fa-check"></i><b>6</b> Supplemental Null Set Exploratory Statistics</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="supplemental-null-set-exploratory-statistics.html"><a href="supplemental-null-set-exploratory-statistics.html#libaries"><i class="fa fa-check"></i><b>6.1</b> Libaries</a></li>
+<li class="chapter" data-level="6.2" data-path="supplemental-null-set-exploratory-statistics.html"><a href="supplemental-null-set-exploratory-statistics.html#number-of-degs"><i class="fa fa-check"></i><b>6.2</b> Number of DEGs</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="supplemental-null-set-exploratory-statistics.html"><a href="supplemental-null-set-exploratory-statistics.html#data-13"><i class="fa fa-check"></i><b>6.2.1</b> Data</a></li>
+<li class="chapter" data-level="6.2.2" data-path="supplemental-null-set-exploratory-statistics.html"><a href="supplemental-null-set-exploratory-statistics.html#quick-stats"><i class="fa fa-check"></i><b>6.2.2</b> Quick Stats</a></li>
+<li class="chapter" data-level="6.2.3" data-path="supplemental-null-set-exploratory-statistics.html"><a href="supplemental-null-set-exploratory-statistics.html#plot-1"><i class="fa fa-check"></i><b>6.2.3</b> Plot</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="supplemental-null-set-exploratory-statistics.html"><a href="supplemental-null-set-exploratory-statistics.html#deg-frequency"><i class="fa fa-check"></i><b>6.3</b> DEG Frequency</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="supplemental-null-set-exploratory-statistics.html"><a href="supplemental-null-set-exploratory-statistics.html#data-14"><i class="fa fa-check"></i><b>6.3.1</b> Data</a></li>
+<li class="chapter" data-level="6.3.2" data-path="supplemental-null-set-exploratory-statistics.html"><a href="supplemental-null-set-exploratory-statistics.html#quick-stats-1"><i class="fa fa-check"></i><b>6.3.2</b> Quick Stats</a></li>
+<li class="chapter" data-level="6.3.3" data-path="supplemental-null-set-exploratory-statistics.html"><a href="supplemental-null-set-exploratory-statistics.html#plot-2"><i class="fa fa-check"></i><b>6.3.3</b> Plot</a></li>
+<li class="chapter" data-level="6.3.4" data-path="supplemental-null-set-exploratory-statistics.html"><a href="supplemental-null-set-exploratory-statistics.html#combine-gene-number-frequency-plots"><i class="fa fa-check"></i><b>6.3.4</b> Combine gene number &amp; frequency plots</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="supplemental-null-set-exploratory-statistics.html"><a href="supplemental-null-set-exploratory-statistics.html#number-of-go-terms"><i class="fa fa-check"></i><b>6.4</b> Number of GO terms</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="supplemental-null-set-exploratory-statistics.html"><a href="supplemental-null-set-exploratory-statistics.html#data---import-configure"><i class="fa fa-check"></i><b>6.4.1</b> Data - Import &amp; Configure</a></li>
+<li class="chapter" data-level="6.4.2" data-path="supplemental-null-set-exploratory-statistics.html"><a href="supplemental-null-set-exploratory-statistics.html#plot-3"><i class="fa fa-check"></i><b>6.4.2</b> Plot</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="supplemental-null-set-exploratory-statistics.html"><a href="supplemental-null-set-exploratory-statistics.html#number-of-kegg-pathways"><i class="fa fa-check"></i><b>6.5</b> Number of KEGG Pathways</a>
+<ul>
+<li class="chapter" data-level="6.5.1" data-path="supplemental-null-set-exploratory-statistics.html"><a href="supplemental-null-set-exploratory-statistics.html#data-15"><i class="fa fa-check"></i><b>6.5.1</b> Data</a></li>
+<li class="chapter" data-level="6.5.2" data-path="supplemental-null-set-exploratory-statistics.html"><a href="supplemental-null-set-exploratory-statistics.html#plot-4"><i class="fa fa-check"></i><b>6.5.2</b> Plot</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="influenza-dge-deseq2.html"><a href="influenza-dge-deseq2.html"><i class="fa fa-check"></i><b>7</b> Influenza DGE DESeq2</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="influenza-dge-deseq2.html"><a href="influenza-dge-deseq2.html#transcriptome---deseq2---females"><i class="fa fa-check"></i><b>7.1</b> Transcriptome - DESeq2 - Females</a>
+<ul>
+<li class="chapter" data-level="7.1.1" data-path="influenza-dge-deseq2.html"><a href="influenza-dge-deseq2.html#libraries-14"><i class="fa fa-check"></i><b>7.1.1</b> Libraries</a></li>
+<li class="chapter" data-level="7.1.2" data-path="influenza-dge-deseq2.html"><a href="influenza-dge-deseq2.html#data-16"><i class="fa fa-check"></i><b>7.1.2</b> Data</a></li>
+<li class="chapter" data-level="7.1.3" data-path="influenza-dge-deseq2.html"><a href="influenza-dge-deseq2.html#viral-rna"><i class="fa fa-check"></i><b>7.1.3</b> Viral RNA</a></li>
+<li class="chapter" data-level="7.1.4" data-path="influenza-dge-deseq2.html"><a href="influenza-dge-deseq2.html#influenza-stage"><i class="fa fa-check"></i><b>7.1.4</b> Influenza Stage</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="influenza-dge-deseq2.html"><a href="influenza-dge-deseq2.html#genome---deseq2---females"><i class="fa fa-check"></i><b>7.2</b> Genome - DESeq2 - Females</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="influenza-dge-deseq2.html"><a href="influenza-dge-deseq2.html#libraries-15"><i class="fa fa-check"></i><b>7.2.1</b> Libraries</a></li>
+<li class="chapter" data-level="7.2.2" data-path="influenza-dge-deseq2.html"><a href="influenza-dge-deseq2.html#data-17"><i class="fa fa-check"></i><b>7.2.2</b> Data</a></li>
+<li class="chapter" data-level="7.2.3" data-path="influenza-dge-deseq2.html"><a href="influenza-dge-deseq2.html#viral-rna-1"><i class="fa fa-check"></i><b>7.2.3</b> Viral RNA</a></li>
+<li class="chapter" data-level="7.2.4" data-path="influenza-dge-deseq2.html"><a href="influenza-dge-deseq2.html#influenza-stage-1"><i class="fa fa-check"></i><b>7.2.4</b> Influenza Stage</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="r-package-comparison---edger-vs-deseq2.html"><a href="r-package-comparison---edger-vs-deseq2.html"><i class="fa fa-check"></i><b>8</b> R Package Comparison - edgeR vs DESeq2</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="r-package-comparison---edger-vs-deseq2.html"><a href="r-package-comparison---edger-vs-deseq2.html#libraries-16"><i class="fa fa-check"></i><b>8.1</b> Libraries</a></li>
+<li class="chapter" data-level="8.2" data-path="r-package-comparison---edger-vs-deseq2.html"><a href="r-package-comparison---edger-vs-deseq2.html#data-18"><i class="fa fa-check"></i><b>8.2</b> Data</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="r-package-comparison---edger-vs-deseq2.html"><a href="r-package-comparison---edger-vs-deseq2.html#metadata"><i class="fa fa-check"></i><b>8.2.1</b> Metadata</a></li>
+<li class="chapter" data-level="8.2.2" data-path="r-package-comparison---edger-vs-deseq2.html"><a href="r-package-comparison---edger-vs-deseq2.html#results-from-dge-testing"><i class="fa fa-check"></i><b>8.2.2</b> Results from DGE testing</a></li>
+<li class="chapter" data-level="8.2.3" data-path="r-package-comparison---edger-vs-deseq2.html"><a href="r-package-comparison---edger-vs-deseq2.html#differentially-expressed-genes-only"><i class="fa fa-check"></i><b>8.2.3</b> Differentially expressed genes only</a></li>
+<li class="chapter" data-level="8.2.4" data-path="r-package-comparison---edger-vs-deseq2.html"><a href="r-package-comparison---edger-vs-deseq2.html#pre-filter-lists"><i class="fa fa-check"></i><b>8.2.4</b> Pre-filter lists</a></li>
+<li class="chapter" data-level="8.2.5" data-path="r-package-comparison---edger-vs-deseq2.html"><a href="r-package-comparison---edger-vs-deseq2.html#normalized-gene-counts"><i class="fa fa-check"></i><b>8.2.5</b> Normalized gene counts</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="r-package-comparison---edger-vs-deseq2.html"><a href="r-package-comparison---edger-vs-deseq2.html#edger-vs-deseq2"><i class="fa fa-check"></i><b>8.3</b> edgeR vs DESeq2</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="r-package-comparison---edger-vs-deseq2.html"><a href="r-package-comparison---edger-vs-deseq2.html#number-of-pre-vs-post-filter-genes"><i class="fa fa-check"></i><b>8.3.1</b> Number of Pre vs Post Filter Genes</a></li>
+<li class="chapter" data-level="8.3.2" data-path="r-package-comparison---edger-vs-deseq2.html"><a href="r-package-comparison---edger-vs-deseq2.html#merge-results"><i class="fa fa-check"></i><b>8.3.2</b> Merge results</a></li>
+<li class="chapter" data-level="8.3.3" data-path="r-package-comparison---edger-vs-deseq2.html"><a href="r-package-comparison---edger-vs-deseq2.html#p-value"><i class="fa fa-check"></i><b>8.3.3</b> p-value</a></li>
+<li class="chapter" data-level="8.3.4" data-path="r-package-comparison---edger-vs-deseq2.html"><a href="r-package-comparison---edger-vs-deseq2.html#logfc"><i class="fa fa-check"></i><b>8.3.4</b> log(FC)</a></li>
+<li class="chapter" data-level="8.3.5" data-path="r-package-comparison---edger-vs-deseq2.html"><a href="r-package-comparison---edger-vs-deseq2.html#log-mean-expression"><i class="fa fa-check"></i><b>8.3.5</b> log mean expression</a></li>
+<li class="chapter" data-level="8.3.6" data-path="r-package-comparison---edger-vs-deseq2.html"><a href="r-package-comparison---edger-vs-deseq2.html#dge-explortory-stats"><i class="fa fa-check"></i><b>8.3.6</b> DGE explortory stats</a></li>
+<li class="chapter" data-level="8.3.7" data-path="r-package-comparison---edger-vs-deseq2.html"><a href="r-package-comparison---edger-vs-deseq2.html#method-gene-ids"><i class="fa fa-check"></i><b>8.3.7</b> Method Gene IDs</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="r-package-comparison---edger-vs-deseq2.html"><a href="r-package-comparison---edger-vs-deseq2.html#transcriptome-vs-genome"><i class="fa fa-check"></i><b>8.4</b> Transcriptome vs Genome</a>
+<ul>
+<li class="chapter" data-level="8.4.1" data-path="r-package-comparison---edger-vs-deseq2.html"><a href="r-package-comparison---edger-vs-deseq2.html#merge-results-1"><i class="fa fa-check"></i><b>8.4.1</b> Merge results</a></li>
+<li class="chapter" data-level="8.4.2" data-path="r-package-comparison---edger-vs-deseq2.html"><a href="r-package-comparison---edger-vs-deseq2.html#p-value-1"><i class="fa fa-check"></i><b>8.4.2</b> p-value</a></li>
+<li class="chapter" data-level="8.4.3" data-path="r-package-comparison---edger-vs-deseq2.html"><a href="r-package-comparison---edger-vs-deseq2.html#logfc-1"><i class="fa fa-check"></i><b>8.4.3</b> log(FC)</a></li>
+<li class="chapter" data-level="8.4.4" data-path="r-package-comparison---edger-vs-deseq2.html"><a href="r-package-comparison---edger-vs-deseq2.html#log-mean-expression-1"><i class="fa fa-check"></i><b>8.4.4</b> log mean expression</a></li>
+<li class="chapter" data-level="8.4.5" data-path="r-package-comparison---edger-vs-deseq2.html"><a href="r-package-comparison---edger-vs-deseq2.html#pca-plots-6"><i class="fa fa-check"></i><b>8.4.5</b> PCA plots</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="iav-kegg-pathway-candidate-gene-analysis.html"><a href="iav-kegg-pathway-candidate-gene-analysis.html"><i class="fa fa-check"></i><b>9</b> IAV Kegg Pathway Candidate Gene Analysis</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="iav-kegg-pathway-candidate-gene-analysis.html"><a href="iav-kegg-pathway-candidate-gene-analysis.html#libraries-17"><i class="fa fa-check"></i><b>9.1</b> Libraries</a></li>
+<li class="chapter" data-level="9.2" data-path="iav-kegg-pathway-candidate-gene-analysis.html"><a href="iav-kegg-pathway-candidate-gene-analysis.html#data-19"><i class="fa fa-check"></i><b>9.2</b> Data</a></li>
+<li class="chapter" data-level="9.3" data-path="iav-kegg-pathway-candidate-gene-analysis.html"><a href="iav-kegg-pathway-candidate-gene-analysis.html#extract-genes-from-kegg-pathway"><i class="fa fa-check"></i><b>9.3</b> Extract genes from KEGG Pathway</a></li>
+<li class="chapter" data-level="9.4" data-path="iav-kegg-pathway-candidate-gene-analysis.html"><a href="iav-kegg-pathway-candidate-gene-analysis.html#overlap-with-gene-lists"><i class="fa fa-check"></i><b>9.4</b> Overlap with Gene Lists</a>
+<ul>
+<li class="chapter" data-level="9.4.1" data-path="iav-kegg-pathway-candidate-gene-analysis.html"><a href="iav-kegg-pathway-candidate-gene-analysis.html#postfilter"><i class="fa fa-check"></i><b>9.4.1</b> Postfilter</a></li>
+<li class="chapter" data-level="9.4.2" data-path="iav-kegg-pathway-candidate-gene-analysis.html"><a href="iav-kegg-pathway-candidate-gene-analysis.html#differentially-expressed-genes"><i class="fa fa-check"></i><b>9.4.2</b> Differentially Expressed Genes</a></li>
+<li class="chapter" data-level="9.4.3" data-path="iav-kegg-pathway-candidate-gene-analysis.html"><a href="iav-kegg-pathway-candidate-gene-analysis.html#compile-gene-ids"><i class="fa fa-check"></i><b>9.4.3</b> Compile gene IDs</a></li>
+</ul></li>
+<li class="chapter" data-level="9.5" data-path="iav-kegg-pathway-candidate-gene-analysis.html"><a href="iav-kegg-pathway-candidate-gene-analysis.html#plot-pathway-map"><i class="fa fa-check"></i><b>9.5</b> Plot pathway map</a>
+<ul>
+<li class="chapter" data-level="9.5.1" data-path="iav-kegg-pathway-candidate-gene-analysis.html"><a href="iav-kegg-pathway-candidate-gene-analysis.html#create-legend"><i class="fa fa-check"></i><b>9.5.1</b> Create Legend</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="outlier-analysis.html"><a href="outlier-analysis.html"><i class="fa fa-check"></i><b>10</b> Outlier Analysis</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="outlier-analysis.html"><a href="outlier-analysis.html#libraries-18"><i class="fa fa-check"></i><b>10.1</b> Libraries</a></li>
+<li class="chapter" data-level="10.2" data-path="outlier-analysis.html"><a href="outlier-analysis.html#data-20"><i class="fa fa-check"></i><b>10.2</b> Data</a></li>
+<li class="chapter" data-level="10.3" data-path="outlier-analysis.html"><a href="outlier-analysis.html#pca-2"><i class="fa fa-check"></i><b>10.3</b> PCA</a>
+<ul>
+<li class="chapter" data-level="10.3.1" data-path="outlier-analysis.html"><a href="outlier-analysis.html#transcriptome-6"><i class="fa fa-check"></i><b>10.3.1</b> Transcriptome</a></li>
+<li class="chapter" data-level="10.3.2" data-path="outlier-analysis.html"><a href="outlier-analysis.html#genome-6"><i class="fa fa-check"></i><b>10.3.2</b> Genome</a></li>
+<li class="chapter" data-level="10.3.3" data-path="outlier-analysis.html"><a href="outlier-analysis.html#number-of-reads"><i class="fa fa-check"></i><b>10.3.3</b> Number of Reads</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="downsample-late-group-to-test-degs.html"><a href="downsample-late-group-to-test-degs.html"><i class="fa fa-check"></i><b>11</b> Downsample Late Group to test # DEGs</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="downsample-late-group-to-test-degs.html"><a href="downsample-late-group-to-test-degs.html#libraries-19"><i class="fa fa-check"></i><b>11.1</b> Libraries</a></li>
+<li class="chapter" data-level="11.2" data-path="downsample-late-group-to-test-degs.html"><a href="downsample-late-group-to-test-degs.html#data-21"><i class="fa fa-check"></i><b>11.2</b> Data</a></li>
+<li class="chapter" data-level="11.3" data-path="downsample-late-group-to-test-degs.html"><a href="downsample-late-group-to-test-degs.html#transcriptome-7"><i class="fa fa-check"></i><b>11.3</b> Transcriptome</a>
+<ul>
+<li class="chapter" data-level="11.3.1" data-path="downsample-late-group-to-test-degs.html"><a href="downsample-late-group-to-test-degs.html#downsample-loop"><i class="fa fa-check"></i><b>11.3.1</b> Downsample &amp; Loop</a></li>
+</ul></li>
+<li class="chapter" data-level="11.4" data-path="downsample-late-group-to-test-degs.html"><a href="downsample-late-group-to-test-degs.html#genome-7"><i class="fa fa-check"></i><b>11.4</b> Genome</a>
+<ul>
+<li class="chapter" data-level="11.4.1" data-path="downsample-late-group-to-test-degs.html"><a href="downsample-late-group-to-test-degs.html#downsample-loop-1"><i class="fa fa-check"></i><b>11.4.1</b> Downsample &amp; Loop</a></li>
+<li class="chapter" data-level="11.4.2" data-path="downsample-late-group-to-test-degs.html"><a href="downsample-late-group-to-test-degs.html#summarize-degs"><i class="fa fa-check"></i><b>11.4.2</b> Summarize # DEGs</a></li>
+</ul></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Untitled</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="outlier-analysis" class="section level1 hasAnchor" number="10">
+<h1><span class="header-section-number">10</span> Outlier Analysis<a href="outlier-analysis.html#outlier-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="libraries-18" class="section level2 hasAnchor" number="10.1">
+<h2><span class="header-section-number">10.1</span> Libraries<a href="outlier-analysis.html#libraries-18" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb447"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb447-1"><a href="outlier-analysis.html#cb447-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb447-2"><a href="outlier-analysis.html#cb447-2" tabindex="-1"></a><span class="fu">library</span>(ggfortify)</span></code></pre></div>
+</div>
+<div id="data-20" class="section level2 hasAnchor" number="10.2">
+<h2><span class="header-section-number">10.2</span> Data<a href="outlier-analysis.html#data-20" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb448"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb448-1"><a href="outlier-analysis.html#cb448-1" tabindex="-1"></a>tcpm <span class="ot">&lt;-</span> </span>
+<span id="cb448-2"><a href="outlier-analysis.html#cb448-2" tabindex="-1"></a>  <span class="fu">read.csv</span>(<span class="st">&quot;Output Files/txome_female_edgeR_viralRNA_normcounts.csv&quot;</span>,</span>
+<span id="cb448-3"><a href="outlier-analysis.html#cb448-3" tabindex="-1"></a>           <span class="at">row.names=</span><span class="dv">1</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb448-4"><a href="outlier-analysis.html#cb448-4" tabindex="-1"></a>  <span class="fu">relocate</span>(Hg862a, <span class="at">.before=</span><span class="dv">1</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb448-5"><a href="outlier-analysis.html#cb448-5" tabindex="-1"></a>  <span class="fu">relocate</span>(Hg1351, <span class="at">.before=</span><span class="dv">2</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb448-6"><a href="outlier-analysis.html#cb448-6" tabindex="-1"></a>  <span class="fu">relocate</span>(Hg1380, <span class="at">.before=</span><span class="dv">3</span>)</span>
+<span id="cb448-7"><a href="outlier-analysis.html#cb448-7" tabindex="-1"></a></span>
+<span id="cb448-8"><a href="outlier-analysis.html#cb448-8" tabindex="-1"></a>gcpm <span class="ot">&lt;-</span> </span>
+<span id="cb448-9"><a href="outlier-analysis.html#cb448-9" tabindex="-1"></a>  <span class="fu">read.csv</span>(<span class="st">&quot;Output Files/gnome_female_edgeR_viralRNA_normcounts.csv&quot;</span>,</span>
+<span id="cb448-10"><a href="outlier-analysis.html#cb448-10" tabindex="-1"></a>           <span class="at">row.names=</span><span class="dv">1</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb448-11"><a href="outlier-analysis.html#cb448-11" tabindex="-1"></a>  <span class="fu">relocate</span>(Hg862a, <span class="at">.before=</span><span class="dv">1</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb448-12"><a href="outlier-analysis.html#cb448-12" tabindex="-1"></a>  <span class="fu">relocate</span>(Hg1351, <span class="at">.before=</span><span class="dv">2</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb448-13"><a href="outlier-analysis.html#cb448-13" tabindex="-1"></a>  <span class="fu">relocate</span>(Hg1380, <span class="at">.before=</span><span class="dv">3</span>)</span>
+<span id="cb448-14"><a href="outlier-analysis.html#cb448-14" tabindex="-1"></a></span>
+<span id="cb448-15"><a href="outlier-analysis.html#cb448-15" tabindex="-1"></a>meta <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;Input Files/metadata.csv&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb448-16"><a href="outlier-analysis.html#cb448-16" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span>sex<span class="sc">==</span><span class="st">&quot;male&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb448-17"><a href="outlier-analysis.html#cb448-17" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">RNA =</span> <span class="fu">ifelse</span>(disease_stage<span class="sc">==</span><span class="st">&quot;acute&quot;</span>, <span class="st">&quot;virus+&quot;</span>, </span>
+<span id="cb448-18"><a href="outlier-analysis.html#cb448-18" tabindex="-1"></a>                      <span class="fu">ifelse</span>(disease_stage<span class="sc">==</span><span class="st">&quot;peak&quot;</span>, <span class="st">&quot;virus+&quot;</span>, <span class="st">&quot;virus-&quot;</span>))) <span class="sc">%&gt;%</span> </span>
+<span id="cb448-19"><a href="outlier-analysis.html#cb448-19" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">year=</span><span class="fu">factor</span>(year),</span>
+<span id="cb448-20"><a href="outlier-analysis.html#cb448-20" tabindex="-1"></a>         <span class="at">disease_stage=</span><span class="fu">factor</span>(disease_stage, </span>
+<span id="cb448-21"><a href="outlier-analysis.html#cb448-21" tabindex="-1"></a>                              <span class="at">levels=</span><span class="fu">c</span>(<span class="st">&quot;control&quot;</span>, <span class="st">&quot;acute&quot;</span>, <span class="st">&quot;peak&quot;</span>, <span class="st">&quot;late&quot;</span>))) <span class="sc">%&gt;%</span> </span>
+<span id="cb448-22"><a href="outlier-analysis.html#cb448-22" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">sample=</span><span class="fu">factor</span>(sample, <span class="at">levels=</span><span class="fu">colnames</span>(tcpm)))</span>
+<span id="cb448-23"><a href="outlier-analysis.html#cb448-23" tabindex="-1"></a></span>
+<span id="cb448-24"><a href="outlier-analysis.html#cb448-24" tabindex="-1"></a>meta_out <span class="ot">&lt;-</span> </span>
+<span id="cb448-25"><a href="outlier-analysis.html#cb448-25" tabindex="-1"></a>  meta <span class="sc">%&gt;%</span> </span>
+<span id="cb448-26"><a href="outlier-analysis.html#cb448-26" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span>sample<span class="sc">==</span><span class="st">&quot;Hg862a&quot;</span> <span class="sc">&amp;</span></span>
+<span id="cb448-27"><a href="outlier-analysis.html#cb448-27" tabindex="-1"></a>         <span class="sc">!</span>sample<span class="sc">==</span><span class="st">&quot;Hg1380&quot;</span> <span class="sc">&amp;</span></span>
+<span id="cb448-28"><a href="outlier-analysis.html#cb448-28" tabindex="-1"></a>         <span class="sc">!</span>sample<span class="sc">==</span><span class="st">&quot;Hg1351&quot;</span>)</span>
+<span id="cb448-29"><a href="outlier-analysis.html#cb448-29" tabindex="-1"></a></span>
+<span id="cb448-30"><a href="outlier-analysis.html#cb448-30" tabindex="-1"></a>traw <span class="ot">&lt;-</span> </span>
+<span id="cb448-31"><a href="outlier-analysis.html#cb448-31" tabindex="-1"></a>  <span class="fu">read.csv</span>(<span class="st">&quot;Output Files/txome_genecounts_locid_nohemo.csv&quot;</span>,</span>
+<span id="cb448-32"><a href="outlier-analysis.html#cb448-32" tabindex="-1"></a>           <span class="at">row.names=</span><span class="dv">1</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb448-33"><a href="outlier-analysis.html#cb448-33" tabindex="-1"></a>  <span class="fu">select</span>(meta<span class="sc">$</span>sample)</span>
+<span id="cb448-34"><a href="outlier-analysis.html#cb448-34" tabindex="-1"></a></span>
+<span id="cb448-35"><a href="outlier-analysis.html#cb448-35" tabindex="-1"></a>graw <span class="ot">&lt;-</span> </span>
+<span id="cb448-36"><a href="outlier-analysis.html#cb448-36" tabindex="-1"></a>  <span class="fu">read.csv</span>(<span class="st">&quot;Output Files/gnome_genecounts_locid_nohemo.csv&quot;</span>,</span>
+<span id="cb448-37"><a href="outlier-analysis.html#cb448-37" tabindex="-1"></a>           <span class="at">row.names=</span><span class="dv">1</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb448-38"><a href="outlier-analysis.html#cb448-38" tabindex="-1"></a>    <span class="fu">select</span>(meta<span class="sc">$</span>sample)</span></code></pre></div>
+</div>
+<div id="pca-2" class="section level2 hasAnchor" number="10.3">
+<h2><span class="header-section-number">10.3</span> PCA<a href="outlier-analysis.html#pca-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="transcriptome-6" class="section level3 hasAnchor" number="10.3.1">
+<h3><span class="header-section-number">10.3.1</span> Transcriptome<a href="outlier-analysis.html#transcriptome-6" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="pca-original" class="section level4 hasAnchor" number="10.3.1.1">
+<h4><span class="header-section-number">10.3.1.1</span> PCA Original<a href="outlier-analysis.html#pca-original" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div class="sourceCode" id="cb449"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb449-1"><a href="outlier-analysis.html#cb449-1" tabindex="-1"></a>tdist <span class="ot">&lt;-</span> <span class="fu">dist</span>(<span class="fu">t</span>(tcpm), <span class="at">method =</span> <span class="st">&quot;euclidean&quot;</span>)</span>
+<span id="cb449-2"><a href="outlier-analysis.html#cb449-2" tabindex="-1"></a>tpca <span class="ot">&lt;-</span> <span class="fu">prcomp</span>(<span class="fu">t</span>(tdist))</span>
+<span id="cb449-3"><a href="outlier-analysis.html#cb449-3" tabindex="-1"></a><span class="fu">autoplot</span>(tpca, <span class="at">data=</span>meta, <span class="at">shape=</span><span class="cn">FALSE</span>)</span></code></pre></div>
+</div>
+<div id="pca-wo-outliers" class="section level4 hasAnchor" number="10.3.1.2">
+<h4><span class="header-section-number">10.3.1.2</span> PCA w/o Outliers<a href="outlier-analysis.html#pca-wo-outliers" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div class="sourceCode" id="cb450"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb450-1"><a href="outlier-analysis.html#cb450-1" tabindex="-1"></a>tcpm_out <span class="ot">&lt;-</span> </span>
+<span id="cb450-2"><a href="outlier-analysis.html#cb450-2" tabindex="-1"></a>  tcpm <span class="sc">%&gt;%</span> </span>
+<span id="cb450-3"><a href="outlier-analysis.html#cb450-3" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">!</span><span class="fu">c</span>(Hg1380, Hg862a, Hg1351))</span>
+<span id="cb450-4"><a href="outlier-analysis.html#cb450-4" tabindex="-1"></a></span>
+<span id="cb450-5"><a href="outlier-analysis.html#cb450-5" tabindex="-1"></a>tdist_out <span class="ot">&lt;-</span> <span class="fu">dist</span>(<span class="fu">t</span>(tcpm_out), <span class="at">method =</span> <span class="st">&quot;euclidean&quot;</span>)</span>
+<span id="cb450-6"><a href="outlier-analysis.html#cb450-6" tabindex="-1"></a>tpca_out <span class="ot">&lt;-</span> <span class="fu">prcomp</span>(<span class="fu">t</span>(tdist_out))</span>
+<span id="cb450-7"><a href="outlier-analysis.html#cb450-7" tabindex="-1"></a><span class="fu">autoplot</span>(tpca_out, <span class="at">data=</span>meta_out, <span class="at">shape=</span><span class="cn">FALSE</span>)</span>
+<span id="cb450-8"><a href="outlier-analysis.html#cb450-8" tabindex="-1"></a></span>
+<span id="cb450-9"><a href="outlier-analysis.html#cb450-9" tabindex="-1"></a><span class="fu">autoplot</span>(tpca_out, <span class="at">data=</span>meta_out, <span class="at">colour=</span><span class="st">&quot;RNA&quot;</span>, <span class="at">size=</span><span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb450-10"><a href="outlier-analysis.html#cb450-10" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;bottom&quot;</span>)</span>
+<span id="cb450-11"><a href="outlier-analysis.html#cb450-11" tabindex="-1"></a><span class="fu">autoplot</span>(tpca_out, <span class="at">data=</span>meta_out, <span class="at">colour=</span><span class="st">&quot;disease_stage&quot;</span>, <span class="at">size=</span><span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb450-12"><a href="outlier-analysis.html#cb450-12" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;bottom&quot;</span>)</span>
+<span id="cb450-13"><a href="outlier-analysis.html#cb450-13" tabindex="-1"></a><span class="fu">autoplot</span>(tpca_out, <span class="at">data=</span>meta_out, <span class="at">colour=</span><span class="st">&quot;year&quot;</span>, <span class="at">size=</span><span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb450-14"><a href="outlier-analysis.html#cb450-14" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;bottom&quot;</span>)</span>
+<span id="cb450-15"><a href="outlier-analysis.html#cb450-15" tabindex="-1"></a><span class="fu">autoplot</span>(tpca_out, <span class="at">data=</span>meta_out, <span class="at">colour=</span><span class="st">&quot;molt&quot;</span>, <span class="at">size=</span><span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb450-16"><a href="outlier-analysis.html#cb450-16" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;bottom&quot;</span>)</span>
+<span id="cb450-17"><a href="outlier-analysis.html#cb450-17" tabindex="-1"></a></span>
+<span id="cb450-18"><a href="outlier-analysis.html#cb450-18" tabindex="-1"></a><span class="fu">autoplot</span>(tpca_out, <span class="at">data=</span>meta_out, <span class="at">x=</span><span class="dv">3</span>, <span class="at">y=</span><span class="dv">4</span>, <span class="at">colour=</span><span class="st">&quot;RNA&quot;</span>, <span class="at">size=</span><span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb450-19"><a href="outlier-analysis.html#cb450-19" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;bottom&quot;</span>)</span>
+<span id="cb450-20"><a href="outlier-analysis.html#cb450-20" tabindex="-1"></a><span class="fu">autoplot</span>(tpca_out, <span class="at">data=</span>meta_out, <span class="at">x=</span><span class="dv">3</span>, <span class="at">y=</span><span class="dv">4</span>, <span class="at">colour=</span><span class="st">&quot;disease_stage&quot;</span>, <span class="at">size=</span><span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb450-21"><a href="outlier-analysis.html#cb450-21" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;bottom&quot;</span>)</span>
+<span id="cb450-22"><a href="outlier-analysis.html#cb450-22" tabindex="-1"></a><span class="fu">autoplot</span>(tpca_out, <span class="at">data=</span>meta_out, <span class="at">x=</span><span class="dv">3</span>, <span class="at">y=</span><span class="dv">4</span>, <span class="at">colour=</span><span class="st">&quot;year&quot;</span>, <span class="at">size=</span><span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb450-23"><a href="outlier-analysis.html#cb450-23" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;bottom&quot;</span>)</span>
+<span id="cb450-24"><a href="outlier-analysis.html#cb450-24" tabindex="-1"></a><span class="fu">autoplot</span>(tpca_out, <span class="at">data=</span>meta_out, <span class="at">x=</span><span class="dv">3</span>, <span class="at">y=</span><span class="dv">4</span>, <span class="at">colour=</span><span class="st">&quot;molt&quot;</span>, <span class="at">size=</span><span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb450-25"><a href="outlier-analysis.html#cb450-25" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;bottom&quot;</span>)</span></code></pre></div>
+</div>
+</div>
+<div id="genome-6" class="section level3 hasAnchor" number="10.3.2">
+<h3><span class="header-section-number">10.3.2</span> Genome<a href="outlier-analysis.html#genome-6" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="pca-original-1" class="section level4 hasAnchor" number="10.3.2.1">
+<h4><span class="header-section-number">10.3.2.1</span> PCA Original<a href="outlier-analysis.html#pca-original-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div class="sourceCode" id="cb451"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb451-1"><a href="outlier-analysis.html#cb451-1" tabindex="-1"></a>gdist <span class="ot">&lt;-</span> <span class="fu">dist</span>(<span class="fu">t</span>(gcpm), <span class="at">method =</span> <span class="st">&quot;euclidean&quot;</span>)</span>
+<span id="cb451-2"><a href="outlier-analysis.html#cb451-2" tabindex="-1"></a>gpca <span class="ot">&lt;-</span> <span class="fu">prcomp</span>(<span class="fu">t</span>(tdist))</span>
+<span id="cb451-3"><a href="outlier-analysis.html#cb451-3" tabindex="-1"></a><span class="fu">autoplot</span>(gpca, <span class="at">data=</span>meta, <span class="at">shape=</span><span class="cn">FALSE</span>)</span></code></pre></div>
+</div>
+<div id="pca-wo-outliers-1" class="section level4 hasAnchor" number="10.3.2.2">
+<h4><span class="header-section-number">10.3.2.2</span> PCA w/o Outliers<a href="outlier-analysis.html#pca-wo-outliers-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div class="sourceCode" id="cb452"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb452-1"><a href="outlier-analysis.html#cb452-1" tabindex="-1"></a>gcpm_out <span class="ot">&lt;-</span> </span>
+<span id="cb452-2"><a href="outlier-analysis.html#cb452-2" tabindex="-1"></a>  gcpm <span class="sc">%&gt;%</span> </span>
+<span id="cb452-3"><a href="outlier-analysis.html#cb452-3" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">!</span><span class="fu">c</span>(Hg1380, Hg862a, Hg1351))</span>
+<span id="cb452-4"><a href="outlier-analysis.html#cb452-4" tabindex="-1"></a></span>
+<span id="cb452-5"><a href="outlier-analysis.html#cb452-5" tabindex="-1"></a>gdist_out <span class="ot">&lt;-</span> <span class="fu">dist</span>(<span class="fu">t</span>(gcpm_out), <span class="at">method =</span> <span class="st">&quot;euclidean&quot;</span>)</span>
+<span id="cb452-6"><a href="outlier-analysis.html#cb452-6" tabindex="-1"></a>gpca_out <span class="ot">&lt;-</span> <span class="fu">prcomp</span>(<span class="fu">t</span>(gdist_out))</span>
+<span id="cb452-7"><a href="outlier-analysis.html#cb452-7" tabindex="-1"></a><span class="fu">autoplot</span>(gpca_out, <span class="at">data=</span>meta_out, <span class="at">shape=</span><span class="cn">FALSE</span>)</span>
+<span id="cb452-8"><a href="outlier-analysis.html#cb452-8" tabindex="-1"></a></span>
+<span id="cb452-9"><a href="outlier-analysis.html#cb452-9" tabindex="-1"></a><span class="fu">autoplot</span>(gpca_out, <span class="at">data=</span>meta_out, <span class="at">colour=</span><span class="st">&quot;RNA&quot;</span>, <span class="at">size=</span><span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb452-10"><a href="outlier-analysis.html#cb452-10" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;bottom&quot;</span>)</span>
+<span id="cb452-11"><a href="outlier-analysis.html#cb452-11" tabindex="-1"></a><span class="fu">autoplot</span>(gpca_out, <span class="at">data=</span>meta_out, <span class="at">colour=</span><span class="st">&quot;disease_stage&quot;</span>, <span class="at">size=</span><span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb452-12"><a href="outlier-analysis.html#cb452-12" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;bottom&quot;</span>)</span>
+<span id="cb452-13"><a href="outlier-analysis.html#cb452-13" tabindex="-1"></a><span class="fu">autoplot</span>(gpca_out, <span class="at">data=</span>meta_out, <span class="at">colour=</span><span class="st">&quot;year&quot;</span>, <span class="at">size=</span><span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb452-14"><a href="outlier-analysis.html#cb452-14" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;bottom&quot;</span>)</span>
+<span id="cb452-15"><a href="outlier-analysis.html#cb452-15" tabindex="-1"></a><span class="fu">autoplot</span>(gpca_out, <span class="at">data=</span>meta_out, <span class="at">colour=</span><span class="st">&quot;molt&quot;</span>, <span class="at">size=</span><span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb452-16"><a href="outlier-analysis.html#cb452-16" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;bottom&quot;</span>)</span>
+<span id="cb452-17"><a href="outlier-analysis.html#cb452-17" tabindex="-1"></a></span>
+<span id="cb452-18"><a href="outlier-analysis.html#cb452-18" tabindex="-1"></a><span class="fu">autoplot</span>(gpca_out, <span class="at">data=</span>meta_out, <span class="at">x=</span><span class="dv">3</span>, <span class="at">y=</span><span class="dv">4</span>, <span class="at">colour=</span><span class="st">&quot;RNA&quot;</span>, <span class="at">size=</span><span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb452-19"><a href="outlier-analysis.html#cb452-19" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;bottom&quot;</span>)</span>
+<span id="cb452-20"><a href="outlier-analysis.html#cb452-20" tabindex="-1"></a><span class="fu">autoplot</span>(gpca_out, <span class="at">data=</span>meta_out, <span class="at">x=</span><span class="dv">3</span>, <span class="at">y=</span><span class="dv">4</span>, <span class="at">colour=</span><span class="st">&quot;disease_stage&quot;</span>, <span class="at">size=</span><span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb452-21"><a href="outlier-analysis.html#cb452-21" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;bottom&quot;</span>)</span>
+<span id="cb452-22"><a href="outlier-analysis.html#cb452-22" tabindex="-1"></a><span class="fu">autoplot</span>(gpca_out, <span class="at">data=</span>meta_out, <span class="at">x=</span><span class="dv">3</span>, <span class="at">y=</span><span class="dv">4</span>, <span class="at">colour=</span><span class="st">&quot;year&quot;</span>, <span class="at">size=</span><span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb452-23"><a href="outlier-analysis.html#cb452-23" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;bottom&quot;</span>)</span>
+<span id="cb452-24"><a href="outlier-analysis.html#cb452-24" tabindex="-1"></a><span class="fu">autoplot</span>(gpca_out, <span class="at">data=</span>meta_out, <span class="at">x=</span><span class="dv">3</span>, <span class="at">y=</span><span class="dv">4</span>, <span class="at">colour=</span><span class="st">&quot;molt&quot;</span>, <span class="at">size=</span><span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb452-25"><a href="outlier-analysis.html#cb452-25" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;bottom&quot;</span>)</span></code></pre></div>
+</div>
+</div>
+<div id="number-of-reads" class="section level3 hasAnchor" number="10.3.3">
+<h3><span class="header-section-number">10.3.3</span> Number of Reads<a href="outlier-analysis.html#number-of-reads" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="raw-reads" class="section level4 hasAnchor" number="10.3.3.1">
+<h4><span class="header-section-number">10.3.3.1</span> Raw Reads<a href="outlier-analysis.html#raw-reads" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div class="sourceCode" id="cb453"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb453-1"><a href="outlier-analysis.html#cb453-1" tabindex="-1"></a>treads <span class="ot">&lt;-</span> </span>
+<span id="cb453-2"><a href="outlier-analysis.html#cb453-2" tabindex="-1"></a>  traw <span class="sc">%&gt;%</span> </span>
+<span id="cb453-3"><a href="outlier-analysis.html#cb453-3" tabindex="-1"></a>  <span class="fu">rownames_to_column</span>(<span class="at">var=</span><span class="st">&quot;genes&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb453-4"><a href="outlier-analysis.html#cb453-4" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="sc">!</span>genes, <span class="at">names_to=</span><span class="st">&quot;sample&quot;</span>, <span class="at">values_to=</span><span class="st">&quot;reads&quot;</span>)</span>
+<span id="cb453-5"><a href="outlier-analysis.html#cb453-5" tabindex="-1"></a></span>
+<span id="cb453-6"><a href="outlier-analysis.html#cb453-6" tabindex="-1"></a><span class="fu">ggplot</span>(treads, <span class="fu">aes</span>(<span class="at">x=</span><span class="fu">factor</span>(sample, <span class="at">levels=</span><span class="fu">colnames</span>(tcpm)), <span class="at">y=</span><span class="fu">log</span>(reads))) <span class="sc">+</span></span>
+<span id="cb453-7"><a href="outlier-analysis.html#cb453-7" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb453-8"><a href="outlier-analysis.html#cb453-8" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle=</span><span class="dv">90</span>))</span>
+<span id="cb453-9"><a href="outlier-analysis.html#cb453-9" tabindex="-1"></a></span>
+<span id="cb453-10"><a href="outlier-analysis.html#cb453-10" tabindex="-1"></a>greads <span class="ot">&lt;-</span> </span>
+<span id="cb453-11"><a href="outlier-analysis.html#cb453-11" tabindex="-1"></a>  graw <span class="sc">%&gt;%</span> </span>
+<span id="cb453-12"><a href="outlier-analysis.html#cb453-12" tabindex="-1"></a>  <span class="fu">rownames_to_column</span>(<span class="at">var=</span><span class="st">&quot;genes&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb453-13"><a href="outlier-analysis.html#cb453-13" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="sc">!</span>genes, <span class="at">names_to=</span><span class="st">&quot;sample&quot;</span>, <span class="at">values_to=</span><span class="st">&quot;reads&quot;</span>)</span>
+<span id="cb453-14"><a href="outlier-analysis.html#cb453-14" tabindex="-1"></a></span>
+<span id="cb453-15"><a href="outlier-analysis.html#cb453-15" tabindex="-1"></a><span class="fu">ggplot</span>(greads, <span class="fu">aes</span>(<span class="at">x=</span><span class="fu">factor</span>(sample, <span class="at">levels=</span><span class="fu">colnames</span>(gcpm)), <span class="at">y=</span><span class="fu">log</span>(reads))) <span class="sc">+</span></span>
+<span id="cb453-16"><a href="outlier-analysis.html#cb453-16" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb453-17"><a href="outlier-analysis.html#cb453-17" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle=</span><span class="dv">90</span>))</span></code></pre></div>
+</div>
+<div id="read-sum" class="section level4 hasAnchor" number="10.3.3.2">
+<h4><span class="header-section-number">10.3.3.2</span> Read sum<a href="outlier-analysis.html#read-sum" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div class="sourceCode" id="cb454"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb454-1"><a href="outlier-analysis.html#cb454-1" tabindex="-1"></a>treadsum <span class="ot">&lt;-</span> </span>
+<span id="cb454-2"><a href="outlier-analysis.html#cb454-2" tabindex="-1"></a>  treads <span class="sc">%&gt;%</span> </span>
+<span id="cb454-3"><a href="outlier-analysis.html#cb454-3" tabindex="-1"></a>  <span class="fu">group_by</span>(sample) <span class="sc">%&gt;%</span> </span>
+<span id="cb454-4"><a href="outlier-analysis.html#cb454-4" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">totalreads=</span><span class="fu">sum</span>(reads))</span>
+<span id="cb454-5"><a href="outlier-analysis.html#cb454-5" tabindex="-1"></a></span>
+<span id="cb454-6"><a href="outlier-analysis.html#cb454-6" tabindex="-1"></a><span class="fu">ggplot</span>(treadsum, <span class="fu">aes</span>(<span class="at">x=</span><span class="fu">factor</span>(sample, <span class="at">levels=</span><span class="fu">colnames</span>(tcpm)), <span class="at">y=</span>totalreads)) <span class="sc">+</span></span>
+<span id="cb454-7"><a href="outlier-analysis.html#cb454-7" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb454-8"><a href="outlier-analysis.html#cb454-8" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle=</span><span class="dv">90</span>))</span>
+<span id="cb454-9"><a href="outlier-analysis.html#cb454-9" tabindex="-1"></a></span>
+<span id="cb454-10"><a href="outlier-analysis.html#cb454-10" tabindex="-1"></a>greadsum <span class="ot">&lt;-</span> </span>
+<span id="cb454-11"><a href="outlier-analysis.html#cb454-11" tabindex="-1"></a>  greads <span class="sc">%&gt;%</span> </span>
+<span id="cb454-12"><a href="outlier-analysis.html#cb454-12" tabindex="-1"></a>  <span class="fu">group_by</span>(sample) <span class="sc">%&gt;%</span> </span>
+<span id="cb454-13"><a href="outlier-analysis.html#cb454-13" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">totalreads=</span><span class="fu">sum</span>(reads))</span>
+<span id="cb454-14"><a href="outlier-analysis.html#cb454-14" tabindex="-1"></a></span>
+<span id="cb454-15"><a href="outlier-analysis.html#cb454-15" tabindex="-1"></a><span class="fu">ggplot</span>(greadsum, <span class="fu">aes</span>(<span class="at">x=</span><span class="fu">factor</span>(sample, <span class="at">levels=</span><span class="fu">colnames</span>(gcpm)), <span class="at">y=</span>totalreads)) <span class="sc">+</span></span>
+<span id="cb454-16"><a href="outlier-analysis.html#cb454-16" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb454-17"><a href="outlier-analysis.html#cb454-17" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle=</span><span class="dv">90</span>))</span></code></pre></div>
+
+</div>
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="iav-kegg-pathway-candidate-gene-analysis.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="downsample-late-group-to-test-degs.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "section",
+"scroll_highlight": true
+},
+"info": false
+});
+});
+</script>
+
+</body>
+
+</html>

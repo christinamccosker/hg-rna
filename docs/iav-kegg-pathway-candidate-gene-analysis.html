@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>9 IAV Kegg Pathway Candidate Gene Analysis | Untitled</title>
   <meta name="description" content="McCosker Dissertation Chapter 1 Statistical Analyses" />
-  <meta name="generator" content="bookdown 0.41 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.42 and GitBook 2.6.7" />
 
   <meta property="og:title" content="9 IAV Kegg Pathway Candidate Gene Analysis | Untitled" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Christina McCosker" />
 
 
-<meta name="date" content="2025-01-01" />
+<meta name="date" content="2025-01-07" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -31,7 +31,7 @@
   
   
 <link rel="prev" href="r-package-comparison---edger-vs-deseq2.html"/>
-
+<link rel="next" href="outlier-analysis.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -149,7 +149,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="2" data-path="loc-gene-identification.html"><a href="loc-gene-identification.html"><i class="fa fa-check"></i><b>2</b> LOC Gene Identification</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="loc-gene-identification.html"><a href="loc-gene-identification.html#load-required-libraries"><i class="fa fa-check"></i><b>2.1</b> Load required libraries</a></li>
+<li class="chapter" data-level="2.1" data-path="loc-gene-identification.html"><a href="loc-gene-identification.html#libraries"><i class="fa fa-check"></i><b>2.1</b> Libraries</a></li>
 <li class="chapter" data-level="2.2" data-path="loc-gene-identification.html"><a href="loc-gene-identification.html#load-data"><i class="fa fa-check"></i><b>2.2</b> Load data</a></li>
 <li class="chapter" data-level="2.3" data-path="loc-gene-identification.html"><a href="loc-gene-identification.html#extract-gene-sequences"><i class="fa fa-check"></i><b>2.3</b> Extract gene sequences</a>
 <ul>
@@ -167,14 +167,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="2.6" data-path="loc-gene-identification.html"><a href="loc-gene-identification.html#combine-with-prior-loc-id-master-list"><i class="fa fa-check"></i><b>2.6</b> Combine with prior LOC ID master list</a></li>
 <li class="chapter" data-level="2.7" data-path="loc-gene-identification.html"><a href="loc-gene-identification.html#update-tidy-gene-count-matrices"><i class="fa fa-check"></i><b>2.7</b> Update &amp; tidy gene count matrices</a></li>
-<li class="chapter" data-level="2.8" data-path="loc-gene-identification.html"><a href="loc-gene-identification.html#remove-hemoglobin-genes"><i class="fa fa-check"></i><b>2.8</b> Remove hemoglobin genes</a></li>
-<li class="chapter" data-level="2.9" data-path="loc-gene-identification.html"><a href="loc-gene-identification.html#export-new-gene-count-matrices"><i class="fa fa-check"></i><b>2.9</b> Export new gene count matrices</a></li>
+<li class="chapter" data-level="2.8" data-path="loc-gene-identification.html"><a href="loc-gene-identification.html#hemoglobin"><i class="fa fa-check"></i><b>2.8</b> Hemoglobin</a>
+<ul>
+<li class="chapter" data-level="2.8.1" data-path="loc-gene-identification.html"><a href="loc-gene-identification.html#extract-hemoglobin-genes"><i class="fa fa-check"></i><b>2.8.1</b> Extract hemoglobin genes</a></li>
+<li class="chapter" data-level="2.8.2" data-path="loc-gene-identification.html"><a href="loc-gene-identification.html#prop-of-total-gene-counts"><i class="fa fa-check"></i><b>2.8.2</b> Prop of total gene counts</a></li>
+<li class="chapter" data-level="2.8.3" data-path="loc-gene-identification.html"><a href="loc-gene-identification.html#remove-hemoglobin-genes"><i class="fa fa-check"></i><b>2.8.3</b> Remove hemoglobin genes</a></li>
+<li class="chapter" data-level="2.8.4" data-path="loc-gene-identification.html"><a href="loc-gene-identification.html#export-new-gene-count-matrices"><i class="fa fa-check"></i><b>2.8.4</b> Export new gene count matrices</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="male-v-female-dge.html"><a href="male-v-female-dge.html"><i class="fa fa-check"></i><b>3</b> Male v Female DGE</a>
 <ul>
 <li class="chapter" data-level="3.1" data-path="male-v-female-dge.html"><a href="male-v-female-dge.html#transcriptome---edger"><i class="fa fa-check"></i><b>3.1</b> Transcriptome - edgeR</a>
 <ul>
-<li class="chapter" data-level="3.1.1" data-path="male-v-female-dge.html"><a href="male-v-female-dge.html#libraries"><i class="fa fa-check"></i><b>3.1.1</b> Libraries</a></li>
+<li class="chapter" data-level="3.1.1" data-path="male-v-female-dge.html"><a href="male-v-female-dge.html#libraries-1"><i class="fa fa-check"></i><b>3.1.1</b> Libraries</a></li>
 <li class="chapter" data-level="3.1.2" data-path="male-v-female-dge.html"><a href="male-v-female-dge.html#data"><i class="fa fa-check"></i><b>3.1.2</b> Data</a></li>
 <li class="chapter" data-level="3.1.3" data-path="male-v-female-dge.html"><a href="male-v-female-dge.html#differential-gene-expression-analysis"><i class="fa fa-check"></i><b>3.1.3</b> Differential Gene Expression Analysis</a></li>
 <li class="chapter" data-level="3.1.4" data-path="male-v-female-dge.html"><a href="male-v-female-dge.html#exploratory-plots"><i class="fa fa-check"></i><b>3.1.4</b> Exploratory Plots</a></li>
@@ -182,7 +187,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="3.2" data-path="male-v-female-dge.html"><a href="male-v-female-dge.html#genome---edger"><i class="fa fa-check"></i><b>3.2</b> Genome - edgeR</a>
 <ul>
-<li class="chapter" data-level="3.2.1" data-path="male-v-female-dge.html"><a href="male-v-female-dge.html#libraries-1"><i class="fa fa-check"></i><b>3.2.1</b> Libraries</a></li>
+<li class="chapter" data-level="3.2.1" data-path="male-v-female-dge.html"><a href="male-v-female-dge.html#libraries-2"><i class="fa fa-check"></i><b>3.2.1</b> Libraries</a></li>
 <li class="chapter" data-level="3.2.2" data-path="male-v-female-dge.html"><a href="male-v-female-dge.html#data-1"><i class="fa fa-check"></i><b>3.2.2</b> Data</a></li>
 <li class="chapter" data-level="3.2.3" data-path="male-v-female-dge.html"><a href="male-v-female-dge.html#differential-gene-expression-analysis-1"><i class="fa fa-check"></i><b>3.2.3</b> Differential Gene Expression Analysis</a></li>
 <li class="chapter" data-level="3.2.4" data-path="male-v-female-dge.html"><a href="male-v-female-dge.html#exploratory-plots-1"><i class="fa fa-check"></i><b>3.2.4</b> Exploratory Plots</a></li>
@@ -193,7 +198,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="4.1" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#transcriptome---edger---females"><i class="fa fa-check"></i><b>4.1</b> Transcriptome - edgeR - Females</a>
 <ul>
-<li class="chapter" data-level="4.1.1" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#libraries-2"><i class="fa fa-check"></i><b>4.1.1</b> Libraries</a></li>
+<li class="chapter" data-level="4.1.1" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#libraries-3"><i class="fa fa-check"></i><b>4.1.1</b> Libraries</a></li>
 <li class="chapter" data-level="4.1.2" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#data-2"><i class="fa fa-check"></i><b>4.1.2</b> Data</a></li>
 <li class="chapter" data-level="4.1.3" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#differential-gene-expression-analysis-2"><i class="fa fa-check"></i><b>4.1.3</b> Differential Gene Expression Analysis</a></li>
 <li class="chapter" data-level="4.1.4" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#exploratory-plots-2"><i class="fa fa-check"></i><b>4.1.4</b> Exploratory Plots</a></li>
@@ -203,7 +208,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="4.2" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#genome---edger---females"><i class="fa fa-check"></i><b>4.2</b> Genome - edgeR - Females</a>
 <ul>
-<li class="chapter" data-level="4.2.1" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#libraries-3"><i class="fa fa-check"></i><b>4.2.1</b> Libraries</a></li>
+<li class="chapter" data-level="4.2.1" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#libraries-4"><i class="fa fa-check"></i><b>4.2.1</b> Libraries</a></li>
 <li class="chapter" data-level="4.2.2" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#data-3"><i class="fa fa-check"></i><b>4.2.2</b> Data</a></li>
 <li class="chapter" data-level="4.2.3" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#differential-gene-expression-analysis-3"><i class="fa fa-check"></i><b>4.2.3</b> Differential Gene Expression Analysis</a></li>
 <li class="chapter" data-level="4.2.4" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#exploratory-plots-3"><i class="fa fa-check"></i><b>4.2.4</b> Exploratory Plots</a></li>
@@ -213,7 +218,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="4.3" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#transcriptome-null-set---edger---females"><i class="fa fa-check"></i><b>4.3</b> Transcriptome Null Set - edgeR - Females</a>
 <ul>
-<li class="chapter" data-level="4.3.1" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#libraries-4"><i class="fa fa-check"></i><b>4.3.1</b> Libraries</a></li>
+<li class="chapter" data-level="4.3.1" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#libraries-5"><i class="fa fa-check"></i><b>4.3.1</b> Libraries</a></li>
 <li class="chapter" data-level="4.3.2" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#data-4"><i class="fa fa-check"></i><b>4.3.2</b> Data</a></li>
 <li class="chapter" data-level="4.3.3" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#loop-differential-gene-expression-analysis"><i class="fa fa-check"></i><b>4.3.3</b> Loop Differential Gene Expression Analysis</a></li>
 <li class="chapter" data-level="4.3.4" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#go-enrichment-analysis-2"><i class="fa fa-check"></i><b>4.3.4</b> GO Enrichment Analysis</a></li>
@@ -221,7 +226,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="4.4" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#genome-null-set---edger---females"><i class="fa fa-check"></i><b>4.4</b> Genome Null Set - edgeR - Females</a>
 <ul>
-<li class="chapter" data-level="4.4.1" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#libraries-5"><i class="fa fa-check"></i><b>4.4.1</b> Libraries</a></li>
+<li class="chapter" data-level="4.4.1" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#libraries-6"><i class="fa fa-check"></i><b>4.4.1</b> Libraries</a></li>
 <li class="chapter" data-level="4.4.2" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#data-5"><i class="fa fa-check"></i><b>4.4.2</b> Data</a></li>
 <li class="chapter" data-level="4.4.3" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#loop-differential-gene-expression-analysis-1"><i class="fa fa-check"></i><b>4.4.3</b> Loop Differential Gene Expression Analysis</a></li>
 <li class="chapter" data-level="4.4.4" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#go-enrichment-analysis-3"><i class="fa fa-check"></i><b>4.4.4</b> GO Enrichment Analysis</a></li>
@@ -229,7 +234,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="4.5" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#refine-gokegg"><i class="fa fa-check"></i><b>4.5</b> Refine GO/KEGG</a>
 <ul>
-<li class="chapter" data-level="4.5.1" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#libraries-6"><i class="fa fa-check"></i><b>4.5.1</b> Libraries</a></li>
+<li class="chapter" data-level="4.5.1" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#libraries-7"><i class="fa fa-check"></i><b>4.5.1</b> Libraries</a></li>
 <li class="chapter" data-level="4.5.2" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#data-6"><i class="fa fa-check"></i><b>4.5.2</b> Data</a></li>
 <li class="chapter" data-level="4.5.3" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#transcriptome-1"><i class="fa fa-check"></i><b>4.5.3</b> Transcriptome</a></li>
 <li class="chapter" data-level="4.5.4" data-path="virus-vs-virus--dge.html"><a href="virus-vs-virus--dge.html#genome-1"><i class="fa fa-check"></i><b>4.5.4</b> Genome</a></li>
@@ -243,7 +248,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="5.1" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#transcriptome---edger---females-1"><i class="fa fa-check"></i><b>5.1</b> Transcriptome - edgeR - Females</a>
 <ul>
-<li class="chapter" data-level="5.1.1" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#libraries-7"><i class="fa fa-check"></i><b>5.1.1</b> Libraries</a></li>
+<li class="chapter" data-level="5.1.1" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#libraries-8"><i class="fa fa-check"></i><b>5.1.1</b> Libraries</a></li>
 <li class="chapter" data-level="5.1.2" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#data-7"><i class="fa fa-check"></i><b>5.1.2</b> Data</a></li>
 <li class="chapter" data-level="5.1.3" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#differential-gene-expression-analysis-4"><i class="fa fa-check"></i><b>5.1.3</b> Differential Gene Expression Analysis</a></li>
 <li class="chapter" data-level="5.1.4" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#exploratory-plots-4"><i class="fa fa-check"></i><b>5.1.4</b> Exploratory Plots</a></li>
@@ -253,7 +258,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="5.2" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#genome---edger---females-1"><i class="fa fa-check"></i><b>5.2</b> Genome - edgeR - Females</a>
 <ul>
-<li class="chapter" data-level="5.2.1" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#libraries-8"><i class="fa fa-check"></i><b>5.2.1</b> Libraries</a></li>
+<li class="chapter" data-level="5.2.1" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#libraries-9"><i class="fa fa-check"></i><b>5.2.1</b> Libraries</a></li>
 <li class="chapter" data-level="5.2.2" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#data-8"><i class="fa fa-check"></i><b>5.2.2</b> Data</a></li>
 <li class="chapter" data-level="5.2.3" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#differential-gene-expression-analysis-5"><i class="fa fa-check"></i><b>5.2.3</b> Differential Gene Expression Analysis</a></li>
 <li class="chapter" data-level="5.2.4" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#exploratory-plots-5"><i class="fa fa-check"></i><b>5.2.4</b> Exploratory Plots</a></li>
@@ -263,14 +268,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="5.3" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#comapre-t-g-approach---edger---females"><i class="fa fa-check"></i><b>5.3</b> Comapre T &amp; G Approach - edgeR - Females</a>
 <ul>
-<li class="chapter" data-level="5.3.1" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#libraries-9"><i class="fa fa-check"></i><b>5.3.1</b> Libraries</a></li>
+<li class="chapter" data-level="5.3.1" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#libraries-10"><i class="fa fa-check"></i><b>5.3.1</b> Libraries</a></li>
 <li class="chapter" data-level="5.3.2" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#data-9"><i class="fa fa-check"></i><b>5.3.2</b> Data</a></li>
 <li class="chapter" data-level="5.3.3" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#number-of-up-down-reg-genes"><i class="fa fa-check"></i><b>5.3.3</b> Number of up &amp; down reg genes</a></li>
 <li class="chapter" data-level="5.3.4" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#gene-identities"><i class="fa fa-check"></i><b>5.3.4</b> Gene identities</a></li>
 </ul></li>
 <li class="chapter" data-level="5.4" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#transcriptome-null-set---edger---females-1"><i class="fa fa-check"></i><b>5.4</b> Transcriptome Null Set - edgeR - Females</a>
 <ul>
-<li class="chapter" data-level="5.4.1" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#libraries-10"><i class="fa fa-check"></i><b>5.4.1</b> Libraries</a></li>
+<li class="chapter" data-level="5.4.1" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#libraries-11"><i class="fa fa-check"></i><b>5.4.1</b> Libraries</a></li>
 <li class="chapter" data-level="5.4.2" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#data-10"><i class="fa fa-check"></i><b>5.4.2</b> Data</a></li>
 <li class="chapter" data-level="5.4.3" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#loop-differential-gene-expression-analysis-2"><i class="fa fa-check"></i><b>5.4.3</b> Loop Differential Gene Expression Analysis</a></li>
 <li class="chapter" data-level="5.4.4" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#go-enrichment-analysis-6"><i class="fa fa-check"></i><b>5.4.4</b> GO Enrichment Analysis</a></li>
@@ -278,7 +283,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="5.5" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#genome-null-set---edger---females-1"><i class="fa fa-check"></i><b>5.5</b> Genome Null Set - edgeR - Females</a>
 <ul>
-<li class="chapter" data-level="5.5.1" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#libraries-11"><i class="fa fa-check"></i><b>5.5.1</b> Libraries</a></li>
+<li class="chapter" data-level="5.5.1" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#libraries-12"><i class="fa fa-check"></i><b>5.5.1</b> Libraries</a></li>
 <li class="chapter" data-level="5.5.2" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#data-11"><i class="fa fa-check"></i><b>5.5.2</b> Data</a></li>
 <li class="chapter" data-level="5.5.3" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#loop-differential-gene-expression-analysis-3"><i class="fa fa-check"></i><b>5.5.3</b> Loop Differential Gene Expression Analysis</a></li>
 <li class="chapter" data-level="5.5.4" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#go-enrichment-analysis-7"><i class="fa fa-check"></i><b>5.5.4</b> GO Enrichment Analysis</a></li>
@@ -286,7 +291,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="5.6" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#refine-gokegg-1"><i class="fa fa-check"></i><b>5.6</b> Refine GO/KEGG</a>
 <ul>
-<li class="chapter" data-level="5.6.1" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#libraries-12"><i class="fa fa-check"></i><b>5.6.1</b> Libraries</a></li>
+<li class="chapter" data-level="5.6.1" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#libraries-13"><i class="fa fa-check"></i><b>5.6.1</b> Libraries</a></li>
 <li class="chapter" data-level="5.6.2" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#data-12"><i class="fa fa-check"></i><b>5.6.2</b> Data</a></li>
 <li class="chapter" data-level="5.6.3" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#transcriptome-2"><i class="fa fa-check"></i><b>5.6.3</b> Transcriptome</a></li>
 <li class="chapter" data-level="5.6.4" data-path="influenza-stage-dge.html"><a href="influenza-stage-dge.html#genome-2"><i class="fa fa-check"></i><b>5.6.4</b> Genome</a></li>
@@ -325,14 +330,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="7.1" data-path="influenza-dge-deseq2.html"><a href="influenza-dge-deseq2.html#transcriptome---deseq2---females"><i class="fa fa-check"></i><b>7.1</b> Transcriptome - DESeq2 - Females</a>
 <ul>
-<li class="chapter" data-level="7.1.1" data-path="influenza-dge-deseq2.html"><a href="influenza-dge-deseq2.html#libraries-13"><i class="fa fa-check"></i><b>7.1.1</b> Libraries</a></li>
+<li class="chapter" data-level="7.1.1" data-path="influenza-dge-deseq2.html"><a href="influenza-dge-deseq2.html#libraries-14"><i class="fa fa-check"></i><b>7.1.1</b> Libraries</a></li>
 <li class="chapter" data-level="7.1.2" data-path="influenza-dge-deseq2.html"><a href="influenza-dge-deseq2.html#data-16"><i class="fa fa-check"></i><b>7.1.2</b> Data</a></li>
 <li class="chapter" data-level="7.1.3" data-path="influenza-dge-deseq2.html"><a href="influenza-dge-deseq2.html#viral-rna"><i class="fa fa-check"></i><b>7.1.3</b> Viral RNA</a></li>
 <li class="chapter" data-level="7.1.4" data-path="influenza-dge-deseq2.html"><a href="influenza-dge-deseq2.html#influenza-stage"><i class="fa fa-check"></i><b>7.1.4</b> Influenza Stage</a></li>
 </ul></li>
 <li class="chapter" data-level="7.2" data-path="influenza-dge-deseq2.html"><a href="influenza-dge-deseq2.html#genome---deseq2---females"><i class="fa fa-check"></i><b>7.2</b> Genome - DESeq2 - Females</a>
 <ul>
-<li class="chapter" data-level="7.2.1" data-path="influenza-dge-deseq2.html"><a href="influenza-dge-deseq2.html#libraries-14"><i class="fa fa-check"></i><b>7.2.1</b> Libraries</a></li>
+<li class="chapter" data-level="7.2.1" data-path="influenza-dge-deseq2.html"><a href="influenza-dge-deseq2.html#libraries-15"><i class="fa fa-check"></i><b>7.2.1</b> Libraries</a></li>
 <li class="chapter" data-level="7.2.2" data-path="influenza-dge-deseq2.html"><a href="influenza-dge-deseq2.html#data-17"><i class="fa fa-check"></i><b>7.2.2</b> Data</a></li>
 <li class="chapter" data-level="7.2.3" data-path="influenza-dge-deseq2.html"><a href="influenza-dge-deseq2.html#viral-rna-1"><i class="fa fa-check"></i><b>7.2.3</b> Viral RNA</a></li>
 <li class="chapter" data-level="7.2.4" data-path="influenza-dge-deseq2.html"><a href="influenza-dge-deseq2.html#influenza-stage-1"><i class="fa fa-check"></i><b>7.2.4</b> Influenza Stage</a></li>
@@ -340,7 +345,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="8" data-path="r-package-comparison---edger-vs-deseq2.html"><a href="r-package-comparison---edger-vs-deseq2.html"><i class="fa fa-check"></i><b>8</b> R Package Comparison - edgeR vs DESeq2</a>
 <ul>
-<li class="chapter" data-level="8.1" data-path="r-package-comparison---edger-vs-deseq2.html"><a href="r-package-comparison---edger-vs-deseq2.html#libraries-15"><i class="fa fa-check"></i><b>8.1</b> Libraries</a></li>
+<li class="chapter" data-level="8.1" data-path="r-package-comparison---edger-vs-deseq2.html"><a href="r-package-comparison---edger-vs-deseq2.html#libraries-16"><i class="fa fa-check"></i><b>8.1</b> Libraries</a></li>
 <li class="chapter" data-level="8.2" data-path="r-package-comparison---edger-vs-deseq2.html"><a href="r-package-comparison---edger-vs-deseq2.html#data-18"><i class="fa fa-check"></i><b>8.2</b> Data</a>
 <ul>
 <li class="chapter" data-level="8.2.1" data-path="r-package-comparison---edger-vs-deseq2.html"><a href="r-package-comparison---edger-vs-deseq2.html#metadata"><i class="fa fa-check"></i><b>8.2.1</b> Metadata</a></li>
@@ -370,7 +375,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="9" data-path="iav-kegg-pathway-candidate-gene-analysis.html"><a href="iav-kegg-pathway-candidate-gene-analysis.html"><i class="fa fa-check"></i><b>9</b> IAV Kegg Pathway Candidate Gene Analysis</a>
 <ul>
-<li class="chapter" data-level="9.1" data-path="iav-kegg-pathway-candidate-gene-analysis.html"><a href="iav-kegg-pathway-candidate-gene-analysis.html#libraries-16"><i class="fa fa-check"></i><b>9.1</b> Libraries</a></li>
+<li class="chapter" data-level="9.1" data-path="iav-kegg-pathway-candidate-gene-analysis.html"><a href="iav-kegg-pathway-candidate-gene-analysis.html#libraries-17"><i class="fa fa-check"></i><b>9.1</b> Libraries</a></li>
 <li class="chapter" data-level="9.2" data-path="iav-kegg-pathway-candidate-gene-analysis.html"><a href="iav-kegg-pathway-candidate-gene-analysis.html#data-19"><i class="fa fa-check"></i><b>9.2</b> Data</a></li>
 <li class="chapter" data-level="9.3" data-path="iav-kegg-pathway-candidate-gene-analysis.html"><a href="iav-kegg-pathway-candidate-gene-analysis.html#extract-genes-from-kegg-pathway"><i class="fa fa-check"></i><b>9.3</b> Extract genes from KEGG Pathway</a></li>
 <li class="chapter" data-level="9.4" data-path="iav-kegg-pathway-candidate-gene-analysis.html"><a href="iav-kegg-pathway-candidate-gene-analysis.html#overlap-with-gene-lists"><i class="fa fa-check"></i><b>9.4</b> Overlap with Gene Lists</a>
@@ -382,6 +387,31 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="9.5" data-path="iav-kegg-pathway-candidate-gene-analysis.html"><a href="iav-kegg-pathway-candidate-gene-analysis.html#plot-pathway-map"><i class="fa fa-check"></i><b>9.5</b> Plot pathway map</a>
 <ul>
 <li class="chapter" data-level="9.5.1" data-path="iav-kegg-pathway-candidate-gene-analysis.html"><a href="iav-kegg-pathway-candidate-gene-analysis.html#create-legend"><i class="fa fa-check"></i><b>9.5.1</b> Create Legend</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="outlier-analysis.html"><a href="outlier-analysis.html"><i class="fa fa-check"></i><b>10</b> Outlier Analysis</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="outlier-analysis.html"><a href="outlier-analysis.html#libraries-18"><i class="fa fa-check"></i><b>10.1</b> Libraries</a></li>
+<li class="chapter" data-level="10.2" data-path="outlier-analysis.html"><a href="outlier-analysis.html#data-20"><i class="fa fa-check"></i><b>10.2</b> Data</a></li>
+<li class="chapter" data-level="10.3" data-path="outlier-analysis.html"><a href="outlier-analysis.html#pca-2"><i class="fa fa-check"></i><b>10.3</b> PCA</a>
+<ul>
+<li class="chapter" data-level="10.3.1" data-path="outlier-analysis.html"><a href="outlier-analysis.html#transcriptome-6"><i class="fa fa-check"></i><b>10.3.1</b> Transcriptome</a></li>
+<li class="chapter" data-level="10.3.2" data-path="outlier-analysis.html"><a href="outlier-analysis.html#genome-6"><i class="fa fa-check"></i><b>10.3.2</b> Genome</a></li>
+<li class="chapter" data-level="10.3.3" data-path="outlier-analysis.html"><a href="outlier-analysis.html#number-of-reads"><i class="fa fa-check"></i><b>10.3.3</b> Number of Reads</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="downsample-late-group-to-test-degs.html"><a href="downsample-late-group-to-test-degs.html"><i class="fa fa-check"></i><b>11</b> Downsample Late Group to test # DEGs</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="downsample-late-group-to-test-degs.html"><a href="downsample-late-group-to-test-degs.html#libraries-19"><i class="fa fa-check"></i><b>11.1</b> Libraries</a></li>
+<li class="chapter" data-level="11.2" data-path="downsample-late-group-to-test-degs.html"><a href="downsample-late-group-to-test-degs.html#data-21"><i class="fa fa-check"></i><b>11.2</b> Data</a></li>
+<li class="chapter" data-level="11.3" data-path="downsample-late-group-to-test-degs.html"><a href="downsample-late-group-to-test-degs.html#transcriptome-7"><i class="fa fa-check"></i><b>11.3</b> Transcriptome</a>
+<ul>
+<li class="chapter" data-level="11.3.1" data-path="downsample-late-group-to-test-degs.html"><a href="downsample-late-group-to-test-degs.html#downsample-loop"><i class="fa fa-check"></i><b>11.3.1</b> Downsample &amp; Loop</a></li>
+</ul></li>
+<li class="chapter" data-level="11.4" data-path="downsample-late-group-to-test-degs.html"><a href="downsample-late-group-to-test-degs.html#genome-7"><i class="fa fa-check"></i><b>11.4</b> Genome</a>
+<ul>
+<li class="chapter" data-level="11.4.1" data-path="downsample-late-group-to-test-degs.html"><a href="downsample-late-group-to-test-degs.html#downsample-loop-1"><i class="fa fa-check"></i><b>11.4.1</b> Downsample &amp; Loop</a></li>
+<li class="chapter" data-level="11.4.2" data-path="downsample-late-group-to-test-degs.html"><a href="downsample-late-group-to-test-degs.html#summarize-degs"><i class="fa fa-check"></i><b>11.4.2</b> Summarize # DEGs</a></li>
 </ul></li>
 </ul></li>
 </ul>
@@ -403,137 +433,137 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="iav-kegg-pathway-candidate-gene-analysis" class="section level1 hasAnchor" number="9">
 <h1><span class="header-section-number">9</span> IAV Kegg Pathway Candidate Gene Analysis<a href="iav-kegg-pathway-candidate-gene-analysis.html#iav-kegg-pathway-candidate-gene-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<div id="libraries-16" class="section level2 hasAnchor" number="9.1">
-<h2><span class="header-section-number">9.1</span> Libraries<a href="iav-kegg-pathway-candidate-gene-analysis.html#libraries-16" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb436"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb436-1"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb436-1" tabindex="-1"></a><span class="fu">library</span>(limma)</span>
-<span id="cb436-2"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb436-2" tabindex="-1"></a><span class="fu">library</span>(org.Hs.eg.db)</span>
-<span id="cb436-3"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb436-3" tabindex="-1"></a><span class="fu">library</span>(AnnotationDbi) </span>
-<span id="cb436-4"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb436-4" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb436-5"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb436-5" tabindex="-1"></a><span class="fu">library</span>(ggkegg)</span>
-<span id="cb436-6"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb436-6" tabindex="-1"></a><span class="fu">library</span>(tidygraph)</span></code></pre></div>
+<div id="libraries-17" class="section level2 hasAnchor" number="9.1">
+<h2><span class="header-section-number">9.1</span> Libraries<a href="iav-kegg-pathway-candidate-gene-analysis.html#libraries-17" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb439"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb439-1"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb439-1" tabindex="-1"></a><span class="fu">library</span>(limma)</span>
+<span id="cb439-2"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb439-2" tabindex="-1"></a><span class="fu">library</span>(org.Hs.eg.db)</span>
+<span id="cb439-3"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb439-3" tabindex="-1"></a><span class="fu">library</span>(AnnotationDbi) </span>
+<span id="cb439-4"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb439-4" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb439-5"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb439-5" tabindex="-1"></a><span class="fu">library</span>(ggkegg)</span>
+<span id="cb439-6"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb439-6" tabindex="-1"></a><span class="fu">library</span>(tidygraph)</span></code></pre></div>
 </div>
 <div id="data-19" class="section level2 hasAnchor" number="9.2">
 <h2><span class="header-section-number">9.2</span> Data<a href="iav-kegg-pathway-candidate-gene-analysis.html#data-19" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb437"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb437-1"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb437-1" tabindex="-1"></a>t_postfilter <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">&quot;Output Files/txome_female_edgeR_postfilter.txt&quot;</span>)</span>
-<span id="cb437-2"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb437-2" tabindex="-1"></a>  </span>
-<span id="cb437-3"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb437-3" tabindex="-1"></a>t_acute <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;Output Files/txome_female_edgeR_DEG_acute.csv&quot;</span>, <span class="at">row.names=</span><span class="dv">1</span>)</span>
-<span id="cb437-4"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb437-4" tabindex="-1"></a>t_peak <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;Output Files/txome_female_edgeR_DEG_peak.csv&quot;</span>, <span class="at">row.names=</span><span class="dv">1</span>)</span>
-<span id="cb437-5"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb437-5" tabindex="-1"></a>t_late <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;Output Files/txome_female_edgeR_DEG_late.csv&quot;</span>, <span class="at">row.names=</span><span class="dv">1</span>)</span>
-<span id="cb437-6"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb437-6" tabindex="-1"></a></span>
-<span id="cb437-7"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb437-7" tabindex="-1"></a>g_postfilter <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">&quot;Output Files/gnome_female_edgeR_postfilter.txt&quot;</span>)</span>
-<span id="cb437-8"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb437-8" tabindex="-1"></a>g_acute <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;Output Files/gnome_female_edgeR_DEG_acute.csv&quot;</span>, <span class="at">row.names=</span><span class="dv">1</span>)</span>
-<span id="cb437-9"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb437-9" tabindex="-1"></a>g_peak <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;Output Files/gnome_female_edgeR_DEG_peak.csv&quot;</span>, <span class="at">row.names=</span><span class="dv">1</span>)</span>
-<span id="cb437-10"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb437-10" tabindex="-1"></a>g_late <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;Output Files/gnome_female_edgeR_DEG_late.csv&quot;</span>, <span class="at">row.names=</span><span class="dv">1</span>)</span>
-<span id="cb437-11"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb437-11" tabindex="-1"></a></span>
-<span id="cb437-12"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb437-12" tabindex="-1"></a>t_virus_postfilter <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">&quot;Output Files/txome_female_edgeR_viralRNA_postfilter.txt&quot;</span>)</span>
-<span id="cb437-13"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb437-13" tabindex="-1"></a>t_virus_degs <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;Output Files/txome_female_edgeR_viralRNA_DEG.csv&quot;</span>, <span class="at">row.names=</span><span class="dv">1</span>)</span>
-<span id="cb437-14"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb437-14" tabindex="-1"></a></span>
-<span id="cb437-15"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb437-15" tabindex="-1"></a>g_virus_postfilter <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">&quot;Output Files/gnome_female_edgeR_viralRNA_postfilter.txt&quot;</span>)</span>
-<span id="cb437-16"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb437-16" tabindex="-1"></a>g_virus_degs <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;Output Files/gnome_female_edgeR_viralRNA_DEG.csv&quot;</span>, <span class="at">row.names=</span><span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb440"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb440-1"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb440-1" tabindex="-1"></a>t_postfilter <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">&quot;Output Files/txome_female_edgeR_postfilter.txt&quot;</span>)</span>
+<span id="cb440-2"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb440-2" tabindex="-1"></a>  </span>
+<span id="cb440-3"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb440-3" tabindex="-1"></a>t_acute <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;Output Files/txome_female_edgeR_DEG_acute.csv&quot;</span>, <span class="at">row.names=</span><span class="dv">1</span>)</span>
+<span id="cb440-4"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb440-4" tabindex="-1"></a>t_peak <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;Output Files/txome_female_edgeR_DEG_peak.csv&quot;</span>, <span class="at">row.names=</span><span class="dv">1</span>)</span>
+<span id="cb440-5"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb440-5" tabindex="-1"></a>t_late <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;Output Files/txome_female_edgeR_DEG_late.csv&quot;</span>, <span class="at">row.names=</span><span class="dv">1</span>)</span>
+<span id="cb440-6"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb440-6" tabindex="-1"></a></span>
+<span id="cb440-7"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb440-7" tabindex="-1"></a>g_postfilter <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">&quot;Output Files/gnome_female_edgeR_postfilter.txt&quot;</span>)</span>
+<span id="cb440-8"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb440-8" tabindex="-1"></a>g_acute <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;Output Files/gnome_female_edgeR_DEG_acute.csv&quot;</span>, <span class="at">row.names=</span><span class="dv">1</span>)</span>
+<span id="cb440-9"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb440-9" tabindex="-1"></a>g_peak <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;Output Files/gnome_female_edgeR_DEG_peak.csv&quot;</span>, <span class="at">row.names=</span><span class="dv">1</span>)</span>
+<span id="cb440-10"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb440-10" tabindex="-1"></a>g_late <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;Output Files/gnome_female_edgeR_DEG_late.csv&quot;</span>, <span class="at">row.names=</span><span class="dv">1</span>)</span>
+<span id="cb440-11"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb440-11" tabindex="-1"></a></span>
+<span id="cb440-12"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb440-12" tabindex="-1"></a>t_virus_postfilter <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">&quot;Output Files/txome_female_edgeR_viralRNA_postfilter.txt&quot;</span>)</span>
+<span id="cb440-13"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb440-13" tabindex="-1"></a>t_virus_degs <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;Output Files/txome_female_edgeR_viralRNA_DEG.csv&quot;</span>, <span class="at">row.names=</span><span class="dv">1</span>)</span>
+<span id="cb440-14"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb440-14" tabindex="-1"></a></span>
+<span id="cb440-15"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb440-15" tabindex="-1"></a>g_virus_postfilter <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">&quot;Output Files/gnome_female_edgeR_viralRNA_postfilter.txt&quot;</span>)</span>
+<span id="cb440-16"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb440-16" tabindex="-1"></a>g_virus_degs <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;Output Files/gnome_female_edgeR_viralRNA_DEG.csv&quot;</span>, <span class="at">row.names=</span><span class="dv">1</span>)</span></code></pre></div>
 </div>
 <div id="extract-genes-from-kegg-pathway" class="section level2 hasAnchor" number="9.3">
 <h2><span class="header-section-number">9.3</span> Extract genes from KEGG Pathway<a href="iav-kegg-pathway-candidate-gene-analysis.html#extract-genes-from-kegg-pathway" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb438"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb438-1"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb438-1" tabindex="-1"></a>iav <span class="ot">&lt;-</span> </span>
-<span id="cb438-2"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb438-2" tabindex="-1"></a>  <span class="fu">getGeneKEGGLinks</span>(<span class="at">species=</span><span class="st">&quot;hsa&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb438-3"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb438-3" tabindex="-1"></a>  <span class="fu">filter</span>(PathwayID <span class="sc">==</span> <span class="st">&quot;hsa05164&quot;</span>)</span>
-<span id="cb438-4"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb438-4" tabindex="-1"></a></span>
-<span id="cb438-5"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb438-5" tabindex="-1"></a>iav<span class="sc">$</span>Symbol <span class="ot">&lt;-</span> <span class="fu">mapIds</span>(org.Hs.eg.db, iav<span class="sc">$</span>GeneID,</span>
-<span id="cb438-6"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb438-6" tabindex="-1"></a>                     <span class="at">column=</span><span class="st">&quot;SYMBOL&quot;</span>, <span class="at">keytype=</span><span class="st">&quot;ENTREZID&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb441"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb441-1"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb441-1" tabindex="-1"></a>iav <span class="ot">&lt;-</span> </span>
+<span id="cb441-2"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb441-2" tabindex="-1"></a>  <span class="fu">getGeneKEGGLinks</span>(<span class="at">species=</span><span class="st">&quot;hsa&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb441-3"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb441-3" tabindex="-1"></a>  <span class="fu">filter</span>(PathwayID <span class="sc">==</span> <span class="st">&quot;hsa05164&quot;</span>)</span>
+<span id="cb441-4"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb441-4" tabindex="-1"></a></span>
+<span id="cb441-5"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb441-5" tabindex="-1"></a>iav<span class="sc">$</span>Symbol <span class="ot">&lt;-</span> <span class="fu">mapIds</span>(org.Hs.eg.db, iav<span class="sc">$</span>GeneID,</span>
+<span id="cb441-6"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb441-6" tabindex="-1"></a>                     <span class="at">column=</span><span class="st">&quot;SYMBOL&quot;</span>, <span class="at">keytype=</span><span class="st">&quot;ENTREZID&quot;</span>)</span></code></pre></div>
 </div>
 <div id="overlap-with-gene-lists" class="section level2 hasAnchor" number="9.4">
 <h2><span class="header-section-number">9.4</span> Overlap with Gene Lists<a href="iav-kegg-pathway-candidate-gene-analysis.html#overlap-with-gene-lists" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div id="postfilter" class="section level3 hasAnchor" number="9.4.1">
 <h3><span class="header-section-number">9.4.1</span> Postfilter<a href="iav-kegg-pathway-candidate-gene-analysis.html#postfilter" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb439"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb439-1"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb439-1" tabindex="-1"></a>postfilter <span class="ot">&lt;-</span> </span>
-<span id="cb439-2"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb439-2" tabindex="-1"></a>  <span class="fu">rbind</span>(t_postfilter, g_postfilter, t_virus_postfilter) <span class="sc">%&gt;%</span> </span>
-<span id="cb439-3"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb439-3" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">duplicated</span>(V1))</span>
-<span id="cb439-4"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb439-4" tabindex="-1"></a></span>
-<span id="cb439-5"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb439-5" tabindex="-1"></a>iav_postfilter <span class="ot">&lt;-</span></span>
-<span id="cb439-6"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb439-6" tabindex="-1"></a>  <span class="fu">intersect</span>(iav<span class="sc">$</span>Symbol, postfilter<span class="sc">$</span>V1)</span></code></pre></div>
+<div class="sourceCode" id="cb442"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb442-1"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb442-1" tabindex="-1"></a>postfilter <span class="ot">&lt;-</span> </span>
+<span id="cb442-2"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb442-2" tabindex="-1"></a>  <span class="fu">rbind</span>(t_postfilter, g_postfilter, t_virus_postfilter) <span class="sc">%&gt;%</span> </span>
+<span id="cb442-3"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb442-3" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">duplicated</span>(V1))</span>
+<span id="cb442-4"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb442-4" tabindex="-1"></a></span>
+<span id="cb442-5"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb442-5" tabindex="-1"></a>iav_postfilter <span class="ot">&lt;-</span></span>
+<span id="cb442-6"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb442-6" tabindex="-1"></a>  <span class="fu">intersect</span>(iav<span class="sc">$</span>Symbol, postfilter<span class="sc">$</span>V1)</span></code></pre></div>
 </div>
 <div id="differentially-expressed-genes" class="section level3 hasAnchor" number="9.4.2">
 <h3><span class="header-section-number">9.4.2</span> Differentially Expressed Genes<a href="iav-kegg-pathway-candidate-gene-analysis.html#differentially-expressed-genes" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb440"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb440-1"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb440-1" tabindex="-1"></a>acute <span class="ot">&lt;-</span> </span>
-<span id="cb440-2"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb440-2" tabindex="-1"></a>  <span class="fu">data.frame</span>(</span>
-<span id="cb440-3"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb440-3" tabindex="-1"></a>    <span class="at">genes=</span><span class="fu">c</span>(<span class="fu">intersect</span>(iav<span class="sc">$</span>Symbol, t_acute<span class="sc">$</span>gene), </span>
-<span id="cb440-4"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb440-4" tabindex="-1"></a>            <span class="fu">intersect</span>(iav<span class="sc">$</span>Symbol, g_acute<span class="sc">$</span>gene)), </span>
-<span id="cb440-5"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb440-5" tabindex="-1"></a>    <span class="at">category=</span><span class="st">&quot;acute&quot;</span>)</span>
-<span id="cb440-6"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb440-6" tabindex="-1"></a></span>
-<span id="cb440-7"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb440-7" tabindex="-1"></a>peak <span class="ot">&lt;-</span> </span>
-<span id="cb440-8"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb440-8" tabindex="-1"></a>  <span class="fu">data.frame</span>(</span>
-<span id="cb440-9"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb440-9" tabindex="-1"></a>    <span class="at">genes=</span><span class="fu">c</span>(<span class="fu">intersect</span>(iav<span class="sc">$</span>Symbol, t_peak<span class="sc">$</span>gene), </span>
-<span id="cb440-10"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb440-10" tabindex="-1"></a>            <span class="fu">intersect</span>(iav<span class="sc">$</span>Symbol, g_peak<span class="sc">$</span>gene)), </span>
-<span id="cb440-11"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb440-11" tabindex="-1"></a>    <span class="at">category=</span><span class="st">&quot;peak&quot;</span>)</span>
-<span id="cb440-12"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb440-12" tabindex="-1"></a></span>
-<span id="cb440-13"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb440-13" tabindex="-1"></a>late <span class="ot">&lt;-</span> </span>
-<span id="cb440-14"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb440-14" tabindex="-1"></a>  <span class="fu">data.frame</span>(</span>
-<span id="cb440-15"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb440-15" tabindex="-1"></a>    <span class="at">genes=</span><span class="fu">c</span>(<span class="fu">intersect</span>(iav<span class="sc">$</span>Symbol, t_late<span class="sc">$</span>gene),</span>
-<span id="cb440-16"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb440-16" tabindex="-1"></a>            <span class="fu">intersect</span>(iav<span class="sc">$</span>Symbol, g_late<span class="sc">$</span>gene)),</span>
-<span id="cb440-17"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb440-17" tabindex="-1"></a>    <span class="at">category=</span><span class="st">&quot;late&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb440-18"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb440-18" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">duplicated</span>(genes))</span>
-<span id="cb440-19"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb440-19" tabindex="-1"></a></span>
-<span id="cb440-20"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb440-20" tabindex="-1"></a>virus <span class="ot">&lt;-</span> </span>
-<span id="cb440-21"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb440-21" tabindex="-1"></a>  <span class="fu">data.frame</span>(</span>
-<span id="cb440-22"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb440-22" tabindex="-1"></a>    <span class="at">genes=</span><span class="fu">c</span>(<span class="fu">intersect</span>(iav<span class="sc">$</span>Symbol, t_virus_degs<span class="sc">$</span>gene),</span>
-<span id="cb440-23"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb440-23" tabindex="-1"></a>            <span class="fu">intersect</span>(iav<span class="sc">$</span>Symbol, g_virus_degs<span class="sc">$</span>gene)),</span>
-<span id="cb440-24"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb440-24" tabindex="-1"></a>    <span class="at">category=</span><span class="st">&quot;virus&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb440-25"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb440-25" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">duplicated</span>(genes))</span></code></pre></div>
+<div class="sourceCode" id="cb443"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb443-1"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb443-1" tabindex="-1"></a>acute <span class="ot">&lt;-</span> </span>
+<span id="cb443-2"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb443-2" tabindex="-1"></a>  <span class="fu">data.frame</span>(</span>
+<span id="cb443-3"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb443-3" tabindex="-1"></a>    <span class="at">genes=</span><span class="fu">c</span>(<span class="fu">intersect</span>(iav<span class="sc">$</span>Symbol, t_acute<span class="sc">$</span>gene), </span>
+<span id="cb443-4"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb443-4" tabindex="-1"></a>            <span class="fu">intersect</span>(iav<span class="sc">$</span>Symbol, g_acute<span class="sc">$</span>gene)), </span>
+<span id="cb443-5"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb443-5" tabindex="-1"></a>    <span class="at">category=</span><span class="st">&quot;acute&quot;</span>)</span>
+<span id="cb443-6"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb443-6" tabindex="-1"></a></span>
+<span id="cb443-7"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb443-7" tabindex="-1"></a>peak <span class="ot">&lt;-</span> </span>
+<span id="cb443-8"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb443-8" tabindex="-1"></a>  <span class="fu">data.frame</span>(</span>
+<span id="cb443-9"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb443-9" tabindex="-1"></a>    <span class="at">genes=</span><span class="fu">c</span>(<span class="fu">intersect</span>(iav<span class="sc">$</span>Symbol, t_peak<span class="sc">$</span>gene), </span>
+<span id="cb443-10"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb443-10" tabindex="-1"></a>            <span class="fu">intersect</span>(iav<span class="sc">$</span>Symbol, g_peak<span class="sc">$</span>gene)), </span>
+<span id="cb443-11"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb443-11" tabindex="-1"></a>    <span class="at">category=</span><span class="st">&quot;peak&quot;</span>)</span>
+<span id="cb443-12"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb443-12" tabindex="-1"></a></span>
+<span id="cb443-13"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb443-13" tabindex="-1"></a>late <span class="ot">&lt;-</span> </span>
+<span id="cb443-14"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb443-14" tabindex="-1"></a>  <span class="fu">data.frame</span>(</span>
+<span id="cb443-15"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb443-15" tabindex="-1"></a>    <span class="at">genes=</span><span class="fu">c</span>(<span class="fu">intersect</span>(iav<span class="sc">$</span>Symbol, t_late<span class="sc">$</span>gene),</span>
+<span id="cb443-16"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb443-16" tabindex="-1"></a>            <span class="fu">intersect</span>(iav<span class="sc">$</span>Symbol, g_late<span class="sc">$</span>gene)),</span>
+<span id="cb443-17"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb443-17" tabindex="-1"></a>    <span class="at">category=</span><span class="st">&quot;late&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb443-18"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb443-18" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">duplicated</span>(genes))</span>
+<span id="cb443-19"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb443-19" tabindex="-1"></a></span>
+<span id="cb443-20"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb443-20" tabindex="-1"></a>virus <span class="ot">&lt;-</span> </span>
+<span id="cb443-21"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb443-21" tabindex="-1"></a>  <span class="fu">data.frame</span>(</span>
+<span id="cb443-22"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb443-22" tabindex="-1"></a>    <span class="at">genes=</span><span class="fu">c</span>(<span class="fu">intersect</span>(iav<span class="sc">$</span>Symbol, t_virus_degs<span class="sc">$</span>gene),</span>
+<span id="cb443-23"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb443-23" tabindex="-1"></a>            <span class="fu">intersect</span>(iav<span class="sc">$</span>Symbol, g_virus_degs<span class="sc">$</span>gene)),</span>
+<span id="cb443-24"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb443-24" tabindex="-1"></a>    <span class="at">category=</span><span class="st">&quot;virus&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb443-25"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb443-25" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">duplicated</span>(genes))</span></code></pre></div>
 </div>
 <div id="compile-gene-ids" class="section level3 hasAnchor" number="9.4.3">
 <h3><span class="header-section-number">9.4.3</span> Compile gene IDs<a href="iav-kegg-pathway-candidate-gene-analysis.html#compile-gene-ids" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb441"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb441-1"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb441-1" tabindex="-1"></a>deg <span class="ot">&lt;-</span></span>
-<span id="cb441-2"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb441-2" tabindex="-1"></a>  <span class="fu">rbind</span>(acute, peak, late, virus) <span class="sc">%&gt;%</span> </span>
-<span id="cb441-3"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb441-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">id =</span> <span class="fu">paste0</span>(<span class="st">&quot;hsa:&quot;</span>, <span class="fu">ifelse</span>(genes <span class="sc">%in%</span> iav<span class="sc">$</span>Symbol, </span>
-<span id="cb441-4"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb441-4" tabindex="-1"></a>                     iav[<span class="fu">match</span>(genes, iav<span class="sc">$</span>Symbol),<span class="dv">1</span>],</span>
-<span id="cb441-5"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb441-5" tabindex="-1"></a>                     genes)))</span>
-<span id="cb441-6"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb441-6" tabindex="-1"></a></span>
-<span id="cb441-7"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb441-7" tabindex="-1"></a>expressed <span class="ot">&lt;-</span></span>
-<span id="cb441-8"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb441-8" tabindex="-1"></a>  <span class="fu">data.frame</span>(<span class="at">genes=</span>iav_postfilter) <span class="sc">%&gt;%</span>  </span>
-<span id="cb441-9"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb441-9" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span>genes <span class="sc">%in%</span> deg<span class="sc">$</span>genes) <span class="sc">%&gt;%</span> </span>
-<span id="cb441-10"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb441-10" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">id =</span> <span class="fu">paste0</span>(<span class="st">&quot;hsa:&quot;</span>, <span class="fu">ifelse</span>(genes <span class="sc">%in%</span> iav<span class="sc">$</span>Symbol, </span>
-<span id="cb441-11"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb441-11" tabindex="-1"></a>                     iav[<span class="fu">match</span>(genes, iav<span class="sc">$</span>Symbol),<span class="dv">1</span>],</span>
-<span id="cb441-12"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb441-12" tabindex="-1"></a>                     genes)))</span>
-<span id="cb441-13"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb441-13" tabindex="-1"></a></span>
-<span id="cb441-14"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb441-14" tabindex="-1"></a>notexpressed <span class="ot">&lt;-</span> </span>
-<span id="cb441-15"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb441-15" tabindex="-1"></a>  <span class="fu">data.frame</span>(iav) <span class="sc">%&gt;%</span> </span>
-<span id="cb441-16"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb441-16" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span>Symbol <span class="sc">%in%</span> expressed<span class="sc">$</span>genes) <span class="sc">%&gt;%</span> </span>
-<span id="cb441-17"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb441-17" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span>Symbol <span class="sc">%in%</span> deg<span class="sc">$</span>genes) <span class="sc">%&gt;%</span> </span>
-<span id="cb441-18"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb441-18" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">id =</span> <span class="fu">paste0</span>(<span class="st">&quot;hsa:&quot;</span>, <span class="fu">ifelse</span>(Symbol <span class="sc">%in%</span> iav<span class="sc">$</span>Symbol, </span>
-<span id="cb441-19"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb441-19" tabindex="-1"></a>                     iav[<span class="fu">match</span>(Symbol, iav<span class="sc">$</span>Symbol),<span class="dv">1</span>],</span>
-<span id="cb441-20"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb441-20" tabindex="-1"></a>                     Symbol)))</span></code></pre></div>
+<div class="sourceCode" id="cb444"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb444-1"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb444-1" tabindex="-1"></a>deg <span class="ot">&lt;-</span></span>
+<span id="cb444-2"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb444-2" tabindex="-1"></a>  <span class="fu">rbind</span>(acute, peak, late, virus) <span class="sc">%&gt;%</span> </span>
+<span id="cb444-3"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb444-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">id =</span> <span class="fu">paste0</span>(<span class="st">&quot;hsa:&quot;</span>, <span class="fu">ifelse</span>(genes <span class="sc">%in%</span> iav<span class="sc">$</span>Symbol, </span>
+<span id="cb444-4"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb444-4" tabindex="-1"></a>                     iav[<span class="fu">match</span>(genes, iav<span class="sc">$</span>Symbol),<span class="dv">1</span>],</span>
+<span id="cb444-5"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb444-5" tabindex="-1"></a>                     genes)))</span>
+<span id="cb444-6"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb444-6" tabindex="-1"></a></span>
+<span id="cb444-7"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb444-7" tabindex="-1"></a>expressed <span class="ot">&lt;-</span></span>
+<span id="cb444-8"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb444-8" tabindex="-1"></a>  <span class="fu">data.frame</span>(<span class="at">genes=</span>iav_postfilter) <span class="sc">%&gt;%</span>  </span>
+<span id="cb444-9"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb444-9" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span>genes <span class="sc">%in%</span> deg<span class="sc">$</span>genes) <span class="sc">%&gt;%</span> </span>
+<span id="cb444-10"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb444-10" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">id =</span> <span class="fu">paste0</span>(<span class="st">&quot;hsa:&quot;</span>, <span class="fu">ifelse</span>(genes <span class="sc">%in%</span> iav<span class="sc">$</span>Symbol, </span>
+<span id="cb444-11"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb444-11" tabindex="-1"></a>                     iav[<span class="fu">match</span>(genes, iav<span class="sc">$</span>Symbol),<span class="dv">1</span>],</span>
+<span id="cb444-12"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb444-12" tabindex="-1"></a>                     genes)))</span>
+<span id="cb444-13"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb444-13" tabindex="-1"></a></span>
+<span id="cb444-14"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb444-14" tabindex="-1"></a>notexpressed <span class="ot">&lt;-</span> </span>
+<span id="cb444-15"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb444-15" tabindex="-1"></a>  <span class="fu">data.frame</span>(iav) <span class="sc">%&gt;%</span> </span>
+<span id="cb444-16"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb444-16" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span>Symbol <span class="sc">%in%</span> expressed<span class="sc">$</span>genes) <span class="sc">%&gt;%</span> </span>
+<span id="cb444-17"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb444-17" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span>Symbol <span class="sc">%in%</span> deg<span class="sc">$</span>genes) <span class="sc">%&gt;%</span> </span>
+<span id="cb444-18"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb444-18" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">id =</span> <span class="fu">paste0</span>(<span class="st">&quot;hsa:&quot;</span>, <span class="fu">ifelse</span>(Symbol <span class="sc">%in%</span> iav<span class="sc">$</span>Symbol, </span>
+<span id="cb444-19"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb444-19" tabindex="-1"></a>                     iav[<span class="fu">match</span>(Symbol, iav<span class="sc">$</span>Symbol),<span class="dv">1</span>],</span>
+<span id="cb444-20"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb444-20" tabindex="-1"></a>                     Symbol)))</span></code></pre></div>
 </div>
 </div>
 <div id="plot-pathway-map" class="section level2 hasAnchor" number="9.5">
 <h2><span class="header-section-number">9.5</span> Plot pathway map<a href="iav-kegg-pathway-candidate-gene-analysis.html#plot-pathway-map" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>** no longer used - cannot figure out coloring for some genes. Created map online.</p>
-<div class="sourceCode" id="cb442"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb442-1"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb442-1" tabindex="-1"></a>graph_info <span class="ot">&lt;-</span></span>
-<span id="cb442-2"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb442-2" tabindex="-1"></a>  <span class="fu">pathway</span>(<span class="st">&quot;hsa05164&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb442-3"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb442-3" tabindex="-1"></a>  <span class="fu">activate</span>(nodes) <span class="sc">%&gt;%</span> </span>
-<span id="cb442-4"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb442-4" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">convert_hsa=</span><span class="fu">convert_id</span>(<span class="st">&quot;hsa&quot;</span>), </span>
-<span id="cb442-5"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb442-5" tabindex="-1"></a>         <span class="at">convert_map=</span><span class="fu">convert_id</span>(<span class="st">&quot;pathway&quot;</span>),</span>
-<span id="cb442-6"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb442-6" tabindex="-1"></a>         <span class="at">bgcolor=</span><span class="fu">ifelse</span>(convert_hsa <span class="sc">%in%</span> expressed<span class="sc">$</span>id, <span class="st">&quot;#ffffe0&quot;</span>, </span>
-<span id="cb442-7"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb442-7" tabindex="-1"></a>                        <span class="fu">ifelse</span>(convert_hsa <span class="sc">%in%</span> deg<span class="sc">$</span>id, <span class="st">&quot;#fbc69d&quot;</span>, <span class="st">&quot;white&quot;</span>)))</span>
-<span id="cb442-8"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb442-8" tabindex="-1"></a></span>
-<span id="cb442-9"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb442-9" tabindex="-1"></a>graph <span class="ot">&lt;-</span></span>
-<span id="cb442-10"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb442-10" tabindex="-1"></a>  <span class="fu">ggraph</span>(graph_info, <span class="at">x=</span>x, <span class="at">y=</span>y) <span class="sc">+</span></span>
-<span id="cb442-11"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb442-11" tabindex="-1"></a>   <span class="fu">geom_node_rect</span>(<span class="fu">aes</span>(<span class="at">filter=</span>type<span class="sc">==</span><span class="st">&quot;gene&quot;</span>, </span>
-<span id="cb442-12"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb442-12" tabindex="-1"></a>                      <span class="at">fill=</span><span class="fu">I</span>(bgcolor)),</span>
-<span id="cb442-13"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb442-13" tabindex="-1"></a>                 <span class="at">color=</span><span class="st">&quot;black&quot;</span>) <span class="sc">+</span> </span>
-<span id="cb442-14"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb442-14" tabindex="-1"></a>  <span class="fu">overlay_raw_map</span>() <span class="sc">+</span></span>
-<span id="cb442-15"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb442-15" tabindex="-1"></a>  <span class="fu">theme_void</span>() </span>
-<span id="cb442-16"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb442-16" tabindex="-1"></a>graph </span>
-<span id="cb442-17"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb442-17" tabindex="-1"></a></span>
-<span id="cb442-18"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb442-18" tabindex="-1"></a><span class="co">#ggkeggsave(filename=&quot;Figures/iavkegg.jpg&quot;, graph, dpi=300)</span></span></code></pre></div>
+<div class="sourceCode" id="cb445"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb445-1"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb445-1" tabindex="-1"></a>graph_info <span class="ot">&lt;-</span></span>
+<span id="cb445-2"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb445-2" tabindex="-1"></a>  <span class="fu">pathway</span>(<span class="st">&quot;hsa05164&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb445-3"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb445-3" tabindex="-1"></a>  <span class="fu">activate</span>(nodes) <span class="sc">%&gt;%</span> </span>
+<span id="cb445-4"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb445-4" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">convert_hsa=</span><span class="fu">convert_id</span>(<span class="st">&quot;hsa&quot;</span>), </span>
+<span id="cb445-5"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb445-5" tabindex="-1"></a>         <span class="at">convert_map=</span><span class="fu">convert_id</span>(<span class="st">&quot;pathway&quot;</span>),</span>
+<span id="cb445-6"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb445-6" tabindex="-1"></a>         <span class="at">bgcolor=</span><span class="fu">ifelse</span>(convert_hsa <span class="sc">%in%</span> expressed<span class="sc">$</span>id, <span class="st">&quot;#ffffe0&quot;</span>, </span>
+<span id="cb445-7"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb445-7" tabindex="-1"></a>                        <span class="fu">ifelse</span>(convert_hsa <span class="sc">%in%</span> deg<span class="sc">$</span>id, <span class="st">&quot;#fbc69d&quot;</span>, <span class="st">&quot;white&quot;</span>)))</span>
+<span id="cb445-8"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb445-8" tabindex="-1"></a></span>
+<span id="cb445-9"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb445-9" tabindex="-1"></a>graph <span class="ot">&lt;-</span></span>
+<span id="cb445-10"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb445-10" tabindex="-1"></a>  <span class="fu">ggraph</span>(graph_info, <span class="at">x=</span>x, <span class="at">y=</span>y) <span class="sc">+</span></span>
+<span id="cb445-11"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb445-11" tabindex="-1"></a>   <span class="fu">geom_node_rect</span>(<span class="fu">aes</span>(<span class="at">filter=</span>type<span class="sc">==</span><span class="st">&quot;gene&quot;</span>, </span>
+<span id="cb445-12"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb445-12" tabindex="-1"></a>                      <span class="at">fill=</span><span class="fu">I</span>(bgcolor)),</span>
+<span id="cb445-13"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb445-13" tabindex="-1"></a>                 <span class="at">color=</span><span class="st">&quot;black&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb445-14"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb445-14" tabindex="-1"></a>  <span class="fu">overlay_raw_map</span>() <span class="sc">+</span></span>
+<span id="cb445-15"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb445-15" tabindex="-1"></a>  <span class="fu">theme_void</span>() </span>
+<span id="cb445-16"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb445-16" tabindex="-1"></a>graph </span>
+<span id="cb445-17"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb445-17" tabindex="-1"></a></span>
+<span id="cb445-18"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb445-18" tabindex="-1"></a><span class="co">#ggkeggsave(filename=&quot;Figures/iavkegg.jpg&quot;, graph, dpi=300)</span></span></code></pre></div>
 <div id="create-legend" class="section level3 hasAnchor" number="9.5.1">
 <h3><span class="header-section-number">9.5.1</span> Create Legend<a href="iav-kegg-pathway-candidate-gene-analysis.html#create-legend" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb443"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb443-1"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb443-1" tabindex="-1"></a><span class="fu">png</span>(<span class="at">filename=</span><span class="st">&quot;Figures/iavkeggleg.png&quot;</span>, <span class="at">width =</span> <span class="dv">6</span>, <span class="at">height=</span><span class="dv">7</span>, <span class="at">units=</span><span class="st">&quot;in&quot;</span>, <span class="at">res=</span><span class="dv">300</span>)</span>
-<span id="cb443-2"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb443-2" tabindex="-1"></a>  <span class="fu">plot</span>(<span class="cn">NULL</span> ,<span class="at">xaxt=</span><span class="st">&#39;n&#39;</span>,<span class="at">yaxt=</span><span class="st">&#39;n&#39;</span>,<span class="at">bty=</span><span class="st">&#39;n&#39;</span>,<span class="at">ylab=</span><span class="st">&#39;&#39;</span>,<span class="at">xlab=</span><span class="st">&#39;&#39;</span>, , <span class="at">xlim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">100</span>), <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">10</span>))</span>
-<span id="cb443-3"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb443-3" tabindex="-1"></a>  <span class="fu">legend</span>(<span class="st">&quot;topleft&quot;</span>, </span>
-<span id="cb443-4"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb443-4" tabindex="-1"></a>         <span class="at">legend =</span><span class="fu">c</span>(<span class="st">&quot;Acute&quot;</span>, <span class="st">&quot;Peak&quot;</span>, <span class="st">&quot;Late&quot;</span>, <span class="st">&quot;Virus&quot;</span>, <span class="st">&quot;Expressed&quot;</span>, <span class="st">&quot;Not Expressed&quot;</span>), </span>
-<span id="cb443-5"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb443-5" tabindex="-1"></a>         <span class="at">pch=</span><span class="dv">15</span>, <span class="at">pt.cex=</span><span class="dv">7</span>, <span class="at">cex=</span><span class="dv">3</span>, <span class="at">bty=</span><span class="st">&#39;o&#39;</span>,</span>
-<span id="cb443-6"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb443-6" tabindex="-1"></a>         <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;darkslategray1&quot;</span>, <span class="st">&quot;darkslategray3&quot;</span>, <span class="st">&quot;darkslategray4&quot;</span>, <span class="st">&quot;gray80&quot;</span>, <span class="st">&quot;coral&quot;</span>, <span class="st">&quot;wheat2&quot;</span>), </span>
-<span id="cb443-7"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb443-7" tabindex="-1"></a>         <span class="at">horiz=</span>F)</span>
-<span id="cb443-8"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb443-8" tabindex="-1"></a><span class="fu">dev.off</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb446"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb446-1"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb446-1" tabindex="-1"></a><span class="fu">png</span>(<span class="at">filename=</span><span class="st">&quot;Figures/iavkeggleg.png&quot;</span>, <span class="at">width =</span> <span class="dv">6</span>, <span class="at">height=</span><span class="dv">7</span>, <span class="at">units=</span><span class="st">&quot;in&quot;</span>, <span class="at">res=</span><span class="dv">300</span>)</span>
+<span id="cb446-2"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb446-2" tabindex="-1"></a>  <span class="fu">plot</span>(<span class="cn">NULL</span> ,<span class="at">xaxt=</span><span class="st">&#39;n&#39;</span>,<span class="at">yaxt=</span><span class="st">&#39;n&#39;</span>,<span class="at">bty=</span><span class="st">&#39;n&#39;</span>,<span class="at">ylab=</span><span class="st">&#39;&#39;</span>,<span class="at">xlab=</span><span class="st">&#39;&#39;</span>, , <span class="at">xlim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">100</span>), <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">10</span>))</span>
+<span id="cb446-3"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb446-3" tabindex="-1"></a>  <span class="fu">legend</span>(<span class="st">&quot;topleft&quot;</span>, </span>
+<span id="cb446-4"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb446-4" tabindex="-1"></a>         <span class="at">legend =</span><span class="fu">c</span>(<span class="st">&quot;Acute&quot;</span>, <span class="st">&quot;Peak&quot;</span>, <span class="st">&quot;Late&quot;</span>, <span class="st">&quot;Virus&quot;</span>, <span class="st">&quot;Expressed&quot;</span>, <span class="st">&quot;Not Expressed&quot;</span>), </span>
+<span id="cb446-5"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb446-5" tabindex="-1"></a>         <span class="at">pch=</span><span class="dv">15</span>, <span class="at">pt.cex=</span><span class="dv">7</span>, <span class="at">cex=</span><span class="dv">3</span>, <span class="at">bty=</span><span class="st">&#39;o&#39;</span>,</span>
+<span id="cb446-6"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb446-6" tabindex="-1"></a>         <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;darkslategray1&quot;</span>, <span class="st">&quot;darkslategray3&quot;</span>, <span class="st">&quot;darkslategray4&quot;</span>, <span class="st">&quot;gray80&quot;</span>, <span class="st">&quot;coral&quot;</span>, <span class="st">&quot;wheat2&quot;</span>), </span>
+<span id="cb446-7"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb446-7" tabindex="-1"></a>         <span class="at">horiz=</span>F)</span>
+<span id="cb446-8"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb446-8" tabindex="-1"></a><span class="fu">dev.off</span>()</span></code></pre></div>
 
 </div>
 </div>
@@ -543,8 +573,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-<a href="r-package-comparison---edger-vs-deseq2.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="r-package-comparison---edger-vs-deseq2.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="outlier-analysis.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

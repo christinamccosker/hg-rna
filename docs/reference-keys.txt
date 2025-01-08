@@ -2,7 +2,7 @@ publication-information
 authors
 abstract
 loc-gene-identification
-load-required-libraries
+libraries
 load-data
 extract-gene-sequences
 extract-loc-genes-from-gene-count-matrices
@@ -22,11 +22,14 @@ loop-1
 combine-transcriptome-genome-blast-results
 combine-with-prior-loc-id-master-list
 update-tidy-gene-count-matrices
+hemoglobin
+extract-hemoglobin-genes
+prop-of-total-gene-counts
 remove-hemoglobin-genes
 export-new-gene-count-matrices
 male-v-female-dge
 transcriptome---edger
-libraries
+libraries-1
 data
 differential-gene-expression-analysis
 dgelist
@@ -41,7 +44,7 @@ test-for-degs
 select-degs-by-fold-change-pvalue
 deg-heatmap
 genome---edger
-libraries-1
+libraries-2
 data-1
 differential-gene-expression-analysis-1
 dgelist-1
@@ -57,7 +60,7 @@ select-degs-by-fold-change-pvalue-1
 deg-heatmap-1
 virus-vs-virus--dge
 transcriptome---edger---females
-libraries-2
+libraries-3
 data-2
 differential-gene-expression-analysis-2
 dgelist-2
@@ -84,7 +87,7 @@ cellular-component-1
 save-results
 kegg-analysis
 genome---edger---females
-libraries-3
+libraries-4
 data-3
 differential-gene-expression-analysis-3
 dgelist-3
@@ -111,7 +114,7 @@ cellular-component-3
 save-results-1
 kegg-analysis-1
 transcriptome-null-set---edger---females
-libraries-4
+libraries-5
 data-4
 loop-differential-gene-expression-analysis
 configure-inputs-set-up-results-lists
@@ -127,7 +130,7 @@ set-up-results-lists-1
 loop-4
 save-results-2
 genome-null-set---edger---females
-libraries-5
+libraries-6
 data-5
 loop-differential-gene-expression-analysis-1
 configure-inputs-set-up-results-lists-1
@@ -143,7 +146,7 @@ set-up-results-lists-3
 loop-7
 save-results-3
 refine-gokegg
-libraries-6
+libraries-7
 data-6
 gokegg-data
 raw-gene-expression
@@ -176,7 +179,7 @@ save-go-tables
 kegg
 influenza-stage-dge
 transcriptome---edger---females-1
-libraries-7
+libraries-8
 data-7
 differential-gene-expression-analysis-4
 dgelist-4
@@ -207,7 +210,7 @@ peak
 late
 save-results-5
 genome---edger---females-1
-libraries-8
+libraries-9
 data-8
 differential-gene-expression-analysis-5
 dgelist-5
@@ -238,7 +241,7 @@ peak-1
 late-1
 save-results-7
 comapre-t-g-approach---edger---females
-libraries-9
+libraries-10
 data-9
 transcriptome-results
 transcriptome-degs
@@ -251,7 +254,7 @@ gene-identities
 set-up-lists
 venn-diagram
 transcriptome-null-set---edger---females-1
-libraries-10
+libraries-11
 data-10
 loop-differential-gene-expression-analysis-2
 configure-inputs-set-up-results-lists-2
@@ -270,7 +273,7 @@ acute-2
 peak-2
 late-2
 genome-null-set---edger---females-1
-libraries-11
+libraries-12
 data-11
 loop-differential-gene-expression-analysis-3
 configure-inputs-set-up-results-lists-3
@@ -289,7 +292,7 @@ acute-3
 peak-3
 late-3
 refine-gokegg-1
-libraries-12
+libraries-13
 data-12
 go-and-kegg
 raw-gene-expression-1
@@ -359,7 +362,7 @@ data-15
 plot-4
 influenza-dge-deseq2
 transcriptome---deseq2---females
-libraries-13
+libraries-14
 data-16
 viral-rna
 create-deseq-dataset-dds
@@ -378,7 +381,7 @@ save-results-10
 select-de-genes-with-absolute-logfc1-and-p-value0.05-1
 save-results-11
 genome---deseq2---females
-libraries-14
+libraries-15
 data-17
 viral-rna-1
 create-deseq-dataset-dds-2
@@ -397,7 +400,7 @@ save-results-14
 select-de-genes-with-absolute-logfc1-and-p-value0.05-3
 save-results-15
 r-package-comparison---edger-vs-deseq2
-libraries-15
+libraries-16
 data-18
 metadata
 results-from-dge-testing
@@ -465,7 +468,7 @@ transcriptome---molt-stage-2
 transcriptome---location-2
 combine-7
 iav-kegg-pathway-candidate-gene-analysis
-libraries-16
+libraries-17
 data-19
 extract-genes-from-kegg-pathway
 overlap-with-gene-lists
@@ -474,3 +477,24 @@ differentially-expressed-genes
 compile-gene-ids
 plot-pathway-map
 create-legend
+outlier-analysis
+libraries-18
+data-20
+pca-2
+transcriptome-6
+pca-original
+pca-wo-outliers
+genome-6
+pca-original-1
+pca-wo-outliers-1
+number-of-reads
+raw-reads
+read-sum
+downsample-late-group-to-test-degs
+libraries-19
+data-21
+transcriptome-7
+downsample-loop
+genome-7
+downsample-loop-1
+summarize-degs
