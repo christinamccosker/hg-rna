@@ -697,7 +697,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb14-16"><a href="loc-gene-identification.html#cb14-16" tabindex="-1"></a></span>
 <span id="cb14-17"><a href="loc-gene-identification.html#cb14-17" tabindex="-1"></a>loc_update <span class="ot">&lt;-</span> </span>
 <span id="cb14-18"><a href="loc-gene-identification.html#cb14-18" tabindex="-1"></a>  loc_update <span class="sc">%&gt;%</span> </span>
-<span id="cb14-19"><a href="loc-gene-identification.html#cb14-19" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">!</span>symbol)</span></code></pre></div>
+<span id="cb14-19"><a href="loc-gene-identification.html#cb14-19" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">!</span>symbol)</span>
+<span id="cb14-20"><a href="loc-gene-identification.html#cb14-20" tabindex="-1"></a></span>
+<span id="cb14-21"><a href="loc-gene-identification.html#cb14-21" tabindex="-1"></a><span class="fu">write.csv</span>(loc_update, <span class="st">&quot;Output Files/rna_locid_all.csv&quot;</span>)</span></code></pre></div>
 </div>
 <div id="update-tidy-gene-count-matrices" class="section level2 hasAnchor" number="2.7">
 <h2><span class="header-section-number">2.7</span> Update &amp; tidy gene count matrices<a href="loc-gene-identification.html#update-tidy-gene-count-matrices" class="anchor-section" aria-label="Anchor link to header"></a></h2>

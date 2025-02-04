@@ -5441,226 +5441,220 @@ mf
 <span id="cb210-33"><a href="virus-vs-virus--dge.html#cb210-33" tabindex="-1"></a>  <span class="fu">coord_flip</span>() </span>
 <span id="cb210-34"><a href="virus-vs-virus--dge.html#cb210-34" tabindex="-1"></a>  </span>
 <span id="cb210-35"><a href="virus-vs-virus--dge.html#cb210-35" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="at">filename=</span><span class="st">&quot;Figures/viralRNA_goterm.jpg&quot;</span>, go_fig, <span class="at">width=</span><span class="dv">9</span>, <span class="at">height=</span><span class="dv">8</span>, <span class="at">units=</span><span class="st">&quot;in&quot;</span>)</span></code></pre></div>
+<div id="presentation-figure" class="section level4 hasAnchor" number="4.5.5.1">
+<h4><span class="header-section-number">4.5.5.1</span> Presentation figure<a href="virus-vs-virus--dge.html#presentation-figure" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb211-1"><a href="virus-vs-virus--dge.html#cb211-1" tabindex="-1"></a>go_fig_pres <span class="ot">&lt;-</span></span>
+<span id="cb211-2"><a href="virus-vs-virus--dge.html#cb211-2" tabindex="-1"></a>  t_final <span class="sc">%&gt;%</span> </span>
+<span id="cb211-3"><a href="virus-vs-virus--dge.html#cb211-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">go=</span><span class="fu">factor</span>(</span>
+<span id="cb211-4"><a href="virus-vs-virus--dge.html#cb211-4" tabindex="-1"></a>           <span class="fu">ifelse</span>(go<span class="sc">==</span><span class="st">&quot;bp&quot;</span>, <span class="st">&quot;BP&quot;</span>, </span>
+<span id="cb211-5"><a href="virus-vs-virus--dge.html#cb211-5" tabindex="-1"></a>                  <span class="fu">ifelse</span>(go<span class="sc">==</span><span class="st">&quot;cc&quot;</span>, <span class="st">&quot;CC&quot;</span>, <span class="st">&quot;MF&quot;</span>)),</span>
+<span id="cb211-6"><a href="virus-vs-virus--dge.html#cb211-6" tabindex="-1"></a>           <span class="at">levels=</span><span class="fu">c</span>(<span class="st">&quot;BP&quot;</span>, <span class="st">&quot;CC&quot;</span>, <span class="st">&quot;MF&quot;</span>)), </span>
+<span id="cb211-7"><a href="virus-vs-virus--dge.html#cb211-7" tabindex="-1"></a>         <span class="at">enrichmentRatio=</span><span class="fu">ifelse</span>(direction<span class="sc">==</span><span class="st">&quot;down&quot;</span>, enrichmentRatio<span class="sc">*-</span><span class="dv">1</span>, enrichmentRatio)) <span class="sc">%&gt;%</span> </span>
+<span id="cb211-8"><a href="virus-vs-virus--dge.html#cb211-8" tabindex="-1"></a>  </span>
+<span id="cb211-9"><a href="virus-vs-virus--dge.html#cb211-9" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">data=</span>., <span class="fu">aes</span>(<span class="at">x=</span><span class="fu">fct_reorder</span>(description, enrichmentRatio, <span class="at">.desc=</span><span class="cn">TRUE</span>), </span>
+<span id="cb211-10"><a href="virus-vs-virus--dge.html#cb211-10" tabindex="-1"></a>                     <span class="at">y=</span>enrichmentRatio)) <span class="sc">+</span></span>
+<span id="cb211-11"><a href="virus-vs-virus--dge.html#cb211-11" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">&quot;identity&quot;</span>, <span class="at">position=</span><span class="st">&quot;dodge&quot;</span>, <span class="at">fill=</span><span class="st">&quot;slategray&quot;</span>) <span class="sc">+</span></span>
+<span id="cb211-12"><a href="virus-vs-virus--dge.html#cb211-12" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;GO Term&quot;</span>, <span class="at">y=</span><span class="st">&quot;Enrichment Ratio&quot;</span>) <span class="sc">+</span></span>
+<span id="cb211-13"><a href="virus-vs-virus--dge.html#cb211-13" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">labels =</span> <span class="cf">function</span>(description) <span class="fu">str_wrap</span>(description, <span class="at">width =</span> <span class="dv">65</span>)) <span class="sc">+</span></span>
+<span id="cb211-14"><a href="virus-vs-virus--dge.html#cb211-14" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">n.breaks=</span><span class="dv">10</span>) <span class="sc">+</span></span>
+<span id="cb211-15"><a href="virus-vs-virus--dge.html#cb211-15" tabindex="-1"></a>  <span class="fu">facet_grid</span>(<span class="fu">vars</span>(go), <span class="at">scales=</span><span class="st">&quot;free_y&quot;</span>, <span class="at">space=</span><span class="st">&quot;free_y&quot;</span>) <span class="sc">+</span></span>
+<span id="cb211-16"><a href="virus-vs-virus--dge.html#cb211-16" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb211-17"><a href="virus-vs-virus--dge.html#cb211-17" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">panel.grid=</span><span class="fu">element_blank</span>(), <span class="at">text=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">16</span>), </span>
+<span id="cb211-18"><a href="virus-vs-virus--dge.html#cb211-18" tabindex="-1"></a>        <span class="at">legend.position=</span><span class="st">&quot;bottom&quot;</span>) <span class="sc">+</span></span>
+<span id="cb211-19"><a href="virus-vs-virus--dge.html#cb211-19" tabindex="-1"></a>  <span class="fu">coord_flip</span>()</span>
+<span id="cb211-20"><a href="virus-vs-virus--dge.html#cb211-20" tabindex="-1"></a>go_fig_pres</span>
+<span id="cb211-21"><a href="virus-vs-virus--dge.html#cb211-21" tabindex="-1"></a></span>
+<span id="cb211-22"><a href="virus-vs-virus--dge.html#cb211-22" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="at">filename=</span><span class="st">&quot;Figures/viralRNA_goterm_t_pres.jpg&quot;</span>, go_fig_pres, <span class="at">width=</span><span class="dv">10</span>, <span class="at">height=</span><span class="dv">8</span>, <span class="at">units=</span><span class="st">&quot;in&quot;</span>)</span></code></pre></div>
+</div>
 </div>
 <div id="immunne-go-term-genes" class="section level3 hasAnchor" number="4.5.6">
 <h3><span class="header-section-number">4.5.6</span> Immunne GO term Genes<a href="virus-vs-virus--dge.html#immunne-go-term-genes" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <div id="extracting-immune-go-genes" class="section level4 hasAnchor" number="4.5.6.1">
 <h4><span class="header-section-number">4.5.6.1</span> Extracting Immune GO Genes<a href="virus-vs-virus--dge.html#extracting-immune-go-genes" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Manually look up function of each gene &amp; categorize. Select subset of 16 genes for presentation in manuscript.</p>
-<div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb211-1"><a href="virus-vs-virus--dge.html#cb211-1" tabindex="-1"></a>immune_go_genes <span class="ot">&lt;-</span> </span>
-<span id="cb211-2"><a href="virus-vs-virus--dge.html#cb211-2" tabindex="-1"></a>  go_all <span class="sc">%&gt;%</span> </span>
-<span id="cb211-3"><a href="virus-vs-virus--dge.html#cb211-3" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">grepl</span>(<span class="st">&quot;immune|viral|inflammatory|interferon|leukocyte&quot;</span>, description)) <span class="sc">%&gt;%</span> </span>
-<span id="cb211-4"><a href="virus-vs-virus--dge.html#cb211-4" tabindex="-1"></a>  <span class="fu">select</span>(userId) <span class="sc">%&gt;%</span> </span>
-<span id="cb211-5"><a href="virus-vs-virus--dge.html#cb211-5" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">genes =</span> <span class="fu">str_split_fixed</span>(userId, <span class="st">&quot;;&quot;</span>, <span class="at">n=</span><span class="dv">18</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb211-6"><a href="virus-vs-virus--dge.html#cb211-6" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">!</span>userId) <span class="sc">%&gt;%</span> </span>
-<span id="cb211-7"><a href="virus-vs-virus--dge.html#cb211-7" tabindex="-1"></a>  <span class="fu">unlist</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb211-8"><a href="virus-vs-virus--dge.html#cb211-8" tabindex="-1"></a>  <span class="fu">data.frame</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb211-9"><a href="virus-vs-virus--dge.html#cb211-9" tabindex="-1"></a>  <span class="fu">setNames</span>(<span class="st">&quot;genes&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb211-10"><a href="virus-vs-virus--dge.html#cb211-10" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">duplicated</span>(genes)) <span class="sc">%&gt;%</span> </span>
-<span id="cb211-11"><a href="virus-vs-virus--dge.html#cb211-11" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span>genes<span class="sc">==</span><span class="st">&quot;&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb211-12"><a href="virus-vs-virus--dge.html#cb211-12" tabindex="-1"></a>  <span class="fu">arrange</span>(genes) <span class="sc">%&gt;%</span> </span>
-<span id="cb211-13"><a href="virus-vs-virus--dge.html#cb211-13" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">description =</span> <span class="fu">c</span>(</span>
-<span id="cb211-14"><a href="virus-vs-virus--dge.html#cb211-14" tabindex="-1"></a>    <span class="st">&quot;Innate Immunity&quot;</span>, </span>
-<span id="cb211-15"><a href="virus-vs-virus--dge.html#cb211-15" tabindex="-1"></a>    <span class="st">&quot;extra&quot;</span>, </span>
-<span id="cb211-16"><a href="virus-vs-virus--dge.html#cb211-16" tabindex="-1"></a>    <span class="st">&quot;Antiviral&quot;</span>, </span>
-<span id="cb211-17"><a href="virus-vs-virus--dge.html#cb211-17" tabindex="-1"></a>    <span class="st">&quot;Innate Immunity &amp; adaptive&quot;</span>, </span>
-<span id="cb211-18"><a href="virus-vs-virus--dge.html#cb211-18" tabindex="-1"></a>    <span class="st">&quot;extra&quot;</span>, </span>
-<span id="cb211-19"><a href="virus-vs-virus--dge.html#cb211-19" tabindex="-1"></a>    <span class="st">&quot;extra&quot;</span>, </span>
-<span id="cb211-20"><a href="virus-vs-virus--dge.html#cb211-20" tabindex="-1"></a>    <span class="st">&quot;Complement System&quot;</span>, </span>
-<span id="cb211-21"><a href="virus-vs-virus--dge.html#cb211-21" tabindex="-1"></a>    <span class="st">&quot;Complement System&quot;</span>, </span>
-<span id="cb211-22"><a href="virus-vs-virus--dge.html#cb211-22" tabindex="-1"></a>    <span class="st">&quot;Complement System&quot;</span>, </span>
-<span id="cb211-23"><a href="virus-vs-virus--dge.html#cb211-23" tabindex="-1"></a>    <span class="st">&quot;Complement System&quot;</span>, </span>
-<span id="cb211-24"><a href="virus-vs-virus--dge.html#cb211-24" tabindex="-1"></a>    <span class="st">&quot;adaptive&quot;</span>, </span>
-<span id="cb211-25"><a href="virus-vs-virus--dge.html#cb211-25" tabindex="-1"></a>    <span class="st">&quot;Complement System&quot;</span>, </span>
-<span id="cb211-26"><a href="virus-vs-virus--dge.html#cb211-26" tabindex="-1"></a>    <span class="st">&quot;Complement System&quot;</span>,</span>
-<span id="cb211-27"><a href="virus-vs-virus--dge.html#cb211-27" tabindex="-1"></a>    <span class="st">&quot;Immunoregulation&quot;</span>,</span>
-<span id="cb211-28"><a href="virus-vs-virus--dge.html#cb211-28" tabindex="-1"></a>    <span class="st">&quot;Innate Immunity&quot;</span>, </span>
-<span id="cb211-29"><a href="virus-vs-virus--dge.html#cb211-29" tabindex="-1"></a>    <span class="st">&quot;inflammation&quot;</span>, </span>
-<span id="cb211-30"><a href="virus-vs-virus--dge.html#cb211-30" tabindex="-1"></a>    <span class="st">&quot;mhc&quot;</span>, </span>
-<span id="cb211-31"><a href="virus-vs-virus--dge.html#cb211-31" tabindex="-1"></a>    <span class="st">&quot;Innate Immunity&quot;</span>,</span>
-<span id="cb211-32"><a href="virus-vs-virus--dge.html#cb211-32" tabindex="-1"></a>    <span class="st">&quot;Immunoregulation&quot;</span>,</span>
-<span id="cb211-33"><a href="virus-vs-virus--dge.html#cb211-33" tabindex="-1"></a>    <span class="st">&quot;Immunoregulation&quot;</span>, </span>
-<span id="cb211-34"><a href="virus-vs-virus--dge.html#cb211-34" tabindex="-1"></a>    <span class="st">&quot;Innate Immunity&quot;</span>, </span>
-<span id="cb211-35"><a href="virus-vs-virus--dge.html#cb211-35" tabindex="-1"></a>    <span class="st">&quot;Immunoregulation&quot;</span>, </span>
-<span id="cb211-36"><a href="virus-vs-virus--dge.html#cb211-36" tabindex="-1"></a>    <span class="st">&quot;Innate Immunity&quot;</span>, </span>
-<span id="cb211-37"><a href="virus-vs-virus--dge.html#cb211-37" tabindex="-1"></a>    <span class="st">&quot;extra&quot;</span>,</span>
-<span id="cb211-38"><a href="virus-vs-virus--dge.html#cb211-38" tabindex="-1"></a>    <span class="st">&quot;extra&quot;</span>, </span>
-<span id="cb211-39"><a href="virus-vs-virus--dge.html#cb211-39" tabindex="-1"></a>    <span class="st">&quot;Antiviral&quot;</span>, </span>
-<span id="cb211-40"><a href="virus-vs-virus--dge.html#cb211-40" tabindex="-1"></a>    <span class="st">&quot;Antiviral&quot;</span>, </span>
-<span id="cb211-41"><a href="virus-vs-virus--dge.html#cb211-41" tabindex="-1"></a>    <span class="st">&quot;Innate Immunity&quot;</span>, </span>
-<span id="cb211-42"><a href="virus-vs-virus--dge.html#cb211-42" tabindex="-1"></a>    <span class="st">&quot;extra&quot;</span>, </span>
-<span id="cb211-43"><a href="virus-vs-virus--dge.html#cb211-43" tabindex="-1"></a>    <span class="st">&quot;extra&quot;</span>, </span>
-<span id="cb211-44"><a href="virus-vs-virus--dge.html#cb211-44" tabindex="-1"></a>    <span class="st">&quot;extra&quot;</span>, </span>
-<span id="cb211-45"><a href="virus-vs-virus--dge.html#cb211-45" tabindex="-1"></a>    <span class="st">&quot;Antiviral&quot;</span>, </span>
-<span id="cb211-46"><a href="virus-vs-virus--dge.html#cb211-46" tabindex="-1"></a>    <span class="st">&quot;Immunoregulation&quot;</span>, </span>
-<span id="cb211-47"><a href="virus-vs-virus--dge.html#cb211-47" tabindex="-1"></a>    <span class="st">&quot;inflammation&quot;</span>, </span>
-<span id="cb211-48"><a href="virus-vs-virus--dge.html#cb211-48" tabindex="-1"></a>    <span class="st">&quot;extra&quot;</span>, </span>
-<span id="cb211-49"><a href="virus-vs-virus--dge.html#cb211-49" tabindex="-1"></a>    <span class="st">&quot;Innate Immunity&quot;</span>, </span>
-<span id="cb211-50"><a href="virus-vs-virus--dge.html#cb211-50" tabindex="-1"></a>    <span class="st">&quot;Immunoregulation&quot;</span></span>
-<span id="cb211-51"><a href="virus-vs-virus--dge.html#cb211-51" tabindex="-1"></a>  ))</span>
-<span id="cb211-52"><a href="virus-vs-virus--dge.html#cb211-52" tabindex="-1"></a></span>
-<span id="cb211-53"><a href="virus-vs-virus--dge.html#cb211-53" tabindex="-1"></a>immune_go_genes_subset <span class="ot">&lt;-</span> </span>
-<span id="cb211-54"><a href="virus-vs-virus--dge.html#cb211-54" tabindex="-1"></a>  immune_go_genes <span class="sc">%&gt;%</span> </span>
-<span id="cb211-55"><a href="virus-vs-virus--dge.html#cb211-55" tabindex="-1"></a>  <span class="fu">filter</span>(description <span class="sc">==</span> <span class="st">&quot;Innate Immunity&quot;</span> <span class="sc">|</span></span>
-<span id="cb211-56"><a href="virus-vs-virus--dge.html#cb211-56" tabindex="-1"></a>         description <span class="sc">==</span> <span class="st">&quot;Complement System&quot;</span> <span class="sc">|</span></span>
-<span id="cb211-57"><a href="virus-vs-virus--dge.html#cb211-57" tabindex="-1"></a>         description <span class="sc">==</span> <span class="st">&quot;Immunoregulation&quot;</span> <span class="sc">|</span></span>
-<span id="cb211-58"><a href="virus-vs-virus--dge.html#cb211-58" tabindex="-1"></a>         description <span class="sc">==</span> <span class="st">&quot;Antiviral&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb211-59"><a href="virus-vs-virus--dge.html#cb211-59" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span>genes <span class="sc">==</span> <span class="st">&quot;C2&quot;</span> <span class="sc">&amp;</span> </span>
-<span id="cb211-60"><a href="virus-vs-virus--dge.html#cb211-60" tabindex="-1"></a>         <span class="sc">!</span>genes <span class="sc">==</span> <span class="st">&quot;CFD&quot;</span>,</span>
-<span id="cb211-61"><a href="virus-vs-virus--dge.html#cb211-61" tabindex="-1"></a>         <span class="sc">!</span>genes <span class="sc">==</span> <span class="st">&quot;HSPA8&quot;</span>,</span>
-<span id="cb211-62"><a href="virus-vs-virus--dge.html#cb211-62" tabindex="-1"></a>         <span class="sc">!</span>genes <span class="sc">==</span> <span class="st">&quot;ACTB&quot;</span>, </span>
-<span id="cb211-63"><a href="virus-vs-virus--dge.html#cb211-63" tabindex="-1"></a>         <span class="sc">!</span>genes <span class="sc">==</span> <span class="st">&quot;DHX58&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb211-64"><a href="virus-vs-virus--dge.html#cb211-64" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">description =</span> <span class="fu">factor</span>(description, <span class="at">levels=</span><span class="fu">c</span>(<span class="st">&quot;Innate Immunity&quot;</span>, <span class="st">&quot;Immunoregulation&quot;</span>, <span class="st">&quot;Antiviral&quot;</span>, <span class="st">&quot;Complement System&quot;</span>)))</span></code></pre></div>
+<div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb212-1"><a href="virus-vs-virus--dge.html#cb212-1" tabindex="-1"></a>immune_go_genes <span class="ot">&lt;-</span> </span>
+<span id="cb212-2"><a href="virus-vs-virus--dge.html#cb212-2" tabindex="-1"></a>  go_all <span class="sc">%&gt;%</span> </span>
+<span id="cb212-3"><a href="virus-vs-virus--dge.html#cb212-3" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">grepl</span>(<span class="st">&quot;immune|viral|inflammatory|interferon|leukocyte&quot;</span>, description)) <span class="sc">%&gt;%</span> </span>
+<span id="cb212-4"><a href="virus-vs-virus--dge.html#cb212-4" tabindex="-1"></a>  <span class="fu">select</span>(userId) <span class="sc">%&gt;%</span> </span>
+<span id="cb212-5"><a href="virus-vs-virus--dge.html#cb212-5" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">genes =</span> <span class="fu">str_split_fixed</span>(userId, <span class="st">&quot;;&quot;</span>, <span class="at">n=</span><span class="dv">18</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb212-6"><a href="virus-vs-virus--dge.html#cb212-6" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">!</span>userId) <span class="sc">%&gt;%</span> </span>
+<span id="cb212-7"><a href="virus-vs-virus--dge.html#cb212-7" tabindex="-1"></a>  <span class="fu">unlist</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb212-8"><a href="virus-vs-virus--dge.html#cb212-8" tabindex="-1"></a>  <span class="fu">data.frame</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb212-9"><a href="virus-vs-virus--dge.html#cb212-9" tabindex="-1"></a>  <span class="fu">setNames</span>(<span class="st">&quot;genes&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb212-10"><a href="virus-vs-virus--dge.html#cb212-10" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">duplicated</span>(genes)) <span class="sc">%&gt;%</span> </span>
+<span id="cb212-11"><a href="virus-vs-virus--dge.html#cb212-11" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span>genes<span class="sc">==</span><span class="st">&quot;&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb212-12"><a href="virus-vs-virus--dge.html#cb212-12" tabindex="-1"></a>  <span class="fu">arrange</span>(genes) <span class="sc">%&gt;%</span> </span>
+<span id="cb212-13"><a href="virus-vs-virus--dge.html#cb212-13" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">description =</span> <span class="fu">c</span>(</span>
+<span id="cb212-14"><a href="virus-vs-virus--dge.html#cb212-14" tabindex="-1"></a>    <span class="st">&quot;Innate Immunity&quot;</span>, </span>
+<span id="cb212-15"><a href="virus-vs-virus--dge.html#cb212-15" tabindex="-1"></a>    <span class="st">&quot;extra&quot;</span>, </span>
+<span id="cb212-16"><a href="virus-vs-virus--dge.html#cb212-16" tabindex="-1"></a>    <span class="st">&quot;Antiviral&quot;</span>, </span>
+<span id="cb212-17"><a href="virus-vs-virus--dge.html#cb212-17" tabindex="-1"></a>    <span class="st">&quot;Innate Immunity &amp; adaptive&quot;</span>, </span>
+<span id="cb212-18"><a href="virus-vs-virus--dge.html#cb212-18" tabindex="-1"></a>    <span class="st">&quot;extra&quot;</span>, </span>
+<span id="cb212-19"><a href="virus-vs-virus--dge.html#cb212-19" tabindex="-1"></a>    <span class="st">&quot;extra&quot;</span>, </span>
+<span id="cb212-20"><a href="virus-vs-virus--dge.html#cb212-20" tabindex="-1"></a>    <span class="st">&quot;Complement System&quot;</span>, </span>
+<span id="cb212-21"><a href="virus-vs-virus--dge.html#cb212-21" tabindex="-1"></a>    <span class="st">&quot;Complement System&quot;</span>, </span>
+<span id="cb212-22"><a href="virus-vs-virus--dge.html#cb212-22" tabindex="-1"></a>    <span class="st">&quot;Complement System&quot;</span>, </span>
+<span id="cb212-23"><a href="virus-vs-virus--dge.html#cb212-23" tabindex="-1"></a>    <span class="st">&quot;Complement System&quot;</span>, </span>
+<span id="cb212-24"><a href="virus-vs-virus--dge.html#cb212-24" tabindex="-1"></a>    <span class="st">&quot;adaptive&quot;</span>, </span>
+<span id="cb212-25"><a href="virus-vs-virus--dge.html#cb212-25" tabindex="-1"></a>    <span class="st">&quot;Complement System&quot;</span>, </span>
+<span id="cb212-26"><a href="virus-vs-virus--dge.html#cb212-26" tabindex="-1"></a>    <span class="st">&quot;Complement System&quot;</span>,</span>
+<span id="cb212-27"><a href="virus-vs-virus--dge.html#cb212-27" tabindex="-1"></a>    <span class="st">&quot;Immunoregulation&quot;</span>,</span>
+<span id="cb212-28"><a href="virus-vs-virus--dge.html#cb212-28" tabindex="-1"></a>    <span class="st">&quot;Innate Immunity&quot;</span>, </span>
+<span id="cb212-29"><a href="virus-vs-virus--dge.html#cb212-29" tabindex="-1"></a>    <span class="st">&quot;inflammation&quot;</span>, </span>
+<span id="cb212-30"><a href="virus-vs-virus--dge.html#cb212-30" tabindex="-1"></a>    <span class="st">&quot;mhc&quot;</span>, </span>
+<span id="cb212-31"><a href="virus-vs-virus--dge.html#cb212-31" tabindex="-1"></a>    <span class="st">&quot;Innate Immunity&quot;</span>,</span>
+<span id="cb212-32"><a href="virus-vs-virus--dge.html#cb212-32" tabindex="-1"></a>    <span class="st">&quot;Immunoregulation&quot;</span>,</span>
+<span id="cb212-33"><a href="virus-vs-virus--dge.html#cb212-33" tabindex="-1"></a>    <span class="st">&quot;Immunoregulation&quot;</span>, </span>
+<span id="cb212-34"><a href="virus-vs-virus--dge.html#cb212-34" tabindex="-1"></a>    <span class="st">&quot;Innate Immunity&quot;</span>, </span>
+<span id="cb212-35"><a href="virus-vs-virus--dge.html#cb212-35" tabindex="-1"></a>    <span class="st">&quot;Immunoregulation&quot;</span>, </span>
+<span id="cb212-36"><a href="virus-vs-virus--dge.html#cb212-36" tabindex="-1"></a>    <span class="st">&quot;Innate Immunity&quot;</span>, </span>
+<span id="cb212-37"><a href="virus-vs-virus--dge.html#cb212-37" tabindex="-1"></a>    <span class="st">&quot;extra&quot;</span>,</span>
+<span id="cb212-38"><a href="virus-vs-virus--dge.html#cb212-38" tabindex="-1"></a>    <span class="st">&quot;extra&quot;</span>, </span>
+<span id="cb212-39"><a href="virus-vs-virus--dge.html#cb212-39" tabindex="-1"></a>    <span class="st">&quot;Antiviral&quot;</span>, </span>
+<span id="cb212-40"><a href="virus-vs-virus--dge.html#cb212-40" tabindex="-1"></a>    <span class="st">&quot;Antiviral&quot;</span>, </span>
+<span id="cb212-41"><a href="virus-vs-virus--dge.html#cb212-41" tabindex="-1"></a>    <span class="st">&quot;Innate Immunity&quot;</span>, </span>
+<span id="cb212-42"><a href="virus-vs-virus--dge.html#cb212-42" tabindex="-1"></a>    <span class="st">&quot;extra&quot;</span>, </span>
+<span id="cb212-43"><a href="virus-vs-virus--dge.html#cb212-43" tabindex="-1"></a>    <span class="st">&quot;extra&quot;</span>, </span>
+<span id="cb212-44"><a href="virus-vs-virus--dge.html#cb212-44" tabindex="-1"></a>    <span class="st">&quot;extra&quot;</span>, </span>
+<span id="cb212-45"><a href="virus-vs-virus--dge.html#cb212-45" tabindex="-1"></a>    <span class="st">&quot;Antiviral&quot;</span>, </span>
+<span id="cb212-46"><a href="virus-vs-virus--dge.html#cb212-46" tabindex="-1"></a>    <span class="st">&quot;Immunoregulation&quot;</span>, </span>
+<span id="cb212-47"><a href="virus-vs-virus--dge.html#cb212-47" tabindex="-1"></a>    <span class="st">&quot;inflammation&quot;</span>, </span>
+<span id="cb212-48"><a href="virus-vs-virus--dge.html#cb212-48" tabindex="-1"></a>    <span class="st">&quot;extra&quot;</span>, </span>
+<span id="cb212-49"><a href="virus-vs-virus--dge.html#cb212-49" tabindex="-1"></a>    <span class="st">&quot;Innate Immunity&quot;</span>, </span>
+<span id="cb212-50"><a href="virus-vs-virus--dge.html#cb212-50" tabindex="-1"></a>    <span class="st">&quot;Immunoregulation&quot;</span></span>
+<span id="cb212-51"><a href="virus-vs-virus--dge.html#cb212-51" tabindex="-1"></a>  ))</span>
+<span id="cb212-52"><a href="virus-vs-virus--dge.html#cb212-52" tabindex="-1"></a></span>
+<span id="cb212-53"><a href="virus-vs-virus--dge.html#cb212-53" tabindex="-1"></a>immune_go_genes_subset <span class="ot">&lt;-</span> </span>
+<span id="cb212-54"><a href="virus-vs-virus--dge.html#cb212-54" tabindex="-1"></a>  immune_go_genes <span class="sc">%&gt;%</span> </span>
+<span id="cb212-55"><a href="virus-vs-virus--dge.html#cb212-55" tabindex="-1"></a>  <span class="fu">filter</span>(description <span class="sc">==</span> <span class="st">&quot;Innate Immunity&quot;</span> <span class="sc">|</span></span>
+<span id="cb212-56"><a href="virus-vs-virus--dge.html#cb212-56" tabindex="-1"></a>         description <span class="sc">==</span> <span class="st">&quot;Complement System&quot;</span> <span class="sc">|</span></span>
+<span id="cb212-57"><a href="virus-vs-virus--dge.html#cb212-57" tabindex="-1"></a>         description <span class="sc">==</span> <span class="st">&quot;Immunoregulation&quot;</span> <span class="sc">|</span></span>
+<span id="cb212-58"><a href="virus-vs-virus--dge.html#cb212-58" tabindex="-1"></a>         description <span class="sc">==</span> <span class="st">&quot;Antiviral&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb212-59"><a href="virus-vs-virus--dge.html#cb212-59" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span>genes <span class="sc">==</span> <span class="st">&quot;C2&quot;</span> <span class="sc">&amp;</span> </span>
+<span id="cb212-60"><a href="virus-vs-virus--dge.html#cb212-60" tabindex="-1"></a>         <span class="sc">!</span>genes <span class="sc">==</span> <span class="st">&quot;CFD&quot;</span>,</span>
+<span id="cb212-61"><a href="virus-vs-virus--dge.html#cb212-61" tabindex="-1"></a>         <span class="sc">!</span>genes <span class="sc">==</span> <span class="st">&quot;HSPA8&quot;</span>,</span>
+<span id="cb212-62"><a href="virus-vs-virus--dge.html#cb212-62" tabindex="-1"></a>         <span class="sc">!</span>genes <span class="sc">==</span> <span class="st">&quot;ACTB&quot;</span>, </span>
+<span id="cb212-63"><a href="virus-vs-virus--dge.html#cb212-63" tabindex="-1"></a>         <span class="sc">!</span>genes <span class="sc">==</span> <span class="st">&quot;DHX58&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb212-64"><a href="virus-vs-virus--dge.html#cb212-64" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">description =</span> <span class="fu">factor</span>(description, <span class="at">levels=</span><span class="fu">c</span>(<span class="st">&quot;Innate Immunity&quot;</span>, <span class="st">&quot;Immunoregulation&quot;</span>, <span class="st">&quot;Antiviral&quot;</span>, <span class="st">&quot;Complement System&quot;</span>)))</span></code></pre></div>
 </div>
 <div id="extract-expression-data" class="section level4 hasAnchor" number="4.5.6.2">
 <h4><span class="header-section-number">4.5.6.2</span> Extract Expression Data<a href="virus-vs-virus--dge.html#extract-expression-data" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb212-1"><a href="virus-vs-virus--dge.html#cb212-1" tabindex="-1"></a>t_immunegenes_subset <span class="ot">&lt;-</span> </span>
-<span id="cb212-2"><a href="virus-vs-virus--dge.html#cb212-2" tabindex="-1"></a>  t_raw <span class="sc">%&gt;%</span> </span>
-<span id="cb212-3"><a href="virus-vs-virus--dge.html#cb212-3" tabindex="-1"></a>  <span class="fu">filter</span>(gene <span class="sc">%in%</span> immune_go_genes_subset<span class="sc">$</span>genes) <span class="sc">%&gt;%</span> </span>
-<span id="cb212-4"><a href="virus-vs-virus--dge.html#cb212-4" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="sc">!</span>gene, <span class="at">names_to=</span><span class="st">&quot;sample&quot;</span>, <span class="at">values_to=</span><span class="st">&quot;expression&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb212-5"><a href="virus-vs-virus--dge.html#cb212-5" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">disease=</span><span class="fu">ifelse</span>(sample <span class="sc">%in%</span> meta<span class="sc">$</span>sample,</span>
-<span id="cb212-6"><a href="virus-vs-virus--dge.html#cb212-6" tabindex="-1"></a>                     meta[<span class="fu">match</span>(sample, meta<span class="sc">$</span>sample),<span class="dv">4</span>],</span>
-<span id="cb212-7"><a href="virus-vs-virus--dge.html#cb212-7" tabindex="-1"></a>                     sample),</span>
-<span id="cb212-8"><a href="virus-vs-virus--dge.html#cb212-8" tabindex="-1"></a>         <span class="at">disease=</span><span class="fu">factor</span>(<span class="fu">ifelse</span>(disease<span class="sc">==</span><span class="st">&quot;acute&quot;</span>, <span class="st">&quot;A&quot;</span>, </span>
-<span id="cb212-9"><a href="virus-vs-virus--dge.html#cb212-9" tabindex="-1"></a>                               <span class="fu">ifelse</span>(disease<span class="sc">==</span><span class="st">&quot;peak&quot;</span>, <span class="st">&quot;P&quot;</span>, </span>
-<span id="cb212-10"><a href="virus-vs-virus--dge.html#cb212-10" tabindex="-1"></a>                                      <span class="fu">ifelse</span>(disease<span class="sc">==</span><span class="st">&quot;late&quot;</span>, <span class="st">&quot;L&quot;</span>, <span class="st">&quot;C&quot;</span>))),</span>
-<span id="cb212-11"><a href="virus-vs-virus--dge.html#cb212-11" tabindex="-1"></a>                        <span class="at">levels=</span><span class="fu">c</span>(<span class="st">&quot;C&quot;</span>, <span class="st">&quot;A&quot;</span>, <span class="st">&quot;P&quot;</span>, <span class="st">&quot;L&quot;</span>)),</span>
-<span id="cb212-12"><a href="virus-vs-virus--dge.html#cb212-12" tabindex="-1"></a>         <span class="at">description =</span> <span class="fu">ifelse</span>(gene <span class="sc">%in%</span> immune_go_genes<span class="sc">$</span>genes, </span>
-<span id="cb212-13"><a href="virus-vs-virus--dge.html#cb212-13" tabindex="-1"></a>                              immune_go_genes[<span class="fu">match</span>(gene, immune_go_genes<span class="sc">$</span>genes),<span class="dv">2</span>],</span>
-<span id="cb212-14"><a href="virus-vs-virus--dge.html#cb212-14" tabindex="-1"></a>                              gene)) </span>
-<span id="cb212-15"><a href="virus-vs-virus--dge.html#cb212-15" tabindex="-1"></a></span>
-<span id="cb212-16"><a href="virus-vs-virus--dge.html#cb212-16" tabindex="-1"></a>t_immune_genes_all <span class="ot">&lt;-</span></span>
-<span id="cb212-17"><a href="virus-vs-virus--dge.html#cb212-17" tabindex="-1"></a>  t_raw <span class="sc">%&gt;%</span> </span>
-<span id="cb212-18"><a href="virus-vs-virus--dge.html#cb212-18" tabindex="-1"></a>  <span class="fu">filter</span>(gene <span class="sc">%in%</span> immune_go_genes<span class="sc">$</span>genes) <span class="sc">%&gt;%</span> </span>
-<span id="cb212-19"><a href="virus-vs-virus--dge.html#cb212-19" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="sc">!</span>gene, <span class="at">names_to=</span><span class="st">&quot;sample&quot;</span>, <span class="at">values_to=</span><span class="st">&quot;expression&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb212-20"><a href="virus-vs-virus--dge.html#cb212-20" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">disease=</span><span class="fu">ifelse</span>(sample <span class="sc">%in%</span> meta<span class="sc">$</span>sample,</span>
-<span id="cb212-21"><a href="virus-vs-virus--dge.html#cb212-21" tabindex="-1"></a>                     meta[<span class="fu">match</span>(sample, meta<span class="sc">$</span>sample),<span class="dv">4</span>],</span>
-<span id="cb212-22"><a href="virus-vs-virus--dge.html#cb212-22" tabindex="-1"></a>                     sample),</span>
-<span id="cb212-23"><a href="virus-vs-virus--dge.html#cb212-23" tabindex="-1"></a>         <span class="at">disease=</span><span class="fu">factor</span>(<span class="fu">ifelse</span>(disease<span class="sc">==</span><span class="st">&quot;acute&quot;</span>, <span class="st">&quot;A&quot;</span>, </span>
-<span id="cb212-24"><a href="virus-vs-virus--dge.html#cb212-24" tabindex="-1"></a>                               <span class="fu">ifelse</span>(disease<span class="sc">==</span><span class="st">&quot;peak&quot;</span>, <span class="st">&quot;P&quot;</span>, </span>
-<span id="cb212-25"><a href="virus-vs-virus--dge.html#cb212-25" tabindex="-1"></a>                                      <span class="fu">ifelse</span>(disease<span class="sc">==</span><span class="st">&quot;late&quot;</span>, <span class="st">&quot;L&quot;</span>, <span class="st">&quot;C&quot;</span>))),</span>
-<span id="cb212-26"><a href="virus-vs-virus--dge.html#cb212-26" tabindex="-1"></a>                        <span class="at">levels=</span><span class="fu">c</span>(<span class="st">&quot;C&quot;</span>, <span class="st">&quot;A&quot;</span>, <span class="st">&quot;P&quot;</span>, <span class="st">&quot;L&quot;</span>)))</span>
-<span id="cb212-27"><a href="virus-vs-virus--dge.html#cb212-27" tabindex="-1"></a></span>
-<span id="cb212-28"><a href="virus-vs-virus--dge.html#cb212-28" tabindex="-1"></a>g_immune_genes_all <span class="ot">&lt;-</span> </span>
-<span id="cb212-29"><a href="virus-vs-virus--dge.html#cb212-29" tabindex="-1"></a>  g_raw <span class="sc">%&gt;%</span> </span>
-<span id="cb212-30"><a href="virus-vs-virus--dge.html#cb212-30" tabindex="-1"></a>  <span class="fu">filter</span>(gene <span class="sc">%in%</span> immune_go_genes<span class="sc">$</span>genes) <span class="sc">%&gt;%</span> </span>
-<span id="cb212-31"><a href="virus-vs-virus--dge.html#cb212-31" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="sc">!</span>gene, <span class="at">names_to=</span><span class="st">&quot;sample&quot;</span>, <span class="at">values_to=</span><span class="st">&quot;expression&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb212-32"><a href="virus-vs-virus--dge.html#cb212-32" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">disease=</span><span class="fu">ifelse</span>(sample <span class="sc">%in%</span> meta<span class="sc">$</span>sample,</span>
-<span id="cb212-33"><a href="virus-vs-virus--dge.html#cb212-33" tabindex="-1"></a>                     meta[<span class="fu">match</span>(sample, meta<span class="sc">$</span>sample),<span class="dv">4</span>],</span>
-<span id="cb212-34"><a href="virus-vs-virus--dge.html#cb212-34" tabindex="-1"></a>                     sample),</span>
-<span id="cb212-35"><a href="virus-vs-virus--dge.html#cb212-35" tabindex="-1"></a>         <span class="at">disease=</span><span class="fu">factor</span>(<span class="fu">ifelse</span>(disease<span class="sc">==</span><span class="st">&quot;acute&quot;</span>, <span class="st">&quot;A&quot;</span>, </span>
-<span id="cb212-36"><a href="virus-vs-virus--dge.html#cb212-36" tabindex="-1"></a>                               <span class="fu">ifelse</span>(disease<span class="sc">==</span><span class="st">&quot;peak&quot;</span>, <span class="st">&quot;P&quot;</span>, </span>
-<span id="cb212-37"><a href="virus-vs-virus--dge.html#cb212-37" tabindex="-1"></a>                                      <span class="fu">ifelse</span>(disease<span class="sc">==</span><span class="st">&quot;late&quot;</span>, <span class="st">&quot;L&quot;</span>, <span class="st">&quot;C&quot;</span>))),</span>
-<span id="cb212-38"><a href="virus-vs-virus--dge.html#cb212-38" tabindex="-1"></a>                        <span class="at">levels=</span><span class="fu">c</span>(<span class="st">&quot;C&quot;</span>, <span class="st">&quot;A&quot;</span>, <span class="st">&quot;P&quot;</span>, <span class="st">&quot;L&quot;</span>))) </span></code></pre></div>
+<div class="sourceCode" id="cb213"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb213-1"><a href="virus-vs-virus--dge.html#cb213-1" tabindex="-1"></a>t_immunegenes_subset <span class="ot">&lt;-</span> </span>
+<span id="cb213-2"><a href="virus-vs-virus--dge.html#cb213-2" tabindex="-1"></a>  t_raw <span class="sc">%&gt;%</span> </span>
+<span id="cb213-3"><a href="virus-vs-virus--dge.html#cb213-3" tabindex="-1"></a>  <span class="fu">filter</span>(gene <span class="sc">%in%</span> immune_go_genes_subset<span class="sc">$</span>genes) <span class="sc">%&gt;%</span> </span>
+<span id="cb213-4"><a href="virus-vs-virus--dge.html#cb213-4" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="sc">!</span>gene, <span class="at">names_to=</span><span class="st">&quot;sample&quot;</span>, <span class="at">values_to=</span><span class="st">&quot;expression&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb213-5"><a href="virus-vs-virus--dge.html#cb213-5" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">disease=</span><span class="fu">ifelse</span>(sample <span class="sc">%in%</span> meta<span class="sc">$</span>sample,</span>
+<span id="cb213-6"><a href="virus-vs-virus--dge.html#cb213-6" tabindex="-1"></a>                     meta[<span class="fu">match</span>(sample, meta<span class="sc">$</span>sample),<span class="dv">4</span>],</span>
+<span id="cb213-7"><a href="virus-vs-virus--dge.html#cb213-7" tabindex="-1"></a>                     sample),</span>
+<span id="cb213-8"><a href="virus-vs-virus--dge.html#cb213-8" tabindex="-1"></a>         <span class="at">disease=</span><span class="fu">factor</span>(<span class="fu">ifelse</span>(disease<span class="sc">==</span><span class="st">&quot;acute&quot;</span>, <span class="st">&quot;A&quot;</span>, </span>
+<span id="cb213-9"><a href="virus-vs-virus--dge.html#cb213-9" tabindex="-1"></a>                               <span class="fu">ifelse</span>(disease<span class="sc">==</span><span class="st">&quot;peak&quot;</span>, <span class="st">&quot;P&quot;</span>, </span>
+<span id="cb213-10"><a href="virus-vs-virus--dge.html#cb213-10" tabindex="-1"></a>                                      <span class="fu">ifelse</span>(disease<span class="sc">==</span><span class="st">&quot;late&quot;</span>, <span class="st">&quot;L&quot;</span>, <span class="st">&quot;C&quot;</span>))),</span>
+<span id="cb213-11"><a href="virus-vs-virus--dge.html#cb213-11" tabindex="-1"></a>                        <span class="at">levels=</span><span class="fu">c</span>(<span class="st">&quot;C&quot;</span>, <span class="st">&quot;A&quot;</span>, <span class="st">&quot;P&quot;</span>, <span class="st">&quot;L&quot;</span>)),</span>
+<span id="cb213-12"><a href="virus-vs-virus--dge.html#cb213-12" tabindex="-1"></a>         <span class="at">description =</span> <span class="fu">ifelse</span>(gene <span class="sc">%in%</span> immune_go_genes<span class="sc">$</span>genes, </span>
+<span id="cb213-13"><a href="virus-vs-virus--dge.html#cb213-13" tabindex="-1"></a>                              immune_go_genes[<span class="fu">match</span>(gene, immune_go_genes<span class="sc">$</span>genes),<span class="dv">2</span>],</span>
+<span id="cb213-14"><a href="virus-vs-virus--dge.html#cb213-14" tabindex="-1"></a>                              gene)) </span>
+<span id="cb213-15"><a href="virus-vs-virus--dge.html#cb213-15" tabindex="-1"></a></span>
+<span id="cb213-16"><a href="virus-vs-virus--dge.html#cb213-16" tabindex="-1"></a>t_immune_genes_all <span class="ot">&lt;-</span></span>
+<span id="cb213-17"><a href="virus-vs-virus--dge.html#cb213-17" tabindex="-1"></a>  t_raw <span class="sc">%&gt;%</span> </span>
+<span id="cb213-18"><a href="virus-vs-virus--dge.html#cb213-18" tabindex="-1"></a>  <span class="fu">filter</span>(gene <span class="sc">%in%</span> immune_go_genes<span class="sc">$</span>genes) <span class="sc">%&gt;%</span> </span>
+<span id="cb213-19"><a href="virus-vs-virus--dge.html#cb213-19" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="sc">!</span>gene, <span class="at">names_to=</span><span class="st">&quot;sample&quot;</span>, <span class="at">values_to=</span><span class="st">&quot;expression&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb213-20"><a href="virus-vs-virus--dge.html#cb213-20" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">disease=</span><span class="fu">ifelse</span>(sample <span class="sc">%in%</span> meta<span class="sc">$</span>sample,</span>
+<span id="cb213-21"><a href="virus-vs-virus--dge.html#cb213-21" tabindex="-1"></a>                     meta[<span class="fu">match</span>(sample, meta<span class="sc">$</span>sample),<span class="dv">4</span>],</span>
+<span id="cb213-22"><a href="virus-vs-virus--dge.html#cb213-22" tabindex="-1"></a>                     sample),</span>
+<span id="cb213-23"><a href="virus-vs-virus--dge.html#cb213-23" tabindex="-1"></a>         <span class="at">disease=</span><span class="fu">factor</span>(<span class="fu">ifelse</span>(disease<span class="sc">==</span><span class="st">&quot;acute&quot;</span>, <span class="st">&quot;A&quot;</span>, </span>
+<span id="cb213-24"><a href="virus-vs-virus--dge.html#cb213-24" tabindex="-1"></a>                               <span class="fu">ifelse</span>(disease<span class="sc">==</span><span class="st">&quot;peak&quot;</span>, <span class="st">&quot;P&quot;</span>, </span>
+<span id="cb213-25"><a href="virus-vs-virus--dge.html#cb213-25" tabindex="-1"></a>                                      <span class="fu">ifelse</span>(disease<span class="sc">==</span><span class="st">&quot;late&quot;</span>, <span class="st">&quot;L&quot;</span>, <span class="st">&quot;C&quot;</span>))),</span>
+<span id="cb213-26"><a href="virus-vs-virus--dge.html#cb213-26" tabindex="-1"></a>                        <span class="at">levels=</span><span class="fu">c</span>(<span class="st">&quot;C&quot;</span>, <span class="st">&quot;A&quot;</span>, <span class="st">&quot;P&quot;</span>, <span class="st">&quot;L&quot;</span>)))</span>
+<span id="cb213-27"><a href="virus-vs-virus--dge.html#cb213-27" tabindex="-1"></a></span>
+<span id="cb213-28"><a href="virus-vs-virus--dge.html#cb213-28" tabindex="-1"></a>g_immune_genes_all <span class="ot">&lt;-</span> </span>
+<span id="cb213-29"><a href="virus-vs-virus--dge.html#cb213-29" tabindex="-1"></a>  g_raw <span class="sc">%&gt;%</span> </span>
+<span id="cb213-30"><a href="virus-vs-virus--dge.html#cb213-30" tabindex="-1"></a>  <span class="fu">filter</span>(gene <span class="sc">%in%</span> immune_go_genes<span class="sc">$</span>genes) <span class="sc">%&gt;%</span> </span>
+<span id="cb213-31"><a href="virus-vs-virus--dge.html#cb213-31" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="sc">!</span>gene, <span class="at">names_to=</span><span class="st">&quot;sample&quot;</span>, <span class="at">values_to=</span><span class="st">&quot;expression&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb213-32"><a href="virus-vs-virus--dge.html#cb213-32" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">disease=</span><span class="fu">ifelse</span>(sample <span class="sc">%in%</span> meta<span class="sc">$</span>sample,</span>
+<span id="cb213-33"><a href="virus-vs-virus--dge.html#cb213-33" tabindex="-1"></a>                     meta[<span class="fu">match</span>(sample, meta<span class="sc">$</span>sample),<span class="dv">4</span>],</span>
+<span id="cb213-34"><a href="virus-vs-virus--dge.html#cb213-34" tabindex="-1"></a>                     sample),</span>
+<span id="cb213-35"><a href="virus-vs-virus--dge.html#cb213-35" tabindex="-1"></a>         <span class="at">disease=</span><span class="fu">factor</span>(<span class="fu">ifelse</span>(disease<span class="sc">==</span><span class="st">&quot;acute&quot;</span>, <span class="st">&quot;A&quot;</span>, </span>
+<span id="cb213-36"><a href="virus-vs-virus--dge.html#cb213-36" tabindex="-1"></a>                               <span class="fu">ifelse</span>(disease<span class="sc">==</span><span class="st">&quot;peak&quot;</span>, <span class="st">&quot;P&quot;</span>, </span>
+<span id="cb213-37"><a href="virus-vs-virus--dge.html#cb213-37" tabindex="-1"></a>                                      <span class="fu">ifelse</span>(disease<span class="sc">==</span><span class="st">&quot;late&quot;</span>, <span class="st">&quot;L&quot;</span>, <span class="st">&quot;C&quot;</span>))),</span>
+<span id="cb213-38"><a href="virus-vs-virus--dge.html#cb213-38" tabindex="-1"></a>                        <span class="at">levels=</span><span class="fu">c</span>(<span class="st">&quot;C&quot;</span>, <span class="st">&quot;A&quot;</span>, <span class="st">&quot;P&quot;</span>, <span class="st">&quot;L&quot;</span>))) </span></code></pre></div>
 </div>
 <div id="plot-for-manuscript" class="section level4 hasAnchor" number="4.5.6.3">
 <h4><span class="header-section-number">4.5.6.3</span> Plot for manuscript<a href="virus-vs-virus--dge.html#plot-for-manuscript" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<div class="sourceCode" id="cb213"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb213-1"><a href="virus-vs-virus--dge.html#cb213-1" tabindex="-1"></a>t_plot_manuscript <span class="ot">&lt;-</span></span>
-<span id="cb213-2"><a href="virus-vs-virus--dge.html#cb213-2" tabindex="-1"></a>  t_immunegenes_subset <span class="sc">%&gt;%</span> </span>
-<span id="cb213-3"><a href="virus-vs-virus--dge.html#cb213-3" tabindex="-1"></a>  <span class="fu">ggplot</span>(., <span class="fu">aes</span>(<span class="at">x=</span>disease, <span class="at">y=</span>expression)) <span class="sc">+</span></span>
-<span id="cb213-4"><a href="virus-vs-virus--dge.html#cb213-4" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
-<span id="cb213-5"><a href="virus-vs-virus--dge.html#cb213-5" tabindex="-1"></a>  <span class="fu">facet_nested_wrap</span>(<span class="fu">vars</span>(description, gene),</span>
-<span id="cb213-6"><a href="virus-vs-virus--dge.html#cb213-6" tabindex="-1"></a>                    <span class="at">nest_line=</span><span class="fu">element_line</span>(<span class="at">colour=</span><span class="st">&quot;black&quot;</span>)) <span class="sc">+</span></span>
-<span id="cb213-7"><a href="virus-vs-virus--dge.html#cb213-7" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">ggh4x.facet.nestline =</span> <span class="fu">element_line</span>(<span class="at">linetype =</span> <span class="dv">1</span>)) <span class="sc">+</span></span>
-<span id="cb213-8"><a href="virus-vs-virus--dge.html#cb213-8" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Influenza Stage&quot;</span>, <span class="at">y =</span> <span class="st">&quot;log2(CPM)&quot;</span>) <span class="sc">+</span></span>
-<span id="cb213-9"><a href="virus-vs-virus--dge.html#cb213-9" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
-<span id="cb213-10"><a href="virus-vs-virus--dge.html#cb213-10" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">panel.grid=</span><span class="fu">element_blank</span>())</span>
-<span id="cb213-11"><a href="virus-vs-virus--dge.html#cb213-11" tabindex="-1"></a>t_plot_manuscript</span>
-<span id="cb213-12"><a href="virus-vs-virus--dge.html#cb213-12" tabindex="-1"></a></span>
-<span id="cb213-13"><a href="virus-vs-virus--dge.html#cb213-13" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">&quot;Figures/T_female_edgeR_immunegenes.jpg&quot;</span>, t_plot_manuscript, </span>
-<span id="cb213-14"><a href="virus-vs-virus--dge.html#cb213-14" tabindex="-1"></a>       <span class="at">width=</span><span class="dv">8</span>, <span class="at">height=</span><span class="dv">8</span>, <span class="at">units=</span><span class="st">&quot;in&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb214-1"><a href="virus-vs-virus--dge.html#cb214-1" tabindex="-1"></a>t_plot_manuscript <span class="ot">&lt;-</span></span>
+<span id="cb214-2"><a href="virus-vs-virus--dge.html#cb214-2" tabindex="-1"></a>  t_immunegenes_subset <span class="sc">%&gt;%</span> </span>
+<span id="cb214-3"><a href="virus-vs-virus--dge.html#cb214-3" tabindex="-1"></a>  <span class="fu">ggplot</span>(., <span class="fu">aes</span>(<span class="at">x=</span>disease, <span class="at">y=</span>expression)) <span class="sc">+</span></span>
+<span id="cb214-4"><a href="virus-vs-virus--dge.html#cb214-4" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb214-5"><a href="virus-vs-virus--dge.html#cb214-5" tabindex="-1"></a>  <span class="fu">facet_nested_wrap</span>(<span class="fu">vars</span>(description, gene),</span>
+<span id="cb214-6"><a href="virus-vs-virus--dge.html#cb214-6" tabindex="-1"></a>                    <span class="at">nest_line=</span><span class="fu">element_line</span>(<span class="at">colour=</span><span class="st">&quot;black&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb214-7"><a href="virus-vs-virus--dge.html#cb214-7" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">ggh4x.facet.nestline =</span> <span class="fu">element_line</span>(<span class="at">linetype =</span> <span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb214-8"><a href="virus-vs-virus--dge.html#cb214-8" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Influenza Stage&quot;</span>, <span class="at">y =</span> <span class="st">&quot;log2(CPM)&quot;</span>) <span class="sc">+</span></span>
+<span id="cb214-9"><a href="virus-vs-virus--dge.html#cb214-9" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb214-10"><a href="virus-vs-virus--dge.html#cb214-10" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">panel.grid=</span><span class="fu">element_blank</span>())</span>
+<span id="cb214-11"><a href="virus-vs-virus--dge.html#cb214-11" tabindex="-1"></a>t_plot_manuscript</span>
+<span id="cb214-12"><a href="virus-vs-virus--dge.html#cb214-12" tabindex="-1"></a></span>
+<span id="cb214-13"><a href="virus-vs-virus--dge.html#cb214-13" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">&quot;Figures/T_female_edgeR_immunegenes.jpg&quot;</span>, t_plot_manuscript, </span>
+<span id="cb214-14"><a href="virus-vs-virus--dge.html#cb214-14" tabindex="-1"></a>       <span class="at">width=</span><span class="dv">8</span>, <span class="at">height=</span><span class="dv">8</span>, <span class="at">units=</span><span class="st">&quot;in&quot;</span>)</span></code></pre></div>
 </div>
 <div id="plot-for-supplemental" class="section level4 hasAnchor" number="4.5.6.4">
 <h4><span class="header-section-number">4.5.6.4</span> Plot for supplemental<a href="virus-vs-virus--dge.html#plot-for-supplemental" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb214-1"><a href="virus-vs-virus--dge.html#cb214-1" tabindex="-1"></a>t_plot_supplemental <span class="ot">&lt;-</span></span>
-<span id="cb214-2"><a href="virus-vs-virus--dge.html#cb214-2" tabindex="-1"></a>  t_immune_genes_all <span class="sc">%&gt;%</span> </span>
-<span id="cb214-3"><a href="virus-vs-virus--dge.html#cb214-3" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>disease, <span class="at">y=</span>expression)) <span class="sc">+</span></span>
-<span id="cb214-4"><a href="virus-vs-virus--dge.html#cb214-4" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
-<span id="cb214-5"><a href="virus-vs-virus--dge.html#cb214-5" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>gene, <span class="at">scales=</span><span class="st">&quot;free&quot;</span>, <span class="at">ncol=</span><span class="dv">5</span>) <span class="sc">+</span></span>
-<span id="cb214-6"><a href="virus-vs-virus--dge.html#cb214-6" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="cn">NULL</span>,</span>
-<span id="cb214-7"><a href="virus-vs-virus--dge.html#cb214-7" tabindex="-1"></a>       <span class="at">x=</span><span class="st">&quot;Influenza Stage&quot;</span>, <span class="at">y=</span><span class="st">&quot;log2(CPM)&quot;</span>) <span class="sc">+</span></span>
-<span id="cb214-8"><a href="virus-vs-virus--dge.html#cb214-8" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
-<span id="cb214-9"><a href="virus-vs-virus--dge.html#cb214-9" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">panel.grid=</span><span class="fu">element_blank</span>())</span>
-<span id="cb214-10"><a href="virus-vs-virus--dge.html#cb214-10" tabindex="-1"></a></span>
-<span id="cb214-11"><a href="virus-vs-virus--dge.html#cb214-11" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">&quot;Figures/supplemental_T_female_edgeR_immunegenes.jpg&quot;</span>, t_plot_supplemental,</span>
-<span id="cb214-12"><a href="virus-vs-virus--dge.html#cb214-12" tabindex="-1"></a>          <span class="at">width=</span><span class="dv">8</span>, <span class="at">height=</span><span class="dv">10</span>, <span class="at">units=</span><span class="st">&quot;in&quot;</span>)</span>
-<span id="cb214-13"><a href="virus-vs-virus--dge.html#cb214-13" tabindex="-1"></a></span>
-<span id="cb214-14"><a href="virus-vs-virus--dge.html#cb214-14" tabindex="-1"></a>g_plot_supplemental <span class="ot">&lt;-</span></span>
-<span id="cb214-15"><a href="virus-vs-virus--dge.html#cb214-15" tabindex="-1"></a>  g_immune_genes_all <span class="sc">%&gt;%</span> </span>
-<span id="cb214-16"><a href="virus-vs-virus--dge.html#cb214-16" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>disease, <span class="at">y=</span>expression)) <span class="sc">+</span></span>
-<span id="cb214-17"><a href="virus-vs-virus--dge.html#cb214-17" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
-<span id="cb214-18"><a href="virus-vs-virus--dge.html#cb214-18" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>gene, <span class="at">scales=</span><span class="st">&quot;free&quot;</span>, <span class="at">ncol=</span><span class="dv">5</span>) <span class="sc">+</span></span>
-<span id="cb214-19"><a href="virus-vs-virus--dge.html#cb214-19" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="cn">NULL</span>,</span>
-<span id="cb214-20"><a href="virus-vs-virus--dge.html#cb214-20" tabindex="-1"></a>       <span class="at">x=</span><span class="st">&quot;Influenza Stage&quot;</span>, <span class="at">y=</span><span class="st">&quot;log2(CPM)&quot;</span>) <span class="sc">+</span></span>
-<span id="cb214-21"><a href="virus-vs-virus--dge.html#cb214-21" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
-<span id="cb214-22"><a href="virus-vs-virus--dge.html#cb214-22" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">panel.grid=</span><span class="fu">element_blank</span>())</span>
-<span id="cb214-23"><a href="virus-vs-virus--dge.html#cb214-23" tabindex="-1"></a></span>
-<span id="cb214-24"><a href="virus-vs-virus--dge.html#cb214-24" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">&quot;Figures/supplemental_G_female_edgeR_immunegenes.jpg&quot;</span>, g_plot_supplemental,</span>
-<span id="cb214-25"><a href="virus-vs-virus--dge.html#cb214-25" tabindex="-1"></a>          <span class="at">width=</span><span class="dv">8</span>, <span class="at">height=</span><span class="dv">10</span>, <span class="at">units=</span><span class="st">&quot;in&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb215"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb215-1"><a href="virus-vs-virus--dge.html#cb215-1" tabindex="-1"></a>t_plot_supplemental <span class="ot">&lt;-</span></span>
+<span id="cb215-2"><a href="virus-vs-virus--dge.html#cb215-2" tabindex="-1"></a>  t_immune_genes_all <span class="sc">%&gt;%</span> </span>
+<span id="cb215-3"><a href="virus-vs-virus--dge.html#cb215-3" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>disease, <span class="at">y=</span>expression)) <span class="sc">+</span></span>
+<span id="cb215-4"><a href="virus-vs-virus--dge.html#cb215-4" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb215-5"><a href="virus-vs-virus--dge.html#cb215-5" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>gene, <span class="at">scales=</span><span class="st">&quot;free&quot;</span>, <span class="at">ncol=</span><span class="dv">5</span>) <span class="sc">+</span></span>
+<span id="cb215-6"><a href="virus-vs-virus--dge.html#cb215-6" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="cn">NULL</span>,</span>
+<span id="cb215-7"><a href="virus-vs-virus--dge.html#cb215-7" tabindex="-1"></a>       <span class="at">x=</span><span class="st">&quot;Influenza Stage&quot;</span>, <span class="at">y=</span><span class="st">&quot;log2(CPM)&quot;</span>) <span class="sc">+</span></span>
+<span id="cb215-8"><a href="virus-vs-virus--dge.html#cb215-8" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb215-9"><a href="virus-vs-virus--dge.html#cb215-9" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">panel.grid=</span><span class="fu">element_blank</span>())</span>
+<span id="cb215-10"><a href="virus-vs-virus--dge.html#cb215-10" tabindex="-1"></a></span>
+<span id="cb215-11"><a href="virus-vs-virus--dge.html#cb215-11" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">&quot;Figures/supplemental_T_female_edgeR_immunegenes.jpg&quot;</span>, t_plot_supplemental,</span>
+<span id="cb215-12"><a href="virus-vs-virus--dge.html#cb215-12" tabindex="-1"></a>          <span class="at">width=</span><span class="dv">8</span>, <span class="at">height=</span><span class="dv">10</span>, <span class="at">units=</span><span class="st">&quot;in&quot;</span>)</span>
+<span id="cb215-13"><a href="virus-vs-virus--dge.html#cb215-13" tabindex="-1"></a></span>
+<span id="cb215-14"><a href="virus-vs-virus--dge.html#cb215-14" tabindex="-1"></a>g_plot_supplemental <span class="ot">&lt;-</span></span>
+<span id="cb215-15"><a href="virus-vs-virus--dge.html#cb215-15" tabindex="-1"></a>  g_immune_genes_all <span class="sc">%&gt;%</span> </span>
+<span id="cb215-16"><a href="virus-vs-virus--dge.html#cb215-16" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>disease, <span class="at">y=</span>expression)) <span class="sc">+</span></span>
+<span id="cb215-17"><a href="virus-vs-virus--dge.html#cb215-17" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb215-18"><a href="virus-vs-virus--dge.html#cb215-18" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>gene, <span class="at">scales=</span><span class="st">&quot;free&quot;</span>, <span class="at">ncol=</span><span class="dv">5</span>) <span class="sc">+</span></span>
+<span id="cb215-19"><a href="virus-vs-virus--dge.html#cb215-19" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="cn">NULL</span>,</span>
+<span id="cb215-20"><a href="virus-vs-virus--dge.html#cb215-20" tabindex="-1"></a>       <span class="at">x=</span><span class="st">&quot;Influenza Stage&quot;</span>, <span class="at">y=</span><span class="st">&quot;log2(CPM)&quot;</span>) <span class="sc">+</span></span>
+<span id="cb215-21"><a href="virus-vs-virus--dge.html#cb215-21" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb215-22"><a href="virus-vs-virus--dge.html#cb215-22" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">panel.grid=</span><span class="fu">element_blank</span>())</span>
+<span id="cb215-23"><a href="virus-vs-virus--dge.html#cb215-23" tabindex="-1"></a></span>
+<span id="cb215-24"><a href="virus-vs-virus--dge.html#cb215-24" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">&quot;Figures/supplemental_G_female_edgeR_immunegenes.jpg&quot;</span>, g_plot_supplemental,</span>
+<span id="cb215-25"><a href="virus-vs-virus--dge.html#cb215-25" tabindex="-1"></a>          <span class="at">width=</span><span class="dv">8</span>, <span class="at">height=</span><span class="dv">10</span>, <span class="at">units=</span><span class="st">&quot;in&quot;</span>)</span></code></pre></div>
 </div>
 </div>
 <div id="kegg-table---manuscript" class="section level3 hasAnchor" number="4.5.7">
 <h3><span class="header-section-number">4.5.7</span> KEGG Table - Manuscript<a href="virus-vs-virus--dge.html#kegg-table---manuscript" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb215"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb215-1"><a href="virus-vs-virus--dge.html#cb215-1" tabindex="-1"></a>t_kegg_table <span class="ot">&lt;-</span> </span>
-<span id="cb215-2"><a href="virus-vs-virus--dge.html#cb215-2" tabindex="-1"></a>  txome_kegg_final <span class="sc">%&gt;%</span> </span>
-<span id="cb215-3"><a href="virus-vs-virus--dge.html#cb215-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="st">`</span><span class="at">Pairwise Comparison (Approach)</span><span class="st">`</span> <span class="ot">=</span> <span class="st">&quot;Virus+ vs Virus- (Transcriptome)&quot;</span>,</span>
-<span id="cb215-4"><a href="virus-vs-virus--dge.html#cb215-4" tabindex="-1"></a>         <span class="st">`</span><span class="at">KEGG Pathway</span><span class="st">`</span> <span class="ot">=</span> description,</span>
-<span id="cb215-5"><a href="virus-vs-virus--dge.html#cb215-5" tabindex="-1"></a>         <span class="st">`</span><span class="at">Enrichment Ratio (FDR)</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">paste0</span>(<span class="fu">round</span>(enrichmentRatio, <span class="at">digits=</span><span class="dv">3</span>), <span class="st">&quot; (&quot;</span>, <span class="fu">round</span>(FDR, <span class="at">digits=</span><span class="dv">4</span>), <span class="st">&quot;)&quot;</span>),</span>
-<span id="cb215-6"><a href="virus-vs-virus--dge.html#cb215-6" tabindex="-1"></a>         <span class="at">Genes=</span>userId) <span class="sc">%&gt;%</span> </span>
-<span id="cb215-7"><a href="virus-vs-virus--dge.html#cb215-7" tabindex="-1"></a>  <span class="fu">select</span>(<span class="st">`</span><span class="at">Pairwise Comparison (Approach)</span><span class="st">`</span>, <span class="st">`</span><span class="at">KEGG Pathway</span><span class="st">`</span>, <span class="st">`</span><span class="at">Enrichment Ratio (FDR)</span><span class="st">`</span>, Genes)</span>
-<span id="cb215-8"><a href="virus-vs-virus--dge.html#cb215-8" tabindex="-1"></a></span>
-<span id="cb215-9"><a href="virus-vs-virus--dge.html#cb215-9" tabindex="-1"></a>g_kegg_table <span class="ot">&lt;-</span></span>
-<span id="cb215-10"><a href="virus-vs-virus--dge.html#cb215-10" tabindex="-1"></a>  gnome_kegg_final <span class="sc">%&gt;%</span> </span>
-<span id="cb215-11"><a href="virus-vs-virus--dge.html#cb215-11" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="st">`</span><span class="at">Pairwise Comparison (Approach)</span><span class="st">`</span> <span class="ot">=</span> <span class="st">&quot;Virus+ vs Virus- (Genome)&quot;</span>,</span>
-<span id="cb215-12"><a href="virus-vs-virus--dge.html#cb215-12" tabindex="-1"></a>         <span class="st">`</span><span class="at">KEGG Pathway</span><span class="st">`</span> <span class="ot">=</span> description,</span>
-<span id="cb215-13"><a href="virus-vs-virus--dge.html#cb215-13" tabindex="-1"></a>         <span class="st">`</span><span class="at">Enrichment Ratio (FDR)</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">paste0</span>(<span class="fu">round</span>(enrichmentRatio, <span class="at">digits=</span><span class="dv">2</span>), <span class="st">&quot; (&quot;</span>, <span class="fu">round</span>(FDR, <span class="at">digits=</span><span class="dv">4</span>), <span class="st">&quot;)&quot;</span>),</span>
-<span id="cb215-14"><a href="virus-vs-virus--dge.html#cb215-14" tabindex="-1"></a>         <span class="at">Genes=</span>userId) <span class="sc">%&gt;%</span> </span>
-<span id="cb215-15"><a href="virus-vs-virus--dge.html#cb215-15" tabindex="-1"></a>  <span class="fu">select</span>(<span class="st">`</span><span class="at">Pairwise Comparison (Approach)</span><span class="st">`</span>, <span class="st">`</span><span class="at">KEGG Pathway</span><span class="st">`</span>, <span class="st">`</span><span class="at">Enrichment Ratio (FDR)</span><span class="st">`</span>, Genes)</span>
-<span id="cb215-16"><a href="virus-vs-virus--dge.html#cb215-16" tabindex="-1"></a></span>
-<span id="cb215-17"><a href="virus-vs-virus--dge.html#cb215-17" tabindex="-1"></a></span>
-<span id="cb215-18"><a href="virus-vs-virus--dge.html#cb215-18" tabindex="-1"></a>kegg_table <span class="ot">&lt;-</span> </span>
-<span id="cb215-19"><a href="virus-vs-virus--dge.html#cb215-19" tabindex="-1"></a>  <span class="fu">rbind</span>(t_kegg_table, g_kegg_table)</span>
-<span id="cb215-20"><a href="virus-vs-virus--dge.html#cb215-20" tabindex="-1"></a></span>
-<span id="cb215-21"><a href="virus-vs-virus--dge.html#cb215-21" tabindex="-1"></a><span class="fu">write.csv</span>(kegg_table, <span class="st">&quot;Output Files/manuscript_keggtable.csv&quot;</span>, <span class="at">row.names=</span><span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb216"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb216-1"><a href="virus-vs-virus--dge.html#cb216-1" tabindex="-1"></a>t_kegg_table <span class="ot">&lt;-</span> </span>
+<span id="cb216-2"><a href="virus-vs-virus--dge.html#cb216-2" tabindex="-1"></a>  txome_kegg_final <span class="sc">%&gt;%</span> </span>
+<span id="cb216-3"><a href="virus-vs-virus--dge.html#cb216-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="st">`</span><span class="at">Pairwise Comparison (Approach)</span><span class="st">`</span> <span class="ot">=</span> <span class="st">&quot;Virus+ vs Virus- (Transcriptome)&quot;</span>,</span>
+<span id="cb216-4"><a href="virus-vs-virus--dge.html#cb216-4" tabindex="-1"></a>         <span class="st">`</span><span class="at">KEGG Pathway</span><span class="st">`</span> <span class="ot">=</span> description,</span>
+<span id="cb216-5"><a href="virus-vs-virus--dge.html#cb216-5" tabindex="-1"></a>         <span class="st">`</span><span class="at">Enrichment Ratio (FDR)</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">paste0</span>(<span class="fu">round</span>(enrichmentRatio, <span class="at">digits=</span><span class="dv">3</span>), <span class="st">&quot; (&quot;</span>, <span class="fu">round</span>(FDR, <span class="at">digits=</span><span class="dv">4</span>), <span class="st">&quot;)&quot;</span>),</span>
+<span id="cb216-6"><a href="virus-vs-virus--dge.html#cb216-6" tabindex="-1"></a>         <span class="at">Genes=</span>userId) <span class="sc">%&gt;%</span> </span>
+<span id="cb216-7"><a href="virus-vs-virus--dge.html#cb216-7" tabindex="-1"></a>  <span class="fu">select</span>(<span class="st">`</span><span class="at">Pairwise Comparison (Approach)</span><span class="st">`</span>, <span class="st">`</span><span class="at">KEGG Pathway</span><span class="st">`</span>, <span class="st">`</span><span class="at">Enrichment Ratio (FDR)</span><span class="st">`</span>, Genes)</span>
+<span id="cb216-8"><a href="virus-vs-virus--dge.html#cb216-8" tabindex="-1"></a></span>
+<span id="cb216-9"><a href="virus-vs-virus--dge.html#cb216-9" tabindex="-1"></a>g_kegg_table <span class="ot">&lt;-</span></span>
+<span id="cb216-10"><a href="virus-vs-virus--dge.html#cb216-10" tabindex="-1"></a>  gnome_kegg_final <span class="sc">%&gt;%</span> </span>
+<span id="cb216-11"><a href="virus-vs-virus--dge.html#cb216-11" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="st">`</span><span class="at">Pairwise Comparison (Approach)</span><span class="st">`</span> <span class="ot">=</span> <span class="st">&quot;Virus+ vs Virus- (Genome)&quot;</span>,</span>
+<span id="cb216-12"><a href="virus-vs-virus--dge.html#cb216-12" tabindex="-1"></a>         <span class="st">`</span><span class="at">KEGG Pathway</span><span class="st">`</span> <span class="ot">=</span> description,</span>
+<span id="cb216-13"><a href="virus-vs-virus--dge.html#cb216-13" tabindex="-1"></a>         <span class="st">`</span><span class="at">Enrichment Ratio (FDR)</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">paste0</span>(<span class="fu">round</span>(enrichmentRatio, <span class="at">digits=</span><span class="dv">2</span>), <span class="st">&quot; (&quot;</span>, <span class="fu">round</span>(FDR, <span class="at">digits=</span><span class="dv">4</span>), <span class="st">&quot;)&quot;</span>),</span>
+<span id="cb216-14"><a href="virus-vs-virus--dge.html#cb216-14" tabindex="-1"></a>         <span class="at">Genes=</span>userId) <span class="sc">%&gt;%</span> </span>
+<span id="cb216-15"><a href="virus-vs-virus--dge.html#cb216-15" tabindex="-1"></a>  <span class="fu">select</span>(<span class="st">`</span><span class="at">Pairwise Comparison (Approach)</span><span class="st">`</span>, <span class="st">`</span><span class="at">KEGG Pathway</span><span class="st">`</span>, <span class="st">`</span><span class="at">Enrichment Ratio (FDR)</span><span class="st">`</span>, Genes)</span>
+<span id="cb216-16"><a href="virus-vs-virus--dge.html#cb216-16" tabindex="-1"></a></span>
+<span id="cb216-17"><a href="virus-vs-virus--dge.html#cb216-17" tabindex="-1"></a></span>
+<span id="cb216-18"><a href="virus-vs-virus--dge.html#cb216-18" tabindex="-1"></a>kegg_table <span class="ot">&lt;-</span> </span>
+<span id="cb216-19"><a href="virus-vs-virus--dge.html#cb216-19" tabindex="-1"></a>  <span class="fu">rbind</span>(t_kegg_table, g_kegg_table)</span>
+<span id="cb216-20"><a href="virus-vs-virus--dge.html#cb216-20" tabindex="-1"></a></span>
+<span id="cb216-21"><a href="virus-vs-virus--dge.html#cb216-21" tabindex="-1"></a><span class="fu">write.csv</span>(kegg_table, <span class="st">&quot;Output Files/manuscript_keggtable.csv&quot;</span>, <span class="at">row.names=</span><span class="cn">FALSE</span>)</span></code></pre></div>
 </div>
 <div id="supplemental-table" class="section level3 hasAnchor" number="4.5.8">
 <h3><span class="header-section-number">4.5.8</span> Supplemental Table<a href="virus-vs-virus--dge.html#supplemental-table" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <div id="biological-process-4" class="section level4 hasAnchor" number="4.5.8.1">
 <h4><span class="header-section-number">4.5.8.1</span> Biological Process<a href="virus-vs-virus--dge.html#biological-process-4" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<div class="sourceCode" id="cb216"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb216-1"><a href="virus-vs-virus--dge.html#cb216-1" tabindex="-1"></a>t_sup_bp <span class="ot">&lt;-</span> </span>
-<span id="cb216-2"><a href="virus-vs-virus--dge.html#cb216-2" tabindex="-1"></a>  txome_go <span class="sc">%&gt;%</span> </span>
-<span id="cb216-3"><a href="virus-vs-virus--dge.html#cb216-3" tabindex="-1"></a>  <span class="fu">filter</span>(go<span class="sc">==</span><span class="st">&quot;bp&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb216-4"><a href="virus-vs-virus--dge.html#cb216-4" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">GOTerm =</span> <span class="fu">paste</span>(description, <span class="st">&quot; &quot;</span>, <span class="st">&quot;(&quot;</span>, geneSet, <span class="st">&quot;)&quot;</span>, <span class="at">sep=</span><span class="st">&quot;&quot;</span>), </span>
-<span id="cb216-5"><a href="virus-vs-virus--dge.html#cb216-5" tabindex="-1"></a>         <span class="at">enrichmentRatio =</span> <span class="fu">round</span>(enrichmentRatio, <span class="at">digits=</span><span class="dv">1</span>),</span>
-<span id="cb216-6"><a href="virus-vs-virus--dge.html#cb216-6" tabindex="-1"></a>         <span class="at">FDR =</span> <span class="fu">round</span>(FDR, <span class="at">digits=</span><span class="dv">3</span>),</span>
-<span id="cb216-7"><a href="virus-vs-virus--dge.html#cb216-7" tabindex="-1"></a>         <span class="at">enrichmentRatio =</span> <span class="fu">ifelse</span>(direction<span class="sc">==</span><span class="st">&quot;down&quot;</span>, <span class="fu">paste</span>(<span class="st">&quot;-&quot;</span>, enrichmentRatio, <span class="at">sep=</span><span class="st">&quot;&quot;</span>),</span>
-<span id="cb216-8"><a href="virus-vs-virus--dge.html#cb216-8" tabindex="-1"></a>                                  <span class="fu">paste</span>(<span class="st">&quot;+&quot;</span>, enrichmentRatio, <span class="at">sep=</span><span class="st">&quot;&quot;</span>)),</span>
-<span id="cb216-9"><a href="virus-vs-virus--dge.html#cb216-9" tabindex="-1"></a>         <span class="at">Transcriptome =</span> <span class="fu">paste</span>(enrichmentRatio, <span class="st">&quot; &quot;</span>, <span class="st">&quot;(&quot;</span>, FDR, <span class="st">&quot;)&quot;</span>, <span class="at">sep=</span><span class="st">&quot;&quot;</span>), </span>
-<span id="cb216-10"><a href="virus-vs-virus--dge.html#cb216-10" tabindex="-1"></a>         <span class="at">Transcriptome_null =</span> <span class="fu">ifelse</span>(description <span class="sc">%in%</span> t_null_bp_10<span class="sc">$</span>value, <span class="st">&quot;x&quot;</span>, <span class="st">&quot;&quot;</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb216-11"><a href="virus-vs-virus--dge.html#cb216-11" tabindex="-1"></a>  <span class="fu">select</span>(GOTerm, Transcriptome, Transcriptome_null)</span>
-<span id="cb216-12"><a href="virus-vs-virus--dge.html#cb216-12" tabindex="-1"></a></span>
-<span id="cb216-13"><a href="virus-vs-virus--dge.html#cb216-13" tabindex="-1"></a></span>
-<span id="cb216-14"><a href="virus-vs-virus--dge.html#cb216-14" tabindex="-1"></a>g_sup_bp <span class="ot">&lt;-</span> </span>
-<span id="cb216-15"><a href="virus-vs-virus--dge.html#cb216-15" tabindex="-1"></a>  gnome_go <span class="sc">%&gt;%</span> </span>
-<span id="cb216-16"><a href="virus-vs-virus--dge.html#cb216-16" tabindex="-1"></a>  <span class="fu">filter</span>(go<span class="sc">==</span><span class="st">&quot;bp&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb216-17"><a href="virus-vs-virus--dge.html#cb216-17" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">GOTerm =</span> <span class="fu">paste</span>(description, <span class="st">&quot; &quot;</span>, <span class="st">&quot;(&quot;</span>, geneSet, <span class="st">&quot;)&quot;</span>, <span class="at">sep=</span><span class="st">&quot;&quot;</span>), </span>
-<span id="cb216-18"><a href="virus-vs-virus--dge.html#cb216-18" tabindex="-1"></a>         <span class="at">enrichmentRatio =</span> <span class="fu">round</span>(enrichmentRatio, <span class="at">digits=</span><span class="dv">1</span>),</span>
-<span id="cb216-19"><a href="virus-vs-virus--dge.html#cb216-19" tabindex="-1"></a>         <span class="at">FDR =</span> <span class="fu">round</span>(FDR, <span class="at">digits=</span><span class="dv">3</span>),</span>
-<span id="cb216-20"><a href="virus-vs-virus--dge.html#cb216-20" tabindex="-1"></a>         <span class="at">enrichmentRatio =</span> <span class="fu">ifelse</span>(direction<span class="sc">==</span><span class="st">&quot;down&quot;</span>, <span class="fu">paste</span>(<span class="st">&quot;-&quot;</span>, enrichmentRatio, <span class="at">sep=</span><span class="st">&quot;&quot;</span>),</span>
-<span id="cb216-21"><a href="virus-vs-virus--dge.html#cb216-21" tabindex="-1"></a>                                  <span class="fu">paste</span>(<span class="st">&quot;+&quot;</span>, enrichmentRatio, <span class="at">sep=</span><span class="st">&quot;&quot;</span>)),</span>
-<span id="cb216-22"><a href="virus-vs-virus--dge.html#cb216-22" tabindex="-1"></a>         <span class="at">Genome =</span> <span class="fu">paste</span>(enrichmentRatio, <span class="st">&quot; &quot;</span>, <span class="st">&quot;(&quot;</span>, FDR, <span class="st">&quot;)&quot;</span>, <span class="at">sep=</span><span class="st">&quot;&quot;</span>), </span>
-<span id="cb216-23"><a href="virus-vs-virus--dge.html#cb216-23" tabindex="-1"></a>         <span class="at">Genome_null =</span> <span class="fu">ifelse</span>(description <span class="sc">%in%</span> g_null_bp_10<span class="sc">$</span>value, <span class="st">&quot;x&quot;</span>, <span class="st">&quot;&quot;</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb216-24"><a href="virus-vs-virus--dge.html#cb216-24" tabindex="-1"></a>  <span class="fu">select</span>(GOTerm, Genome, Genome_null)</span>
-<span id="cb216-25"><a href="virus-vs-virus--dge.html#cb216-25" tabindex="-1"></a></span>
-<span id="cb216-26"><a href="virus-vs-virus--dge.html#cb216-26" tabindex="-1"></a>sup_bp <span class="ot">&lt;-</span> </span>
-<span id="cb216-27"><a href="virus-vs-virus--dge.html#cb216-27" tabindex="-1"></a>  <span class="fu">merge</span>(t_sup_bp, g_sup_bp, <span class="at">all=</span><span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb216-28"><a href="virus-vs-virus--dge.html#cb216-28" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">go=</span><span class="st">&quot;BP&quot;</span>)</span></code></pre></div>
-</div>
-<div id="cellular-component-4" class="section level4 hasAnchor" number="4.5.8.2">
-<h4><span class="header-section-number">4.5.8.2</span> Cellular Component<a href="virus-vs-virus--dge.html#cellular-component-4" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<div class="sourceCode" id="cb217"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb217-1"><a href="virus-vs-virus--dge.html#cb217-1" tabindex="-1"></a>t_sup_cc <span class="ot">&lt;-</span> </span>
+<div class="sourceCode" id="cb217"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb217-1"><a href="virus-vs-virus--dge.html#cb217-1" tabindex="-1"></a>t_sup_bp <span class="ot">&lt;-</span> </span>
 <span id="cb217-2"><a href="virus-vs-virus--dge.html#cb217-2" tabindex="-1"></a>  txome_go <span class="sc">%&gt;%</span> </span>
-<span id="cb217-3"><a href="virus-vs-virus--dge.html#cb217-3" tabindex="-1"></a>  <span class="fu">filter</span>(go<span class="sc">==</span><span class="st">&quot;cc&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb217-3"><a href="virus-vs-virus--dge.html#cb217-3" tabindex="-1"></a>  <span class="fu">filter</span>(go<span class="sc">==</span><span class="st">&quot;bp&quot;</span>) <span class="sc">%&gt;%</span> </span>
 <span id="cb217-4"><a href="virus-vs-virus--dge.html#cb217-4" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">GOTerm =</span> <span class="fu">paste</span>(description, <span class="st">&quot; &quot;</span>, <span class="st">&quot;(&quot;</span>, geneSet, <span class="st">&quot;)&quot;</span>, <span class="at">sep=</span><span class="st">&quot;&quot;</span>), </span>
 <span id="cb217-5"><a href="virus-vs-virus--dge.html#cb217-5" tabindex="-1"></a>         <span class="at">enrichmentRatio =</span> <span class="fu">round</span>(enrichmentRatio, <span class="at">digits=</span><span class="dv">1</span>),</span>
 <span id="cb217-6"><a href="virus-vs-virus--dge.html#cb217-6" tabindex="-1"></a>         <span class="at">FDR =</span> <span class="fu">round</span>(FDR, <span class="at">digits=</span><span class="dv">3</span>),</span>
@@ -5671,9 +5665,9 @@ mf
 <span id="cb217-11"><a href="virus-vs-virus--dge.html#cb217-11" tabindex="-1"></a>  <span class="fu">select</span>(GOTerm, Transcriptome, Transcriptome_null)</span>
 <span id="cb217-12"><a href="virus-vs-virus--dge.html#cb217-12" tabindex="-1"></a></span>
 <span id="cb217-13"><a href="virus-vs-virus--dge.html#cb217-13" tabindex="-1"></a></span>
-<span id="cb217-14"><a href="virus-vs-virus--dge.html#cb217-14" tabindex="-1"></a>g_sup_cc <span class="ot">&lt;-</span> </span>
+<span id="cb217-14"><a href="virus-vs-virus--dge.html#cb217-14" tabindex="-1"></a>g_sup_bp <span class="ot">&lt;-</span> </span>
 <span id="cb217-15"><a href="virus-vs-virus--dge.html#cb217-15" tabindex="-1"></a>  gnome_go <span class="sc">%&gt;%</span> </span>
-<span id="cb217-16"><a href="virus-vs-virus--dge.html#cb217-16" tabindex="-1"></a>  <span class="fu">filter</span>(go<span class="sc">==</span><span class="st">&quot;cc&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb217-16"><a href="virus-vs-virus--dge.html#cb217-16" tabindex="-1"></a>  <span class="fu">filter</span>(go<span class="sc">==</span><span class="st">&quot;bp&quot;</span>) <span class="sc">%&gt;%</span> </span>
 <span id="cb217-17"><a href="virus-vs-virus--dge.html#cb217-17" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">GOTerm =</span> <span class="fu">paste</span>(description, <span class="st">&quot; &quot;</span>, <span class="st">&quot;(&quot;</span>, geneSet, <span class="st">&quot;)&quot;</span>, <span class="at">sep=</span><span class="st">&quot;&quot;</span>), </span>
 <span id="cb217-18"><a href="virus-vs-virus--dge.html#cb217-18" tabindex="-1"></a>         <span class="at">enrichmentRatio =</span> <span class="fu">round</span>(enrichmentRatio, <span class="at">digits=</span><span class="dv">1</span>),</span>
 <span id="cb217-19"><a href="virus-vs-virus--dge.html#cb217-19" tabindex="-1"></a>         <span class="at">FDR =</span> <span class="fu">round</span>(FDR, <span class="at">digits=</span><span class="dv">3</span>),</span>
@@ -5683,15 +5677,15 @@ mf
 <span id="cb217-23"><a href="virus-vs-virus--dge.html#cb217-23" tabindex="-1"></a>         <span class="at">Genome_null =</span> <span class="fu">ifelse</span>(description <span class="sc">%in%</span> g_null_bp_10<span class="sc">$</span>value, <span class="st">&quot;x&quot;</span>, <span class="st">&quot;&quot;</span>)) <span class="sc">%&gt;%</span> </span>
 <span id="cb217-24"><a href="virus-vs-virus--dge.html#cb217-24" tabindex="-1"></a>  <span class="fu">select</span>(GOTerm, Genome, Genome_null)</span>
 <span id="cb217-25"><a href="virus-vs-virus--dge.html#cb217-25" tabindex="-1"></a></span>
-<span id="cb217-26"><a href="virus-vs-virus--dge.html#cb217-26" tabindex="-1"></a>sup_cc <span class="ot">&lt;-</span> </span>
-<span id="cb217-27"><a href="virus-vs-virus--dge.html#cb217-27" tabindex="-1"></a>  <span class="fu">merge</span>(t_sup_cc, g_sup_cc, <span class="at">all=</span><span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb217-28"><a href="virus-vs-virus--dge.html#cb217-28" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">go=</span><span class="st">&quot;CC&quot;</span>)</span></code></pre></div>
+<span id="cb217-26"><a href="virus-vs-virus--dge.html#cb217-26" tabindex="-1"></a>sup_bp <span class="ot">&lt;-</span> </span>
+<span id="cb217-27"><a href="virus-vs-virus--dge.html#cb217-27" tabindex="-1"></a>  <span class="fu">merge</span>(t_sup_bp, g_sup_bp, <span class="at">all=</span><span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb217-28"><a href="virus-vs-virus--dge.html#cb217-28" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">go=</span><span class="st">&quot;BP&quot;</span>)</span></code></pre></div>
 </div>
-<div id="molecular-function-4" class="section level4 hasAnchor" number="4.5.8.3">
-<h4><span class="header-section-number">4.5.8.3</span> Molecular Function<a href="virus-vs-virus--dge.html#molecular-function-4" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<div class="sourceCode" id="cb218"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb218-1"><a href="virus-vs-virus--dge.html#cb218-1" tabindex="-1"></a>t_sup_mf <span class="ot">&lt;-</span> </span>
+<div id="cellular-component-4" class="section level4 hasAnchor" number="4.5.8.2">
+<h4><span class="header-section-number">4.5.8.2</span> Cellular Component<a href="virus-vs-virus--dge.html#cellular-component-4" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div class="sourceCode" id="cb218"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb218-1"><a href="virus-vs-virus--dge.html#cb218-1" tabindex="-1"></a>t_sup_cc <span class="ot">&lt;-</span> </span>
 <span id="cb218-2"><a href="virus-vs-virus--dge.html#cb218-2" tabindex="-1"></a>  txome_go <span class="sc">%&gt;%</span> </span>
-<span id="cb218-3"><a href="virus-vs-virus--dge.html#cb218-3" tabindex="-1"></a>  <span class="fu">filter</span>(go<span class="sc">==</span><span class="st">&quot;mf&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb218-3"><a href="virus-vs-virus--dge.html#cb218-3" tabindex="-1"></a>  <span class="fu">filter</span>(go<span class="sc">==</span><span class="st">&quot;cc&quot;</span>) <span class="sc">%&gt;%</span> </span>
 <span id="cb218-4"><a href="virus-vs-virus--dge.html#cb218-4" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">GOTerm =</span> <span class="fu">paste</span>(description, <span class="st">&quot; &quot;</span>, <span class="st">&quot;(&quot;</span>, geneSet, <span class="st">&quot;)&quot;</span>, <span class="at">sep=</span><span class="st">&quot;&quot;</span>), </span>
 <span id="cb218-5"><a href="virus-vs-virus--dge.html#cb218-5" tabindex="-1"></a>         <span class="at">enrichmentRatio =</span> <span class="fu">round</span>(enrichmentRatio, <span class="at">digits=</span><span class="dv">1</span>),</span>
 <span id="cb218-6"><a href="virus-vs-virus--dge.html#cb218-6" tabindex="-1"></a>         <span class="at">FDR =</span> <span class="fu">round</span>(FDR, <span class="at">digits=</span><span class="dv">3</span>),</span>
@@ -5702,9 +5696,9 @@ mf
 <span id="cb218-11"><a href="virus-vs-virus--dge.html#cb218-11" tabindex="-1"></a>  <span class="fu">select</span>(GOTerm, Transcriptome, Transcriptome_null)</span>
 <span id="cb218-12"><a href="virus-vs-virus--dge.html#cb218-12" tabindex="-1"></a></span>
 <span id="cb218-13"><a href="virus-vs-virus--dge.html#cb218-13" tabindex="-1"></a></span>
-<span id="cb218-14"><a href="virus-vs-virus--dge.html#cb218-14" tabindex="-1"></a>g_sup_mf <span class="ot">&lt;-</span> </span>
+<span id="cb218-14"><a href="virus-vs-virus--dge.html#cb218-14" tabindex="-1"></a>g_sup_cc <span class="ot">&lt;-</span> </span>
 <span id="cb218-15"><a href="virus-vs-virus--dge.html#cb218-15" tabindex="-1"></a>  gnome_go <span class="sc">%&gt;%</span> </span>
-<span id="cb218-16"><a href="virus-vs-virus--dge.html#cb218-16" tabindex="-1"></a>  <span class="fu">filter</span>(go<span class="sc">==</span><span class="st">&quot;mf&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb218-16"><a href="virus-vs-virus--dge.html#cb218-16" tabindex="-1"></a>  <span class="fu">filter</span>(go<span class="sc">==</span><span class="st">&quot;cc&quot;</span>) <span class="sc">%&gt;%</span> </span>
 <span id="cb218-17"><a href="virus-vs-virus--dge.html#cb218-17" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">GOTerm =</span> <span class="fu">paste</span>(description, <span class="st">&quot; &quot;</span>, <span class="st">&quot;(&quot;</span>, geneSet, <span class="st">&quot;)&quot;</span>, <span class="at">sep=</span><span class="st">&quot;&quot;</span>), </span>
 <span id="cb218-18"><a href="virus-vs-virus--dge.html#cb218-18" tabindex="-1"></a>         <span class="at">enrichmentRatio =</span> <span class="fu">round</span>(enrichmentRatio, <span class="at">digits=</span><span class="dv">1</span>),</span>
 <span id="cb218-19"><a href="virus-vs-virus--dge.html#cb218-19" tabindex="-1"></a>         <span class="at">FDR =</span> <span class="fu">round</span>(FDR, <span class="at">digits=</span><span class="dv">3</span>),</span>
@@ -5714,50 +5708,81 @@ mf
 <span id="cb218-23"><a href="virus-vs-virus--dge.html#cb218-23" tabindex="-1"></a>         <span class="at">Genome_null =</span> <span class="fu">ifelse</span>(description <span class="sc">%in%</span> g_null_bp_10<span class="sc">$</span>value, <span class="st">&quot;x&quot;</span>, <span class="st">&quot;&quot;</span>)) <span class="sc">%&gt;%</span> </span>
 <span id="cb218-24"><a href="virus-vs-virus--dge.html#cb218-24" tabindex="-1"></a>  <span class="fu">select</span>(GOTerm, Genome, Genome_null)</span>
 <span id="cb218-25"><a href="virus-vs-virus--dge.html#cb218-25" tabindex="-1"></a></span>
-<span id="cb218-26"><a href="virus-vs-virus--dge.html#cb218-26" tabindex="-1"></a>sup_mf <span class="ot">&lt;-</span> </span>
-<span id="cb218-27"><a href="virus-vs-virus--dge.html#cb218-27" tabindex="-1"></a>  <span class="fu">merge</span>(t_sup_mf, g_sup_mf, <span class="at">all=</span><span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb218-28"><a href="virus-vs-virus--dge.html#cb218-28" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">go=</span><span class="st">&quot;MF&quot;</span>)</span></code></pre></div>
+<span id="cb218-26"><a href="virus-vs-virus--dge.html#cb218-26" tabindex="-1"></a>sup_cc <span class="ot">&lt;-</span> </span>
+<span id="cb218-27"><a href="virus-vs-virus--dge.html#cb218-27" tabindex="-1"></a>  <span class="fu">merge</span>(t_sup_cc, g_sup_cc, <span class="at">all=</span><span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb218-28"><a href="virus-vs-virus--dge.html#cb218-28" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">go=</span><span class="st">&quot;CC&quot;</span>)</span></code></pre></div>
+</div>
+<div id="molecular-function-4" class="section level4 hasAnchor" number="4.5.8.3">
+<h4><span class="header-section-number">4.5.8.3</span> Molecular Function<a href="virus-vs-virus--dge.html#molecular-function-4" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div class="sourceCode" id="cb219"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb219-1"><a href="virus-vs-virus--dge.html#cb219-1" tabindex="-1"></a>t_sup_mf <span class="ot">&lt;-</span> </span>
+<span id="cb219-2"><a href="virus-vs-virus--dge.html#cb219-2" tabindex="-1"></a>  txome_go <span class="sc">%&gt;%</span> </span>
+<span id="cb219-3"><a href="virus-vs-virus--dge.html#cb219-3" tabindex="-1"></a>  <span class="fu">filter</span>(go<span class="sc">==</span><span class="st">&quot;mf&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb219-4"><a href="virus-vs-virus--dge.html#cb219-4" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">GOTerm =</span> <span class="fu">paste</span>(description, <span class="st">&quot; &quot;</span>, <span class="st">&quot;(&quot;</span>, geneSet, <span class="st">&quot;)&quot;</span>, <span class="at">sep=</span><span class="st">&quot;&quot;</span>), </span>
+<span id="cb219-5"><a href="virus-vs-virus--dge.html#cb219-5" tabindex="-1"></a>         <span class="at">enrichmentRatio =</span> <span class="fu">round</span>(enrichmentRatio, <span class="at">digits=</span><span class="dv">1</span>),</span>
+<span id="cb219-6"><a href="virus-vs-virus--dge.html#cb219-6" tabindex="-1"></a>         <span class="at">FDR =</span> <span class="fu">round</span>(FDR, <span class="at">digits=</span><span class="dv">3</span>),</span>
+<span id="cb219-7"><a href="virus-vs-virus--dge.html#cb219-7" tabindex="-1"></a>         <span class="at">enrichmentRatio =</span> <span class="fu">ifelse</span>(direction<span class="sc">==</span><span class="st">&quot;down&quot;</span>, <span class="fu">paste</span>(<span class="st">&quot;-&quot;</span>, enrichmentRatio, <span class="at">sep=</span><span class="st">&quot;&quot;</span>),</span>
+<span id="cb219-8"><a href="virus-vs-virus--dge.html#cb219-8" tabindex="-1"></a>                                  <span class="fu">paste</span>(<span class="st">&quot;+&quot;</span>, enrichmentRatio, <span class="at">sep=</span><span class="st">&quot;&quot;</span>)),</span>
+<span id="cb219-9"><a href="virus-vs-virus--dge.html#cb219-9" tabindex="-1"></a>         <span class="at">Transcriptome =</span> <span class="fu">paste</span>(enrichmentRatio, <span class="st">&quot; &quot;</span>, <span class="st">&quot;(&quot;</span>, FDR, <span class="st">&quot;)&quot;</span>, <span class="at">sep=</span><span class="st">&quot;&quot;</span>), </span>
+<span id="cb219-10"><a href="virus-vs-virus--dge.html#cb219-10" tabindex="-1"></a>         <span class="at">Transcriptome_null =</span> <span class="fu">ifelse</span>(description <span class="sc">%in%</span> t_null_bp_10<span class="sc">$</span>value, <span class="st">&quot;x&quot;</span>, <span class="st">&quot;&quot;</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb219-11"><a href="virus-vs-virus--dge.html#cb219-11" tabindex="-1"></a>  <span class="fu">select</span>(GOTerm, Transcriptome, Transcriptome_null)</span>
+<span id="cb219-12"><a href="virus-vs-virus--dge.html#cb219-12" tabindex="-1"></a></span>
+<span id="cb219-13"><a href="virus-vs-virus--dge.html#cb219-13" tabindex="-1"></a></span>
+<span id="cb219-14"><a href="virus-vs-virus--dge.html#cb219-14" tabindex="-1"></a>g_sup_mf <span class="ot">&lt;-</span> </span>
+<span id="cb219-15"><a href="virus-vs-virus--dge.html#cb219-15" tabindex="-1"></a>  gnome_go <span class="sc">%&gt;%</span> </span>
+<span id="cb219-16"><a href="virus-vs-virus--dge.html#cb219-16" tabindex="-1"></a>  <span class="fu">filter</span>(go<span class="sc">==</span><span class="st">&quot;mf&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb219-17"><a href="virus-vs-virus--dge.html#cb219-17" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">GOTerm =</span> <span class="fu">paste</span>(description, <span class="st">&quot; &quot;</span>, <span class="st">&quot;(&quot;</span>, geneSet, <span class="st">&quot;)&quot;</span>, <span class="at">sep=</span><span class="st">&quot;&quot;</span>), </span>
+<span id="cb219-18"><a href="virus-vs-virus--dge.html#cb219-18" tabindex="-1"></a>         <span class="at">enrichmentRatio =</span> <span class="fu">round</span>(enrichmentRatio, <span class="at">digits=</span><span class="dv">1</span>),</span>
+<span id="cb219-19"><a href="virus-vs-virus--dge.html#cb219-19" tabindex="-1"></a>         <span class="at">FDR =</span> <span class="fu">round</span>(FDR, <span class="at">digits=</span><span class="dv">3</span>),</span>
+<span id="cb219-20"><a href="virus-vs-virus--dge.html#cb219-20" tabindex="-1"></a>         <span class="at">enrichmentRatio =</span> <span class="fu">ifelse</span>(direction<span class="sc">==</span><span class="st">&quot;down&quot;</span>, <span class="fu">paste</span>(<span class="st">&quot;-&quot;</span>, enrichmentRatio, <span class="at">sep=</span><span class="st">&quot;&quot;</span>),</span>
+<span id="cb219-21"><a href="virus-vs-virus--dge.html#cb219-21" tabindex="-1"></a>                                  <span class="fu">paste</span>(<span class="st">&quot;+&quot;</span>, enrichmentRatio, <span class="at">sep=</span><span class="st">&quot;&quot;</span>)),</span>
+<span id="cb219-22"><a href="virus-vs-virus--dge.html#cb219-22" tabindex="-1"></a>         <span class="at">Genome =</span> <span class="fu">paste</span>(enrichmentRatio, <span class="st">&quot; &quot;</span>, <span class="st">&quot;(&quot;</span>, FDR, <span class="st">&quot;)&quot;</span>, <span class="at">sep=</span><span class="st">&quot;&quot;</span>), </span>
+<span id="cb219-23"><a href="virus-vs-virus--dge.html#cb219-23" tabindex="-1"></a>         <span class="at">Genome_null =</span> <span class="fu">ifelse</span>(description <span class="sc">%in%</span> g_null_bp_10<span class="sc">$</span>value, <span class="st">&quot;x&quot;</span>, <span class="st">&quot;&quot;</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb219-24"><a href="virus-vs-virus--dge.html#cb219-24" tabindex="-1"></a>  <span class="fu">select</span>(GOTerm, Genome, Genome_null)</span>
+<span id="cb219-25"><a href="virus-vs-virus--dge.html#cb219-25" tabindex="-1"></a></span>
+<span id="cb219-26"><a href="virus-vs-virus--dge.html#cb219-26" tabindex="-1"></a>sup_mf <span class="ot">&lt;-</span> </span>
+<span id="cb219-27"><a href="virus-vs-virus--dge.html#cb219-27" tabindex="-1"></a>  <span class="fu">merge</span>(t_sup_mf, g_sup_mf, <span class="at">all=</span><span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb219-28"><a href="virus-vs-virus--dge.html#cb219-28" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">go=</span><span class="st">&quot;MF&quot;</span>)</span></code></pre></div>
 </div>
 <div id="save-go-tables" class="section level4 hasAnchor" number="4.5.8.4">
 <h4><span class="header-section-number">4.5.8.4</span> Save GO Tables<a href="virus-vs-virus--dge.html#save-go-tables" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<div class="sourceCode" id="cb219"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb219-1"><a href="virus-vs-virus--dge.html#cb219-1" tabindex="-1"></a>sup <span class="ot">&lt;-</span> </span>
-<span id="cb219-2"><a href="virus-vs-virus--dge.html#cb219-2" tabindex="-1"></a>  <span class="fu">rbind</span>(sup_bp, sup_cc, sup_mf)</span>
-<span id="cb219-3"><a href="virus-vs-virus--dge.html#cb219-3" tabindex="-1"></a></span>
-<span id="cb219-4"><a href="virus-vs-virus--dge.html#cb219-4" tabindex="-1"></a>sup <span class="sc">%&gt;%</span> </span>
-<span id="cb219-5"><a href="virus-vs-virus--dge.html#cb219-5" tabindex="-1"></a>  <span class="fu">kable</span>()</span>
-<span id="cb219-6"><a href="virus-vs-virus--dge.html#cb219-6" tabindex="-1"></a></span>
-<span id="cb219-7"><a href="virus-vs-virus--dge.html#cb219-7" tabindex="-1"></a><span class="fu">write.csv</span>(sup, <span class="st">&quot;Output Files/supplemental_female_edgeR_viralRNA_go.csv&quot;</span>, <span class="at">row.names=</span><span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb220-1"><a href="virus-vs-virus--dge.html#cb220-1" tabindex="-1"></a>sup <span class="ot">&lt;-</span> </span>
+<span id="cb220-2"><a href="virus-vs-virus--dge.html#cb220-2" tabindex="-1"></a>  <span class="fu">rbind</span>(sup_bp, sup_cc, sup_mf)</span>
+<span id="cb220-3"><a href="virus-vs-virus--dge.html#cb220-3" tabindex="-1"></a></span>
+<span id="cb220-4"><a href="virus-vs-virus--dge.html#cb220-4" tabindex="-1"></a>sup <span class="sc">%&gt;%</span> </span>
+<span id="cb220-5"><a href="virus-vs-virus--dge.html#cb220-5" tabindex="-1"></a>  <span class="fu">kable</span>()</span>
+<span id="cb220-6"><a href="virus-vs-virus--dge.html#cb220-6" tabindex="-1"></a></span>
+<span id="cb220-7"><a href="virus-vs-virus--dge.html#cb220-7" tabindex="-1"></a><span class="fu">write.csv</span>(sup, <span class="st">&quot;Output Files/supplemental_female_edgeR_viralRNA_go.csv&quot;</span>, <span class="at">row.names=</span><span class="cn">FALSE</span>)</span></code></pre></div>
 </div>
 <div id="kegg" class="section level4 hasAnchor" number="4.5.8.5">
 <h4><span class="header-section-number">4.5.8.5</span> KEGG<a href="virus-vs-virus--dge.html#kegg" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb220-1"><a href="virus-vs-virus--dge.html#cb220-1" tabindex="-1"></a>t_sup_kegg <span class="ot">&lt;-</span> </span>
-<span id="cb220-2"><a href="virus-vs-virus--dge.html#cb220-2" tabindex="-1"></a>  txome_kegg <span class="sc">%&gt;%</span> </span>
-<span id="cb220-3"><a href="virus-vs-virus--dge.html#cb220-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">KEGG =</span> <span class="fu">paste</span>(description, <span class="st">&quot; &quot;</span>, <span class="st">&quot;(&quot;</span>, geneSet, <span class="st">&quot;)&quot;</span>, <span class="at">sep=</span><span class="st">&quot;&quot;</span>), </span>
-<span id="cb220-4"><a href="virus-vs-virus--dge.html#cb220-4" tabindex="-1"></a>         <span class="at">Enrichment =</span> <span class="fu">round</span>(enrichmentRatio, <span class="at">digits=</span><span class="dv">1</span>),</span>
-<span id="cb220-5"><a href="virus-vs-virus--dge.html#cb220-5" tabindex="-1"></a>         <span class="at">FDR =</span> <span class="fu">round</span>(FDR, <span class="at">digits=</span><span class="dv">3</span>),</span>
-<span id="cb220-6"><a href="virus-vs-virus--dge.html#cb220-6" tabindex="-1"></a>         <span class="at">Transcriptome =</span> <span class="fu">paste</span>(Enrichment, <span class="st">&quot; &quot;</span>, <span class="st">&quot;(&quot;</span>, FDR, <span class="st">&quot;)&quot;</span>, <span class="at">sep=</span><span class="st">&quot;&quot;</span>), </span>
-<span id="cb220-7"><a href="virus-vs-virus--dge.html#cb220-7" tabindex="-1"></a>         <span class="at">Transcriptome_null =</span> <span class="fu">ifelse</span>(description <span class="sc">%in%</span> t_kegg<span class="sc">$</span>value, <span class="st">&quot;x&quot;</span>, <span class="st">&quot;&quot;</span>),</span>
-<span id="cb220-8"><a href="virus-vs-virus--dge.html#cb220-8" tabindex="-1"></a>         <span class="at">Transcriptome_Genes =</span> userId) <span class="sc">%&gt;%</span> </span>
-<span id="cb220-9"><a href="virus-vs-virus--dge.html#cb220-9" tabindex="-1"></a>  <span class="fu">select</span>(KEGG, Transcriptome, Transcriptome_null, Transcriptome_Genes)</span>
-<span id="cb220-10"><a href="virus-vs-virus--dge.html#cb220-10" tabindex="-1"></a></span>
-<span id="cb220-11"><a href="virus-vs-virus--dge.html#cb220-11" tabindex="-1"></a>g_sup_kegg <span class="ot">&lt;-</span> </span>
-<span id="cb220-12"><a href="virus-vs-virus--dge.html#cb220-12" tabindex="-1"></a>  gnome_kegg <span class="sc">%&gt;%</span> </span>
-<span id="cb220-13"><a href="virus-vs-virus--dge.html#cb220-13" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">KEGG =</span> <span class="fu">paste</span>(description, <span class="st">&quot; &quot;</span>, <span class="st">&quot;(&quot;</span>, geneSet, <span class="st">&quot;)&quot;</span>, <span class="at">sep=</span><span class="st">&quot;&quot;</span>), </span>
-<span id="cb220-14"><a href="virus-vs-virus--dge.html#cb220-14" tabindex="-1"></a>         <span class="at">Enrichment =</span> <span class="fu">round</span>(enrichmentRatio, <span class="at">digits=</span><span class="dv">1</span>),</span>
-<span id="cb220-15"><a href="virus-vs-virus--dge.html#cb220-15" tabindex="-1"></a>         <span class="at">FDR =</span> <span class="fu">round</span>(FDR, <span class="at">digits=</span><span class="dv">3</span>),</span>
-<span id="cb220-16"><a href="virus-vs-virus--dge.html#cb220-16" tabindex="-1"></a>         <span class="at">Genome =</span> <span class="fu">paste</span>(Enrichment, <span class="st">&quot; &quot;</span>, <span class="st">&quot;(&quot;</span>, FDR, <span class="st">&quot;)&quot;</span>, <span class="at">sep=</span><span class="st">&quot;&quot;</span>), </span>
-<span id="cb220-17"><a href="virus-vs-virus--dge.html#cb220-17" tabindex="-1"></a>         <span class="at">Genome_null =</span> <span class="fu">ifelse</span>(description <span class="sc">%in%</span> g_kegg<span class="sc">$</span>value, <span class="st">&quot;x&quot;</span>, <span class="st">&quot;&quot;</span>),</span>
-<span id="cb220-18"><a href="virus-vs-virus--dge.html#cb220-18" tabindex="-1"></a>         <span class="at">Genome_Genes =</span> userId) <span class="sc">%&gt;%</span> </span>
-<span id="cb220-19"><a href="virus-vs-virus--dge.html#cb220-19" tabindex="-1"></a>  <span class="fu">select</span>(KEGG, Genome, Genome_null, Genome_Genes)</span>
-<span id="cb220-20"><a href="virus-vs-virus--dge.html#cb220-20" tabindex="-1"></a></span>
-<span id="cb220-21"><a href="virus-vs-virus--dge.html#cb220-21" tabindex="-1"></a></span>
-<span id="cb220-22"><a href="virus-vs-virus--dge.html#cb220-22" tabindex="-1"></a>sup_kegg <span class="ot">&lt;-</span> </span>
-<span id="cb220-23"><a href="virus-vs-virus--dge.html#cb220-23" tabindex="-1"></a>  <span class="fu">merge</span>(t_sup_kegg, g_sup_kegg, <span class="at">all=</span><span class="cn">TRUE</span>)</span>
-<span id="cb220-24"><a href="virus-vs-virus--dge.html#cb220-24" tabindex="-1"></a></span>
-<span id="cb220-25"><a href="virus-vs-virus--dge.html#cb220-25" tabindex="-1"></a>sup_kegg <span class="sc">%&gt;%</span> </span>
-<span id="cb220-26"><a href="virus-vs-virus--dge.html#cb220-26" tabindex="-1"></a>  <span class="fu">kable</span>()</span>
-<span id="cb220-27"><a href="virus-vs-virus--dge.html#cb220-27" tabindex="-1"></a></span>
-<span id="cb220-28"><a href="virus-vs-virus--dge.html#cb220-28" tabindex="-1"></a><span class="fu">write.csv</span>(sup_kegg, <span class="st">&quot;Output Files/supplemental_female_edgeR_viralRNA_kegg.csv&quot;</span>, <span class="at">row.names=</span><span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb221"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb221-1"><a href="virus-vs-virus--dge.html#cb221-1" tabindex="-1"></a>t_sup_kegg <span class="ot">&lt;-</span> </span>
+<span id="cb221-2"><a href="virus-vs-virus--dge.html#cb221-2" tabindex="-1"></a>  txome_kegg <span class="sc">%&gt;%</span> </span>
+<span id="cb221-3"><a href="virus-vs-virus--dge.html#cb221-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">KEGG =</span> <span class="fu">paste</span>(description, <span class="st">&quot; &quot;</span>, <span class="st">&quot;(&quot;</span>, geneSet, <span class="st">&quot;)&quot;</span>, <span class="at">sep=</span><span class="st">&quot;&quot;</span>), </span>
+<span id="cb221-4"><a href="virus-vs-virus--dge.html#cb221-4" tabindex="-1"></a>         <span class="at">Enrichment =</span> <span class="fu">round</span>(enrichmentRatio, <span class="at">digits=</span><span class="dv">1</span>),</span>
+<span id="cb221-5"><a href="virus-vs-virus--dge.html#cb221-5" tabindex="-1"></a>         <span class="at">FDR =</span> <span class="fu">round</span>(FDR, <span class="at">digits=</span><span class="dv">3</span>),</span>
+<span id="cb221-6"><a href="virus-vs-virus--dge.html#cb221-6" tabindex="-1"></a>         <span class="at">Transcriptome =</span> <span class="fu">paste</span>(Enrichment, <span class="st">&quot; &quot;</span>, <span class="st">&quot;(&quot;</span>, FDR, <span class="st">&quot;)&quot;</span>, <span class="at">sep=</span><span class="st">&quot;&quot;</span>), </span>
+<span id="cb221-7"><a href="virus-vs-virus--dge.html#cb221-7" tabindex="-1"></a>         <span class="at">Transcriptome_null =</span> <span class="fu">ifelse</span>(description <span class="sc">%in%</span> t_kegg<span class="sc">$</span>value, <span class="st">&quot;x&quot;</span>, <span class="st">&quot;&quot;</span>),</span>
+<span id="cb221-8"><a href="virus-vs-virus--dge.html#cb221-8" tabindex="-1"></a>         <span class="at">Transcriptome_Genes =</span> userId) <span class="sc">%&gt;%</span> </span>
+<span id="cb221-9"><a href="virus-vs-virus--dge.html#cb221-9" tabindex="-1"></a>  <span class="fu">select</span>(KEGG, Transcriptome, Transcriptome_null, Transcriptome_Genes)</span>
+<span id="cb221-10"><a href="virus-vs-virus--dge.html#cb221-10" tabindex="-1"></a></span>
+<span id="cb221-11"><a href="virus-vs-virus--dge.html#cb221-11" tabindex="-1"></a>g_sup_kegg <span class="ot">&lt;-</span> </span>
+<span id="cb221-12"><a href="virus-vs-virus--dge.html#cb221-12" tabindex="-1"></a>  gnome_kegg <span class="sc">%&gt;%</span> </span>
+<span id="cb221-13"><a href="virus-vs-virus--dge.html#cb221-13" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">KEGG =</span> <span class="fu">paste</span>(description, <span class="st">&quot; &quot;</span>, <span class="st">&quot;(&quot;</span>, geneSet, <span class="st">&quot;)&quot;</span>, <span class="at">sep=</span><span class="st">&quot;&quot;</span>), </span>
+<span id="cb221-14"><a href="virus-vs-virus--dge.html#cb221-14" tabindex="-1"></a>         <span class="at">Enrichment =</span> <span class="fu">round</span>(enrichmentRatio, <span class="at">digits=</span><span class="dv">1</span>),</span>
+<span id="cb221-15"><a href="virus-vs-virus--dge.html#cb221-15" tabindex="-1"></a>         <span class="at">FDR =</span> <span class="fu">round</span>(FDR, <span class="at">digits=</span><span class="dv">3</span>),</span>
+<span id="cb221-16"><a href="virus-vs-virus--dge.html#cb221-16" tabindex="-1"></a>         <span class="at">Genome =</span> <span class="fu">paste</span>(Enrichment, <span class="st">&quot; &quot;</span>, <span class="st">&quot;(&quot;</span>, FDR, <span class="st">&quot;)&quot;</span>, <span class="at">sep=</span><span class="st">&quot;&quot;</span>), </span>
+<span id="cb221-17"><a href="virus-vs-virus--dge.html#cb221-17" tabindex="-1"></a>         <span class="at">Genome_null =</span> <span class="fu">ifelse</span>(description <span class="sc">%in%</span> g_kegg<span class="sc">$</span>value, <span class="st">&quot;x&quot;</span>, <span class="st">&quot;&quot;</span>),</span>
+<span id="cb221-18"><a href="virus-vs-virus--dge.html#cb221-18" tabindex="-1"></a>         <span class="at">Genome_Genes =</span> userId) <span class="sc">%&gt;%</span> </span>
+<span id="cb221-19"><a href="virus-vs-virus--dge.html#cb221-19" tabindex="-1"></a>  <span class="fu">select</span>(KEGG, Genome, Genome_null, Genome_Genes)</span>
+<span id="cb221-20"><a href="virus-vs-virus--dge.html#cb221-20" tabindex="-1"></a></span>
+<span id="cb221-21"><a href="virus-vs-virus--dge.html#cb221-21" tabindex="-1"></a></span>
+<span id="cb221-22"><a href="virus-vs-virus--dge.html#cb221-22" tabindex="-1"></a>sup_kegg <span class="ot">&lt;-</span> </span>
+<span id="cb221-23"><a href="virus-vs-virus--dge.html#cb221-23" tabindex="-1"></a>  <span class="fu">merge</span>(t_sup_kegg, g_sup_kegg, <span class="at">all=</span><span class="cn">TRUE</span>)</span>
+<span id="cb221-24"><a href="virus-vs-virus--dge.html#cb221-24" tabindex="-1"></a></span>
+<span id="cb221-25"><a href="virus-vs-virus--dge.html#cb221-25" tabindex="-1"></a>sup_kegg <span class="sc">%&gt;%</span> </span>
+<span id="cb221-26"><a href="virus-vs-virus--dge.html#cb221-26" tabindex="-1"></a>  <span class="fu">kable</span>()</span>
+<span id="cb221-27"><a href="virus-vs-virus--dge.html#cb221-27" tabindex="-1"></a></span>
+<span id="cb221-28"><a href="virus-vs-virus--dge.html#cb221-28" tabindex="-1"></a><span class="fu">write.csv</span>(sup_kegg, <span class="st">&quot;Output Files/supplemental_female_edgeR_viralRNA_kegg.csv&quot;</span>, <span class="at">row.names=</span><span class="cn">FALSE</span>)</span></code></pre></div>
 
 </div>
 </div>

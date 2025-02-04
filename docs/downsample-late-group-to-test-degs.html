@@ -435,168 +435,168 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number">11</span> Downsample Late Group to test # DEGs<a href="downsample-late-group-to-test-degs.html#downsample-late-group-to-test-degs" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <div id="libraries-19" class="section level2 hasAnchor" number="11.1">
 <h2><span class="header-section-number">11.1</span> Libraries<a href="downsample-late-group-to-test-degs.html#libraries-19" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb455"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb455-1"><a href="downsample-late-group-to-test-degs.html#cb455-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb455-2"><a href="downsample-late-group-to-test-degs.html#cb455-2" tabindex="-1"></a><span class="fu">library</span>(edgeR)</span></code></pre></div>
+<div class="sourceCode" id="cb458"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb458-1"><a href="downsample-late-group-to-test-degs.html#cb458-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb458-2"><a href="downsample-late-group-to-test-degs.html#cb458-2" tabindex="-1"></a><span class="fu">library</span>(edgeR)</span></code></pre></div>
 </div>
 <div id="data-21" class="section level2 hasAnchor" number="11.2">
 <h2><span class="header-section-number">11.2</span> Data<a href="downsample-late-group-to-test-degs.html#data-21" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb456"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb456-1"><a href="downsample-late-group-to-test-degs.html#cb456-1" tabindex="-1"></a>meta <span class="ot">&lt;-</span> </span>
-<span id="cb456-2"><a href="downsample-late-group-to-test-degs.html#cb456-2" tabindex="-1"></a>   <span class="fu">read.csv</span>(<span class="st">&quot;Input Files/metadata.csv&quot;</span>, </span>
-<span id="cb456-3"><a href="downsample-late-group-to-test-degs.html#cb456-3" tabindex="-1"></a>           <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb456-4"><a href="downsample-late-group-to-test-degs.html#cb456-4" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span>sex<span class="sc">==</span><span class="st">&quot;male&quot;</span>)</span>
-<span id="cb456-5"><a href="downsample-late-group-to-test-degs.html#cb456-5" tabindex="-1"></a></span>
-<span id="cb456-6"><a href="downsample-late-group-to-test-degs.html#cb456-6" tabindex="-1"></a>traw <span class="ot">&lt;-</span> </span>
-<span id="cb456-7"><a href="downsample-late-group-to-test-degs.html#cb456-7" tabindex="-1"></a>  <span class="fu">read.csv</span>(<span class="at">file =</span> <span class="st">&quot;Output Files/txome_genecounts_locid_nohemo.csv&quot;</span>, </span>
-<span id="cb456-8"><a href="downsample-late-group-to-test-degs.html#cb456-8" tabindex="-1"></a>                <span class="at">header =</span> <span class="cn">TRUE</span>, </span>
-<span id="cb456-9"><a href="downsample-late-group-to-test-degs.html#cb456-9" tabindex="-1"></a>                <span class="at">row.names =</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb456-10"><a href="downsample-late-group-to-test-degs.html#cb456-10" tabindex="-1"></a>  <span class="fu">select</span>(meta<span class="sc">$</span>sample)</span>
-<span id="cb456-11"><a href="downsample-late-group-to-test-degs.html#cb456-11" tabindex="-1"></a></span>
-<span id="cb456-12"><a href="downsample-late-group-to-test-degs.html#cb456-12" tabindex="-1"></a>graw <span class="ot">&lt;-</span> </span>
-<span id="cb456-13"><a href="downsample-late-group-to-test-degs.html#cb456-13" tabindex="-1"></a>  <span class="fu">read.csv</span>(<span class="at">file =</span> <span class="st">&quot;Output Files/gnome_genecounts_locid_nohemo.csv&quot;</span>, </span>
-<span id="cb456-14"><a href="downsample-late-group-to-test-degs.html#cb456-14" tabindex="-1"></a>                <span class="at">header =</span> <span class="cn">TRUE</span>, </span>
-<span id="cb456-15"><a href="downsample-late-group-to-test-degs.html#cb456-15" tabindex="-1"></a>                <span class="at">row.names =</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb456-16"><a href="downsample-late-group-to-test-degs.html#cb456-16" tabindex="-1"></a>  <span class="fu">select</span>(meta<span class="sc">$</span>sample)</span></code></pre></div>
+<div class="sourceCode" id="cb459"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb459-1"><a href="downsample-late-group-to-test-degs.html#cb459-1" tabindex="-1"></a>meta <span class="ot">&lt;-</span> </span>
+<span id="cb459-2"><a href="downsample-late-group-to-test-degs.html#cb459-2" tabindex="-1"></a>   <span class="fu">read.csv</span>(<span class="st">&quot;Input Files/metadata.csv&quot;</span>, </span>
+<span id="cb459-3"><a href="downsample-late-group-to-test-degs.html#cb459-3" tabindex="-1"></a>           <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb459-4"><a href="downsample-late-group-to-test-degs.html#cb459-4" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span>sex<span class="sc">==</span><span class="st">&quot;male&quot;</span>)</span>
+<span id="cb459-5"><a href="downsample-late-group-to-test-degs.html#cb459-5" tabindex="-1"></a></span>
+<span id="cb459-6"><a href="downsample-late-group-to-test-degs.html#cb459-6" tabindex="-1"></a>traw <span class="ot">&lt;-</span> </span>
+<span id="cb459-7"><a href="downsample-late-group-to-test-degs.html#cb459-7" tabindex="-1"></a>  <span class="fu">read.csv</span>(<span class="at">file =</span> <span class="st">&quot;Output Files/txome_genecounts_locid_nohemo.csv&quot;</span>, </span>
+<span id="cb459-8"><a href="downsample-late-group-to-test-degs.html#cb459-8" tabindex="-1"></a>                <span class="at">header =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb459-9"><a href="downsample-late-group-to-test-degs.html#cb459-9" tabindex="-1"></a>                <span class="at">row.names =</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb459-10"><a href="downsample-late-group-to-test-degs.html#cb459-10" tabindex="-1"></a>  <span class="fu">select</span>(meta<span class="sc">$</span>sample)</span>
+<span id="cb459-11"><a href="downsample-late-group-to-test-degs.html#cb459-11" tabindex="-1"></a></span>
+<span id="cb459-12"><a href="downsample-late-group-to-test-degs.html#cb459-12" tabindex="-1"></a>graw <span class="ot">&lt;-</span> </span>
+<span id="cb459-13"><a href="downsample-late-group-to-test-degs.html#cb459-13" tabindex="-1"></a>  <span class="fu">read.csv</span>(<span class="at">file =</span> <span class="st">&quot;Output Files/gnome_genecounts_locid_nohemo.csv&quot;</span>, </span>
+<span id="cb459-14"><a href="downsample-late-group-to-test-degs.html#cb459-14" tabindex="-1"></a>                <span class="at">header =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb459-15"><a href="downsample-late-group-to-test-degs.html#cb459-15" tabindex="-1"></a>                <span class="at">row.names =</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb459-16"><a href="downsample-late-group-to-test-degs.html#cb459-16" tabindex="-1"></a>  <span class="fu">select</span>(meta<span class="sc">$</span>sample)</span></code></pre></div>
 </div>
 <div id="transcriptome-7" class="section level2 hasAnchor" number="11.3">
 <h2><span class="header-section-number">11.3</span> Transcriptome<a href="downsample-late-group-to-test-degs.html#transcriptome-7" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div id="downsample-loop" class="section level3 hasAnchor" number="11.3.1">
 <h3><span class="header-section-number">11.3.1</span> Downsample &amp; Loop<a href="downsample-late-group-to-test-degs.html#downsample-loop" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb457"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb457-1"><a href="downsample-late-group-to-test-degs.html#cb457-1" tabindex="-1"></a><span class="co"># Set up results list</span></span>
-<span id="cb457-2"><a href="downsample-late-group-to-test-degs.html#cb457-2" tabindex="-1"></a>  tresults <span class="ot">&lt;-</span> </span>
-<span id="cb457-3"><a href="downsample-late-group-to-test-degs.html#cb457-3" tabindex="-1"></a>    <span class="fu">setNames</span>(<span class="fu">vector</span>(<span class="st">&#39;list&#39;</span>, <span class="dv">100</span>), <span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>)</span>
-<span id="cb457-4"><a href="downsample-late-group-to-test-degs.html#cb457-4" tabindex="-1"></a></span>
-<span id="cb457-5"><a href="downsample-late-group-to-test-degs.html#cb457-5" tabindex="-1"></a><span class="co"># Set seed for reproducibility</span></span>
-<span id="cb457-6"><a href="downsample-late-group-to-test-degs.html#cb457-6" tabindex="-1"></a>  <span class="fu">set.seed</span>(<span class="dv">2</span>)</span>
-<span id="cb457-7"><a href="downsample-late-group-to-test-degs.html#cb457-7" tabindex="-1"></a></span>
-<span id="cb457-8"><a href="downsample-late-group-to-test-degs.html#cb457-8" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>) {</span>
-<span id="cb457-9"><a href="downsample-late-group-to-test-degs.html#cb457-9" tabindex="-1"></a><span class="co"># Subsample late individuals</span></span>
-<span id="cb457-10"><a href="downsample-late-group-to-test-degs.html#cb457-10" tabindex="-1"></a>  late <span class="ot">&lt;-</span> </span>
-<span id="cb457-11"><a href="downsample-late-group-to-test-degs.html#cb457-11" tabindex="-1"></a>    meta <span class="sc">%&gt;%</span> </span>
-<span id="cb457-12"><a href="downsample-late-group-to-test-degs.html#cb457-12" tabindex="-1"></a>    <span class="fu">filter</span>(disease_stage<span class="sc">==</span><span class="st">&quot;late&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb457-13"><a href="downsample-late-group-to-test-degs.html#cb457-13" tabindex="-1"></a>    <span class="fu">group_by</span>(disease_stage) <span class="sc">%&gt;%</span> </span>
-<span id="cb457-14"><a href="downsample-late-group-to-test-degs.html#cb457-14" tabindex="-1"></a>    <span class="fu">sample_n</span>(<span class="at">size=</span><span class="dv">5</span>) </span>
-<span id="cb457-15"><a href="downsample-late-group-to-test-degs.html#cb457-15" tabindex="-1"></a></span>
-<span id="cb457-16"><a href="downsample-late-group-to-test-degs.html#cb457-16" tabindex="-1"></a><span class="co"># Create new metadata</span></span>
-<span id="cb457-17"><a href="downsample-late-group-to-test-degs.html#cb457-17" tabindex="-1"></a>  meta_new <span class="ot">&lt;-</span> </span>
-<span id="cb457-18"><a href="downsample-late-group-to-test-degs.html#cb457-18" tabindex="-1"></a>    meta <span class="sc">%&gt;%</span> </span>
-<span id="cb457-19"><a href="downsample-late-group-to-test-degs.html#cb457-19" tabindex="-1"></a>    <span class="fu">filter</span>(<span class="sc">!</span>disease_stage<span class="sc">==</span><span class="st">&quot;late&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb457-20"><a href="downsample-late-group-to-test-degs.html#cb457-20" tabindex="-1"></a>    <span class="fu">rbind</span>(late)</span>
-<span id="cb457-21"><a href="downsample-late-group-to-test-degs.html#cb457-21" tabindex="-1"></a>  </span>
-<span id="cb457-22"><a href="downsample-late-group-to-test-degs.html#cb457-22" tabindex="-1"></a><span class="co"># Create new count matrix</span></span>
-<span id="cb457-23"><a href="downsample-late-group-to-test-degs.html#cb457-23" tabindex="-1"></a>  raw_new <span class="ot">&lt;-</span> </span>
-<span id="cb457-24"><a href="downsample-late-group-to-test-degs.html#cb457-24" tabindex="-1"></a>    traw <span class="sc">%&gt;%</span> </span>
-<span id="cb457-25"><a href="downsample-late-group-to-test-degs.html#cb457-25" tabindex="-1"></a>    <span class="fu">select</span>(meta_new<span class="sc">$</span>sample)</span>
-<span id="cb457-26"><a href="downsample-late-group-to-test-degs.html#cb457-26" tabindex="-1"></a></span>
-<span id="cb457-27"><a href="downsample-late-group-to-test-degs.html#cb457-27" tabindex="-1"></a><span class="co"># Create DGE Object</span></span>
-<span id="cb457-28"><a href="downsample-late-group-to-test-degs.html#cb457-28" tabindex="-1"></a>  DGE <span class="ot">&lt;-</span> <span class="fu">DGEList</span>(<span class="at">counts=</span>raw_new, <span class="at">group=</span>meta_new<span class="sc">$</span>disease_stage)</span>
-<span id="cb457-29"><a href="downsample-late-group-to-test-degs.html#cb457-29" tabindex="-1"></a></span>
-<span id="cb457-30"><a href="downsample-late-group-to-test-degs.html#cb457-30" tabindex="-1"></a><span class="co"># Filter out lowly expressed genes</span></span>
-<span id="cb457-31"><a href="downsample-late-group-to-test-degs.html#cb457-31" tabindex="-1"></a>  keep <span class="ot">&lt;-</span> <span class="fu">filterByExpr</span>(DGE)</span>
-<span id="cb457-32"><a href="downsample-late-group-to-test-degs.html#cb457-32" tabindex="-1"></a>  DGE <span class="ot">&lt;-</span> DGE[keep, , keep.lib.sizes<span class="ot">=</span><span class="cn">FALSE</span>]</span>
-<span id="cb457-33"><a href="downsample-late-group-to-test-degs.html#cb457-33" tabindex="-1"></a></span>
-<span id="cb457-34"><a href="downsample-late-group-to-test-degs.html#cb457-34" tabindex="-1"></a><span class="co"># Normalize based on library sizes &amp; calculate dispersion</span></span>
-<span id="cb457-35"><a href="downsample-late-group-to-test-degs.html#cb457-35" tabindex="-1"></a>  DGE <span class="ot">&lt;-</span> <span class="fu">calcNormFactors</span>(DGE)</span>
-<span id="cb457-36"><a href="downsample-late-group-to-test-degs.html#cb457-36" tabindex="-1"></a>  DGE <span class="ot">&lt;-</span> <span class="fu">estimateCommonDisp</span>(DGE)</span>
-<span id="cb457-37"><a href="downsample-late-group-to-test-degs.html#cb457-37" tabindex="-1"></a>  DGE <span class="ot">&lt;-</span> <span class="fu">estimateTrendedDisp</span>(DGE)</span>
-<span id="cb457-38"><a href="downsample-late-group-to-test-degs.html#cb457-38" tabindex="-1"></a>  DGE <span class="ot">&lt;-</span> <span class="fu">estimateTagwiseDisp</span>(DGE)</span>
-<span id="cb457-39"><a href="downsample-late-group-to-test-degs.html#cb457-39" tabindex="-1"></a></span>
-<span id="cb457-40"><a href="downsample-late-group-to-test-degs.html#cb457-40" tabindex="-1"></a><span class="co"># Test for DEGs</span></span>
-<span id="cb457-41"><a href="downsample-late-group-to-test-degs.html#cb457-41" tabindex="-1"></a>  et_late <span class="ot">&lt;-</span> <span class="fu">exactTest</span>(DGE, <span class="at">pair=</span><span class="fu">c</span>(<span class="st">&quot;control&quot;</span>, <span class="st">&quot;late&quot;</span>))</span>
-<span id="cb457-42"><a href="downsample-late-group-to-test-degs.html#cb457-42" tabindex="-1"></a></span>
-<span id="cb457-43"><a href="downsample-late-group-to-test-degs.html#cb457-43" tabindex="-1"></a><span class="co"># Select DEGs by fold change &amp; pvalue</span></span>
-<span id="cb457-44"><a href="downsample-late-group-to-test-degs.html#cb457-44" tabindex="-1"></a>  results_late <span class="ot">&lt;-</span> </span>
-<span id="cb457-45"><a href="downsample-late-group-to-test-degs.html#cb457-45" tabindex="-1"></a>    <span class="fu">topTags</span>(et_late, <span class="at">n =</span> <span class="fu">dim</span>(DGE)[<span class="dv">1</span>]) <span class="sc">%&gt;%</span> </span>
-<span id="cb457-46"><a href="downsample-late-group-to-test-degs.html#cb457-46" tabindex="-1"></a>    <span class="fu">data.frame</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb457-47"><a href="downsample-late-group-to-test-degs.html#cb457-47" tabindex="-1"></a>    <span class="fu">filter</span>(<span class="fu">abs</span>(logFC) <span class="sc">&gt;</span> <span class="dv">1</span> <span class="sc">&amp;</span> PValue <span class="sc">&lt;</span> <span class="fl">0.05</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb457-48"><a href="downsample-late-group-to-test-degs.html#cb457-48" tabindex="-1"></a>    <span class="fu">rownames_to_column</span>(<span class="at">var=</span><span class="st">&quot;gene&quot;</span>)</span>
-<span id="cb457-49"><a href="downsample-late-group-to-test-degs.html#cb457-49" tabindex="-1"></a></span>
-<span id="cb457-50"><a href="downsample-late-group-to-test-degs.html#cb457-50" tabindex="-1"></a><span class="co"># Save output to list</span></span>
-<span id="cb457-51"><a href="downsample-late-group-to-test-degs.html#cb457-51" tabindex="-1"></a>  tresults[[i]] <span class="ot">&lt;-</span> results_late<span class="sc">$</span>gene</span>
-<span id="cb457-52"><a href="downsample-late-group-to-test-degs.html#cb457-52" tabindex="-1"></a>}</span>
-<span id="cb457-53"><a href="downsample-late-group-to-test-degs.html#cb457-53" tabindex="-1"></a></span>
-<span id="cb457-54"><a href="downsample-late-group-to-test-degs.html#cb457-54" tabindex="-1"></a>tnum <span class="ot">&lt;-</span> </span>
-<span id="cb457-55"><a href="downsample-late-group-to-test-degs.html#cb457-55" tabindex="-1"></a>  <span class="fu">data.frame</span>(</span>
-<span id="cb457-56"><a href="downsample-late-group-to-test-degs.html#cb457-56" tabindex="-1"></a>    <span class="at">genes =</span> <span class="fu">lengths</span>(tresults),</span>
-<span id="cb457-57"><a href="downsample-late-group-to-test-degs.html#cb457-57" tabindex="-1"></a>    <span class="at">approach =</span> <span class="st">&quot;Transcriptome&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb460"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb460-1"><a href="downsample-late-group-to-test-degs.html#cb460-1" tabindex="-1"></a><span class="co"># Set up results list</span></span>
+<span id="cb460-2"><a href="downsample-late-group-to-test-degs.html#cb460-2" tabindex="-1"></a>  tresults <span class="ot">&lt;-</span> </span>
+<span id="cb460-3"><a href="downsample-late-group-to-test-degs.html#cb460-3" tabindex="-1"></a>    <span class="fu">setNames</span>(<span class="fu">vector</span>(<span class="st">&#39;list&#39;</span>, <span class="dv">100</span>), <span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>)</span>
+<span id="cb460-4"><a href="downsample-late-group-to-test-degs.html#cb460-4" tabindex="-1"></a></span>
+<span id="cb460-5"><a href="downsample-late-group-to-test-degs.html#cb460-5" tabindex="-1"></a><span class="co"># Set seed for reproducibility</span></span>
+<span id="cb460-6"><a href="downsample-late-group-to-test-degs.html#cb460-6" tabindex="-1"></a>  <span class="fu">set.seed</span>(<span class="dv">2</span>)</span>
+<span id="cb460-7"><a href="downsample-late-group-to-test-degs.html#cb460-7" tabindex="-1"></a></span>
+<span id="cb460-8"><a href="downsample-late-group-to-test-degs.html#cb460-8" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>) {</span>
+<span id="cb460-9"><a href="downsample-late-group-to-test-degs.html#cb460-9" tabindex="-1"></a><span class="co"># Subsample late individuals</span></span>
+<span id="cb460-10"><a href="downsample-late-group-to-test-degs.html#cb460-10" tabindex="-1"></a>  late <span class="ot">&lt;-</span> </span>
+<span id="cb460-11"><a href="downsample-late-group-to-test-degs.html#cb460-11" tabindex="-1"></a>    meta <span class="sc">%&gt;%</span> </span>
+<span id="cb460-12"><a href="downsample-late-group-to-test-degs.html#cb460-12" tabindex="-1"></a>    <span class="fu">filter</span>(disease_stage<span class="sc">==</span><span class="st">&quot;late&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb460-13"><a href="downsample-late-group-to-test-degs.html#cb460-13" tabindex="-1"></a>    <span class="fu">group_by</span>(disease_stage) <span class="sc">%&gt;%</span> </span>
+<span id="cb460-14"><a href="downsample-late-group-to-test-degs.html#cb460-14" tabindex="-1"></a>    <span class="fu">sample_n</span>(<span class="at">size=</span><span class="dv">5</span>) </span>
+<span id="cb460-15"><a href="downsample-late-group-to-test-degs.html#cb460-15" tabindex="-1"></a></span>
+<span id="cb460-16"><a href="downsample-late-group-to-test-degs.html#cb460-16" tabindex="-1"></a><span class="co"># Create new metadata</span></span>
+<span id="cb460-17"><a href="downsample-late-group-to-test-degs.html#cb460-17" tabindex="-1"></a>  meta_new <span class="ot">&lt;-</span> </span>
+<span id="cb460-18"><a href="downsample-late-group-to-test-degs.html#cb460-18" tabindex="-1"></a>    meta <span class="sc">%&gt;%</span> </span>
+<span id="cb460-19"><a href="downsample-late-group-to-test-degs.html#cb460-19" tabindex="-1"></a>    <span class="fu">filter</span>(<span class="sc">!</span>disease_stage<span class="sc">==</span><span class="st">&quot;late&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb460-20"><a href="downsample-late-group-to-test-degs.html#cb460-20" tabindex="-1"></a>    <span class="fu">rbind</span>(late)</span>
+<span id="cb460-21"><a href="downsample-late-group-to-test-degs.html#cb460-21" tabindex="-1"></a>  </span>
+<span id="cb460-22"><a href="downsample-late-group-to-test-degs.html#cb460-22" tabindex="-1"></a><span class="co"># Create new count matrix</span></span>
+<span id="cb460-23"><a href="downsample-late-group-to-test-degs.html#cb460-23" tabindex="-1"></a>  raw_new <span class="ot">&lt;-</span> </span>
+<span id="cb460-24"><a href="downsample-late-group-to-test-degs.html#cb460-24" tabindex="-1"></a>    traw <span class="sc">%&gt;%</span> </span>
+<span id="cb460-25"><a href="downsample-late-group-to-test-degs.html#cb460-25" tabindex="-1"></a>    <span class="fu">select</span>(meta_new<span class="sc">$</span>sample)</span>
+<span id="cb460-26"><a href="downsample-late-group-to-test-degs.html#cb460-26" tabindex="-1"></a></span>
+<span id="cb460-27"><a href="downsample-late-group-to-test-degs.html#cb460-27" tabindex="-1"></a><span class="co"># Create DGE Object</span></span>
+<span id="cb460-28"><a href="downsample-late-group-to-test-degs.html#cb460-28" tabindex="-1"></a>  DGE <span class="ot">&lt;-</span> <span class="fu">DGEList</span>(<span class="at">counts=</span>raw_new, <span class="at">group=</span>meta_new<span class="sc">$</span>disease_stage)</span>
+<span id="cb460-29"><a href="downsample-late-group-to-test-degs.html#cb460-29" tabindex="-1"></a></span>
+<span id="cb460-30"><a href="downsample-late-group-to-test-degs.html#cb460-30" tabindex="-1"></a><span class="co"># Filter out lowly expressed genes</span></span>
+<span id="cb460-31"><a href="downsample-late-group-to-test-degs.html#cb460-31" tabindex="-1"></a>  keep <span class="ot">&lt;-</span> <span class="fu">filterByExpr</span>(DGE)</span>
+<span id="cb460-32"><a href="downsample-late-group-to-test-degs.html#cb460-32" tabindex="-1"></a>  DGE <span class="ot">&lt;-</span> DGE[keep, , keep.lib.sizes<span class="ot">=</span><span class="cn">FALSE</span>]</span>
+<span id="cb460-33"><a href="downsample-late-group-to-test-degs.html#cb460-33" tabindex="-1"></a></span>
+<span id="cb460-34"><a href="downsample-late-group-to-test-degs.html#cb460-34" tabindex="-1"></a><span class="co"># Normalize based on library sizes &amp; calculate dispersion</span></span>
+<span id="cb460-35"><a href="downsample-late-group-to-test-degs.html#cb460-35" tabindex="-1"></a>  DGE <span class="ot">&lt;-</span> <span class="fu">calcNormFactors</span>(DGE)</span>
+<span id="cb460-36"><a href="downsample-late-group-to-test-degs.html#cb460-36" tabindex="-1"></a>  DGE <span class="ot">&lt;-</span> <span class="fu">estimateCommonDisp</span>(DGE)</span>
+<span id="cb460-37"><a href="downsample-late-group-to-test-degs.html#cb460-37" tabindex="-1"></a>  DGE <span class="ot">&lt;-</span> <span class="fu">estimateTrendedDisp</span>(DGE)</span>
+<span id="cb460-38"><a href="downsample-late-group-to-test-degs.html#cb460-38" tabindex="-1"></a>  DGE <span class="ot">&lt;-</span> <span class="fu">estimateTagwiseDisp</span>(DGE)</span>
+<span id="cb460-39"><a href="downsample-late-group-to-test-degs.html#cb460-39" tabindex="-1"></a></span>
+<span id="cb460-40"><a href="downsample-late-group-to-test-degs.html#cb460-40" tabindex="-1"></a><span class="co"># Test for DEGs</span></span>
+<span id="cb460-41"><a href="downsample-late-group-to-test-degs.html#cb460-41" tabindex="-1"></a>  et_late <span class="ot">&lt;-</span> <span class="fu">exactTest</span>(DGE, <span class="at">pair=</span><span class="fu">c</span>(<span class="st">&quot;control&quot;</span>, <span class="st">&quot;late&quot;</span>))</span>
+<span id="cb460-42"><a href="downsample-late-group-to-test-degs.html#cb460-42" tabindex="-1"></a></span>
+<span id="cb460-43"><a href="downsample-late-group-to-test-degs.html#cb460-43" tabindex="-1"></a><span class="co"># Select DEGs by fold change &amp; pvalue</span></span>
+<span id="cb460-44"><a href="downsample-late-group-to-test-degs.html#cb460-44" tabindex="-1"></a>  results_late <span class="ot">&lt;-</span> </span>
+<span id="cb460-45"><a href="downsample-late-group-to-test-degs.html#cb460-45" tabindex="-1"></a>    <span class="fu">topTags</span>(et_late, <span class="at">n =</span> <span class="fu">dim</span>(DGE)[<span class="dv">1</span>]) <span class="sc">%&gt;%</span> </span>
+<span id="cb460-46"><a href="downsample-late-group-to-test-degs.html#cb460-46" tabindex="-1"></a>    <span class="fu">data.frame</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb460-47"><a href="downsample-late-group-to-test-degs.html#cb460-47" tabindex="-1"></a>    <span class="fu">filter</span>(<span class="fu">abs</span>(logFC) <span class="sc">&gt;</span> <span class="dv">1</span> <span class="sc">&amp;</span> PValue <span class="sc">&lt;</span> <span class="fl">0.05</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb460-48"><a href="downsample-late-group-to-test-degs.html#cb460-48" tabindex="-1"></a>    <span class="fu">rownames_to_column</span>(<span class="at">var=</span><span class="st">&quot;gene&quot;</span>)</span>
+<span id="cb460-49"><a href="downsample-late-group-to-test-degs.html#cb460-49" tabindex="-1"></a></span>
+<span id="cb460-50"><a href="downsample-late-group-to-test-degs.html#cb460-50" tabindex="-1"></a><span class="co"># Save output to list</span></span>
+<span id="cb460-51"><a href="downsample-late-group-to-test-degs.html#cb460-51" tabindex="-1"></a>  tresults[[i]] <span class="ot">&lt;-</span> results_late<span class="sc">$</span>gene</span>
+<span id="cb460-52"><a href="downsample-late-group-to-test-degs.html#cb460-52" tabindex="-1"></a>}</span>
+<span id="cb460-53"><a href="downsample-late-group-to-test-degs.html#cb460-53" tabindex="-1"></a></span>
+<span id="cb460-54"><a href="downsample-late-group-to-test-degs.html#cb460-54" tabindex="-1"></a>tnum <span class="ot">&lt;-</span> </span>
+<span id="cb460-55"><a href="downsample-late-group-to-test-degs.html#cb460-55" tabindex="-1"></a>  <span class="fu">data.frame</span>(</span>
+<span id="cb460-56"><a href="downsample-late-group-to-test-degs.html#cb460-56" tabindex="-1"></a>    <span class="at">genes =</span> <span class="fu">lengths</span>(tresults),</span>
+<span id="cb460-57"><a href="downsample-late-group-to-test-degs.html#cb460-57" tabindex="-1"></a>    <span class="at">approach =</span> <span class="st">&quot;Transcriptome&quot;</span>)</span></code></pre></div>
 </div>
 </div>
 <div id="genome-7" class="section level2 hasAnchor" number="11.4">
 <h2><span class="header-section-number">11.4</span> Genome<a href="downsample-late-group-to-test-degs.html#genome-7" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div id="downsample-loop-1" class="section level3 hasAnchor" number="11.4.1">
 <h3><span class="header-section-number">11.4.1</span> Downsample &amp; Loop<a href="downsample-late-group-to-test-degs.html#downsample-loop-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb458"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb458-1"><a href="downsample-late-group-to-test-degs.html#cb458-1" tabindex="-1"></a><span class="co"># Set up results list</span></span>
-<span id="cb458-2"><a href="downsample-late-group-to-test-degs.html#cb458-2" tabindex="-1"></a>  gresults <span class="ot">&lt;-</span> </span>
-<span id="cb458-3"><a href="downsample-late-group-to-test-degs.html#cb458-3" tabindex="-1"></a>    <span class="fu">setNames</span>(<span class="fu">vector</span>(<span class="st">&#39;list&#39;</span>, <span class="dv">100</span>), <span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>)</span>
-<span id="cb458-4"><a href="downsample-late-group-to-test-degs.html#cb458-4" tabindex="-1"></a></span>
-<span id="cb458-5"><a href="downsample-late-group-to-test-degs.html#cb458-5" tabindex="-1"></a><span class="co"># Set seed for reproducibility</span></span>
-<span id="cb458-6"><a href="downsample-late-group-to-test-degs.html#cb458-6" tabindex="-1"></a>  <span class="fu">set.seed</span>(<span class="dv">2</span>)</span>
-<span id="cb458-7"><a href="downsample-late-group-to-test-degs.html#cb458-7" tabindex="-1"></a></span>
-<span id="cb458-8"><a href="downsample-late-group-to-test-degs.html#cb458-8" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>) {</span>
-<span id="cb458-9"><a href="downsample-late-group-to-test-degs.html#cb458-9" tabindex="-1"></a><span class="co"># Subsample late individuals</span></span>
-<span id="cb458-10"><a href="downsample-late-group-to-test-degs.html#cb458-10" tabindex="-1"></a>  late <span class="ot">&lt;-</span> </span>
-<span id="cb458-11"><a href="downsample-late-group-to-test-degs.html#cb458-11" tabindex="-1"></a>    meta <span class="sc">%&gt;%</span> </span>
-<span id="cb458-12"><a href="downsample-late-group-to-test-degs.html#cb458-12" tabindex="-1"></a>    <span class="fu">filter</span>(disease_stage<span class="sc">==</span><span class="st">&quot;late&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb458-13"><a href="downsample-late-group-to-test-degs.html#cb458-13" tabindex="-1"></a>    <span class="fu">group_by</span>(disease_stage) <span class="sc">%&gt;%</span> </span>
-<span id="cb458-14"><a href="downsample-late-group-to-test-degs.html#cb458-14" tabindex="-1"></a>    <span class="fu">sample_n</span>(<span class="at">size=</span><span class="dv">5</span>) </span>
-<span id="cb458-15"><a href="downsample-late-group-to-test-degs.html#cb458-15" tabindex="-1"></a></span>
-<span id="cb458-16"><a href="downsample-late-group-to-test-degs.html#cb458-16" tabindex="-1"></a><span class="co"># Create new metadata</span></span>
-<span id="cb458-17"><a href="downsample-late-group-to-test-degs.html#cb458-17" tabindex="-1"></a>  meta_new <span class="ot">&lt;-</span> </span>
-<span id="cb458-18"><a href="downsample-late-group-to-test-degs.html#cb458-18" tabindex="-1"></a>    meta <span class="sc">%&gt;%</span> </span>
-<span id="cb458-19"><a href="downsample-late-group-to-test-degs.html#cb458-19" tabindex="-1"></a>    <span class="fu">filter</span>(<span class="sc">!</span>disease_stage<span class="sc">==</span><span class="st">&quot;late&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb458-20"><a href="downsample-late-group-to-test-degs.html#cb458-20" tabindex="-1"></a>    <span class="fu">rbind</span>(late)</span>
-<span id="cb458-21"><a href="downsample-late-group-to-test-degs.html#cb458-21" tabindex="-1"></a>  </span>
-<span id="cb458-22"><a href="downsample-late-group-to-test-degs.html#cb458-22" tabindex="-1"></a><span class="co"># Create new count matrix</span></span>
-<span id="cb458-23"><a href="downsample-late-group-to-test-degs.html#cb458-23" tabindex="-1"></a>  raw_new <span class="ot">&lt;-</span> </span>
-<span id="cb458-24"><a href="downsample-late-group-to-test-degs.html#cb458-24" tabindex="-1"></a>    graw <span class="sc">%&gt;%</span> </span>
-<span id="cb458-25"><a href="downsample-late-group-to-test-degs.html#cb458-25" tabindex="-1"></a>    <span class="fu">select</span>(meta_new<span class="sc">$</span>sample)</span>
-<span id="cb458-26"><a href="downsample-late-group-to-test-degs.html#cb458-26" tabindex="-1"></a></span>
-<span id="cb458-27"><a href="downsample-late-group-to-test-degs.html#cb458-27" tabindex="-1"></a><span class="co"># Create DGE Object</span></span>
-<span id="cb458-28"><a href="downsample-late-group-to-test-degs.html#cb458-28" tabindex="-1"></a>  DGE <span class="ot">&lt;-</span> <span class="fu">DGEList</span>(<span class="at">counts=</span>raw_new, <span class="at">group=</span>meta_new<span class="sc">$</span>disease_stage)</span>
-<span id="cb458-29"><a href="downsample-late-group-to-test-degs.html#cb458-29" tabindex="-1"></a></span>
-<span id="cb458-30"><a href="downsample-late-group-to-test-degs.html#cb458-30" tabindex="-1"></a><span class="co"># Filter out lowly expressed genes</span></span>
-<span id="cb458-31"><a href="downsample-late-group-to-test-degs.html#cb458-31" tabindex="-1"></a>  keep <span class="ot">&lt;-</span> <span class="fu">filterByExpr</span>(DGE)</span>
-<span id="cb458-32"><a href="downsample-late-group-to-test-degs.html#cb458-32" tabindex="-1"></a>  DGE <span class="ot">&lt;-</span> DGE[keep, , keep.lib.sizes<span class="ot">=</span><span class="cn">FALSE</span>]</span>
-<span id="cb458-33"><a href="downsample-late-group-to-test-degs.html#cb458-33" tabindex="-1"></a></span>
-<span id="cb458-34"><a href="downsample-late-group-to-test-degs.html#cb458-34" tabindex="-1"></a><span class="co"># Normalize based on library sizes &amp; calculate dispersion</span></span>
-<span id="cb458-35"><a href="downsample-late-group-to-test-degs.html#cb458-35" tabindex="-1"></a>  DGE <span class="ot">&lt;-</span> <span class="fu">calcNormFactors</span>(DGE)</span>
-<span id="cb458-36"><a href="downsample-late-group-to-test-degs.html#cb458-36" tabindex="-1"></a>  DGE <span class="ot">&lt;-</span> <span class="fu">estimateCommonDisp</span>(DGE)</span>
-<span id="cb458-37"><a href="downsample-late-group-to-test-degs.html#cb458-37" tabindex="-1"></a>  DGE <span class="ot">&lt;-</span> <span class="fu">estimateTrendedDisp</span>(DGE)</span>
-<span id="cb458-38"><a href="downsample-late-group-to-test-degs.html#cb458-38" tabindex="-1"></a>  DGE <span class="ot">&lt;-</span> <span class="fu">estimateTagwiseDisp</span>(DGE)</span>
-<span id="cb458-39"><a href="downsample-late-group-to-test-degs.html#cb458-39" tabindex="-1"></a></span>
-<span id="cb458-40"><a href="downsample-late-group-to-test-degs.html#cb458-40" tabindex="-1"></a><span class="co"># Test for DEGs</span></span>
-<span id="cb458-41"><a href="downsample-late-group-to-test-degs.html#cb458-41" tabindex="-1"></a>  et_late <span class="ot">&lt;-</span> <span class="fu">exactTest</span>(DGE, <span class="at">pair=</span><span class="fu">c</span>(<span class="st">&quot;control&quot;</span>, <span class="st">&quot;late&quot;</span>))</span>
-<span id="cb458-42"><a href="downsample-late-group-to-test-degs.html#cb458-42" tabindex="-1"></a></span>
-<span id="cb458-43"><a href="downsample-late-group-to-test-degs.html#cb458-43" tabindex="-1"></a><span class="co"># Select DEGs by fold change &amp; pvalue</span></span>
-<span id="cb458-44"><a href="downsample-late-group-to-test-degs.html#cb458-44" tabindex="-1"></a>  results_late <span class="ot">&lt;-</span> </span>
-<span id="cb458-45"><a href="downsample-late-group-to-test-degs.html#cb458-45" tabindex="-1"></a>    <span class="fu">topTags</span>(et_late, <span class="at">n =</span> <span class="fu">dim</span>(DGE)[<span class="dv">1</span>]) <span class="sc">%&gt;%</span> </span>
-<span id="cb458-46"><a href="downsample-late-group-to-test-degs.html#cb458-46" tabindex="-1"></a>    <span class="fu">data.frame</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb458-47"><a href="downsample-late-group-to-test-degs.html#cb458-47" tabindex="-1"></a>    <span class="fu">filter</span>(<span class="fu">abs</span>(logFC) <span class="sc">&gt;</span> <span class="dv">1</span> <span class="sc">&amp;</span> PValue <span class="sc">&lt;</span> <span class="fl">0.05</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb458-48"><a href="downsample-late-group-to-test-degs.html#cb458-48" tabindex="-1"></a>    <span class="fu">rownames_to_column</span>(<span class="at">var=</span><span class="st">&quot;gene&quot;</span>)</span>
-<span id="cb458-49"><a href="downsample-late-group-to-test-degs.html#cb458-49" tabindex="-1"></a></span>
-<span id="cb458-50"><a href="downsample-late-group-to-test-degs.html#cb458-50" tabindex="-1"></a><span class="co"># Save output to list</span></span>
-<span id="cb458-51"><a href="downsample-late-group-to-test-degs.html#cb458-51" tabindex="-1"></a>  gresults[[i]] <span class="ot">&lt;-</span> results_late<span class="sc">$</span>gene</span>
-<span id="cb458-52"><a href="downsample-late-group-to-test-degs.html#cb458-52" tabindex="-1"></a>}</span>
-<span id="cb458-53"><a href="downsample-late-group-to-test-degs.html#cb458-53" tabindex="-1"></a></span>
-<span id="cb458-54"><a href="downsample-late-group-to-test-degs.html#cb458-54" tabindex="-1"></a>gnum <span class="ot">&lt;-</span> </span>
-<span id="cb458-55"><a href="downsample-late-group-to-test-degs.html#cb458-55" tabindex="-1"></a>  <span class="fu">data.frame</span>(</span>
-<span id="cb458-56"><a href="downsample-late-group-to-test-degs.html#cb458-56" tabindex="-1"></a>    <span class="at">genes =</span> <span class="fu">lengths</span>(gresults),</span>
-<span id="cb458-57"><a href="downsample-late-group-to-test-degs.html#cb458-57" tabindex="-1"></a>    <span class="at">approach =</span> <span class="st">&quot;Genome&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb461"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb461-1"><a href="downsample-late-group-to-test-degs.html#cb461-1" tabindex="-1"></a><span class="co"># Set up results list</span></span>
+<span id="cb461-2"><a href="downsample-late-group-to-test-degs.html#cb461-2" tabindex="-1"></a>  gresults <span class="ot">&lt;-</span> </span>
+<span id="cb461-3"><a href="downsample-late-group-to-test-degs.html#cb461-3" tabindex="-1"></a>    <span class="fu">setNames</span>(<span class="fu">vector</span>(<span class="st">&#39;list&#39;</span>, <span class="dv">100</span>), <span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>)</span>
+<span id="cb461-4"><a href="downsample-late-group-to-test-degs.html#cb461-4" tabindex="-1"></a></span>
+<span id="cb461-5"><a href="downsample-late-group-to-test-degs.html#cb461-5" tabindex="-1"></a><span class="co"># Set seed for reproducibility</span></span>
+<span id="cb461-6"><a href="downsample-late-group-to-test-degs.html#cb461-6" tabindex="-1"></a>  <span class="fu">set.seed</span>(<span class="dv">2</span>)</span>
+<span id="cb461-7"><a href="downsample-late-group-to-test-degs.html#cb461-7" tabindex="-1"></a></span>
+<span id="cb461-8"><a href="downsample-late-group-to-test-degs.html#cb461-8" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>) {</span>
+<span id="cb461-9"><a href="downsample-late-group-to-test-degs.html#cb461-9" tabindex="-1"></a><span class="co"># Subsample late individuals</span></span>
+<span id="cb461-10"><a href="downsample-late-group-to-test-degs.html#cb461-10" tabindex="-1"></a>  late <span class="ot">&lt;-</span> </span>
+<span id="cb461-11"><a href="downsample-late-group-to-test-degs.html#cb461-11" tabindex="-1"></a>    meta <span class="sc">%&gt;%</span> </span>
+<span id="cb461-12"><a href="downsample-late-group-to-test-degs.html#cb461-12" tabindex="-1"></a>    <span class="fu">filter</span>(disease_stage<span class="sc">==</span><span class="st">&quot;late&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb461-13"><a href="downsample-late-group-to-test-degs.html#cb461-13" tabindex="-1"></a>    <span class="fu">group_by</span>(disease_stage) <span class="sc">%&gt;%</span> </span>
+<span id="cb461-14"><a href="downsample-late-group-to-test-degs.html#cb461-14" tabindex="-1"></a>    <span class="fu">sample_n</span>(<span class="at">size=</span><span class="dv">5</span>) </span>
+<span id="cb461-15"><a href="downsample-late-group-to-test-degs.html#cb461-15" tabindex="-1"></a></span>
+<span id="cb461-16"><a href="downsample-late-group-to-test-degs.html#cb461-16" tabindex="-1"></a><span class="co"># Create new metadata</span></span>
+<span id="cb461-17"><a href="downsample-late-group-to-test-degs.html#cb461-17" tabindex="-1"></a>  meta_new <span class="ot">&lt;-</span> </span>
+<span id="cb461-18"><a href="downsample-late-group-to-test-degs.html#cb461-18" tabindex="-1"></a>    meta <span class="sc">%&gt;%</span> </span>
+<span id="cb461-19"><a href="downsample-late-group-to-test-degs.html#cb461-19" tabindex="-1"></a>    <span class="fu">filter</span>(<span class="sc">!</span>disease_stage<span class="sc">==</span><span class="st">&quot;late&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb461-20"><a href="downsample-late-group-to-test-degs.html#cb461-20" tabindex="-1"></a>    <span class="fu">rbind</span>(late)</span>
+<span id="cb461-21"><a href="downsample-late-group-to-test-degs.html#cb461-21" tabindex="-1"></a>  </span>
+<span id="cb461-22"><a href="downsample-late-group-to-test-degs.html#cb461-22" tabindex="-1"></a><span class="co"># Create new count matrix</span></span>
+<span id="cb461-23"><a href="downsample-late-group-to-test-degs.html#cb461-23" tabindex="-1"></a>  raw_new <span class="ot">&lt;-</span> </span>
+<span id="cb461-24"><a href="downsample-late-group-to-test-degs.html#cb461-24" tabindex="-1"></a>    graw <span class="sc">%&gt;%</span> </span>
+<span id="cb461-25"><a href="downsample-late-group-to-test-degs.html#cb461-25" tabindex="-1"></a>    <span class="fu">select</span>(meta_new<span class="sc">$</span>sample)</span>
+<span id="cb461-26"><a href="downsample-late-group-to-test-degs.html#cb461-26" tabindex="-1"></a></span>
+<span id="cb461-27"><a href="downsample-late-group-to-test-degs.html#cb461-27" tabindex="-1"></a><span class="co"># Create DGE Object</span></span>
+<span id="cb461-28"><a href="downsample-late-group-to-test-degs.html#cb461-28" tabindex="-1"></a>  DGE <span class="ot">&lt;-</span> <span class="fu">DGEList</span>(<span class="at">counts=</span>raw_new, <span class="at">group=</span>meta_new<span class="sc">$</span>disease_stage)</span>
+<span id="cb461-29"><a href="downsample-late-group-to-test-degs.html#cb461-29" tabindex="-1"></a></span>
+<span id="cb461-30"><a href="downsample-late-group-to-test-degs.html#cb461-30" tabindex="-1"></a><span class="co"># Filter out lowly expressed genes</span></span>
+<span id="cb461-31"><a href="downsample-late-group-to-test-degs.html#cb461-31" tabindex="-1"></a>  keep <span class="ot">&lt;-</span> <span class="fu">filterByExpr</span>(DGE)</span>
+<span id="cb461-32"><a href="downsample-late-group-to-test-degs.html#cb461-32" tabindex="-1"></a>  DGE <span class="ot">&lt;-</span> DGE[keep, , keep.lib.sizes<span class="ot">=</span><span class="cn">FALSE</span>]</span>
+<span id="cb461-33"><a href="downsample-late-group-to-test-degs.html#cb461-33" tabindex="-1"></a></span>
+<span id="cb461-34"><a href="downsample-late-group-to-test-degs.html#cb461-34" tabindex="-1"></a><span class="co"># Normalize based on library sizes &amp; calculate dispersion</span></span>
+<span id="cb461-35"><a href="downsample-late-group-to-test-degs.html#cb461-35" tabindex="-1"></a>  DGE <span class="ot">&lt;-</span> <span class="fu">calcNormFactors</span>(DGE)</span>
+<span id="cb461-36"><a href="downsample-late-group-to-test-degs.html#cb461-36" tabindex="-1"></a>  DGE <span class="ot">&lt;-</span> <span class="fu">estimateCommonDisp</span>(DGE)</span>
+<span id="cb461-37"><a href="downsample-late-group-to-test-degs.html#cb461-37" tabindex="-1"></a>  DGE <span class="ot">&lt;-</span> <span class="fu">estimateTrendedDisp</span>(DGE)</span>
+<span id="cb461-38"><a href="downsample-late-group-to-test-degs.html#cb461-38" tabindex="-1"></a>  DGE <span class="ot">&lt;-</span> <span class="fu">estimateTagwiseDisp</span>(DGE)</span>
+<span id="cb461-39"><a href="downsample-late-group-to-test-degs.html#cb461-39" tabindex="-1"></a></span>
+<span id="cb461-40"><a href="downsample-late-group-to-test-degs.html#cb461-40" tabindex="-1"></a><span class="co"># Test for DEGs</span></span>
+<span id="cb461-41"><a href="downsample-late-group-to-test-degs.html#cb461-41" tabindex="-1"></a>  et_late <span class="ot">&lt;-</span> <span class="fu">exactTest</span>(DGE, <span class="at">pair=</span><span class="fu">c</span>(<span class="st">&quot;control&quot;</span>, <span class="st">&quot;late&quot;</span>))</span>
+<span id="cb461-42"><a href="downsample-late-group-to-test-degs.html#cb461-42" tabindex="-1"></a></span>
+<span id="cb461-43"><a href="downsample-late-group-to-test-degs.html#cb461-43" tabindex="-1"></a><span class="co"># Select DEGs by fold change &amp; pvalue</span></span>
+<span id="cb461-44"><a href="downsample-late-group-to-test-degs.html#cb461-44" tabindex="-1"></a>  results_late <span class="ot">&lt;-</span> </span>
+<span id="cb461-45"><a href="downsample-late-group-to-test-degs.html#cb461-45" tabindex="-1"></a>    <span class="fu">topTags</span>(et_late, <span class="at">n =</span> <span class="fu">dim</span>(DGE)[<span class="dv">1</span>]) <span class="sc">%&gt;%</span> </span>
+<span id="cb461-46"><a href="downsample-late-group-to-test-degs.html#cb461-46" tabindex="-1"></a>    <span class="fu">data.frame</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb461-47"><a href="downsample-late-group-to-test-degs.html#cb461-47" tabindex="-1"></a>    <span class="fu">filter</span>(<span class="fu">abs</span>(logFC) <span class="sc">&gt;</span> <span class="dv">1</span> <span class="sc">&amp;</span> PValue <span class="sc">&lt;</span> <span class="fl">0.05</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb461-48"><a href="downsample-late-group-to-test-degs.html#cb461-48" tabindex="-1"></a>    <span class="fu">rownames_to_column</span>(<span class="at">var=</span><span class="st">&quot;gene&quot;</span>)</span>
+<span id="cb461-49"><a href="downsample-late-group-to-test-degs.html#cb461-49" tabindex="-1"></a></span>
+<span id="cb461-50"><a href="downsample-late-group-to-test-degs.html#cb461-50" tabindex="-1"></a><span class="co"># Save output to list</span></span>
+<span id="cb461-51"><a href="downsample-late-group-to-test-degs.html#cb461-51" tabindex="-1"></a>  gresults[[i]] <span class="ot">&lt;-</span> results_late<span class="sc">$</span>gene</span>
+<span id="cb461-52"><a href="downsample-late-group-to-test-degs.html#cb461-52" tabindex="-1"></a>}</span>
+<span id="cb461-53"><a href="downsample-late-group-to-test-degs.html#cb461-53" tabindex="-1"></a></span>
+<span id="cb461-54"><a href="downsample-late-group-to-test-degs.html#cb461-54" tabindex="-1"></a>gnum <span class="ot">&lt;-</span> </span>
+<span id="cb461-55"><a href="downsample-late-group-to-test-degs.html#cb461-55" tabindex="-1"></a>  <span class="fu">data.frame</span>(</span>
+<span id="cb461-56"><a href="downsample-late-group-to-test-degs.html#cb461-56" tabindex="-1"></a>    <span class="at">genes =</span> <span class="fu">lengths</span>(gresults),</span>
+<span id="cb461-57"><a href="downsample-late-group-to-test-degs.html#cb461-57" tabindex="-1"></a>    <span class="at">approach =</span> <span class="st">&quot;Genome&quot;</span>)</span></code></pre></div>
 </div>
 <div id="summarize-degs" class="section level3 hasAnchor" number="11.4.2">
 <h3><span class="header-section-number">11.4.2</span> Summarize # DEGs<a href="downsample-late-group-to-test-degs.html#summarize-degs" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb459"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb459-1"><a href="downsample-late-group-to-test-degs.html#cb459-1" tabindex="-1"></a>num <span class="ot">&lt;-</span> </span>
-<span id="cb459-2"><a href="downsample-late-group-to-test-degs.html#cb459-2" tabindex="-1"></a>  <span class="fu">rbind</span>(tnum, gnum)</span>
-<span id="cb459-3"><a href="downsample-late-group-to-test-degs.html#cb459-3" tabindex="-1"></a></span>
-<span id="cb459-4"><a href="downsample-late-group-to-test-degs.html#cb459-4" tabindex="-1"></a>num_plot <span class="ot">&lt;-</span> </span>
-<span id="cb459-5"><a href="downsample-late-group-to-test-degs.html#cb459-5" tabindex="-1"></a>  <span class="fu">ggplot</span>(num, <span class="fu">aes</span>(<span class="at">x=</span>approach, <span class="at">y=</span>genes)) <span class="sc">+</span></span>
-<span id="cb459-6"><a href="downsample-late-group-to-test-degs.html#cb459-6" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
-<span id="cb459-7"><a href="downsample-late-group-to-test-degs.html#cb459-7" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Approach&quot;</span>, <span class="at">y=</span><span class="st">&quot;Number of DEGs&quot;</span>) <span class="sc">+</span></span>
-<span id="cb459-8"><a href="downsample-late-group-to-test-degs.html#cb459-8" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">n.breaks=</span><span class="dv">10</span>) <span class="sc">+</span></span>
-<span id="cb459-9"><a href="downsample-late-group-to-test-degs.html#cb459-9" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun.y=</span>mean, <span class="at">colour=</span><span class="st">&quot;black&quot;</span>, <span class="at">geom=</span><span class="st">&quot;text&quot;</span>, <span class="at">show_guide =</span> <span class="cn">FALSE</span>, </span>
-<span id="cb459-10"><a href="downsample-late-group-to-test-degs.html#cb459-10" tabindex="-1"></a>               <span class="at">vjust=</span><span class="fu">c</span>(<span class="dv">8</span>,<span class="fl">4.8</span>), <span class="fu">aes</span>( <span class="at">label=</span><span class="fu">round</span>(..y.., <span class="at">digits=</span><span class="dv">0</span>))) <span class="sc">+</span></span>
-<span id="cb459-11"><a href="downsample-late-group-to-test-degs.html#cb459-11" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span>
-<span id="cb459-12"><a href="downsample-late-group-to-test-degs.html#cb459-12" tabindex="-1"></a>num_plot</span>
-<span id="cb459-13"><a href="downsample-late-group-to-test-degs.html#cb459-13" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="at">filename=</span><span class="st">&quot;Figures/supplemental_latedownsample.jpg&quot;</span>, num_plot, <span class="at">width=</span><span class="dv">4</span>, <span class="at">height=</span><span class="dv">4</span>, <span class="at">units=</span><span class="st">&quot;in&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb462"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb462-1"><a href="downsample-late-group-to-test-degs.html#cb462-1" tabindex="-1"></a>num <span class="ot">&lt;-</span> </span>
+<span id="cb462-2"><a href="downsample-late-group-to-test-degs.html#cb462-2" tabindex="-1"></a>  <span class="fu">rbind</span>(tnum, gnum)</span>
+<span id="cb462-3"><a href="downsample-late-group-to-test-degs.html#cb462-3" tabindex="-1"></a></span>
+<span id="cb462-4"><a href="downsample-late-group-to-test-degs.html#cb462-4" tabindex="-1"></a>num_plot <span class="ot">&lt;-</span> </span>
+<span id="cb462-5"><a href="downsample-late-group-to-test-degs.html#cb462-5" tabindex="-1"></a>  <span class="fu">ggplot</span>(num, <span class="fu">aes</span>(<span class="at">x=</span>approach, <span class="at">y=</span>genes)) <span class="sc">+</span></span>
+<span id="cb462-6"><a href="downsample-late-group-to-test-degs.html#cb462-6" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb462-7"><a href="downsample-late-group-to-test-degs.html#cb462-7" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Approach&quot;</span>, <span class="at">y=</span><span class="st">&quot;Number of DEGs&quot;</span>) <span class="sc">+</span></span>
+<span id="cb462-8"><a href="downsample-late-group-to-test-degs.html#cb462-8" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">n.breaks=</span><span class="dv">10</span>) <span class="sc">+</span></span>
+<span id="cb462-9"><a href="downsample-late-group-to-test-degs.html#cb462-9" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun.y=</span>mean, <span class="at">colour=</span><span class="st">&quot;black&quot;</span>, <span class="at">geom=</span><span class="st">&quot;text&quot;</span>, <span class="at">show_guide =</span> <span class="cn">FALSE</span>, </span>
+<span id="cb462-10"><a href="downsample-late-group-to-test-degs.html#cb462-10" tabindex="-1"></a>               <span class="at">vjust=</span><span class="fu">c</span>(<span class="dv">8</span>,<span class="fl">4.8</span>), <span class="fu">aes</span>( <span class="at">label=</span><span class="fu">round</span>(..y.., <span class="at">digits=</span><span class="dv">0</span>))) <span class="sc">+</span></span>
+<span id="cb462-11"><a href="downsample-late-group-to-test-degs.html#cb462-11" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span>
+<span id="cb462-12"><a href="downsample-late-group-to-test-degs.html#cb462-12" tabindex="-1"></a>num_plot</span>
+<span id="cb462-13"><a href="downsample-late-group-to-test-degs.html#cb462-13" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="at">filename=</span><span class="st">&quot;Figures/supplemental_latedownsample.jpg&quot;</span>, num_plot, <span class="at">width=</span><span class="dv">4</span>, <span class="at">height=</span><span class="dv">4</span>, <span class="at">units=</span><span class="st">&quot;in&quot;</span>)</span></code></pre></div>
 
 </div>
 </div>

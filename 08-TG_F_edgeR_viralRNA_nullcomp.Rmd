@@ -236,6 +236,32 @@ go_fig <-
 ggsave(filename="Figures/viralRNA_goterm.jpg", go_fig, width=9, height=8, units="in")
 ```
 
+#### Presentation figure
+```{r}
+go_fig_pres <-
+  t_final %>% 
+  mutate(go=factor(
+           ifelse(go=="bp", "BP", 
+                  ifelse(go=="cc", "CC", "MF")),
+           levels=c("BP", "CC", "MF")), 
+         enrichmentRatio=ifelse(direction=="down", enrichmentRatio*-1, enrichmentRatio)) %>% 
+  
+  ggplot(data=., aes(x=fct_reorder(description, enrichmentRatio, .desc=TRUE), 
+                     y=enrichmentRatio)) +
+  geom_bar(stat="identity", position="dodge", fill="slategray") +
+  labs(x="GO Term", y="Enrichment Ratio") +
+  scale_x_discrete(labels = function(description) str_wrap(description, width = 65)) +
+  scale_y_continuous(n.breaks=10) +
+  facet_grid(vars(go), scales="free_y", space="free_y") +
+  theme_bw() +
+  theme(panel.grid=element_blank(), text=element_text(size=16), 
+        legend.position="bottom") +
+  coord_flip()
+go_fig_pres
+
+ggsave(filename="Figures/viralRNA_goterm_t_pres.jpg", go_fig_pres, width=10, height=8, units="in")
+```
+
 
 ### Immunne GO term Genes 
 

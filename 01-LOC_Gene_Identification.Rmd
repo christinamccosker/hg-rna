@@ -285,6 +285,8 @@ for (i in 1:nrow(loc_update)) {
 loc_update <- 
   loc_update %>% 
   select(!symbol)
+
+write.csv(loc_update, "Output Files/rna_locid_all.csv")
 ```
 
 

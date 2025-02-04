@@ -165,6 +165,7 @@ kegg-pathway-1
 what-pathways-are-overrepreesented-in-10-of-nullsets-1
 filter-results-3
 go-term-figure
+presentation-figure
 immunne-go-term-genes
 extracting-immune-go-genes
 extract-expression-data
@@ -250,6 +251,7 @@ genome-degs
 number-of-up-down-reg-genes
 set-up-data-frame
 plot
+plot-presentation
 gene-identities
 set-up-lists
 venn-diagram
@@ -448,6 +450,7 @@ pca-plots-6
 viral-rna-2
 pca
 manuscript
+presentation
 supplemental
 transcriptome---year
 transcriptome---molt-stage

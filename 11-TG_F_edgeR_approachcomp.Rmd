@@ -160,6 +160,25 @@ ggsave("Figures/TG_F_edgeR_approachcomp.jpeg", gene_plot,
        width=4, height=3, units="in")
 ```
 
+#### Plot Presentation
+```{r}
+gene_plot_pres <- 
+  gene_num %>% 
+  filter(stage=="V+ v V-") %>% 
+  mutate(direction=factor(ifelse(direction=="Up", "Up-Regulated", "Down-Regulated"),
+                          levels=c("Up-Regulated", "Down-Regulated"))) %>% 
+  ggplot(., aes(x=direction, y=genes)) +
+  geom_col() +
+  labs(x=NULL, y = "Number of Genes") +
+  scale_fill_manual(values=c("gray75", "gray42"), name=NULL) +
+  theme_bw() +
+  theme(panel.grid=element_blank(),
+        text=element_text(size=15))
+
+ggsave("Figures/T_F_edgeR_numgenes_pres.jpeg", gene_plot_pres, 
+       width=4, height=4, units="in")
+```
+
 
 ### Gene identities
 #### Set up lists

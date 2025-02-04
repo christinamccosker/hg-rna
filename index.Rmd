@@ -1,5 +1,5 @@
 --- 
-title: Molecular mechanisms underlying response to influenza in grey seals (*Halichoerus grypus*), a potential wild reservoir
+title: "Molecular mechanisms underlying response to influenza in grey seals (*Halichoerus grypus*), a potential wild reservoir"
 date: 'Last Updated: `r Sys.Date()`'
 description: McCosker Dissertation Chapter 1 Statistical Analyses
 site: bookdown::bookdown_site

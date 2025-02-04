@@ -987,6 +987,20 @@ pca_disease_virus <-
 ggsave("Figures/TG_pca_disease_virus.jpg", pca_disease_virus, width=8, height=4, units="in")
 ```
 
+##### Presentation
+```{r}
+t_pca_pres <-
+  t_pca_disease_virus +
+  theme(plot.title=element_blank(),
+        text = element_text(size=15),
+        legend.position = "right")
+
+ggsave("Figures/T_pca_disease_virus_pres.jpg", t_pca_pres, width=6, height=4, units="in")
+```
+
+
+
+
 ##### Supplemental
 ###### Transcriptome - Year
 ```{r}
