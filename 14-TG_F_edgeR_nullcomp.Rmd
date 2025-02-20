@@ -268,14 +268,16 @@ txome_kegg_acute <-
   filter(disease_stage=="acute" &
          !description %in% t_kegg_acute$value)
 txome_kegg_acute %>% 
-  kable()
+  kable() %>%    
+  kable_styling("basic")
 
 txome_kegg_peak <- 
   txome_kegg %>% 
   filter(disease_stage=="peak" &
          !description %in% t_kegg_peak$value)
 txome_kegg_peak %>% 
-  kable()
+  kable() %>%    
+  kable_styling("basic")
 ```
 
 
@@ -476,7 +478,8 @@ gnome_kegg_peak <-
   filter(disease_stage=="peak" &
          !description %in% g_kegg_peak$value)
 gnome_kegg_peak %>% 
-  kable()
+  kable() %>%    
+  kable_styling("basic")
 ```
 
 
@@ -652,7 +655,8 @@ sup_a <-
   rbind(sup_a_bp, sup_a_cc, sup_a_mf)
 
 sup_a %>% 
-  kable()
+  kable() %>%    
+  kable_styling("basic")
 
 write.csv(sup_a, "Output Files/supplemental_female_edgeR_go_acute.csv", row.names=FALSE)
 ```
@@ -771,7 +775,8 @@ sup_p <-
   rbind(sup_p_bp, sup_p_cc, sup_p_mf)
 
 sup_p %>% 
-  kable()
+  kable() %>%    
+  kable_styling("basic")
 
 write.csv(sup_p, "Output Files/supplemental_female_edgeR_go_peak.csv", row.names=FALSE)
 ```
@@ -889,7 +894,8 @@ sup_l <-
   rbind(sup_l_bp, sup_l_cc, sup_l_mf)
 
 sup_l %>% 
-  kable()
+  kable() %>%    
+  kable_styling("basic")
 
 write.csv(sup_l, "Output Files/supplemental_female_edgeR_go_late.csv", row.names=FALSE)
 ```
@@ -925,7 +931,8 @@ sup_kegg_a <-
   merge(t_sup_kegg_a, g_sup_kegg_a, all=TRUE)
 
 sup_kegg_a %>% 
-  kable()
+  kable() %>%    
+  kable_styling("basic")
 
 write.csv(sup_kegg_a, "Output Files/supplemental_female_edgeR_kegg_acute.csv", row.names=FALSE)
 ```
@@ -958,7 +965,9 @@ sup_kegg_p <-
   merge(t_sup_kegg_p, g_sup_kegg_p, all=TRUE)
 
 sup_kegg_p %>% 
-  kable()
+  kable() %>% 
+  kable_styling("basic")
+
 
 write.csv(sup_kegg_p, "Output Files/supplemental_female_edgeR_kegg_peak.csv", row.names=FALSE)
 ```
@@ -991,7 +1000,8 @@ sup_kegg_l <-
   merge(t_sup_kegg_l, g_sup_kegg_l, all=TRUE)
 
 sup_kegg_l %>% 
-  kable()
+  kable() %>%    
+  kable_styling("basic")
 
 write.csv(sup_kegg_l, "Output Files/supplemental_female_edgeR_kegg_late.csv", row.names=FALSE)
 ```

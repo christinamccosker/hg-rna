@@ -119,8 +119,10 @@ t_kegg_10 <-
 txome_kegg_final <- 
   txome_kegg %>% 
   filter(!description %in% t_kegg_10$value)
+
 txome_kegg %>% 
-  kable()
+  kable() %>%    
+  kable_styling("basic")
 ```
 
 
@@ -193,8 +195,10 @@ g_kegg_10 <-
 gnome_kegg_final <- 
   gnome_kegg %>% 
   filter(!description %in% g_kegg_10$value) 
+
 gnome_kegg %>% 
-  kable()
+  kable() %>%    
+  kable_styling("basic")
 ```
 
 ### GO Term Figure
@@ -556,7 +560,8 @@ sup <-
   rbind(sup_bp, sup_cc, sup_mf)
 
 sup %>% 
-  kable()
+  kable() %>%    
+  kable_styling("basic")
 
 write.csv(sup, "Output Files/supplemental_female_edgeR_viralRNA_go.csv", row.names=FALSE)
 ```
@@ -588,7 +593,8 @@ sup_kegg <-
   merge(t_sup_kegg, g_sup_kegg, all=TRUE)
 
 sup_kegg %>% 
-  kable()
+  kable() %>%    
+  kable_styling("basic")
 
 write.csv(sup_kegg, "Output Files/supplemental_female_edgeR_viralRNA_kegg.csv", row.names=FALSE)
 ```

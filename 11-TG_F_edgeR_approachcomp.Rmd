@@ -164,7 +164,8 @@ ggsave("Figures/TG_F_edgeR_approachcomp.jpeg", gene_plot,
 ```{r}
 gene_plot_pres <- 
   gene_num %>% 
-  filter(stage=="V+ v V-") %>% 
+  filter(stage=="V+ v V-" &
+         approach=="T") %>% 
   mutate(direction=factor(ifelse(direction=="Up", "Up-Regulated", "Down-Regulated"),
                           levels=c("Up-Regulated", "Down-Regulated"))) %>% 
   ggplot(., aes(x=direction, y=genes)) +
