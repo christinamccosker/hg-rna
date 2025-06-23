@@ -37,7 +37,6 @@ Raw <- read.csv(file = "Output Files/txome_genecounts_locid_nohemo.csv",
 
 ### Differential Gene Expression Analysis
 
-
 #### DGElist
 ```{r}
 #Create DGE Object with counts & sample groups
@@ -159,6 +158,56 @@ CPM %>%
   geom_boxplot() +
   facet_wrap(~gene)
 ```
+
+#### Heatmap
+```{r}
+# Add +/- to sample names to indicate IAV status
+sampiav <- 
+  SampleInfo %>% 
+  select(sample, RNA) %>% 
+  mutate(sample=ifelse(RNA=="virus+", 
+                       paste0(sample, " (+)"), 
+                       paste0(sample, " (-)")))
+
+CPMiav <-
+  CPM %>% 
+  as.data.frame() %>%
+  setNames(sampiav$sample) %>% 
+  as.matrix()
+
+
+# Heatmap of top 100 DE genes (50 up and 50 down)
+topde <-
+  data.frame(rbind(slice_min(results, logFC, n=50), 
+                   slice_max(results, logFC, n=50))) 
+
+jpeg(filename="Figures/heatmap_top100.jpeg", width=8, height=5, units="in", res=300)
+heatmap.2(as.matrix(CPMiav[rownames(CPMiav) %in% topde$gene,]),
+          scale="row", 
+          trace="none", 
+          dendrogram="column", 
+          key=FALSE, 
+          labRow=FALSE,
+          lmat=rbind(c(4,3), c(2,1)),
+          lwid=c(0.05,1),
+          lhei=c(0.2, 1), 
+          margins=c(5,2.5))
+dev.off()
+
+## All genes - gene expression patterns not clear
+heatmap.2(as.matrix(CPMiav),
+          scale="row", 
+          trace="none", 
+          dendrogram="column", 
+          key=FALSE, 
+          labRow=FALSE,
+          lmat=rbind(c(4,3), c(2,1)),
+          lwid=c(0.05,1),
+          lhei=c(0.2, 1), 
+          colsep=c(2,5),
+          margins=c(5,2.5))
+```
+
 
 ### GO Enrichment Analysis
 

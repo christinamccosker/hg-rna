@@ -74,6 +74,7 @@ pca-plots-2
 test-for-degs-2
 select-degs-by-fold-change-pvalue-2
 make-sure-genes-are-updown-regulated-in-virus-vs-virus-
+heatmap
 go-enrichment-analysis
 configure-gene-lists
 up-regulated-genes

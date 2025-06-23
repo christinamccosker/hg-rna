@@ -264,6 +264,13 @@ go_fig_pres <-
 go_fig_pres
 
 ggsave(filename="Figures/viralRNA_goterm_t_pres.jpg", go_fig_pres, width=10, height=8, units="in")
+
+
+go_fig_pres2 <-
+  go_fig +
+  theme(text = element_text(size = 16))
+
+ggsave(filename="Figures/viralRNA_goterm_tg_pres.jpg", go_fig_pres2, width=10, height=9, units="in")
 ```
 
 

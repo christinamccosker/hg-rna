@@ -1,13 +1,14 @@
 --- 
 title: "Molecular mechanisms underlying response to influenza in grey seals (*Halichoerus grypus*), a potential wild reservoir"
-date: 'Last Updated: `r Sys.Date()`'
-description: McCosker Dissertation Chapter 1 Statistical Analyses
+author: "Christina M. McCosker"
+date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 documentclass: book
 suppresss-bibliography: true
 ---
 
 # Publication Information
+Published in: Molecular Ecology (2025)
 
 ## Authors 
 Christina M. McCosker^1^, Ebru Unal^2,3^, Alayna Gigliotti^1^, Wendy B. Puryear^4^, Jonathan A. Runstadler^4^, Kimberly T. Murray^5^, Benjamin L. King^6^, Kristina M. Cammen^1^  
@@ -20,5 +21,5 @@ Christina M. McCosker^1^, Ebru Unal^2,3^, Alayna Gigliotti^1^, Wendy B. Puryear^
 *^6^ Department of Molecular and Biomedical Sciences, University of Maine, Orono, ME, USA*  
 
 ## Abstract
-xxx
+RNA viruses are infamous for their ability to cross species barriers, posing threats to global health and security. Influenza A virus (IAV) is naturally found in avian hosts but periodically spills over into marine wildlife. IAV outbreaks occur in the Northwest Atlantic, but grey seals (*Halichoerus grypus*) appear to be less susceptible to IAV compared to other species. The subclinical nature of IAV infection in addition to life history factors suggest grey seals are a potential wild reservoir host for IAV. We investigated differential gene expression among grey seals naturally exposed to IAV to elucidate genetic mechanisms involved in grey seal disease resistance. RNA sequencing was conducted on blood samples (N = 31) collected from grey seal pups in Massachusetts, US between 2014 and 2019. Samples were grouped for analysis based on presence/absence of viral RNA and antibodies. In the presence of IAV RNA, we observed widespread down-regulation of genes, including immune genes, potentially as a result of IAV-induced host shutoff. Immune down-regulation occurred in acute stage of IAV infection (+ viral RNA, - antibodies), followed by up-regulation of protein production in peak stage (+ viral RNA, + antibodies), possibly as a result of increased viral replication. Evidence of an activated immune response was observed in late stage of infection (- viral RNA, + antibodies) with up-regulated adaptive immunity genes. We hypothesize that the combination of down- and up-regulated immune gene expression may prevent overstimulation of the immune response, acting as an adaptation in grey seals to resist IAV-associated mortality.
 

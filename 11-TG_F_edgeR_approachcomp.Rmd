@@ -1,5 +1,4 @@
 ---
-title: ''
 author: "Christina McCosker"
 date: "`r Sys.Date()`"
 output: html_document
@@ -164,20 +163,40 @@ ggsave("Figures/TG_F_edgeR_approachcomp.jpeg", gene_plot,
 ```{r}
 gene_plot_pres <- 
   gene_num %>% 
-  filter(stage=="V+ v V-" &
-         approach=="T") %>% 
-  mutate(direction=factor(ifelse(direction=="Up", "Up-Regulated", "Down-Regulated"),
-                          levels=c("Up-Regulated", "Down-Regulated"))) %>% 
-  ggplot(., aes(x=direction, y=genes)) +
-  geom_col() +
+  filter(stage == "V+ v V-") %>%
+  filter(approach == "T") %>% 
+  mutate(direction = ifelse(direction == "Up", "Down", "Up"),
+         direction = factor(direction, levels=c("Up", "Down"))) %>% 
+  ggplot(., aes(x=direction, y=genes, fill = direction)) +
+  geom_col(position = position_dodge()) +
   labs(x=NULL, y = "Number of Genes") +
-  scale_fill_manual(values=c("gray75", "gray42"), name=NULL) +
+  scale_fill_manual(values=c("Up" = "#ACD7CA", "Down" = "#AAA7BC")) +
   theme_bw() +
   theme(panel.grid=element_blank(),
-        text=element_text(size=15))
+        text=element_text(size=18),
+        legend.position = "none")
+gene_plot_pres
+
+ggsave("Figures/T_F_edgeR_numgenes_pres_exp.jpeg", gene_plot_pres, 
+       width=6, height=5, units="in")
+
+gene_plot_pres <- 
+  gene_num %>% 
+  filter(stage == "V+ v V-") %>% 
+  filter(approach == "T") %>% 
+  mutate(direction = factor(direction, levels=c("Up", "Down"))) %>% 
+  ggplot(., aes(x=direction, y=genes, fill = direction)) +
+  geom_col(position = position_dodge()) +
+  labs(x=NULL, y = "Number of Genes") +
+  scale_fill_manual(values=c("Up" = "#ACD7CA", "Down" = "#AAA7BC")) +
+  theme_bw() +
+  theme(panel.grid=element_blank(),
+        text=element_text(size=18),
+        legend.position = "none")
+gene_plot_pres
 
 ggsave("Figures/T_F_edgeR_numgenes_pres.jpeg", gene_plot_pres, 
-       width=4, height=4, units="in")
+       width=6, height=5, units="in")
 ```
 
 

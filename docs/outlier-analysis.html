@@ -4,26 +4,26 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>10 Outlier Analysis | Untitled</title>
-  <meta name="description" content="McCosker Dissertation Chapter 1 Statistical Analyses" />
-  <meta name="generator" content="bookdown 0.42 and GitBook 2.6.7" />
+  <title>10 Outlier Analysis | Molecular mechanisms underlying response to influenza in grey seals (Halichoerus grypus), a potential wild reservoir</title>
+  <meta name="description" content="10 Outlier Analysis | Molecular mechanisms underlying response to influenza in grey seals (Halichoerus grypus), a potential wild reservoir" />
+  <meta name="generator" content="bookdown 0.43 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="10 Outlier Analysis | Untitled" />
+  <meta property="og:title" content="10 Outlier Analysis | Molecular mechanisms underlying response to influenza in grey seals (Halichoerus grypus), a potential wild reservoir" />
   <meta property="og:type" content="book" />
   
-  <meta property="og:description" content="McCosker Dissertation Chapter 1 Statistical Analyses" />
+  
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="10 Outlier Analysis | Untitled" />
+  <meta name="twitter:title" content="10 Outlier Analysis | Molecular mechanisms underlying response to influenza in grey seals (Halichoerus grypus), a potential wild reservoir" />
   
-  <meta name="twitter:description" content="McCosker Dissertation Chapter 1 Statistical Analyses" />
+  
   
 
 <meta name="author" content="Christina McCosker" />
 
 
-<meta name="date" content="2025-01-07" />
+<meta name="date" content="2025-06-23" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -423,7 +423,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Untitled</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Molecular mechanisms underlying response to influenza in grey seals (<em>Halichoerus grypus</em>), a potential wild reservoir</a>
           </h1>
         </div>
 
@@ -435,49 +435,49 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number">10</span> Outlier Analysis<a href="outlier-analysis.html#outlier-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <div id="libraries-18" class="section level2 hasAnchor" number="10.1">
 <h2><span class="header-section-number">10.1</span> Libraries<a href="outlier-analysis.html#libraries-18" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb450"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb450-1"><a href="outlier-analysis.html#cb450-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb450-2"><a href="outlier-analysis.html#cb450-2" tabindex="-1"></a><span class="fu">library</span>(ggfortify)</span></code></pre></div>
+<div class="sourceCode" id="cb453"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb453-1"><a href="outlier-analysis.html#cb453-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb453-2"><a href="outlier-analysis.html#cb453-2" tabindex="-1"></a><span class="fu">library</span>(ggfortify)</span></code></pre></div>
 </div>
 <div id="data-20" class="section level2 hasAnchor" number="10.2">
 <h2><span class="header-section-number">10.2</span> Data<a href="outlier-analysis.html#data-20" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb451"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb451-1"><a href="outlier-analysis.html#cb451-1" tabindex="-1"></a>tcpm <span class="ot">&lt;-</span> </span>
-<span id="cb451-2"><a href="outlier-analysis.html#cb451-2" tabindex="-1"></a>  <span class="fu">read.csv</span>(<span class="st">&quot;Output Files/txome_female_edgeR_viralRNA_normcounts.csv&quot;</span>,</span>
-<span id="cb451-3"><a href="outlier-analysis.html#cb451-3" tabindex="-1"></a>           <span class="at">row.names=</span><span class="dv">1</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb451-4"><a href="outlier-analysis.html#cb451-4" tabindex="-1"></a>  <span class="fu">relocate</span>(Hg862a, <span class="at">.before=</span><span class="dv">1</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb451-5"><a href="outlier-analysis.html#cb451-5" tabindex="-1"></a>  <span class="fu">relocate</span>(Hg1351, <span class="at">.before=</span><span class="dv">2</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb451-6"><a href="outlier-analysis.html#cb451-6" tabindex="-1"></a>  <span class="fu">relocate</span>(Hg1380, <span class="at">.before=</span><span class="dv">3</span>)</span>
-<span id="cb451-7"><a href="outlier-analysis.html#cb451-7" tabindex="-1"></a></span>
-<span id="cb451-8"><a href="outlier-analysis.html#cb451-8" tabindex="-1"></a>gcpm <span class="ot">&lt;-</span> </span>
-<span id="cb451-9"><a href="outlier-analysis.html#cb451-9" tabindex="-1"></a>  <span class="fu">read.csv</span>(<span class="st">&quot;Output Files/gnome_female_edgeR_viralRNA_normcounts.csv&quot;</span>,</span>
-<span id="cb451-10"><a href="outlier-analysis.html#cb451-10" tabindex="-1"></a>           <span class="at">row.names=</span><span class="dv">1</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb451-11"><a href="outlier-analysis.html#cb451-11" tabindex="-1"></a>  <span class="fu">relocate</span>(Hg862a, <span class="at">.before=</span><span class="dv">1</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb451-12"><a href="outlier-analysis.html#cb451-12" tabindex="-1"></a>  <span class="fu">relocate</span>(Hg1351, <span class="at">.before=</span><span class="dv">2</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb451-13"><a href="outlier-analysis.html#cb451-13" tabindex="-1"></a>  <span class="fu">relocate</span>(Hg1380, <span class="at">.before=</span><span class="dv">3</span>)</span>
-<span id="cb451-14"><a href="outlier-analysis.html#cb451-14" tabindex="-1"></a></span>
-<span id="cb451-15"><a href="outlier-analysis.html#cb451-15" tabindex="-1"></a>meta <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;Input Files/metadata.csv&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb451-16"><a href="outlier-analysis.html#cb451-16" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span>sex<span class="sc">==</span><span class="st">&quot;male&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb451-17"><a href="outlier-analysis.html#cb451-17" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">RNA =</span> <span class="fu">ifelse</span>(disease_stage<span class="sc">==</span><span class="st">&quot;acute&quot;</span>, <span class="st">&quot;virus+&quot;</span>, </span>
-<span id="cb451-18"><a href="outlier-analysis.html#cb451-18" tabindex="-1"></a>                      <span class="fu">ifelse</span>(disease_stage<span class="sc">==</span><span class="st">&quot;peak&quot;</span>, <span class="st">&quot;virus+&quot;</span>, <span class="st">&quot;virus-&quot;</span>))) <span class="sc">%&gt;%</span> </span>
-<span id="cb451-19"><a href="outlier-analysis.html#cb451-19" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">year=</span><span class="fu">factor</span>(year),</span>
-<span id="cb451-20"><a href="outlier-analysis.html#cb451-20" tabindex="-1"></a>         <span class="at">disease_stage=</span><span class="fu">factor</span>(disease_stage, </span>
-<span id="cb451-21"><a href="outlier-analysis.html#cb451-21" tabindex="-1"></a>                              <span class="at">levels=</span><span class="fu">c</span>(<span class="st">&quot;control&quot;</span>, <span class="st">&quot;acute&quot;</span>, <span class="st">&quot;peak&quot;</span>, <span class="st">&quot;late&quot;</span>))) <span class="sc">%&gt;%</span> </span>
-<span id="cb451-22"><a href="outlier-analysis.html#cb451-22" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">sample=</span><span class="fu">factor</span>(sample, <span class="at">levels=</span><span class="fu">colnames</span>(tcpm)))</span>
-<span id="cb451-23"><a href="outlier-analysis.html#cb451-23" tabindex="-1"></a></span>
-<span id="cb451-24"><a href="outlier-analysis.html#cb451-24" tabindex="-1"></a>meta_out <span class="ot">&lt;-</span> </span>
-<span id="cb451-25"><a href="outlier-analysis.html#cb451-25" tabindex="-1"></a>  meta <span class="sc">%&gt;%</span> </span>
-<span id="cb451-26"><a href="outlier-analysis.html#cb451-26" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span>sample<span class="sc">==</span><span class="st">&quot;Hg862a&quot;</span> <span class="sc">&amp;</span></span>
-<span id="cb451-27"><a href="outlier-analysis.html#cb451-27" tabindex="-1"></a>         <span class="sc">!</span>sample<span class="sc">==</span><span class="st">&quot;Hg1380&quot;</span> <span class="sc">&amp;</span></span>
-<span id="cb451-28"><a href="outlier-analysis.html#cb451-28" tabindex="-1"></a>         <span class="sc">!</span>sample<span class="sc">==</span><span class="st">&quot;Hg1351&quot;</span>)</span>
-<span id="cb451-29"><a href="outlier-analysis.html#cb451-29" tabindex="-1"></a></span>
-<span id="cb451-30"><a href="outlier-analysis.html#cb451-30" tabindex="-1"></a>traw <span class="ot">&lt;-</span> </span>
-<span id="cb451-31"><a href="outlier-analysis.html#cb451-31" tabindex="-1"></a>  <span class="fu">read.csv</span>(<span class="st">&quot;Output Files/txome_genecounts_locid_nohemo.csv&quot;</span>,</span>
-<span id="cb451-32"><a href="outlier-analysis.html#cb451-32" tabindex="-1"></a>           <span class="at">row.names=</span><span class="dv">1</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb451-33"><a href="outlier-analysis.html#cb451-33" tabindex="-1"></a>  <span class="fu">select</span>(meta<span class="sc">$</span>sample)</span>
-<span id="cb451-34"><a href="outlier-analysis.html#cb451-34" tabindex="-1"></a></span>
-<span id="cb451-35"><a href="outlier-analysis.html#cb451-35" tabindex="-1"></a>graw <span class="ot">&lt;-</span> </span>
-<span id="cb451-36"><a href="outlier-analysis.html#cb451-36" tabindex="-1"></a>  <span class="fu">read.csv</span>(<span class="st">&quot;Output Files/gnome_genecounts_locid_nohemo.csv&quot;</span>,</span>
-<span id="cb451-37"><a href="outlier-analysis.html#cb451-37" tabindex="-1"></a>           <span class="at">row.names=</span><span class="dv">1</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb451-38"><a href="outlier-analysis.html#cb451-38" tabindex="-1"></a>    <span class="fu">select</span>(meta<span class="sc">$</span>sample)</span></code></pre></div>
+<div class="sourceCode" id="cb454"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb454-1"><a href="outlier-analysis.html#cb454-1" tabindex="-1"></a>tcpm <span class="ot">&lt;-</span> </span>
+<span id="cb454-2"><a href="outlier-analysis.html#cb454-2" tabindex="-1"></a>  <span class="fu">read.csv</span>(<span class="st">&quot;Output Files/txome_female_edgeR_viralRNA_normcounts.csv&quot;</span>,</span>
+<span id="cb454-3"><a href="outlier-analysis.html#cb454-3" tabindex="-1"></a>           <span class="at">row.names=</span><span class="dv">1</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb454-4"><a href="outlier-analysis.html#cb454-4" tabindex="-1"></a>  <span class="fu">relocate</span>(Hg862a, <span class="at">.before=</span><span class="dv">1</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb454-5"><a href="outlier-analysis.html#cb454-5" tabindex="-1"></a>  <span class="fu">relocate</span>(Hg1351, <span class="at">.before=</span><span class="dv">2</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb454-6"><a href="outlier-analysis.html#cb454-6" tabindex="-1"></a>  <span class="fu">relocate</span>(Hg1380, <span class="at">.before=</span><span class="dv">3</span>)</span>
+<span id="cb454-7"><a href="outlier-analysis.html#cb454-7" tabindex="-1"></a></span>
+<span id="cb454-8"><a href="outlier-analysis.html#cb454-8" tabindex="-1"></a>gcpm <span class="ot">&lt;-</span> </span>
+<span id="cb454-9"><a href="outlier-analysis.html#cb454-9" tabindex="-1"></a>  <span class="fu">read.csv</span>(<span class="st">&quot;Output Files/gnome_female_edgeR_viralRNA_normcounts.csv&quot;</span>,</span>
+<span id="cb454-10"><a href="outlier-analysis.html#cb454-10" tabindex="-1"></a>           <span class="at">row.names=</span><span class="dv">1</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb454-11"><a href="outlier-analysis.html#cb454-11" tabindex="-1"></a>  <span class="fu">relocate</span>(Hg862a, <span class="at">.before=</span><span class="dv">1</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb454-12"><a href="outlier-analysis.html#cb454-12" tabindex="-1"></a>  <span class="fu">relocate</span>(Hg1351, <span class="at">.before=</span><span class="dv">2</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb454-13"><a href="outlier-analysis.html#cb454-13" tabindex="-1"></a>  <span class="fu">relocate</span>(Hg1380, <span class="at">.before=</span><span class="dv">3</span>)</span>
+<span id="cb454-14"><a href="outlier-analysis.html#cb454-14" tabindex="-1"></a></span>
+<span id="cb454-15"><a href="outlier-analysis.html#cb454-15" tabindex="-1"></a>meta <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;Input Files/metadata.csv&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb454-16"><a href="outlier-analysis.html#cb454-16" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span>sex<span class="sc">==</span><span class="st">&quot;male&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb454-17"><a href="outlier-analysis.html#cb454-17" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">RNA =</span> <span class="fu">ifelse</span>(disease_stage<span class="sc">==</span><span class="st">&quot;acute&quot;</span>, <span class="st">&quot;virus+&quot;</span>, </span>
+<span id="cb454-18"><a href="outlier-analysis.html#cb454-18" tabindex="-1"></a>                      <span class="fu">ifelse</span>(disease_stage<span class="sc">==</span><span class="st">&quot;peak&quot;</span>, <span class="st">&quot;virus+&quot;</span>, <span class="st">&quot;virus-&quot;</span>))) <span class="sc">%&gt;%</span> </span>
+<span id="cb454-19"><a href="outlier-analysis.html#cb454-19" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">year=</span><span class="fu">factor</span>(year),</span>
+<span id="cb454-20"><a href="outlier-analysis.html#cb454-20" tabindex="-1"></a>         <span class="at">disease_stage=</span><span class="fu">factor</span>(disease_stage, </span>
+<span id="cb454-21"><a href="outlier-analysis.html#cb454-21" tabindex="-1"></a>                              <span class="at">levels=</span><span class="fu">c</span>(<span class="st">&quot;control&quot;</span>, <span class="st">&quot;acute&quot;</span>, <span class="st">&quot;peak&quot;</span>, <span class="st">&quot;late&quot;</span>))) <span class="sc">%&gt;%</span> </span>
+<span id="cb454-22"><a href="outlier-analysis.html#cb454-22" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">sample=</span><span class="fu">factor</span>(sample, <span class="at">levels=</span><span class="fu">colnames</span>(tcpm)))</span>
+<span id="cb454-23"><a href="outlier-analysis.html#cb454-23" tabindex="-1"></a></span>
+<span id="cb454-24"><a href="outlier-analysis.html#cb454-24" tabindex="-1"></a>meta_out <span class="ot">&lt;-</span> </span>
+<span id="cb454-25"><a href="outlier-analysis.html#cb454-25" tabindex="-1"></a>  meta <span class="sc">%&gt;%</span> </span>
+<span id="cb454-26"><a href="outlier-analysis.html#cb454-26" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span>sample<span class="sc">==</span><span class="st">&quot;Hg862a&quot;</span> <span class="sc">&amp;</span></span>
+<span id="cb454-27"><a href="outlier-analysis.html#cb454-27" tabindex="-1"></a>         <span class="sc">!</span>sample<span class="sc">==</span><span class="st">&quot;Hg1380&quot;</span> <span class="sc">&amp;</span></span>
+<span id="cb454-28"><a href="outlier-analysis.html#cb454-28" tabindex="-1"></a>         <span class="sc">!</span>sample<span class="sc">==</span><span class="st">&quot;Hg1351&quot;</span>)</span>
+<span id="cb454-29"><a href="outlier-analysis.html#cb454-29" tabindex="-1"></a></span>
+<span id="cb454-30"><a href="outlier-analysis.html#cb454-30" tabindex="-1"></a>traw <span class="ot">&lt;-</span> </span>
+<span id="cb454-31"><a href="outlier-analysis.html#cb454-31" tabindex="-1"></a>  <span class="fu">read.csv</span>(<span class="st">&quot;Output Files/txome_genecounts_locid_nohemo.csv&quot;</span>,</span>
+<span id="cb454-32"><a href="outlier-analysis.html#cb454-32" tabindex="-1"></a>           <span class="at">row.names=</span><span class="dv">1</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb454-33"><a href="outlier-analysis.html#cb454-33" tabindex="-1"></a>  <span class="fu">select</span>(meta<span class="sc">$</span>sample)</span>
+<span id="cb454-34"><a href="outlier-analysis.html#cb454-34" tabindex="-1"></a></span>
+<span id="cb454-35"><a href="outlier-analysis.html#cb454-35" tabindex="-1"></a>graw <span class="ot">&lt;-</span> </span>
+<span id="cb454-36"><a href="outlier-analysis.html#cb454-36" tabindex="-1"></a>  <span class="fu">read.csv</span>(<span class="st">&quot;Output Files/gnome_genecounts_locid_nohemo.csv&quot;</span>,</span>
+<span id="cb454-37"><a href="outlier-analysis.html#cb454-37" tabindex="-1"></a>           <span class="at">row.names=</span><span class="dv">1</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb454-38"><a href="outlier-analysis.html#cb454-38" tabindex="-1"></a>    <span class="fu">select</span>(meta<span class="sc">$</span>sample)</span></code></pre></div>
 </div>
 <div id="pca-2" class="section level2 hasAnchor" number="10.3">
 <h2><span class="header-section-number">10.3</span> PCA<a href="outlier-analysis.html#pca-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -485,117 +485,117 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">10.3.1</span> Transcriptome<a href="outlier-analysis.html#transcriptome-6" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <div id="pca-original" class="section level4 hasAnchor" number="10.3.1.1">
 <h4><span class="header-section-number">10.3.1.1</span> PCA Original<a href="outlier-analysis.html#pca-original" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<div class="sourceCode" id="cb452"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb452-1"><a href="outlier-analysis.html#cb452-1" tabindex="-1"></a>tdist <span class="ot">&lt;-</span> <span class="fu">dist</span>(<span class="fu">t</span>(tcpm), <span class="at">method =</span> <span class="st">&quot;euclidean&quot;</span>)</span>
-<span id="cb452-2"><a href="outlier-analysis.html#cb452-2" tabindex="-1"></a>tpca <span class="ot">&lt;-</span> <span class="fu">prcomp</span>(<span class="fu">t</span>(tdist))</span>
-<span id="cb452-3"><a href="outlier-analysis.html#cb452-3" tabindex="-1"></a><span class="fu">autoplot</span>(tpca, <span class="at">data=</span>meta, <span class="at">shape=</span><span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb455"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb455-1"><a href="outlier-analysis.html#cb455-1" tabindex="-1"></a>tdist <span class="ot">&lt;-</span> <span class="fu">dist</span>(<span class="fu">t</span>(tcpm), <span class="at">method =</span> <span class="st">&quot;euclidean&quot;</span>)</span>
+<span id="cb455-2"><a href="outlier-analysis.html#cb455-2" tabindex="-1"></a>tpca <span class="ot">&lt;-</span> <span class="fu">prcomp</span>(<span class="fu">t</span>(tdist))</span>
+<span id="cb455-3"><a href="outlier-analysis.html#cb455-3" tabindex="-1"></a><span class="fu">autoplot</span>(tpca, <span class="at">data=</span>meta, <span class="at">shape=</span><span class="cn">FALSE</span>)</span></code></pre></div>
 </div>
 <div id="pca-wo-outliers" class="section level4 hasAnchor" number="10.3.1.2">
 <h4><span class="header-section-number">10.3.1.2</span> PCA w/o Outliers<a href="outlier-analysis.html#pca-wo-outliers" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<div class="sourceCode" id="cb453"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb453-1"><a href="outlier-analysis.html#cb453-1" tabindex="-1"></a>tcpm_out <span class="ot">&lt;-</span> </span>
-<span id="cb453-2"><a href="outlier-analysis.html#cb453-2" tabindex="-1"></a>  tcpm <span class="sc">%&gt;%</span> </span>
-<span id="cb453-3"><a href="outlier-analysis.html#cb453-3" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">!</span><span class="fu">c</span>(Hg1380, Hg862a, Hg1351))</span>
-<span id="cb453-4"><a href="outlier-analysis.html#cb453-4" tabindex="-1"></a></span>
-<span id="cb453-5"><a href="outlier-analysis.html#cb453-5" tabindex="-1"></a>tdist_out <span class="ot">&lt;-</span> <span class="fu">dist</span>(<span class="fu">t</span>(tcpm_out), <span class="at">method =</span> <span class="st">&quot;euclidean&quot;</span>)</span>
-<span id="cb453-6"><a href="outlier-analysis.html#cb453-6" tabindex="-1"></a>tpca_out <span class="ot">&lt;-</span> <span class="fu">prcomp</span>(<span class="fu">t</span>(tdist_out))</span>
-<span id="cb453-7"><a href="outlier-analysis.html#cb453-7" tabindex="-1"></a><span class="fu">autoplot</span>(tpca_out, <span class="at">data=</span>meta_out, <span class="at">shape=</span><span class="cn">FALSE</span>)</span>
-<span id="cb453-8"><a href="outlier-analysis.html#cb453-8" tabindex="-1"></a></span>
-<span id="cb453-9"><a href="outlier-analysis.html#cb453-9" tabindex="-1"></a><span class="fu">autoplot</span>(tpca_out, <span class="at">data=</span>meta_out, <span class="at">colour=</span><span class="st">&quot;RNA&quot;</span>, <span class="at">size=</span><span class="dv">3</span>) <span class="sc">+</span></span>
-<span id="cb453-10"><a href="outlier-analysis.html#cb453-10" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;bottom&quot;</span>)</span>
-<span id="cb453-11"><a href="outlier-analysis.html#cb453-11" tabindex="-1"></a><span class="fu">autoplot</span>(tpca_out, <span class="at">data=</span>meta_out, <span class="at">colour=</span><span class="st">&quot;disease_stage&quot;</span>, <span class="at">size=</span><span class="dv">3</span>) <span class="sc">+</span></span>
-<span id="cb453-12"><a href="outlier-analysis.html#cb453-12" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;bottom&quot;</span>)</span>
-<span id="cb453-13"><a href="outlier-analysis.html#cb453-13" tabindex="-1"></a><span class="fu">autoplot</span>(tpca_out, <span class="at">data=</span>meta_out, <span class="at">colour=</span><span class="st">&quot;year&quot;</span>, <span class="at">size=</span><span class="dv">3</span>) <span class="sc">+</span></span>
-<span id="cb453-14"><a href="outlier-analysis.html#cb453-14" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;bottom&quot;</span>)</span>
-<span id="cb453-15"><a href="outlier-analysis.html#cb453-15" tabindex="-1"></a><span class="fu">autoplot</span>(tpca_out, <span class="at">data=</span>meta_out, <span class="at">colour=</span><span class="st">&quot;molt&quot;</span>, <span class="at">size=</span><span class="dv">3</span>) <span class="sc">+</span></span>
-<span id="cb453-16"><a href="outlier-analysis.html#cb453-16" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;bottom&quot;</span>)</span>
-<span id="cb453-17"><a href="outlier-analysis.html#cb453-17" tabindex="-1"></a></span>
-<span id="cb453-18"><a href="outlier-analysis.html#cb453-18" tabindex="-1"></a><span class="fu">autoplot</span>(tpca_out, <span class="at">data=</span>meta_out, <span class="at">x=</span><span class="dv">3</span>, <span class="at">y=</span><span class="dv">4</span>, <span class="at">colour=</span><span class="st">&quot;RNA&quot;</span>, <span class="at">size=</span><span class="dv">3</span>) <span class="sc">+</span></span>
-<span id="cb453-19"><a href="outlier-analysis.html#cb453-19" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;bottom&quot;</span>)</span>
-<span id="cb453-20"><a href="outlier-analysis.html#cb453-20" tabindex="-1"></a><span class="fu">autoplot</span>(tpca_out, <span class="at">data=</span>meta_out, <span class="at">x=</span><span class="dv">3</span>, <span class="at">y=</span><span class="dv">4</span>, <span class="at">colour=</span><span class="st">&quot;disease_stage&quot;</span>, <span class="at">size=</span><span class="dv">3</span>) <span class="sc">+</span></span>
-<span id="cb453-21"><a href="outlier-analysis.html#cb453-21" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;bottom&quot;</span>)</span>
-<span id="cb453-22"><a href="outlier-analysis.html#cb453-22" tabindex="-1"></a><span class="fu">autoplot</span>(tpca_out, <span class="at">data=</span>meta_out, <span class="at">x=</span><span class="dv">3</span>, <span class="at">y=</span><span class="dv">4</span>, <span class="at">colour=</span><span class="st">&quot;year&quot;</span>, <span class="at">size=</span><span class="dv">3</span>) <span class="sc">+</span></span>
-<span id="cb453-23"><a href="outlier-analysis.html#cb453-23" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;bottom&quot;</span>)</span>
-<span id="cb453-24"><a href="outlier-analysis.html#cb453-24" tabindex="-1"></a><span class="fu">autoplot</span>(tpca_out, <span class="at">data=</span>meta_out, <span class="at">x=</span><span class="dv">3</span>, <span class="at">y=</span><span class="dv">4</span>, <span class="at">colour=</span><span class="st">&quot;molt&quot;</span>, <span class="at">size=</span><span class="dv">3</span>) <span class="sc">+</span></span>
-<span id="cb453-25"><a href="outlier-analysis.html#cb453-25" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;bottom&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb456"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb456-1"><a href="outlier-analysis.html#cb456-1" tabindex="-1"></a>tcpm_out <span class="ot">&lt;-</span> </span>
+<span id="cb456-2"><a href="outlier-analysis.html#cb456-2" tabindex="-1"></a>  tcpm <span class="sc">%&gt;%</span> </span>
+<span id="cb456-3"><a href="outlier-analysis.html#cb456-3" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">!</span><span class="fu">c</span>(Hg1380, Hg862a, Hg1351))</span>
+<span id="cb456-4"><a href="outlier-analysis.html#cb456-4" tabindex="-1"></a></span>
+<span id="cb456-5"><a href="outlier-analysis.html#cb456-5" tabindex="-1"></a>tdist_out <span class="ot">&lt;-</span> <span class="fu">dist</span>(<span class="fu">t</span>(tcpm_out), <span class="at">method =</span> <span class="st">&quot;euclidean&quot;</span>)</span>
+<span id="cb456-6"><a href="outlier-analysis.html#cb456-6" tabindex="-1"></a>tpca_out <span class="ot">&lt;-</span> <span class="fu">prcomp</span>(<span class="fu">t</span>(tdist_out))</span>
+<span id="cb456-7"><a href="outlier-analysis.html#cb456-7" tabindex="-1"></a><span class="fu">autoplot</span>(tpca_out, <span class="at">data=</span>meta_out, <span class="at">shape=</span><span class="cn">FALSE</span>)</span>
+<span id="cb456-8"><a href="outlier-analysis.html#cb456-8" tabindex="-1"></a></span>
+<span id="cb456-9"><a href="outlier-analysis.html#cb456-9" tabindex="-1"></a><span class="fu">autoplot</span>(tpca_out, <span class="at">data=</span>meta_out, <span class="at">colour=</span><span class="st">&quot;RNA&quot;</span>, <span class="at">size=</span><span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb456-10"><a href="outlier-analysis.html#cb456-10" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;bottom&quot;</span>)</span>
+<span id="cb456-11"><a href="outlier-analysis.html#cb456-11" tabindex="-1"></a><span class="fu">autoplot</span>(tpca_out, <span class="at">data=</span>meta_out, <span class="at">colour=</span><span class="st">&quot;disease_stage&quot;</span>, <span class="at">size=</span><span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb456-12"><a href="outlier-analysis.html#cb456-12" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;bottom&quot;</span>)</span>
+<span id="cb456-13"><a href="outlier-analysis.html#cb456-13" tabindex="-1"></a><span class="fu">autoplot</span>(tpca_out, <span class="at">data=</span>meta_out, <span class="at">colour=</span><span class="st">&quot;year&quot;</span>, <span class="at">size=</span><span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb456-14"><a href="outlier-analysis.html#cb456-14" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;bottom&quot;</span>)</span>
+<span id="cb456-15"><a href="outlier-analysis.html#cb456-15" tabindex="-1"></a><span class="fu">autoplot</span>(tpca_out, <span class="at">data=</span>meta_out, <span class="at">colour=</span><span class="st">&quot;molt&quot;</span>, <span class="at">size=</span><span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb456-16"><a href="outlier-analysis.html#cb456-16" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;bottom&quot;</span>)</span>
+<span id="cb456-17"><a href="outlier-analysis.html#cb456-17" tabindex="-1"></a></span>
+<span id="cb456-18"><a href="outlier-analysis.html#cb456-18" tabindex="-1"></a><span class="fu">autoplot</span>(tpca_out, <span class="at">data=</span>meta_out, <span class="at">x=</span><span class="dv">3</span>, <span class="at">y=</span><span class="dv">4</span>, <span class="at">colour=</span><span class="st">&quot;RNA&quot;</span>, <span class="at">size=</span><span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb456-19"><a href="outlier-analysis.html#cb456-19" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;bottom&quot;</span>)</span>
+<span id="cb456-20"><a href="outlier-analysis.html#cb456-20" tabindex="-1"></a><span class="fu">autoplot</span>(tpca_out, <span class="at">data=</span>meta_out, <span class="at">x=</span><span class="dv">3</span>, <span class="at">y=</span><span class="dv">4</span>, <span class="at">colour=</span><span class="st">&quot;disease_stage&quot;</span>, <span class="at">size=</span><span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb456-21"><a href="outlier-analysis.html#cb456-21" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;bottom&quot;</span>)</span>
+<span id="cb456-22"><a href="outlier-analysis.html#cb456-22" tabindex="-1"></a><span class="fu">autoplot</span>(tpca_out, <span class="at">data=</span>meta_out, <span class="at">x=</span><span class="dv">3</span>, <span class="at">y=</span><span class="dv">4</span>, <span class="at">colour=</span><span class="st">&quot;year&quot;</span>, <span class="at">size=</span><span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb456-23"><a href="outlier-analysis.html#cb456-23" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;bottom&quot;</span>)</span>
+<span id="cb456-24"><a href="outlier-analysis.html#cb456-24" tabindex="-1"></a><span class="fu">autoplot</span>(tpca_out, <span class="at">data=</span>meta_out, <span class="at">x=</span><span class="dv">3</span>, <span class="at">y=</span><span class="dv">4</span>, <span class="at">colour=</span><span class="st">&quot;molt&quot;</span>, <span class="at">size=</span><span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb456-25"><a href="outlier-analysis.html#cb456-25" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;bottom&quot;</span>)</span></code></pre></div>
 </div>
 </div>
 <div id="genome-6" class="section level3 hasAnchor" number="10.3.2">
 <h3><span class="header-section-number">10.3.2</span> Genome<a href="outlier-analysis.html#genome-6" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <div id="pca-original-1" class="section level4 hasAnchor" number="10.3.2.1">
 <h4><span class="header-section-number">10.3.2.1</span> PCA Original<a href="outlier-analysis.html#pca-original-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<div class="sourceCode" id="cb454"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb454-1"><a href="outlier-analysis.html#cb454-1" tabindex="-1"></a>gdist <span class="ot">&lt;-</span> <span class="fu">dist</span>(<span class="fu">t</span>(gcpm), <span class="at">method =</span> <span class="st">&quot;euclidean&quot;</span>)</span>
-<span id="cb454-2"><a href="outlier-analysis.html#cb454-2" tabindex="-1"></a>gpca <span class="ot">&lt;-</span> <span class="fu">prcomp</span>(<span class="fu">t</span>(tdist))</span>
-<span id="cb454-3"><a href="outlier-analysis.html#cb454-3" tabindex="-1"></a><span class="fu">autoplot</span>(gpca, <span class="at">data=</span>meta, <span class="at">shape=</span><span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb457"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb457-1"><a href="outlier-analysis.html#cb457-1" tabindex="-1"></a>gdist <span class="ot">&lt;-</span> <span class="fu">dist</span>(<span class="fu">t</span>(gcpm), <span class="at">method =</span> <span class="st">&quot;euclidean&quot;</span>)</span>
+<span id="cb457-2"><a href="outlier-analysis.html#cb457-2" tabindex="-1"></a>gpca <span class="ot">&lt;-</span> <span class="fu">prcomp</span>(<span class="fu">t</span>(tdist))</span>
+<span id="cb457-3"><a href="outlier-analysis.html#cb457-3" tabindex="-1"></a><span class="fu">autoplot</span>(gpca, <span class="at">data=</span>meta, <span class="at">shape=</span><span class="cn">FALSE</span>)</span></code></pre></div>
 </div>
 <div id="pca-wo-outliers-1" class="section level4 hasAnchor" number="10.3.2.2">
 <h4><span class="header-section-number">10.3.2.2</span> PCA w/o Outliers<a href="outlier-analysis.html#pca-wo-outliers-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<div class="sourceCode" id="cb455"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb455-1"><a href="outlier-analysis.html#cb455-1" tabindex="-1"></a>gcpm_out <span class="ot">&lt;-</span> </span>
-<span id="cb455-2"><a href="outlier-analysis.html#cb455-2" tabindex="-1"></a>  gcpm <span class="sc">%&gt;%</span> </span>
-<span id="cb455-3"><a href="outlier-analysis.html#cb455-3" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">!</span><span class="fu">c</span>(Hg1380, Hg862a, Hg1351))</span>
-<span id="cb455-4"><a href="outlier-analysis.html#cb455-4" tabindex="-1"></a></span>
-<span id="cb455-5"><a href="outlier-analysis.html#cb455-5" tabindex="-1"></a>gdist_out <span class="ot">&lt;-</span> <span class="fu">dist</span>(<span class="fu">t</span>(gcpm_out), <span class="at">method =</span> <span class="st">&quot;euclidean&quot;</span>)</span>
-<span id="cb455-6"><a href="outlier-analysis.html#cb455-6" tabindex="-1"></a>gpca_out <span class="ot">&lt;-</span> <span class="fu">prcomp</span>(<span class="fu">t</span>(gdist_out))</span>
-<span id="cb455-7"><a href="outlier-analysis.html#cb455-7" tabindex="-1"></a><span class="fu">autoplot</span>(gpca_out, <span class="at">data=</span>meta_out, <span class="at">shape=</span><span class="cn">FALSE</span>)</span>
-<span id="cb455-8"><a href="outlier-analysis.html#cb455-8" tabindex="-1"></a></span>
-<span id="cb455-9"><a href="outlier-analysis.html#cb455-9" tabindex="-1"></a><span class="fu">autoplot</span>(gpca_out, <span class="at">data=</span>meta_out, <span class="at">colour=</span><span class="st">&quot;RNA&quot;</span>, <span class="at">size=</span><span class="dv">3</span>) <span class="sc">+</span></span>
-<span id="cb455-10"><a href="outlier-analysis.html#cb455-10" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;bottom&quot;</span>)</span>
-<span id="cb455-11"><a href="outlier-analysis.html#cb455-11" tabindex="-1"></a><span class="fu">autoplot</span>(gpca_out, <span class="at">data=</span>meta_out, <span class="at">colour=</span><span class="st">&quot;disease_stage&quot;</span>, <span class="at">size=</span><span class="dv">3</span>) <span class="sc">+</span></span>
-<span id="cb455-12"><a href="outlier-analysis.html#cb455-12" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;bottom&quot;</span>)</span>
-<span id="cb455-13"><a href="outlier-analysis.html#cb455-13" tabindex="-1"></a><span class="fu">autoplot</span>(gpca_out, <span class="at">data=</span>meta_out, <span class="at">colour=</span><span class="st">&quot;year&quot;</span>, <span class="at">size=</span><span class="dv">3</span>) <span class="sc">+</span></span>
-<span id="cb455-14"><a href="outlier-analysis.html#cb455-14" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;bottom&quot;</span>)</span>
-<span id="cb455-15"><a href="outlier-analysis.html#cb455-15" tabindex="-1"></a><span class="fu">autoplot</span>(gpca_out, <span class="at">data=</span>meta_out, <span class="at">colour=</span><span class="st">&quot;molt&quot;</span>, <span class="at">size=</span><span class="dv">3</span>) <span class="sc">+</span></span>
-<span id="cb455-16"><a href="outlier-analysis.html#cb455-16" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;bottom&quot;</span>)</span>
-<span id="cb455-17"><a href="outlier-analysis.html#cb455-17" tabindex="-1"></a></span>
-<span id="cb455-18"><a href="outlier-analysis.html#cb455-18" tabindex="-1"></a><span class="fu">autoplot</span>(gpca_out, <span class="at">data=</span>meta_out, <span class="at">x=</span><span class="dv">3</span>, <span class="at">y=</span><span class="dv">4</span>, <span class="at">colour=</span><span class="st">&quot;RNA&quot;</span>, <span class="at">size=</span><span class="dv">3</span>) <span class="sc">+</span></span>
-<span id="cb455-19"><a href="outlier-analysis.html#cb455-19" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;bottom&quot;</span>)</span>
-<span id="cb455-20"><a href="outlier-analysis.html#cb455-20" tabindex="-1"></a><span class="fu">autoplot</span>(gpca_out, <span class="at">data=</span>meta_out, <span class="at">x=</span><span class="dv">3</span>, <span class="at">y=</span><span class="dv">4</span>, <span class="at">colour=</span><span class="st">&quot;disease_stage&quot;</span>, <span class="at">size=</span><span class="dv">3</span>) <span class="sc">+</span></span>
-<span id="cb455-21"><a href="outlier-analysis.html#cb455-21" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;bottom&quot;</span>)</span>
-<span id="cb455-22"><a href="outlier-analysis.html#cb455-22" tabindex="-1"></a><span class="fu">autoplot</span>(gpca_out, <span class="at">data=</span>meta_out, <span class="at">x=</span><span class="dv">3</span>, <span class="at">y=</span><span class="dv">4</span>, <span class="at">colour=</span><span class="st">&quot;year&quot;</span>, <span class="at">size=</span><span class="dv">3</span>) <span class="sc">+</span></span>
-<span id="cb455-23"><a href="outlier-analysis.html#cb455-23" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;bottom&quot;</span>)</span>
-<span id="cb455-24"><a href="outlier-analysis.html#cb455-24" tabindex="-1"></a><span class="fu">autoplot</span>(gpca_out, <span class="at">data=</span>meta_out, <span class="at">x=</span><span class="dv">3</span>, <span class="at">y=</span><span class="dv">4</span>, <span class="at">colour=</span><span class="st">&quot;molt&quot;</span>, <span class="at">size=</span><span class="dv">3</span>) <span class="sc">+</span></span>
-<span id="cb455-25"><a href="outlier-analysis.html#cb455-25" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;bottom&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb458"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb458-1"><a href="outlier-analysis.html#cb458-1" tabindex="-1"></a>gcpm_out <span class="ot">&lt;-</span> </span>
+<span id="cb458-2"><a href="outlier-analysis.html#cb458-2" tabindex="-1"></a>  gcpm <span class="sc">%&gt;%</span> </span>
+<span id="cb458-3"><a href="outlier-analysis.html#cb458-3" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">!</span><span class="fu">c</span>(Hg1380, Hg862a, Hg1351))</span>
+<span id="cb458-4"><a href="outlier-analysis.html#cb458-4" tabindex="-1"></a></span>
+<span id="cb458-5"><a href="outlier-analysis.html#cb458-5" tabindex="-1"></a>gdist_out <span class="ot">&lt;-</span> <span class="fu">dist</span>(<span class="fu">t</span>(gcpm_out), <span class="at">method =</span> <span class="st">&quot;euclidean&quot;</span>)</span>
+<span id="cb458-6"><a href="outlier-analysis.html#cb458-6" tabindex="-1"></a>gpca_out <span class="ot">&lt;-</span> <span class="fu">prcomp</span>(<span class="fu">t</span>(gdist_out))</span>
+<span id="cb458-7"><a href="outlier-analysis.html#cb458-7" tabindex="-1"></a><span class="fu">autoplot</span>(gpca_out, <span class="at">data=</span>meta_out, <span class="at">shape=</span><span class="cn">FALSE</span>)</span>
+<span id="cb458-8"><a href="outlier-analysis.html#cb458-8" tabindex="-1"></a></span>
+<span id="cb458-9"><a href="outlier-analysis.html#cb458-9" tabindex="-1"></a><span class="fu">autoplot</span>(gpca_out, <span class="at">data=</span>meta_out, <span class="at">colour=</span><span class="st">&quot;RNA&quot;</span>, <span class="at">size=</span><span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb458-10"><a href="outlier-analysis.html#cb458-10" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;bottom&quot;</span>)</span>
+<span id="cb458-11"><a href="outlier-analysis.html#cb458-11" tabindex="-1"></a><span class="fu">autoplot</span>(gpca_out, <span class="at">data=</span>meta_out, <span class="at">colour=</span><span class="st">&quot;disease_stage&quot;</span>, <span class="at">size=</span><span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb458-12"><a href="outlier-analysis.html#cb458-12" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;bottom&quot;</span>)</span>
+<span id="cb458-13"><a href="outlier-analysis.html#cb458-13" tabindex="-1"></a><span class="fu">autoplot</span>(gpca_out, <span class="at">data=</span>meta_out, <span class="at">colour=</span><span class="st">&quot;year&quot;</span>, <span class="at">size=</span><span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb458-14"><a href="outlier-analysis.html#cb458-14" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;bottom&quot;</span>)</span>
+<span id="cb458-15"><a href="outlier-analysis.html#cb458-15" tabindex="-1"></a><span class="fu">autoplot</span>(gpca_out, <span class="at">data=</span>meta_out, <span class="at">colour=</span><span class="st">&quot;molt&quot;</span>, <span class="at">size=</span><span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb458-16"><a href="outlier-analysis.html#cb458-16" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;bottom&quot;</span>)</span>
+<span id="cb458-17"><a href="outlier-analysis.html#cb458-17" tabindex="-1"></a></span>
+<span id="cb458-18"><a href="outlier-analysis.html#cb458-18" tabindex="-1"></a><span class="fu">autoplot</span>(gpca_out, <span class="at">data=</span>meta_out, <span class="at">x=</span><span class="dv">3</span>, <span class="at">y=</span><span class="dv">4</span>, <span class="at">colour=</span><span class="st">&quot;RNA&quot;</span>, <span class="at">size=</span><span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb458-19"><a href="outlier-analysis.html#cb458-19" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;bottom&quot;</span>)</span>
+<span id="cb458-20"><a href="outlier-analysis.html#cb458-20" tabindex="-1"></a><span class="fu">autoplot</span>(gpca_out, <span class="at">data=</span>meta_out, <span class="at">x=</span><span class="dv">3</span>, <span class="at">y=</span><span class="dv">4</span>, <span class="at">colour=</span><span class="st">&quot;disease_stage&quot;</span>, <span class="at">size=</span><span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb458-21"><a href="outlier-analysis.html#cb458-21" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;bottom&quot;</span>)</span>
+<span id="cb458-22"><a href="outlier-analysis.html#cb458-22" tabindex="-1"></a><span class="fu">autoplot</span>(gpca_out, <span class="at">data=</span>meta_out, <span class="at">x=</span><span class="dv">3</span>, <span class="at">y=</span><span class="dv">4</span>, <span class="at">colour=</span><span class="st">&quot;year&quot;</span>, <span class="at">size=</span><span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb458-23"><a href="outlier-analysis.html#cb458-23" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;bottom&quot;</span>)</span>
+<span id="cb458-24"><a href="outlier-analysis.html#cb458-24" tabindex="-1"></a><span class="fu">autoplot</span>(gpca_out, <span class="at">data=</span>meta_out, <span class="at">x=</span><span class="dv">3</span>, <span class="at">y=</span><span class="dv">4</span>, <span class="at">colour=</span><span class="st">&quot;molt&quot;</span>, <span class="at">size=</span><span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb458-25"><a href="outlier-analysis.html#cb458-25" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;bottom&quot;</span>)</span></code></pre></div>
 </div>
 </div>
 <div id="number-of-reads" class="section level3 hasAnchor" number="10.3.3">
 <h3><span class="header-section-number">10.3.3</span> Number of Reads<a href="outlier-analysis.html#number-of-reads" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <div id="raw-reads" class="section level4 hasAnchor" number="10.3.3.1">
 <h4><span class="header-section-number">10.3.3.1</span> Raw Reads<a href="outlier-analysis.html#raw-reads" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<div class="sourceCode" id="cb456"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb456-1"><a href="outlier-analysis.html#cb456-1" tabindex="-1"></a>treads <span class="ot">&lt;-</span> </span>
-<span id="cb456-2"><a href="outlier-analysis.html#cb456-2" tabindex="-1"></a>  traw <span class="sc">%&gt;%</span> </span>
-<span id="cb456-3"><a href="outlier-analysis.html#cb456-3" tabindex="-1"></a>  <span class="fu">rownames_to_column</span>(<span class="at">var=</span><span class="st">&quot;genes&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb456-4"><a href="outlier-analysis.html#cb456-4" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="sc">!</span>genes, <span class="at">names_to=</span><span class="st">&quot;sample&quot;</span>, <span class="at">values_to=</span><span class="st">&quot;reads&quot;</span>)</span>
-<span id="cb456-5"><a href="outlier-analysis.html#cb456-5" tabindex="-1"></a></span>
-<span id="cb456-6"><a href="outlier-analysis.html#cb456-6" tabindex="-1"></a><span class="fu">ggplot</span>(treads, <span class="fu">aes</span>(<span class="at">x=</span><span class="fu">factor</span>(sample, <span class="at">levels=</span><span class="fu">colnames</span>(tcpm)), <span class="at">y=</span><span class="fu">log</span>(reads))) <span class="sc">+</span></span>
-<span id="cb456-7"><a href="outlier-analysis.html#cb456-7" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
-<span id="cb456-8"><a href="outlier-analysis.html#cb456-8" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle=</span><span class="dv">90</span>))</span>
-<span id="cb456-9"><a href="outlier-analysis.html#cb456-9" tabindex="-1"></a></span>
-<span id="cb456-10"><a href="outlier-analysis.html#cb456-10" tabindex="-1"></a>greads <span class="ot">&lt;-</span> </span>
-<span id="cb456-11"><a href="outlier-analysis.html#cb456-11" tabindex="-1"></a>  graw <span class="sc">%&gt;%</span> </span>
-<span id="cb456-12"><a href="outlier-analysis.html#cb456-12" tabindex="-1"></a>  <span class="fu">rownames_to_column</span>(<span class="at">var=</span><span class="st">&quot;genes&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb456-13"><a href="outlier-analysis.html#cb456-13" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="sc">!</span>genes, <span class="at">names_to=</span><span class="st">&quot;sample&quot;</span>, <span class="at">values_to=</span><span class="st">&quot;reads&quot;</span>)</span>
-<span id="cb456-14"><a href="outlier-analysis.html#cb456-14" tabindex="-1"></a></span>
-<span id="cb456-15"><a href="outlier-analysis.html#cb456-15" tabindex="-1"></a><span class="fu">ggplot</span>(greads, <span class="fu">aes</span>(<span class="at">x=</span><span class="fu">factor</span>(sample, <span class="at">levels=</span><span class="fu">colnames</span>(gcpm)), <span class="at">y=</span><span class="fu">log</span>(reads))) <span class="sc">+</span></span>
-<span id="cb456-16"><a href="outlier-analysis.html#cb456-16" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
-<span id="cb456-17"><a href="outlier-analysis.html#cb456-17" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle=</span><span class="dv">90</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb459"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb459-1"><a href="outlier-analysis.html#cb459-1" tabindex="-1"></a>treads <span class="ot">&lt;-</span> </span>
+<span id="cb459-2"><a href="outlier-analysis.html#cb459-2" tabindex="-1"></a>  traw <span class="sc">%&gt;%</span> </span>
+<span id="cb459-3"><a href="outlier-analysis.html#cb459-3" tabindex="-1"></a>  <span class="fu">rownames_to_column</span>(<span class="at">var=</span><span class="st">&quot;genes&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb459-4"><a href="outlier-analysis.html#cb459-4" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="sc">!</span>genes, <span class="at">names_to=</span><span class="st">&quot;sample&quot;</span>, <span class="at">values_to=</span><span class="st">&quot;reads&quot;</span>)</span>
+<span id="cb459-5"><a href="outlier-analysis.html#cb459-5" tabindex="-1"></a></span>
+<span id="cb459-6"><a href="outlier-analysis.html#cb459-6" tabindex="-1"></a><span class="fu">ggplot</span>(treads, <span class="fu">aes</span>(<span class="at">x=</span><span class="fu">factor</span>(sample, <span class="at">levels=</span><span class="fu">colnames</span>(tcpm)), <span class="at">y=</span><span class="fu">log</span>(reads))) <span class="sc">+</span></span>
+<span id="cb459-7"><a href="outlier-analysis.html#cb459-7" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb459-8"><a href="outlier-analysis.html#cb459-8" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle=</span><span class="dv">90</span>))</span>
+<span id="cb459-9"><a href="outlier-analysis.html#cb459-9" tabindex="-1"></a></span>
+<span id="cb459-10"><a href="outlier-analysis.html#cb459-10" tabindex="-1"></a>greads <span class="ot">&lt;-</span> </span>
+<span id="cb459-11"><a href="outlier-analysis.html#cb459-11" tabindex="-1"></a>  graw <span class="sc">%&gt;%</span> </span>
+<span id="cb459-12"><a href="outlier-analysis.html#cb459-12" tabindex="-1"></a>  <span class="fu">rownames_to_column</span>(<span class="at">var=</span><span class="st">&quot;genes&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb459-13"><a href="outlier-analysis.html#cb459-13" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="sc">!</span>genes, <span class="at">names_to=</span><span class="st">&quot;sample&quot;</span>, <span class="at">values_to=</span><span class="st">&quot;reads&quot;</span>)</span>
+<span id="cb459-14"><a href="outlier-analysis.html#cb459-14" tabindex="-1"></a></span>
+<span id="cb459-15"><a href="outlier-analysis.html#cb459-15" tabindex="-1"></a><span class="fu">ggplot</span>(greads, <span class="fu">aes</span>(<span class="at">x=</span><span class="fu">factor</span>(sample, <span class="at">levels=</span><span class="fu">colnames</span>(gcpm)), <span class="at">y=</span><span class="fu">log</span>(reads))) <span class="sc">+</span></span>
+<span id="cb459-16"><a href="outlier-analysis.html#cb459-16" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb459-17"><a href="outlier-analysis.html#cb459-17" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle=</span><span class="dv">90</span>))</span></code></pre></div>
 </div>
 <div id="read-sum" class="section level4 hasAnchor" number="10.3.3.2">
 <h4><span class="header-section-number">10.3.3.2</span> Read sum<a href="outlier-analysis.html#read-sum" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<div class="sourceCode" id="cb457"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb457-1"><a href="outlier-analysis.html#cb457-1" tabindex="-1"></a>treadsum <span class="ot">&lt;-</span> </span>
-<span id="cb457-2"><a href="outlier-analysis.html#cb457-2" tabindex="-1"></a>  treads <span class="sc">%&gt;%</span> </span>
-<span id="cb457-3"><a href="outlier-analysis.html#cb457-3" tabindex="-1"></a>  <span class="fu">group_by</span>(sample) <span class="sc">%&gt;%</span> </span>
-<span id="cb457-4"><a href="outlier-analysis.html#cb457-4" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">totalreads=</span><span class="fu">sum</span>(reads))</span>
-<span id="cb457-5"><a href="outlier-analysis.html#cb457-5" tabindex="-1"></a></span>
-<span id="cb457-6"><a href="outlier-analysis.html#cb457-6" tabindex="-1"></a><span class="fu">ggplot</span>(treadsum, <span class="fu">aes</span>(<span class="at">x=</span><span class="fu">factor</span>(sample, <span class="at">levels=</span><span class="fu">colnames</span>(tcpm)), <span class="at">y=</span>totalreads)) <span class="sc">+</span></span>
-<span id="cb457-7"><a href="outlier-analysis.html#cb457-7" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
-<span id="cb457-8"><a href="outlier-analysis.html#cb457-8" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle=</span><span class="dv">90</span>))</span>
-<span id="cb457-9"><a href="outlier-analysis.html#cb457-9" tabindex="-1"></a></span>
-<span id="cb457-10"><a href="outlier-analysis.html#cb457-10" tabindex="-1"></a>greadsum <span class="ot">&lt;-</span> </span>
-<span id="cb457-11"><a href="outlier-analysis.html#cb457-11" tabindex="-1"></a>  greads <span class="sc">%&gt;%</span> </span>
-<span id="cb457-12"><a href="outlier-analysis.html#cb457-12" tabindex="-1"></a>  <span class="fu">group_by</span>(sample) <span class="sc">%&gt;%</span> </span>
-<span id="cb457-13"><a href="outlier-analysis.html#cb457-13" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">totalreads=</span><span class="fu">sum</span>(reads))</span>
-<span id="cb457-14"><a href="outlier-analysis.html#cb457-14" tabindex="-1"></a></span>
-<span id="cb457-15"><a href="outlier-analysis.html#cb457-15" tabindex="-1"></a><span class="fu">ggplot</span>(greadsum, <span class="fu">aes</span>(<span class="at">x=</span><span class="fu">factor</span>(sample, <span class="at">levels=</span><span class="fu">colnames</span>(gcpm)), <span class="at">y=</span>totalreads)) <span class="sc">+</span></span>
-<span id="cb457-16"><a href="outlier-analysis.html#cb457-16" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
-<span id="cb457-17"><a href="outlier-analysis.html#cb457-17" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle=</span><span class="dv">90</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb460"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb460-1"><a href="outlier-analysis.html#cb460-1" tabindex="-1"></a>treadsum <span class="ot">&lt;-</span> </span>
+<span id="cb460-2"><a href="outlier-analysis.html#cb460-2" tabindex="-1"></a>  treads <span class="sc">%&gt;%</span> </span>
+<span id="cb460-3"><a href="outlier-analysis.html#cb460-3" tabindex="-1"></a>  <span class="fu">group_by</span>(sample) <span class="sc">%&gt;%</span> </span>
+<span id="cb460-4"><a href="outlier-analysis.html#cb460-4" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">totalreads=</span><span class="fu">sum</span>(reads))</span>
+<span id="cb460-5"><a href="outlier-analysis.html#cb460-5" tabindex="-1"></a></span>
+<span id="cb460-6"><a href="outlier-analysis.html#cb460-6" tabindex="-1"></a><span class="fu">ggplot</span>(treadsum, <span class="fu">aes</span>(<span class="at">x=</span><span class="fu">factor</span>(sample, <span class="at">levels=</span><span class="fu">colnames</span>(tcpm)), <span class="at">y=</span>totalreads)) <span class="sc">+</span></span>
+<span id="cb460-7"><a href="outlier-analysis.html#cb460-7" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb460-8"><a href="outlier-analysis.html#cb460-8" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle=</span><span class="dv">90</span>))</span>
+<span id="cb460-9"><a href="outlier-analysis.html#cb460-9" tabindex="-1"></a></span>
+<span id="cb460-10"><a href="outlier-analysis.html#cb460-10" tabindex="-1"></a>greadsum <span class="ot">&lt;-</span> </span>
+<span id="cb460-11"><a href="outlier-analysis.html#cb460-11" tabindex="-1"></a>  greads <span class="sc">%&gt;%</span> </span>
+<span id="cb460-12"><a href="outlier-analysis.html#cb460-12" tabindex="-1"></a>  <span class="fu">group_by</span>(sample) <span class="sc">%&gt;%</span> </span>
+<span id="cb460-13"><a href="outlier-analysis.html#cb460-13" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">totalreads=</span><span class="fu">sum</span>(reads))</span>
+<span id="cb460-14"><a href="outlier-analysis.html#cb460-14" tabindex="-1"></a></span>
+<span id="cb460-15"><a href="outlier-analysis.html#cb460-15" tabindex="-1"></a><span class="fu">ggplot</span>(greadsum, <span class="fu">aes</span>(<span class="at">x=</span><span class="fu">factor</span>(sample, <span class="at">levels=</span><span class="fu">colnames</span>(gcpm)), <span class="at">y=</span>totalreads)) <span class="sc">+</span></span>
+<span id="cb460-16"><a href="outlier-analysis.html#cb460-16" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb460-17"><a href="outlier-analysis.html#cb460-17" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle=</span><span class="dv">90</span>))</span></code></pre></div>
 
 </div>
 </div>
@@ -621,44 +621,44 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
-"sharing": {
-"github": false,
-"facebook": true,
-"twitter": true,
-"linkedin": false,
-"weibo": false,
-"instapaper": false,
-"vk": false,
-"whatsapp": false,
-"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
-},
-"fontsettings": {
-"theme": "white",
-"family": "sans",
-"size": 2
-},
-"edit": {
-"link": null,
-"text": null
-},
-"history": {
-"link": null,
-"text": null
-},
-"view": {
-"link": null,
-"text": null
-},
-"download": null,
-"search": {
-"engine": "fuse",
-"options": null
-},
-"toc": {
-"collapse": "section",
-"scroll_highlight": true
-},
-"info": false
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "section",
+    "scroll_highlight": true
+  },
+  "info": false
 });
 });
 </script>
