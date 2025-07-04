@@ -958,7 +958,8 @@ t_pca_disease_virus <-
   theme_bw() +
   theme(panel.grid=element_blank(),
         legend.position="bottom",
-        legend.background=element_rect(linewidth=0.5, linetype="solid", colour ="black"))
+        legend.background=element_rect(linewidth=0.5, linetype="solid", colour ="black"),
+        text = element_text(size = 12))
 
 rna_legend <- 
   get_legend(t_pca_disease_virus)
@@ -976,14 +977,19 @@ g_pca_disease_virus <-
   theme_bw() +
   theme(panel.grid=element_blank(),
         legend.position="none",
-        legend.background=element_rect(linewidth=0.5, linetype="solid", colour ="black"))
+        legend.background=element_rect(linewidth=0.5, linetype="solid", colour ="black"),
+        text = element_text(size = 12))
 
 pca_disease_virus <- 
   grid.arrange(arrangeGrob(t_pca_disease_virus, g_pca_disease_virus, ncol=2),
              arrangeGrob(rna_legend, ncol=1),
-             heights=c(5, 1))
+             heights=c(10, 2))
 
 ggsave("Figures/TG_pca_disease_virus.jpg", pca_disease_virus, width=8, height=4, units="in")
+
+ggsave("Figures/Figure2.pdf", pca_disease_virus, 
+       width = 150, height = 70, units = "mm", dpi = 600,
+       scale = 1.5)
 ```
 
 ##### Presentation

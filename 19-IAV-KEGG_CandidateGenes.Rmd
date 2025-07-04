@@ -119,15 +119,13 @@ graph_info <-
   pathway("hsa05164") %>% 
   activate(nodes) %>% 
   mutate(convert_hsa=convert_id("hsa"), 
-         convert_map=convert_id("pathway"),
-         bgcolor=ifelse(convert_hsa %in% expressed$id, "#ffffe0", 
-                        ifelse(convert_hsa %in% deg$id, "#fbc69d", "white")))
+         convert_map=convert_id("pathway"))
+         bgcolor=ifelse(convert_hsa %in% expressed$id, "#FFFFE0", bgcolor))
 
 graph <-
   ggraph(graph_info, x=x, y=y) +
    geom_node_rect(aes(filter=type=="gene", 
-                      fill=I(bgcolor)),
-                 color="black") + 
+                      color=bgcolor)) + 
   overlay_raw_map() +
   theme_void() 
 graph 

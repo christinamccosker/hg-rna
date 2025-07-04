@@ -238,6 +238,8 @@ go_fig <-
   coord_flip() 
   
 ggsave(filename="Figures/viralRNA_goterm.jpg", go_fig, width=9, height=8, units="in")
+ggsave(filename = "Figures/Figure6.pdf", go_fig,
+       width = 9, height = 8, units = "in", dpi = 600)
 ```
 
 #### Presentation figure

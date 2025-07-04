@@ -537,7 +537,11 @@ go_fig <-
   coord_flip() 
 
 go_fig
-ggsave(filename="Figures/goterm.jpg", width=10, height=10, units="in")
+ggsave(filename="Figures/goterm.jpg", go_fig, 
+       width=10, height=10, units="in")
+
+ggsave(filename = "Figures/Figure7.pdf", go_fig,
+       width = 10, height = 10, units = "in", dpi = 600)
 ```
 
 
