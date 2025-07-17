@@ -8,7 +8,7 @@ suppresss-bibliography: true
 ---
 
 # Publication Information
-Published in: Molecular Ecology (2025)
+McCosker, C. M., Unal, E., Gigliotti, A., Puryear, W. B., Runstadler, J. A., Murray, K. T., King, B. L., & Cammen, K. M. (2025). Molecular Mechanisms Underlying Response to Influenza in Grey Seals (*Halichoerus grypus*), a Potential Wild Reservoir. Molecular Ecology, e70012. https://doi.org/10.1111/mec.70012
 
 ## Authors 
 Christina M. McCosker^1^, Ebru Unal^2,3^, Alayna Gigliotti^1^, Wendy B. Puryear^4^, Jonathan A. Runstadler^4^, Kimberly T. Murray^5^, Benjamin L. King^6^, Kristina M. Cammen^1^  

@@ -23,7 +23,7 @@
 <meta name="author" content="Christina McCosker" />
 
 
-<meta name="date" content="2025-06-23" />
+<meta name="date" content="2025-07-17" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -540,20 +540,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb451-2"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb451-2" tabindex="-1"></a>  <span class="fu">pathway</span>(<span class="st">&quot;hsa05164&quot;</span>) <span class="sc">%&gt;%</span> </span>
 <span id="cb451-3"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb451-3" tabindex="-1"></a>  <span class="fu">activate</span>(nodes) <span class="sc">%&gt;%</span> </span>
 <span id="cb451-4"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb451-4" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">convert_hsa=</span><span class="fu">convert_id</span>(<span class="st">&quot;hsa&quot;</span>), </span>
-<span id="cb451-5"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb451-5" tabindex="-1"></a>         <span class="at">convert_map=</span><span class="fu">convert_id</span>(<span class="st">&quot;pathway&quot;</span>),</span>
-<span id="cb451-6"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb451-6" tabindex="-1"></a>         <span class="at">bgcolor=</span><span class="fu">ifelse</span>(convert_hsa <span class="sc">%in%</span> expressed<span class="sc">$</span>id, <span class="st">&quot;#ffffe0&quot;</span>, </span>
-<span id="cb451-7"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb451-7" tabindex="-1"></a>                        <span class="fu">ifelse</span>(convert_hsa <span class="sc">%in%</span> deg<span class="sc">$</span>id, <span class="st">&quot;#fbc69d&quot;</span>, <span class="st">&quot;white&quot;</span>)))</span>
-<span id="cb451-8"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb451-8" tabindex="-1"></a></span>
-<span id="cb451-9"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb451-9" tabindex="-1"></a>graph <span class="ot">&lt;-</span></span>
-<span id="cb451-10"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb451-10" tabindex="-1"></a>  <span class="fu">ggraph</span>(graph_info, <span class="at">x=</span>x, <span class="at">y=</span>y) <span class="sc">+</span></span>
-<span id="cb451-11"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb451-11" tabindex="-1"></a>   <span class="fu">geom_node_rect</span>(<span class="fu">aes</span>(<span class="at">filter=</span>type<span class="sc">==</span><span class="st">&quot;gene&quot;</span>, </span>
-<span id="cb451-12"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb451-12" tabindex="-1"></a>                      <span class="at">fill=</span><span class="fu">I</span>(bgcolor)),</span>
-<span id="cb451-13"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb451-13" tabindex="-1"></a>                 <span class="at">color=</span><span class="st">&quot;black&quot;</span>) <span class="sc">+</span> </span>
-<span id="cb451-14"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb451-14" tabindex="-1"></a>  <span class="fu">overlay_raw_map</span>() <span class="sc">+</span></span>
-<span id="cb451-15"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb451-15" tabindex="-1"></a>  <span class="fu">theme_void</span>() </span>
-<span id="cb451-16"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb451-16" tabindex="-1"></a>graph </span>
-<span id="cb451-17"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb451-17" tabindex="-1"></a></span>
-<span id="cb451-18"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb451-18" tabindex="-1"></a><span class="co">#ggkeggsave(filename=&quot;Figures/iavkegg.jpg&quot;, graph, dpi=300)</span></span></code></pre></div>
+<span id="cb451-5"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb451-5" tabindex="-1"></a>         <span class="at">convert_map=</span><span class="fu">convert_id</span>(<span class="st">&quot;pathway&quot;</span>))</span>
+<span id="cb451-6"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb451-6" tabindex="-1"></a>         bgcolor<span class="ot">=</span><span class="fu">ifelse</span>(convert_hsa <span class="sc">%in%</span> expressed<span class="sc">$</span>id, <span class="st">&quot;#FFFFE0&quot;</span>, bgcolor)<span class="er">)</span></span>
+<span id="cb451-7"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb451-7" tabindex="-1"></a></span>
+<span id="cb451-8"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb451-8" tabindex="-1"></a>graph <span class="ot">&lt;-</span></span>
+<span id="cb451-9"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb451-9" tabindex="-1"></a>  <span class="fu">ggraph</span>(graph_info, <span class="at">x=</span>x, <span class="at">y=</span>y) <span class="sc">+</span></span>
+<span id="cb451-10"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb451-10" tabindex="-1"></a>   <span class="fu">geom_node_rect</span>(<span class="fu">aes</span>(<span class="at">filter=</span>type<span class="sc">==</span><span class="st">&quot;gene&quot;</span>, </span>
+<span id="cb451-11"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb451-11" tabindex="-1"></a>                      <span class="at">color=</span>bgcolor)) <span class="sc">+</span> </span>
+<span id="cb451-12"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb451-12" tabindex="-1"></a>  <span class="fu">overlay_raw_map</span>() <span class="sc">+</span></span>
+<span id="cb451-13"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb451-13" tabindex="-1"></a>  <span class="fu">theme_void</span>() </span>
+<span id="cb451-14"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb451-14" tabindex="-1"></a>graph </span>
+<span id="cb451-15"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb451-15" tabindex="-1"></a></span>
+<span id="cb451-16"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb451-16" tabindex="-1"></a><span class="co">#ggkeggsave(filename=&quot;Figures/iavkegg.jpg&quot;, graph, dpi=300)</span></span></code></pre></div>
 <div id="create-legend" class="section level3 hasAnchor" number="9.5.1">
 <h3><span class="header-section-number">9.5.1</span> Create Legend<a href="iav-kegg-pathway-candidate-gene-analysis.html#create-legend" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <div class="sourceCode" id="cb452"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb452-1"><a href="iav-kegg-pathway-candidate-gene-analysis.html#cb452-1" tabindex="-1"></a><span class="fu">png</span>(<span class="at">filename=</span><span class="st">&quot;Figures/iavkeggleg.png&quot;</span>, <span class="at">width =</span> <span class="dv">6</span>, <span class="at">height=</span><span class="dv">7</span>, <span class="at">units=</span><span class="st">&quot;in&quot;</span>, <span class="at">res=</span><span class="dv">300</span>)</span>
